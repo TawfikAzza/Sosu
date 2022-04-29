@@ -64,4 +64,9 @@ public class HealthCategory {
     public void setSubCategories(List<HealthCategory> subCategories) {
         this.subCategories = subCategories;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
