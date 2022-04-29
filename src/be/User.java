@@ -10,6 +10,7 @@ public abstract class User {
     private String passWord;
     private String email;
     private int phoneNumber;
+    private int roleID;
 
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber){
         this.id=id;
@@ -19,6 +20,14 @@ public abstract class User {
         this.passWord = passWord;
         this.email= email;
         this.phoneNumber= phoneNumber;
+    }
+
+    public User(int id, String userName, String passWord, String email, int roleID) {
+        this.id = id;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.email = email;
+        this.roleID = roleID;
     }
 
     public int getId() {
@@ -91,5 +100,13 @@ public abstract class User {
 
     public void setSchoolName(String schoolName) {
         this.schoolName = schoolName;
+    }
+
+    public int getRoleID() {
+        return roleID;
+    }
+
+    public void setRoleID(int roleID) {
+        this.roleID = roleID;
     }
 }
