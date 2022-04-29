@@ -37,7 +37,7 @@ public class CitizenFacade {
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            List<Condition> conditions = getConditionsFromCitizen(citizen);
+            List<Condition> conditions = citizen.getHealthConditions();
 
             for(Condition con: conditions)
             {
@@ -68,7 +68,7 @@ public class CitizenFacade {
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            List<Ability> abilities = getAbilitiesFromCitizen(citizen);
+            List<Ability> abilities = citizen.getFunctionalAbilities();
 
             for(Ability ability: abilities)
             {
@@ -95,7 +95,9 @@ public class CitizenFacade {
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            for(GeneralInfo info: citizen.getGeneralInfo())
+            List<GeneralInfo> generalInfo = citizen.getGeneralInfo();
+
+            for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();
                 int citizenID = info.getCitizenID();
@@ -109,30 +111,6 @@ public class CitizenFacade {
             }
             ps.executeBatch();
         }
-    }
-    
-    private List<Condition> getConditionsFromCitizen(Citizen citizen)
-    {
-        List<HealthCategory> categories = citizen.getHealthConditions();
-        List<Condition> conditions = new ArrayList<>();
-
-        for(HealthCategory cat: categories)
-        {
-            conditions.addAll(cat.getDiseaseList());
-        }
-        return conditions;
-    }
-
-    private List<Ability> getAbilitiesFromCitizen(Citizen citizen)
-    {
-        List<AbilityCategory> categories = citizen.getFunctionalAbilities();
-        List<Ability> abilities = new ArrayList<>();
-
-        for(AbilityCategory cat: categories)
-        {
-            abilities.addAll(cat.getAbilityList());
-        }
-        return abilities;
     }
 
 }

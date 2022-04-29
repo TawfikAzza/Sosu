@@ -1,5 +1,6 @@
 package be;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public class Citizen {
@@ -9,10 +10,10 @@ public class Citizen {
     private String cprNumber;
     private String address;
     private int phoneNumber;
-    private String birthDate;
+    private LocalDate birthDate;
+    private boolean isTemplate;
     private List<Condition> healthConditions;
     private List<Ability> functionalAbilities;
-    private boolean isTemplate;
     private List<GeneralInfo> generalInfo;
 
     public Citizen(int id, String fname, String lname, String cprNumber) {
