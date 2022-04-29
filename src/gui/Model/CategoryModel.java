@@ -1,9 +1,6 @@
 package gui.Model;
 
-import be.AbilityCategory;
-import be.Citizen;
-import be.Condition;
-import be.HealthCategory;
+import be.*;
 import bll.CategoryManager;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
@@ -39,5 +36,9 @@ public class CategoryModel {
 
     public List<AbilityCategory> getAbilityCategories() throws AbilityCategoryException {
         return manager.getAbilityCategories();
+    }
+
+    public Ability getAbility(AbilityCategory abilityCategory, Citizen citizen) throws AbilityCategoryException {
+        return manager.getAbility(abilityCategory,citizen);
     }
 }

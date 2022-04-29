@@ -2,13 +2,17 @@ package be;
 
 public class Ability {
     private int id;
-    private String name;
     private int score;
+    private int categoryID;
+    private int citizenID;
+    private int status;
 
-    public Ability(int id, String name, int score) {
+    public Ability(int id, int categoryID,int citizenID, int score,int status) {
         this.id = id;
-        this.name = name;
+        this.categoryID=categoryID;
+        this.citizenID=citizenID;
         this.score = score;
+        this.status=status;
     }
 
     public int getId() {
@@ -19,12 +23,28 @@ public class Ability {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getCategoryID() {
+        return categoryID;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public int getCitizenID() {
+        return citizenID;
+    }
+
+    public void setCitizenID(int citizenID) {
+        this.citizenID = citizenID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getScore() {

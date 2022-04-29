@@ -76,5 +76,7 @@ public class FunctionalSectionDisplayController implements Initializable {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
+
+
     }
 }

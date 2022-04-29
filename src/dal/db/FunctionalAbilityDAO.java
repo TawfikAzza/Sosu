@@ -1,6 +1,8 @@
 package dal.db;
 
+import be.Ability;
 import be.AbilityCategory;
+import be.Citizen;
 import be.HealthCategory;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
@@ -52,5 +54,24 @@ public class FunctionalAbilityDAO {
             }
         }
         return allCategories;
+    }
+
+    public Ability getAbility(AbilityCategory abilityCategory, Citizen citizen) throws SQLException {
+        Ability abilitySearched = null;
+        try (Connection connection = cm.getConnection()) {
+            String sqlSelect = "SELECT * FROM Abilities WHERE categoryID=? AND citizenID = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sqlSelect);
+            pstmt.setInt(1,abilityCategory.getId());
+            pstmt.setInt(2,citizen.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                abilitySearched = new Ability(rs.getInt("id"),
+                                            rs.getInt("categoryID"),
+                                            rs.getInt("citizenID"),
+                                            rs.getInt("score"),
+                                            rs.getInt("status") );
+            }
+        }
+        return abilitySearched;
     }
 }
