@@ -18,24 +18,26 @@
             <ImageView fitHeight="231.0" fitWidth="269.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../out/production/SOSU/Images/applogo.png" />
-               </image>
-            </ImageView>
-            <Label alignment="CENTER" prefHeight="17.0" prefWidth="240.0" text="Login">
+               </image></ImageView>
+            <Label fx:id="loginLabel" alignment="CENTER" prefHeight="17.0" prefWidth="240.0" text="Login">
                <font>
                   <Font size="18.0" />
                </font>
             </Label>
-            <TextField promptText="User">
+            <TextField fx:id="userField" promptText="User">
                <VBox.margin>
                   <Insets bottom="7.0" top="2.0" />
                </VBox.margin>
             </TextField>
-            <PasswordField promptText="Password">
+            <PasswordField fx:id="passwordField" promptText="Password">
                <VBox.margin>
                   <Insets bottom="11.0" top="16.0" />
                </VBox.margin>
             </PasswordField>
-            <Button mnemonicParsing="false" text="Login" />
+            <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Login">
+               <VBox.margin>
+                  <Insets left="70.0" />
+               </VBox.margin></Button>
          </children>
       </VBox>
       <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#openHpMgr" prefHeight="107.0" prefWidth="99.0" text="Manage Health" />
