@@ -5,6 +5,9 @@ import java.util.List;
 public class HealthCategory {
     private int id;
     private String name;
+    private String example;
+    private int sid;
+    private int position;
     private List<Condition> conditionList;
 
     public HealthCategory(int id, String name) {
@@ -28,11 +31,36 @@ public class HealthCategory {
         this.name = name;
     }
 
-    public List<Condition> getDiseaseList() {
+
+    public String getExample() {
+        return example;
+    }
+
+    public void setExample(String example) {
+        this.example = example;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+
+    public List<Condition> getConditionList() {
         return conditionList;
     }
 
-    public void setDiseaseList(List<Condition> diseaseList) {
-        this.conditionList = diseaseList;
+    public void setConditionList(List<Condition> conditionList) {
+        this.conditionList = conditionList;
     }
 }

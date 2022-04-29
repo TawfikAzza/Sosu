@@ -38,5 +38,6 @@
             <Button mnemonicParsing="false" text="Login" />
          </children>
       </VBox>
+      <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#openHpMgr" prefHeight="107.0" prefWidth="99.0" text="Manage Health" />
    </children>
 </AnchorPane>
