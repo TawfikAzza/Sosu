@@ -2,15 +2,21 @@ package be;
 
 public class Condition {
     private int id;
-    private String name;
+
     private String description;
     private String freeText;
-
-    public Condition(int id, String name, String description, String freeText) {
+    private String goal;
+    private int citizenID;
+    private int categoryID;
+    private int status;
+    public Condition(int id, int categoryID , int citizenID, String description, int status,String freeText, String goal) {
         this.id = id;
-        this.name = name;
+        this.categoryID = categoryID;
+        this.citizenID = citizenID;
         this.description = description;
+        this.status=status;
         this.freeText = freeText;
+        this.goal=goal;
     }
 
     public int getId() {
@@ -21,13 +27,6 @@ public class Condition {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 
     public String getDescription() {
         return description;
@@ -43,5 +42,37 @@ public class Condition {
 
     public void setFreeText(String freeText) {
         this.freeText = freeText;
+    }
+
+    public String getGoal() {
+        return goal;
+    }
+
+    public void setGoal(String goal) {
+        this.goal = goal;
+    }
+
+    public int getCitizenID() {
+        return citizenID;
+    }
+
+    public void setCitizenID(int citizenID) {
+        this.citizenID = citizenID;
+    }
+
+    public int getCatgoryID() {
+        return categoryID;
+    }
+
+    public void setCatgoryID(int catgoryID) {
+        this.categoryID = catgoryID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
     }
 }

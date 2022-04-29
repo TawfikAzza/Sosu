@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextArea?>
@@ -20,6 +21,7 @@
       <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="90.4000259399414" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="59.199974060058594" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="93.5999816894531" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="93.5999816894531" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <Label text="Status" />
@@ -28,17 +30,18 @@
       <Label text="Mål" GridPane.rowIndex="3" />
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
          <children>
-            <RadioButton mnemonicParsing="false" text="Irrelevant">
+            <RadioButton fx:id="statusIrrelevant" mnemonicParsing="false" text="Irrelevant">
                <toggleGroup>
                   <ToggleGroup fx:id="status" />
                </toggleGroup>
             </RadioButton>
-            <RadioButton mnemonicParsing="false" text="Potentielt" toggleGroup="$status" />
-            <RadioButton mnemonicParsing="false" text="Akute" toggleGroup="$status" />
+            <RadioButton fx:id="statusPotentiel" mnemonicParsing="false" text="Potentielt" toggleGroup="$status" />
+            <RadioButton fx:id="statusAkute" mnemonicParsing="false" text="Akute" toggleGroup="$status" />
          </children>
       </HBox>
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-      <TextArea prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+      <TextArea fx:id="freeText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <TextArea fx:id="goal" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+      <Button mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>

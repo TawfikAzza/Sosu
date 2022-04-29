@@ -1,5 +1,7 @@
 package bll;
 
+import be.Citizen;
+import be.Condition;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
 import dal.db.HealthConditionDAO;
@@ -25,6 +27,14 @@ public class CategoryManager {
             return healthConditionDAO.getAllCategoriesTree();
         } catch (SQLException e) {
             throw new HealthCategoryException("Error while retrieving categories from the database",e);
+        }
+    }
+
+    public Condition getCondition(HealthCategory healthCategory, Citizen citizen) throws HealthCategoryException {
+        try {
+            return healthConditionDAO.getCondition(healthCategory,citizen);
+        } catch (SQLException e) {
+            throw new HealthCategoryException("Error while retrieving condition from the database",e);
         }
     }
 }

@@ -56,4 +56,25 @@ public class HealthConditionDAO {
         }
         return allCategories;
     }
+
+    public Condition getCondition(HealthCategory healthCategory, Citizen citizen) throws SQLException {
+        Condition conditionSearched = null;
+        try (Connection connection = cm.getConnection()) {
+            String sql = "SELECT * FROM CONDITIONS WHERE categoryID = ? AND citizenID = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sql);
+            pstmt.setInt(1,healthCategory.getId());
+            pstmt.setInt(2,citizen.getId());
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()) {
+                conditionSearched = new Condition(rs.getInt("id")
+                                                 ,rs.getInt("categoryID")
+                                                , rs.getInt("citizenID")
+                                                , rs.getString("description")
+                                                , rs.getInt("status")
+                                                , rs.getString("text")
+                                                ,rs.getString("goal") );
+            }
+        }
+        return conditionSearched;
+    }
 }
