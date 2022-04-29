@@ -37,4 +37,20 @@ public class CategoryManager {
             throw new HealthCategoryException("Error while retrieving condition from the database",e);
         }
     }
+
+    public void addCondition(Condition condition) throws HealthCategoryException {
+        try {
+            healthConditionDAO.addCondition(condition);
+        } catch (SQLException e) {
+            throw new HealthCategoryException("Error while inserting a condition in the database",e);
+        }
+    }
+
+    public void updateCondition(Condition condition) throws HealthCategoryException {
+        try {
+            healthConditionDAO.updateCondition(condition);
+        } catch (SQLException e) {
+            throw new HealthCategoryException("Error while updating a condition in the database",e);
+        }
+    }
 }

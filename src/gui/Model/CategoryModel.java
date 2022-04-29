@@ -27,4 +27,12 @@ public class CategoryModel {
     public Condition getCondition(HealthCategory healthCategory, Citizen citizen) throws HealthCategoryException {
         return manager.getCondition(healthCategory,citizen);
     }
+
+    public void addCondition(Condition condition) throws HealthCategoryException {
+        manager.addCondition(condition);
+    }
+
+    public void updateCondition(Condition condition) throws HealthCategoryException {
+        manager.updateCondition(condition);
+    }
 }

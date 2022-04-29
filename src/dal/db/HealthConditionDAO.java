@@ -77,4 +77,38 @@ public class HealthConditionDAO {
         }
         return conditionSearched;
     }
+
+    public void addCondition(Condition condition) throws SQLException {
+        try (Connection connection = cm.getConnection()) {
+            String sqlInsert = "INSERT INTO CONDITIONS VALUES(?, ?, ?, ?, ?, ?)";
+            PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
+            pstmt.setInt(1, condition.getCatgoryID());
+            pstmt.setInt(2, condition.getCitizenID());
+            pstmt.setString(3, condition.getDescription());
+            pstmt.setInt(4, condition.getStatus());
+            pstmt.setString(5, condition.getFreeText());
+            pstmt.setString(6, condition.getGoal());
+
+            pstmt.execute();
+
+        }
+    }
+
+    public void updateCondition(Condition condition) throws SQLException {
+        try (Connection connection = cm.getConnection()) {
+            String sqlUpdate = "UPDATE CONDITIONS set description=?, status = ?, text= ?, goal= ?" +
+                    " WHERE categoryID=? AND citizenID=?  ";
+            PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
+
+            pstmt.setString(1, condition.getDescription());
+            pstmt.setInt(2, condition.getStatus());
+            pstmt.setString(3, condition.getFreeText());
+            pstmt.setString(4, condition.getGoal());
+            pstmt.setInt(5,condition.getCatgoryID());
+            pstmt.setInt(6,condition.getCitizenID());
+
+            pstmt.execute();
+
+        }
+    }
 }

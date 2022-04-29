@@ -42,6 +42,6 @@
       <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextArea fx:id="freeText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextArea fx:id="goal" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
    </children>
 </GridPane>
