@@ -19,4 +19,15 @@ public class MainController {
 
         stage.show();
     }
+
+    public void openFaMgr(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/FunctionalSectionDisplay.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
+    }
 }
