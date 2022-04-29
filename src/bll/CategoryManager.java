@@ -1,9 +1,6 @@
 package bll;
 
-import be.AbilityCategory;
-import be.Citizen;
-import be.Condition;
-import be.HealthCategory;
+import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import dal.db.FunctionalAbilityDAO;
@@ -65,5 +62,13 @@ public class CategoryManager {
            throw new AbilityCategoryException("Error while retrieving the Functional Abilities from the database",e);
         }
 
+    }
+
+    public Ability getAbility(AbilityCategory abilityCategory, Citizen citizen) throws AbilityCategoryException {
+        try {
+            return functionalAbilityDAO.getAbility(abilityCategory,citizen);
+        } catch (SQLException e) {
+            throw new AbilityCategoryException("Error while retrieving an ability report from the database",e);
+        }
     }
 }
