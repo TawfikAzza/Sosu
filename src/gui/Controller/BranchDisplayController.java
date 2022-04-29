@@ -1,5 +1,7 @@
 package gui.Controller;
 
+import be.Citizen;
+import be.Condition;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.CategoryModel;
@@ -47,6 +49,8 @@ public class BranchDisplayController implements Initializable {
         }
     }
 
+    private void openConditionReport(Condition condition, Citizen citizen) {
 
+    }
 
 }
