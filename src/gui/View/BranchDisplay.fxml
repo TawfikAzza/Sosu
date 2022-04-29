@@ -19,7 +19,7 @@
     <children>
         <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-                <Accordion prefHeight="350.0" prefWidth="124.0">
+                <Accordion prefHeight="366.0" prefWidth="433.0">
                     <panes>
                         <TitledPane animated="false" prefHeight="342.0" prefWidth="416.0" text="Egenomsorg">
                             <content>
