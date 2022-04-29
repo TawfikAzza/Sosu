@@ -9,9 +9,10 @@ public class Citizen {
     private String address;
     private String phoneNumber;
     private String birthDate;
-    private List<HealthCategory> healthCategories;
-    private List<AbilityCategory> abilityCategories;
+    private List<Condition> healthConditions;
+    private List<Ability> functionalAbilities;
     private GeneralInfo generalInfo;
+
 
     public Citizen(int id, String name, String cprNumber) {
         this.id = id;
@@ -43,20 +44,20 @@ public class Citizen {
         this.cprNumber = cprNumber;
     }
 
-    public List<HealthCategory> getHealthConditions() {
-        return healthCategories;
+    public List<Condition> getHealthConditions() {
+        return healthConditions;
     }
 
-    public void setHealthConditions(List<HealthCategory> healthConditions) {
-        this.healthCategories = healthConditions;
+    public void setHealthConditions(List<Condition> healthConditions) {
+        this.healthConditions = healthConditions;
     }
 
-    public List<AbilityCategory> getFunctionalAbilities() {
-        return abilityCategories;
+    public List<Ability> getFunctionalAbilities() {
+        return functionalAbilities;
     }
 
-    public void setFunctionalAbilities(List<AbilityCategory> functionalAbilities) {
-        this.abilityCategories = functionalAbilities;
+    public void setFunctionalAbilities(List<Ability> functionalAbilities) {
+        this.functionalAbilities = functionalAbilities;
     }
 
     public GeneralInfo getGeneralInfo() {

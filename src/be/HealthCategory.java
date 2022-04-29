@@ -1,5 +1,6 @@
 package be;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class HealthCategory {
@@ -8,7 +9,7 @@ public class HealthCategory {
     private String example;
     private int sid;
     private int position;
-    private List<Condition> conditionList;
+    private List<HealthCategory> subCategories = new ArrayList<>();
 
     public HealthCategory(int id, String name) {
         this.id = id;
@@ -56,11 +57,11 @@ public class HealthCategory {
         this.position = position;
     }
 
-    public List<Condition> getConditionList() {
-        return conditionList;
+    public List<HealthCategory> getSubCategories() {
+        return subCategories;
     }
 
-    public void setConditionList(List<Condition> conditionList) {
-        this.conditionList = conditionList;
+    public void setSubCategories(List<HealthCategory> subCategories) {
+        this.subCategories = subCategories;
     }
 }
