@@ -44,7 +44,6 @@ public class HealthSectionDisplayController implements Initializable {
                 ListView<HealthCategory> subCategoryList = new ListView<>();
                 subCategoryList.setOnMouseClicked(e-> {
                     openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
-                    System.out.println(subCategoryList.getSelectionModel().getSelectedItem().getName());
                 });
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
