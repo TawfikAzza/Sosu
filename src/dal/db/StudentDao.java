@@ -126,18 +126,4 @@ public class StudentDao {
         }
         return schoolName;
     }
-
-    /* do not need this right now // fewer queries to database.
-    private int schoolId(String schoolName) throws SQLException{
-        int schoolId = 0;
-        try (Connection connection = connectionManager.getConnection()){
-            String sql = "SELECT * FROM school WHERE name=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,schoolName);
-            ResultSet resultSet= preparedStatement.executeQuery();
-            if (resultSet.next())
-                schoolId = resultSet.getInt("id");
-        }
-        return schoolId;
-    }*/
 }
