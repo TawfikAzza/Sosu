@@ -1,9 +1,6 @@
 package gui.Controller;
 
-import be.Ability;
-import be.AbilityCategory;
-import be.Citizen;
-import be.HealthCategory;
+import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.CategoryModel;
@@ -11,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -47,6 +45,9 @@ public class AbilityReportViewController implements Initializable {
             radio3.setUserData(3);
             radio4.setUserData(4);
             radio9.setUserData(9);
+            statusIrrelevant.setUserData(0);
+            statusPotentiel.setUserData(1);
+            statusAkute.setUserData(2);
         } catch (HealthCategoryException e) {
             e.printStackTrace();
         }
@@ -104,27 +105,57 @@ public class AbilityReportViewController implements Initializable {
     }
 
     public void confirm(ActionEvent actionEvent) {
-
+        if(operationType.equals("insert")) {
+            if (!checkFields()) {
+                return;
+            } else {
+                Ability ability = new Ability(1
+                        , abilityCategory.getId()
+                        , currentCitizen.getId()
+                        , Integer.parseInt(score.getSelectedToggle().getUserData().toString())
+                        , Integer.parseInt(status.getSelectedToggle().getUserData().toString()));
+                try {
+                    categoryModel.addAbility(ability);
+                    Stage stage = (Stage) (statusIrrelevant.getScene().getWindow());
+                    stage.close();
+                } catch (AbilityCategoryException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        if(operationType.equals("update")) {
+            if(!checkFields()) {
+                return;
+            } else {
+                Ability ability = new Ability(1,abilityCategory.getId()
+                        , currentCitizen.getId()
+                        ,Integer.parseInt(score.getSelectedToggle().getUserData().toString())
+                        ,Integer.parseInt(status.getSelectedToggle().getUserData().toString())
+                        );
+                try {
+                    categoryModel.updateAbility(ability);
+                    Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
+                    stage.close();
+                } catch (AbilityCategoryException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     private boolean checkFields() {
-        /*String message="";
-        if(description.getText().equals(""))
-            message += "- Specify a description for the condition \n";
-        if(freeText.getText().equals(""))
-            message+="- Specify a freeText for the condition \n";
-        if(goal.getText().equals(""))
-            message+="- Specify a goal for the condition \n";
-        if(status.getSelectedToggle()==null) {
+        String message="";
+        if(score.getSelectedToggle()==null)
+            message += "- Specify a score for the ability \n";
+        if(status.getSelectedToggle()==null)
             message+="- No choice as to the status has been made";
-        }
+
         if(!message.equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();
             return false;
         }
         return true;
-    */
-    return true;
+
     }
 }

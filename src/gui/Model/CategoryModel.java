@@ -41,4 +41,12 @@ public class CategoryModel {
     public Ability getAbility(AbilityCategory abilityCategory, Citizen citizen) throws AbilityCategoryException {
         return manager.getAbility(abilityCategory,citizen);
     }
+
+    public void addAbility(Ability ability) throws AbilityCategoryException {
+        manager.addAbility(ability);
+    }
+
+    public void updateAbility(Ability ability) throws AbilityCategoryException {
+        manager.updateAbility(ability);
+    }
 }

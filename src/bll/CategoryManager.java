@@ -71,4 +71,20 @@ public class CategoryManager {
             throw new AbilityCategoryException("Error while retrieving an ability report from the database",e);
         }
     }
+
+    public void addAbility(Ability ability) throws AbilityCategoryException {
+        try {
+            functionalAbilityDAO.addAbility(ability);
+        } catch (SQLException e) {
+            throw new AbilityCategoryException("Error during the creation of an ability report in the database",e);
+        }
+    }
+
+    public void updateAbility(Ability ability) throws AbilityCategoryException {
+        try {
+            functionalAbilityDAO.updateAbility(ability);
+        } catch (SQLException e) {
+            throw new AbilityCategoryException("Error while updating an ability report in the database",e);
+        }
+    }
 }
