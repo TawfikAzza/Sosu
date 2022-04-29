@@ -1,9 +1,12 @@
 package bll;
 
+import be.AbilityCategory;
 import be.Citizen;
 import be.Condition;
 import be.HealthCategory;
+import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
+import dal.db.FunctionalAbilityDAO;
 import dal.db.HealthConditionDAO;
 
 import java.io.IOException;
@@ -13,10 +16,11 @@ import java.util.List;
 public class CategoryManager {
 
     HealthConditionDAO healthConditionDAO;
-
+    FunctionalAbilityDAO functionalAbilityDAO;
     public CategoryManager() throws HealthCategoryException {
         try {
             healthConditionDAO = new HealthConditionDAO();
+            functionalAbilityDAO = new FunctionalAbilityDAO();
         } catch (IOException e) {
             throw new HealthCategoryException("Error while connecting to the database",e);
         }
@@ -52,5 +56,14 @@ public class CategoryManager {
         } catch (SQLException e) {
             throw new HealthCategoryException("Error while updating a condition in the database",e);
         }
+    }
+
+    public List<AbilityCategory> getAbilityCategories() throws AbilityCategoryException {
+        try {
+            return functionalAbilityDAO.getAllCategoriesTree();
+        } catch (SQLException e) {
+           throw new AbilityCategoryException("Error while retrieving the Functional Abilities from the database",e);
+        }
+
     }
 }

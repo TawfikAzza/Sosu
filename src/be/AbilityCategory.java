@@ -1,11 +1,14 @@
 package be;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AbilityCategory {
     private int id;
     private String name;
-    private List<Ability> abilityList;
+    private List<AbilityCategory> subCategories = new ArrayList<>();
+    private int sid;
+    private int position;
 
     public AbilityCategory(int id, String name) {
         this.id = id;
@@ -28,11 +31,31 @@ public class AbilityCategory {
         this.name = name;
     }
 
-    public List<Ability> getAbilityList() {
-        return abilityList;
+    public List<AbilityCategory> getSubCategories() {
+        return subCategories;
     }
 
-    public void setAbilityList(List<Ability> abilityList) {
-        this.abilityList = abilityList;
+    public void setSubCategories(List<AbilityCategory> subCategories) {
+        this.subCategories = subCategories;
+    }
+
+    public int getSid() {
+        return sid;
+    }
+
+    public void setSid(int sid) {
+        this.sid = sid;
+    }
+
+    public int getPosition() {
+        return position;
+    }
+
+    public void setPosition(int position) {
+        this.position = position;
+    }
+    @Override
+    public String toString() {
+        return name;
     }
 }

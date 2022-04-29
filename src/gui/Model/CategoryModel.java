@@ -5,6 +5,7 @@ import be.Citizen;
 import be.Condition;
 import be.HealthCategory;
 import bll.CategoryManager;
+import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -34,5 +35,9 @@ public class CategoryModel {
 
     public void updateCondition(Condition condition) throws HealthCategoryException {
         manager.updateCondition(condition);
+    }
+
+    public List<AbilityCategory> getAbilityCategories() throws AbilityCategoryException {
+        return manager.getAbilityCategories();
     }
 }
