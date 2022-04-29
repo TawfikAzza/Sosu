@@ -32,20 +32,19 @@ public class BranchDisplayController implements Initializable {
                 titledPane.setText(healthCategory.getName());
 
                 ListView<HealthCategory> subCategoryList = new ListView<>();
+                subCategoryList.setOnMouseClicked(e-> {
+                    System.out.println(subCategoryList.getSelectionModel().getSelectedItem().getName());
+                });
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }
                 titledPane.setContent(subCategoryList);
-
-
                 healthContainer.getPanes().add(titledPane);
 
             }
         } catch (HealthCategoryException e) {
             e.printStackTrace();
         }
-
-
     }
 
 
