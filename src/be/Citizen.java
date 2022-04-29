@@ -4,19 +4,30 @@ import java.util.List;
 
 public class Citizen {
     private int id;
-    private String name;
+    private String fname;
+    private String lname;
     private String cprNumber;
     private String address;
-    private String phoneNumber;
+    private int phoneNumber;
     private String birthDate;
+    private boolean isTemplate;
     private List<HealthCategory> healthCategories;
     private List<AbilityCategory> abilityCategories;
     private GeneralInfo generalInfo;
 
-    public Citizen(int id, String name, String cprNumber) {
+    public Citizen(int id, String fname, String lname, String cprNumber) {
         this.id = id;
-        this.name = name;
+        this.fname = fname;
+        this.lname = lname;
         this.cprNumber = cprNumber;
+    }
+
+    public boolean isTemplate() {
+        return isTemplate;
+    }
+
+    public void setTemplate(boolean template) {
+        isTemplate = template;
     }
 
     public int getId() {
@@ -27,12 +38,20 @@ public class Citizen {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getFname() {
+        return fname;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFname(String fname) {
+        this.fname = fname;
+    }
+
+    public String getLname() {
+        return lname;
+    }
+
+    public void setLname(String lname) {
+        this.lname = lname;
     }
 
     public String getCprNumber() {
@@ -75,11 +94,11 @@ public class Citizen {
         this.address = address;
     }
 
-    public String getPhoneNumber() {
+    public int getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
