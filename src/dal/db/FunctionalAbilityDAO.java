@@ -74,4 +74,29 @@ public class FunctionalAbilityDAO {
         }
         return abilitySearched;
     }
+
+    public void addAbility(Ability ability) throws SQLException {
+        try (Connection connection = cm.getConnection()) {
+            String sqlInsert = "INSERT INTO Abilities VALUES (?,?,?,?)";
+            PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
+            pstmt.setInt(1,ability.getCategoryID());
+            pstmt.setInt(2,ability.getCitizenID());
+            pstmt.setInt(3,ability.getScore());
+            pstmt.setInt(4,ability.getStatus());
+            pstmt.execute();
+        }
+    }
+
+    public void updateAbility(Ability ability) throws SQLException {
+        try (Connection connection = cm.getConnection()) {
+            String sqlUpdate = "UPDATE Abilities set score = ?, status= ? " +
+                    " WHERE categoryID=? AND citizenID = ?";
+            PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
+            pstmt.setInt(1,ability.getScore());
+            pstmt.setInt(2,ability.getStatus());
+            pstmt.setInt(3,ability.getCategoryID());
+            pstmt.setInt(4,ability.getCitizenID());
+            pstmt.execute();
+        }
+    }
 }

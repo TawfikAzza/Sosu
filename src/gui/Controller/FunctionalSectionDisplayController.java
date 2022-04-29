@@ -45,7 +45,6 @@ public class FunctionalSectionDisplayController implements Initializable {
                 ListView<AbilityCategory> subCategoryList = new ListView<>();
                 subCategoryList.setOnMouseClicked(e-> {
                     openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
-                    System.out.println(subCategoryList.getSelectionModel().getSelectedItem().getName());
                 });
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);

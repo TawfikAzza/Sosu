@@ -43,7 +43,6 @@ public class ConditionReportViewController implements Initializable {
     }
     public void setCurrentCitizen(Citizen citizen) {
         this.currentCitizen = citizen;
-        System.out.println("Health : "+healthCategory.getName()+ " Citizen : "+currentCitizen.getName());
     }
 
 
