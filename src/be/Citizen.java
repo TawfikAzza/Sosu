@@ -13,7 +13,7 @@ public class Citizen {
     private boolean isTemplate;
     private List<HealthCategory> healthCategories;
     private List<AbilityCategory> abilityCategories;
-    private GeneralInfo generalInfo;
+    private List<GeneralInfo> generalInfo;
 
     public Citizen(int id, String fname, String lname, String cprNumber) {
         this.id = id;
@@ -78,11 +78,11 @@ public class Citizen {
         this.abilityCategories = functionalAbilities;
     }
 
-    public GeneralInfo getGeneralInfo() {
+    public List<GeneralInfo> getGeneralInfo() {
         return generalInfo;
     }
 
-    public void setGeneralInfo(GeneralInfo generalInfo) {
+    public void setGeneralInfo(List<GeneralInfo> generalInfo) {
         this.generalInfo = generalInfo;
     }
 

@@ -5,12 +5,18 @@ public class Condition {
     private String name;
     private String description;
     private String freeText;
+    private String citGoals;
+    private int categoryID;
+    private int citizenID;
+    private int status;
 
-    public Condition(int id, String name, String description, String freeText) {
+    public Condition(int id, String name, String description, int categoryID, int citizenID, int status) {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.freeText = freeText;
+        this.categoryID = categoryID;
+        this.citizenID = citizenID;
+        this.status = status;
     }
 
     public int getId() {
@@ -43,5 +49,37 @@ public class Condition {
 
     public void setFreeText(String freeText) {
         this.freeText = freeText;
+    }
+
+    public int getCategoryID() {
+        return categoryID;
+    }
+
+    public void setCategoryID(int categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public int getCitizenID() {
+        return citizenID;
+    }
+
+    public void setCitizenID(int citizenID) {
+        this.citizenID = citizenID;
+    }
+
+    public int getStatus() {
+        return status;
+    }
+
+    public void setStatus(int status) {
+        this.status = status;
+    }
+
+    public String getCitGoals() {
+        return citGoals;
+    }
+
+    public void setCitGoals(String citGoals) {
+        this.citGoals = citGoals;
     }
 }
