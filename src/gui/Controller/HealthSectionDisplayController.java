@@ -20,13 +20,13 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-public class BranchDisplayController implements Initializable {
+public class HealthSectionDisplayController implements Initializable {
 
     public Accordion healthContainer;
 
     private CategoryModel categoryModel;
     private Citizen currentCitizen;
-    public BranchDisplayController() throws HealthCategoryException {
+    public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
         currentCitizen = new Citizen(1,"Jeppe Moritz","15-12-2015");
     }
