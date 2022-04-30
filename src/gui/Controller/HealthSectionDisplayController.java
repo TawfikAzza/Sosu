@@ -4,6 +4,7 @@ import be.Citizen;
 import be.Condition;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
+import bll.util.GlobalCitizen;
 import gui.Model.CategoryModel;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -28,7 +29,7 @@ public class HealthSectionDisplayController implements Initializable {
     private Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = new Citizen(1,"Jeppe", "Moritz","15-12-2015");
+        currentCitizen = GlobalCitizen.getSelectedCitizen();
     }
 
     @Override

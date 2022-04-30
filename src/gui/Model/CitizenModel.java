@@ -13,7 +13,7 @@ public class CitizenModel {
     }
 
 
-    public void createNewCitizen(Citizen newCitizen) throws CitizenException {
-        citizenManager.createNewCitizen(newCitizen);
+    public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
+        return citizenManager.createNewCitizen(newCitizen);
     }
 }

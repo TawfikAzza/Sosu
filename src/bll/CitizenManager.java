@@ -19,11 +19,11 @@ public class CitizenManager {
         }
     }
 
-    public void createNewCitizen(Citizen newCitizen) throws CitizenException {
+    public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
         try {
-            citizenFacade.addCitizenToDB(newCitizen);
+            return citizenFacade.addCitizenToDB(newCitizen);
         } catch (SQLException e) {
-            throw new CitizenException("Error whhile creating new citizen",e);
+            throw new CitizenException("Error while creating new citizen",e);
         }
     }
 }
