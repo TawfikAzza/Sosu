@@ -31,6 +31,8 @@ public class MainController {
 
     public UserManger userManger = new UserManger();
 
+    public MainController() throws IOException {
+    }
 
 
     public void openHpMgr(ActionEvent actionEvent) throws IOException {
