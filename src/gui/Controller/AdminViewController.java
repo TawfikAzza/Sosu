@@ -7,11 +7,15 @@ import gui.Model.UserModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -35,10 +39,23 @@ public class AdminViewController implements Initializable {
     UserModel userModel;
 
 
-    public void deleteTeacher(ActionEvent actionEvent) {
+    public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
+        Teacher selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
+        userModel.deleteTeacher(selectedTeacher);
+
     }
 
-    public void addTeacher(ActionEvent actionEvent) {
+    public void addTeacher(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("gui/View/NewUser.fxml"));
+        root = loader.load();
+
+        // load controller NewUserController controller = loader.getController();
+        Stage stage = new Stage();
+        stage.setTitle("New Teacher");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void logOut(ActionEvent actionEvent) {
@@ -93,5 +110,6 @@ public class AdminViewController implements Initializable {
         passWordTeacher.setCellValueFactory(new PropertyValueFactory<>("passWord"));
         emailTeacher.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneNumberTeacher.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        schoolTeacher.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
     }
 }

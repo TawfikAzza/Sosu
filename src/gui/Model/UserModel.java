@@ -43,10 +43,12 @@ public class UserModel {
     }
 
     public void deleteTeacher(Teacher teacher) throws SQLException {
+        allTeachers.remove(teacher);
         userManger.deleteTeacher(teacher);
     }
 
     public void deleteStudent(Student student) throws SQLException {
+        allStudents.remove(student);
          userManger.deleteStudent(student);
     }
 
