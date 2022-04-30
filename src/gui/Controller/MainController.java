@@ -1,7 +1,7 @@
 package gui.Controller;
 
 import be.User;
-import bll.UserManger;
+import bll.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +29,7 @@ public class MainController {
     @FXML
     private TextField userField;
 
-    public UserManger userManger = new UserManger();
+    public UserManager userManager = new UserManager();
 
     public MainController() throws IOException {
     }
@@ -85,7 +85,7 @@ public class MainController {
 
     public void submitLogin(ActionEvent actionEvent) throws Exception {
 
-        User user = userManger.submitLogin(userField.getText(), passwordField.getText());
+        User user = userManager.submitLogin(userField.getText(), passwordField.getText());
 
         if (user != null){
             if (user.getRoleID() == 1){

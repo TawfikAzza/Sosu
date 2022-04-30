@@ -24,7 +24,7 @@ public class UsersDAO {
         User user = null;
 
         try (Connection con = cm.getConnection()){
-            String sql = "SELECT [user_name],[password],[e_mail], [roleID], [id] FROM user WHERE [user_name] =? ,[password] =?";
+            String sql = "SELECT [user_name],[password],[e_mail], [roleID], [id] FROM user WHERE [user_name] =? AND [password] =?";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
             pstmt.setString(1, userName);
