@@ -21,7 +21,7 @@ public class CitizenFacade {
 
     private void addCitizen(Citizen citizen) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             String fname = citizen.getfName();
@@ -30,6 +30,7 @@ public class CitizenFacade {
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
             boolean template = citizen.isTemplate();
+            String cprNumber = citizen.getCprNumber();
 
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -38,8 +39,13 @@ public class CitizenFacade {
             ps.setInt(5, phoneNumber);
             ps.setBoolean(6, template);
 
-            ps.execute();
+            ps.setInt(7,1);//The schoolID column, set to 1 by default for now
+            //TODO change
 
+            ps.setString(8,cprNumber);
+
+            ps.execute();
+            
         }
     }
 
