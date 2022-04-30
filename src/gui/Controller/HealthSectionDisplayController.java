@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -78,4 +79,5 @@ public class HealthSectionDisplayController implements Initializable {
         stage.show();
     }
 
+    
 }

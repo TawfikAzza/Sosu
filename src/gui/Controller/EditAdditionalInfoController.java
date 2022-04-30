@@ -43,9 +43,14 @@ public class EditAdditionalInfoController implements Initializable {
         try {
             loadFAbilityContent();
             loadHConditionContent();
+            loadGInfoContent();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void loadGInfoContent() {
+
     }
 
     private void loadFAbilityContent() throws IOException {

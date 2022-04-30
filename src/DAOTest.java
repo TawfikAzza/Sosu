@@ -9,7 +9,7 @@ import java.util.List;
 public class DAOTest {
     public static void main(String[] args) throws SQLException, IOException {
         // getAllCategories();
-        //  getAllCategoriesTree();
+        // getAllCategoriesTree();
         // getAllAbilityCategoriesTree();
         // editStudent(new Student(7,"test","test","test","dfd","sfsf",543));
         // createTeacher(new School(1,"SOSU ESBJERG"),"teacher","teacher","teacher","teacher","teacher@test.dk",9999999);
@@ -17,6 +17,16 @@ public class DAOTest {
         // deleteTeacher(new Teacher(11,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
         // editTeacher(new Teacher(12,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
         // getAllAdmins();
+        // getAllInfoCategories();
+    }
+
+    private static void getAllInfoCategories() throws IOException, SQLException {
+        GInfoDAO gInfoDAO = new GInfoDAO();
+        List<InfoCategory> infoCategories = gInfoDAO.getGInfoCategories();
+        for (InfoCategory gInfoCategory : infoCategories) {
+            System.out.println(gInfoCategory.getDefinition());
+            System.out.println("Index of category + "+infoCategories.indexOf(gInfoCategory));
+        }
     }
     private static void getAllCategories() throws IOException, SQLException {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
