@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.Citizen;
 import bll.exceptions.CitizenException;
+import bll.util.GlobalCitizen;
 import gui.Model.CitizenModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -118,6 +119,7 @@ public class CitizenFormViewController implements Initializable {
             return false;
 
         Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
+
         newCitizen.setAddress(address);
         newCitizen.setBirthDate(birthDate);
         newCitizen.setCprNumber(cprNumber);
@@ -125,7 +127,8 @@ public class CitizenFormViewController implements Initializable {
         newCitizen.setTemplate(true);
 
         try {
-            citizenModel.createNewCitizen(newCitizen);
+            Citizen createdCitizen = citizenModel.createNewCitizen(newCitizen);
+            GlobalCitizen.setSelectedCitizen(createdCitizen);
         } catch (CitizenException e) {
             e.printStackTrace();
         }
