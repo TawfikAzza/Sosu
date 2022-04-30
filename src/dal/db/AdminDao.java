@@ -27,13 +27,20 @@ public class AdminDao {
             preparedStatement.setString(1,"Admin");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                allAdmins.add( new Admin(resultSet.getInt("id"),
-                        resultSet.getString("first_name"),
-                        resultSet.getString("last_name"),
-                        resultSet.getString("user_name"),
-                        resultSet.getString("password"),
-                        resultSet.getString("e_mail"),
-                        resultSet.getInt("phone_number")));
+                int roleId= resultSet.getInt("roleID");
+                String sql0 = "SELECT * FROM [user] WHERE roleID= ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql0);
+                preparedStatement1.setInt(1,roleId);
+                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                while (resultSet1.next()){
+                    allAdmins.add( new Admin(resultSet1.getInt("id"),
+                            resultSet1.getString("first_name"),
+                            resultSet1.getString("last_name"),
+                            resultSet1.getString("user_name"),
+                            resultSet1.getString("password"),
+                            resultSet1.getString("e_mail"),
+                            resultSet1.getInt("phone_number")));
+                }
             }
         }
         return allAdmins;

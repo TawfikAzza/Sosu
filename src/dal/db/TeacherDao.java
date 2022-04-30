@@ -26,7 +26,7 @@ public class TeacherDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1 = "SELECT * FROM user WHERE first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=? AND rolID=?";
+                String sql1 = "SELECT * FROM [user] WHERE first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=? AND roleID=?";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                 for (int i = 1; i <= 5; i++)
                     preparedStatement1.setString(i, initials);
@@ -64,7 +64,7 @@ public class TeacherDao {
             ResultSet resultSet0 = preparedStatement0.executeQuery();
             if (resultSet0.next()) {
                 int roleId = resultSet0.getInt("roleID");
-                String sql1 = "INSERT INTO  user VALUES (?,?,?,?,?,?,?,?)";
+                String sql1 = "INSERT INTO  [user] VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
                 preparedStatement1.setInt(1, school.getId());
                 preparedStatement1.setString(2, firstName);
@@ -90,7 +90,7 @@ public class TeacherDao {
 
     public void deleteTeacher(Teacher teacher) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
-            String sql = "DELETE FROM user WHERE id= ?";
+            String sql = "DELETE FROM [user] WHERE id= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, teacher.getId());
             preparedStatement.executeUpdate();
@@ -99,7 +99,7 @@ public class TeacherDao {
 
     public void editTeacher(Teacher teacher) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
-            String sql = "UPDATE user SET first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
+            String sql = "UPDATE [user] SET first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, teacher.getFirstName());
             preparedStatement.setString(2, teacher.getLastName());
