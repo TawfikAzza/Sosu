@@ -5,8 +5,10 @@ import dal.ConnectionManager;
 
 import java.io.IOException;
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 public class CitizenFacade {
@@ -25,8 +27,19 @@ public class CitizenFacade {
             String fname = citizen.getFname();
             String lname = citizen.getLname();
             String address = citizen.getAddress();
+            LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
             boolean template = citizen.isTemplate();
+
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, address);
+            ps.setDate(4, Date.valueOf(birthdate));
+            ps.setInt(5, phoneNumber);
+            ps.setBoolean(6, template);
+
+            ps.execute();
+
         }
     }
 
@@ -110,6 +123,13 @@ public class CitizenFacade {
             }
             ps.executeBatch();
         }
+    }
+
+    public void addCitizenToDB(Citizen citizen) throws SQLException {
+        addCitizen(citizen);
+        addFunctionalAbilities(citizen);
+        addGeneralInfo(citizen);
+        addHealthConditions(citizen);
     }
 
 }
