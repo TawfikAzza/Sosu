@@ -15,17 +15,17 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="714.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="539.0" prefWidth="743.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AdminViewController">
   <tabs>
     <Tab text="Manage teacher">
       <content>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
-                  <GridPane layoutX="79.0" layoutY="65.0" prefHeight="415.5" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <GridPane layoutX="79.0" layoutY="65.0" prefHeight="507.5" prefWidth="743.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="0.0" prefWidth="0.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="807.0" minWidth="10.0" prefWidth="807.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="691.0" minWidth="0.0" prefWidth="0.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="0.0" prefWidth="15.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="807.0" minWidth="10.0" prefWidth="715.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="691.0" minWidth="0.0" prefWidth="13.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="119.0" minHeight="0.0" prefHeight="23.0" vgrow="SOMETIMES" />
@@ -35,9 +35,10 @@
                      <children>
                         <GridPane alignment="CENTER" GridPane.columnIndex="1">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="56.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="163.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="269.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="59.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="170.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="73.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="216.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="199.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -45,54 +46,44 @@
                           </rowConstraints>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                              <TextField GridPane.columnIndex="1" />
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" />
-                           </children>
-                        </GridPane>
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
-                          <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="471.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
-                           <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0">
-                                <columns>
-                                  <TableColumn prefWidth="75.0" text="First name" />
-                                  <TableColumn prefWidth="75.0" text="Last name" />
-                                    <TableColumn prefWidth="75.0" text="User name" />
-                                    <TableColumn prefWidth="75.0" text="Password" />
-                                    <TableColumn prefWidth="75.0" text="Email" />
-                                    <TableColumn prefWidth="97.0" text="Phone number" />
-                                </columns>
-                              </TableView>
+                              <TextField fx:id="searchTeacherField" GridPane.columnIndex="1" />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="4" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="327.000048828125" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="126.199951171875" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="255.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="192.0" />
                             <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="260.0" />
                           </columnConstraints>
                           <rowConstraints>
                             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                           </rowConstraints>
                            <children>
-                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="56.0" prefWidth="275.0">
+                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <JFXButton text="Delete teacher" />
-                                    <JFXButton text="Edit teacher" />
-                                    <JFXButton text="Add teacher" />
+                                    <JFXButton onAction="#deleteTeacher" text="Delete teacher" />
+                                    <JFXButton onAction="#addTeacher" text="Add teacher" />
                                  </buttons>
                               </ButtonBar>
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <JFXButton text="Log out" />
+                                    <JFXButton onAction="#logOut" text="Log out" />
                                  </children>
                               </HBox>
                            </children>
                         </GridPane>
+                        <TableView fx:id="teachersTableView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                           <columns>
+                              <TableColumn prefWidth="75.0" text="First name" />
+                              <TableColumn prefWidth="107.0" text="Last name" />
+                              <TableColumn prefWidth="96.0" text="Username" />
+                              <TableColumn prefWidth="82.0" text="Password" />
+                              <TableColumn prefWidth="117.0" text="Email" />
+                              <TableColumn prefWidth="131.0" text="Phone number" />
+                              <TableColumn prefWidth="106.0" text="School" />
+                           </columns>
+                        </TableView>
                      </children>
                   </GridPane>
                </children></AnchorPane>
@@ -104,41 +95,47 @@
                <children>
                   <GridPane prefHeight="415.5" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="10.0" prefWidth="15.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="696.0" minWidth="10.0" prefWidth="681.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="7.0" prefWidth="8.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="711.0" minWidth="10.0" prefWidth="710.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="691.0" minWidth="0.0" prefWidth="15.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="32.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="316.0" minHeight="10.0" prefHeight="316.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="42.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="434.0" minHeight="10.0" prefHeight="424.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="45.0" minHeight="10.0" prefHeight="41.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
                         <GridPane alignment="CENTER" GridPane.columnIndex="1">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="56.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="163.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="269.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="199.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="335.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="145.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                              <TextField GridPane.columnIndex="1" />
-                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                              <TextField fx:id="searchStudentField" GridPane.columnIndex="1" />
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+                                 <children>
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All citizens" />
+                                 </children>
+                              </HBox>
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="1">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="476.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="553.0" minWidth="10.0" prefWidth="546.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="501.0" minWidth="2.0" prefWidth="14.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="290.0" minWidth="10.0" prefWidth="151.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TableView prefHeight="200.0" prefWidth="200.0">
+                              <TableView fx:id="studentsTableView" prefHeight="200.0" prefWidth="200.0">
                                  <columns>
                                     <TableColumn prefWidth="75.0" text="First name" />
                                     <TableColumn prefWidth="75.0" text="Last name" />
@@ -146,30 +143,31 @@
                                     <TableColumn prefWidth="75.0" text="Password" />
                                     <TableColumn prefWidth="75.0" text="Email" />
                                     <TableColumn prefWidth="97.0" text="Phone number" />
+                                    <TableColumn prefWidth="75.0" text="School" />
                                  </columns>
                               </TableView>
+                              <ListView fx:id="citizensStudentRelatedListView" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="2" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="346.6000244140625" minWidth="10.0" prefWidth="346.6000244140625" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="79.39997558593751" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="255.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="192.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="260.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="102.0" prefWidth="338.0">
+                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <JFXButton text="Delete students" />
-                                    <JFXButton text="Edit Student" />
-                                    <JFXButton text="Add students" />
+                                    <JFXButton onAction="#deleteStudent" text="Delete students" />
+                                    <JFXButton onAction="#addStudent" text="Add students" />
                                  </buttons>
                               </ButtonBar>
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <JFXButton text="Log out" />
+                                    <JFXButton onAction="#logOut" text="Log out" />
                                  </children>
                               </HBox>
                            </children>
@@ -186,16 +184,18 @@
                   <GridPane prefHeight="415.5" prefWidth="706.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="289.0" minWidth="0.0" prefWidth="0.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="820.0" minWidth="10.0" prefWidth="819.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="820.0" minWidth="0.0" prefWidth="21.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="820.0" minWidth="10.0" prefWidth="721.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="820.0" minWidth="10.0" prefWidth="22.0" />
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="691.0" minWidth="0.0" prefWidth="1.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="119.0" minHeight="10.0" prefHeight="24.0" vgrow="SOMETIMES" />
-                        <RowConstraints maxHeight="403.0" minHeight="10.0" prefHeight="395.0" vgrow="SOMETIMES" />
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="428.0" minHeight="10.0" prefHeight="428.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="51.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                      <children>
-                        <GridPane alignment="CENTER" GridPane.columnIndex="1">
+                        <GridPane alignment="CENTER" GridPane.columnIndex="2">
                            <columnConstraints>
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="56.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="439.0" minWidth="10.0" prefWidth="163.0" />
@@ -207,50 +207,49 @@
                            </rowConstraints>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                              <TextField GridPane.columnIndex="1" />
-                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" />
+                              <TextField fx:id="searchCitizenField" GridPane.columnIndex="1" />
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
+                                 <children>
+                                    <JFXButton onAction="#manageHealth" text="Manage health" />
+                                 </children></HBox>
                            </children>
                         </GridPane>
-                        <GridPane prefHeight="403.0" prefWidth="579.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="500.0" />
-                           </columnConstraints>
+                        <GridPane prefHeight="403.0" prefWidth="731.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <TableView prefHeight="402.0" prefWidth="689.0">
+                              <TableView fx:id="citizensTableView" prefHeight="403.0" prefWidth="724.0">
                                  <columns>
-                                    <TableColumn prefWidth="75.0" text="First name" />
-                                    <TableColumn prefWidth="75.0" text="Last name" />
-                                    <TableColumn prefWidth="97.0" text="Cpr-number" />
-                                    <TableColumn prefWidth="75.0" text="Address" />
-                                    <TableColumn prefWidth="97.0" text="Phone  number" />
-                                    <TableColumn prefWidth="79.0" text="School" />
+                                    <TableColumn prefWidth="103.0" text="First name" />
+                                    <TableColumn prefWidth="109.0" text="Last name" />
+                                    <TableColumn prefWidth="143.0" text="Cpr-number" />
+                                    <TableColumn prefWidth="132.0" text="Address" />
+                                    <TableColumn prefWidth="116.0" text="Phone  number" />
+                                    <TableColumn prefWidth="110.0" text="School" />
                                  </columns>
                               </TableView>
                            </children>
                         </GridPane>
-                        <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
+                        <GridPane GridPane.columnIndex="2" GridPane.rowIndex="2">
                            <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.7999755859375" minWidth="10.0" prefWidth="339.7999755859375" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="113.4000244140625" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="339.0" minWidth="10.0" prefWidth="255.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="192.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="260.0" />
                            </columnConstraints>
                            <rowConstraints>
                               <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="64.0" prefWidth="357.0">
+                              <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <JFXButton text="Delete citizen" />
-                                    <JFXButton text="Edit Citizen" />
-                                    <JFXButton text="Add citizen" />
+                                    <JFXButton onAction="#deleteCitizen" text="Delete citizen" />
+                                    <JFXButton onAction="#addCitizen" text="Add citizen" />
                                  </buttons>
                               </ButtonBar>
                               <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
                                  <children>
-                                    <JFXButton text="Log out" />
+                                    <JFXButton onAction="#logOut" text="Log out" />
                                  </children>
                               </HBox>
                            </children>
@@ -267,9 +266,9 @@
                <children>
                   <GridPane layoutX="14.0" layoutY="111.0" prefHeight="520.5" prefWidth="834.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="0.0" prefWidth="0.0" />
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="790.0" minWidth="10.0" prefWidth="790.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="0.0" prefWidth="0.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="268.0" minWidth="0.0" prefWidth="12.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="790.0" minWidth="10.0" prefWidth="713.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="185.0" minWidth="0.0" prefWidth="18.0" />
                     </columnConstraints>
                     <rowConstraints>
                       <RowConstraints maxHeight="165.0" minHeight="0.0" prefHeight="39.0" vgrow="SOMETIMES" />
@@ -312,19 +311,20 @@
                                       </rowConstraints>
                                        <children>
                                           <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Students" />
-                                          <TextField GridPane.columnIndex="1" />
+                                          <TextField fx:id="searchStudentFieldSchool" GridPane.columnIndex="1" />
                                        </children>
                                     </GridPane>
                                     <ListView prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="2" />
                                  </children>
                               </GridPane>
+                              <ListView prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="4" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="1">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="0.0" prefWidth="52.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="170.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="328.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="256.0" minWidth="0.0" prefWidth="55.0" />
+                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="527.0" minWidth="10.0" prefWidth="159.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="275.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="68.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="612.0" minWidth="10.0" prefWidth="172.0" />
                           </columnConstraints>
@@ -333,18 +333,20 @@
                           </rowConstraints>
                            <children>
                               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                              <TextField GridPane.columnIndex="1" />
+                              <TextField fx:id="searchSchoolField" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER" prefHeight="55.0" prefWidth="286.0" GridPane.columnIndex="2">
                                  <children>
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All teacher" />
                                  </children>
                               </HBox>
+                              <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" GridPane.columnIndex="3" />
+                              <TextField fx:id="searchCitizenSchoolField" GridPane.columnIndex="4" />
                            </children>
                         </GridPane>
                         <GridPane GridPane.columnIndex="1" GridPane.rowIndex="2">
                           <columnConstraints>
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="10.0" prefWidth="340.79998779296875" />
-                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="160.80001220703127" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="391.0" minWidth="10.0" prefWidth="268.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="289.0" />
                               <ColumnConstraints hgrow="SOMETIMES" maxWidth="568.0" minWidth="10.0" prefWidth="240.0" />
                           </columnConstraints>
                           <rowConstraints>
@@ -353,11 +355,15 @@
                            <children>
                               <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <JFXButton text="Delete school" />
-                                    <JFXButton text="Edit School" />
-                                    <JFXButton text="Add school" />
+                                    <JFXButton onAction="#deleteSchool" text="Delete school" />
+                                    <JFXButton onAction="#addSchool" text="Add school" />
                                  </buttons>
                               </ButtonBar>
+                              <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <JFXButton onAction="#logOut" text="Log out" />
+                                 </children>
+                              </HBox>
                            </children>
                         </GridPane>
                      </children>
