@@ -67,7 +67,16 @@ public class MainController {
 
         stage.show();
     }
+    public void openAdminMgr(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminView.fxml"));
+        Parent root = loader.load();
 
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
+    }
     public void closeWindow() throws IOException{
         Stage window = (Stage) this.passwordField.getScene().getWindow();
         window.close();
@@ -87,4 +96,6 @@ public class MainController {
             }
         }
     }
+
+
 }

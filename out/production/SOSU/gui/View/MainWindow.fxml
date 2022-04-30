@@ -43,5 +43,6 @@
       <Button layoutX="14.0" layoutY="21.0" mnemonicParsing="false" onAction="#openHpMgr" prefHeight="107.0" prefWidth="99.0" text="Manage Health" />
       <Button layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#openFaMgr" prefHeight="107.0" prefWidth="99.0" text="Manage Abilities" />
       <Button layoutX="14.0" layoutY="278.0" mnemonicParsing="false" onAction="#openCitizenForm" prefHeight="107.0" prefWidth="99.0" text="CitizenForm" />
+      <Button layoutX="486.0" layoutY="21.0" mnemonicParsing="false" onAction="#openAdminMgr" prefHeight="107.0" prefWidth="99.0" text="Administrator" />
    </children>
 </AnchorPane>
