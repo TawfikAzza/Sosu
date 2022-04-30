@@ -30,6 +30,11 @@ public abstract class User {
         this.roleID = roleID;
     }
 
+    public User(int id, int roleID) {
+        this.id = id;
+        this.roleID = roleID;
+    }
+
     public int getId() {
         return id;
     }

@@ -13,7 +13,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDAO {
-    static ConnectionManager cm;
+     static ConnectionManager cm;
 
     public  UsersDAO() throws IOException {
         cm = new ConnectionManager();
@@ -31,15 +31,15 @@ public class UsersDAO {
             pstmt.setString(2, passWord);
             ResultSet rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-               /*  user = new User(
-                         rs.getInt("id"),
-                         rs.getString("userName"),
-                         rs.getString("passWord"),
-                         rs.getString("email"),
-                         rs.getInt("roleID")
+            while (rs.next())
+            {
+                int id = rs.getInt("id");
+                int roleID = rs.getInt("roleID");
 
-                 );*/
+             //   user = new User(id, roleID);
+
+
+
             }
 
 
