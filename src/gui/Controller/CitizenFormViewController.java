@@ -1,5 +1,7 @@
 package gui.Controller;
 
+import be.Citizen;
+import bll.exceptions.CitizenException;
 import gui.Model.CitizenModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,6 +16,9 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class CitizenFormViewController implements Initializable {
+
+    @FXML
+    private TextField cprNumberField;
 
     @FXML
     private TextField fNameField;
@@ -38,7 +43,11 @@ public class CitizenFormViewController implements Initializable {
     private CitizenModel citizenModel;
 
     public CitizenFormViewController() {
-        citizenModel = new CitizenModel();
+        try {
+            citizenModel = new CitizenModel();
+        } catch (CitizenException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -64,14 +73,27 @@ public class CitizenFormViewController implements Initializable {
         String lName = lNAmeField.getText();
         String address = addressField.getText();
         LocalDate birthDate = birthDatePicker.getValue();
-        boolean isTemplate = templateCheckBox.isSelected();
-        int phoneNumber = 0;
+        String cprNumber = cprNumberField.getText();
+        int phoneNumber = -1;
 
         if (!phoneField.getText().isEmpty())
             phoneNumber = Integer.parseInt(phoneField.getText());
 
-        if (!fName.isEmpty() && !lName.isEmpty() && !address.isEmpty() && !birthDate.equals(null) && phoneNumber!=0){
-            System.out.println("well done");
+        if (fName.isEmpty() || lName.isEmpty() || address.isEmpty()
+            || birthDate.equals(null) || phoneNumber==-1 || cprNumber.isEmpty())
+                return;
+
+        Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
+        newCitizen.setAddress(address);
+        newCitizen.setBirthDate(birthDate);
+        newCitizen.setCprNumber(cprNumber);
+        newCitizen.setPhoneNumber(phoneNumber);
+        newCitizen.setTemplate(true);
+
+        try {
+            citizenModel.createNewCitizen(newCitizen);
+        } catch (CitizenException e) {
+            e.printStackTrace();
         }
 
 
