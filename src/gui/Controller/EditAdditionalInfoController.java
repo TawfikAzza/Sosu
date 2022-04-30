@@ -49,8 +49,9 @@ public class EditAdditionalInfoController implements Initializable {
         }
     }
 
-    private void loadGInfoContent() {
-
+    private void loadGInfoContent() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/GeneralInfoReportView.fxml"));
+        generalInfoTab.setContent(root);
     }
 
     private void loadFAbilityContent() throws IOException {

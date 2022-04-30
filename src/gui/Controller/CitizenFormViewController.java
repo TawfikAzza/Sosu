@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -57,7 +58,7 @@ public class CitizenFormViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        setupValidators();
     }
 
     public int getSchoolID() {
@@ -103,6 +104,10 @@ public class CitizenFormViewController implements Initializable {
         saveCitizen();
     }
 
+    private void setupValidators() {
+        phoneField.setTextFormatter(intFormatter);
+    }
+
     private boolean saveCitizen(){
         String fName = fNameField.getText();
         String lName = lNAmeField.getText();
@@ -135,4 +140,10 @@ public class CitizenFormViewController implements Initializable {
 
         return true;
     }
+
+    TextFormatter intFormatter = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[0-9]*"))
+            return change;
+        return null;
+    });
 }

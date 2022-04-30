@@ -45,4 +45,9 @@ public class InfoCategory {
     public void setDefinition(String definition) {
         this.definition = definition;
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
