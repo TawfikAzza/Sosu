@@ -1,6 +1,5 @@
 package gui.Controller;
 
-import be.GeneralInfo;
 import be.InfoCategory;
 import bll.exceptions.CitizenException;
 import gui.Model.GInfoModel;
