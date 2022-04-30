@@ -5,8 +5,8 @@ import java.util.List;
 
 public class Citizen {
     private int id;
-    private String fname;
-    private String lname;
+    private String fName;
+    private String lName;
     private String cprNumber;
     private String address;
     private int phoneNumber;
@@ -15,11 +15,12 @@ public class Citizen {
     private List<Condition> healthConditions;
     private List<Ability> functionalAbilities;
     private List<GeneralInfo> generalInfo;
+    private int schoolID;
 
-    public Citizen(int id, String fname, String lname, String cprNumber) {
+    public Citizen(int id, String fname, String lName, String cprNumber) {
         this.id = id;
-        this.fname = fname;
-        this.lname = lname;
+        this.fName = fname;
+        this.lName = lName;
         this.cprNumber = cprNumber;
     }
 
@@ -39,20 +40,20 @@ public class Citizen {
         this.id = id;
     }
 
-    public String getFname() {
-        return fname;
+    public String getfName() {
+        return fName;
     }
 
-    public void setFname(String fname) {
-        this.fname = fname;
+    public void setfName(String fName) {
+        this.fName = fName;
     }
 
-    public String getLname() {
-        return lname;
+    public String getlName() {
+        return lName;
     }
 
-    public void setLname(String lname) {
-        this.lname = lname;
+    public void setlName(String lName) {
+        this.lName = lName;
     }
 
     public String getCprNumber() {
@@ -109,5 +110,13 @@ public class Citizen {
 
     public void setBirthDate(LocalDate birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public int getSchoolID() {
+        return schoolID;
+    }
+
+    public void setSchoolID(int schoolID) {
+        this.schoolID = schoolID;
     }
 }

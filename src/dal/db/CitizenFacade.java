@@ -24,8 +24,8 @@ public class CitizenFacade {
             String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            String fname = citizen.getFname();
-            String lname = citizen.getLname();
+            String fname = citizen.getfName();
+            String lname = citizen.getlName();
             String address = citizen.getAddress();
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
