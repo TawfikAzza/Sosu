@@ -12,12 +12,12 @@ import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
-public class UserManger implements UserInterface {
+public class UserManager implements UserInterface {
 
     TeacherDao teacherDao;
     StudentDao studentDao;
 
-    public UserManger() throws IOException {
+    public UserManager() throws IOException {
         teacherDao = new TeacherDao();
         studentDao = new StudentDao();
     }
