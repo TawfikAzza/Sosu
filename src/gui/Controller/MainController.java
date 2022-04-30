@@ -1,5 +1,8 @@
 package gui.Controller;
 
+import be.Admin;
+import be.Student;
+import be.Teacher;
 import be.User;
 import bll.UserManager;
 import javafx.event.ActionEvent;
@@ -86,13 +89,17 @@ public class MainController {
     public void submitLogin(ActionEvent actionEvent) throws Exception {
 
         User user = userManager.submitLogin(userField.getText(), passwordField.getText());
+        System.out.println(user.getRoleID());
 
         if (user != null){
-            if (user.getRoleID() == 1){
-                openHpMgr(actionEvent);
+            if (user.getRoleID()==1){
+                openAdminMgr(new ActionEvent());
             }
-            else if (user.getRoleID() ==2){
-                openFaMgr( actionEvent);
+            if (user.getRoleID()==2){
+                openCitizenForm( new ActionEvent());
+            }
+            if (user.getRoleID()==3){
+                openFaMgr( new ActionEvent());
             }
         }
     }
