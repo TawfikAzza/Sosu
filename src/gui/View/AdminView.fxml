@@ -120,7 +120,7 @@
                               <TextField fx:id="searchStudentField" GridPane.columnIndex="1" />
                               <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3">
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="All citizens" />
+                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Student's Citizen" />
                                  </children>
                               </HBox>
                            </children>
