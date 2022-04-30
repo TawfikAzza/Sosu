@@ -2,26 +2,25 @@ package be;
 
 public class Ability {
     private int id;
-    private String name;
     private int score;
     private int categoryID;
     private int citizenID;
-    private String citizenText;
+    private int status;
 
-    public Ability(int id, String name, int score, int categoryID, int citizenID) {
+    public Ability(int id, int categoryID,int citizenID, int score,int status) {
         this.id = id;
-        this.name = name;
+        this.categoryID=categoryID;
+        this.citizenID=citizenID;
         this.score = score;
-        this.categoryID = categoryID;
-        this.citizenID = citizenID;
+        this.status=status;
     }
 
-    public String getCitizenText() {
-        return citizenText;
+    public int getId() {
+        return id;
     }
 
-    public void setCitizenText(String citizenText) {
-        this.citizenText = citizenText;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCategoryID() {
@@ -40,20 +39,12 @@ public class Ability {
         this.citizenID = citizenID;
     }
 
-    public int getId() {
-        return id;
+    public int getStatus() {
+        return status;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
+    public void setStatus(int status) {
+        this.status = status;
     }
 
     public int getScore() {
