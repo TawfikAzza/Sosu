@@ -1,14 +1,12 @@
 package dal.db;
 
 import be.*;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 public class CitizenFacade {
@@ -46,7 +44,8 @@ public class CitizenFacade {
                 String description = con.getDescription();
                 int status = con.getStatus();
                 String text = con.getFreeText();
-                String goal = con.getCitGoals();
+                String goal = con.getGoal();
+
 
                 ps.setInt(1, catID);
                 ps.setInt(2, citizenID);
@@ -75,11 +74,11 @@ public class CitizenFacade {
                 int catID = ability.getCategoryID();
                 int citizenID = ability.getCitizenID();
                 int status = ability.getScore();
-                String text = ability.getCitizenText();
+                //String text = ability.getCitizenText();
 
                 ps.setInt(1, catID);
                 ps.setInt(2, citizenID);
-                ps.setString(3, text);
+                //ps.setString(3, text);
                 ps.setInt(4, status);
 
                 ps.addBatch(sql);
