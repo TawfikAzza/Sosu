@@ -82,6 +82,7 @@
          <children>
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
             <Button mnemonicParsing="false" onAction="#handleSave" text="Save" />
+            <Button mnemonicParsing="false" onAction="#handleAdditionalInfo" text="Additional info" />
          </children>
       </HBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="2" GridPane.rowIndex="2">

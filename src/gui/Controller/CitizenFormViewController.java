@@ -5,11 +5,17 @@ import bll.exceptions.CitizenException;
 import gui.Model.CitizenModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import javafx.stage.Window;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
 import java.time.LocalDate;
@@ -35,8 +41,6 @@ public class CitizenFormViewController implements Initializable {
     @FXML
     private TextField phoneField;
 
-    @FXML
-    private CheckBox templateCheckBox;
 
     private int schoolID;
 
@@ -68,7 +72,37 @@ public class CitizenFormViewController implements Initializable {
     }
 
     @FXML
+    private void handleAdditionalInfo(ActionEvent actionEvent) throws IOException {
+
+        //TODO retrieve just created citizen, to change its additional inf (functional abilities,health conditions and general info)
+        if (saveCitizen()) {
+            closeThisWindow();
+            openAdditionalInfoWindow();
+        }
+    }
+
+    private void closeThisWindow() {
+        Scene currentScene = fNameField.getScene();
+        Stage currentStage = ((Stage) currentScene.getWindow());
+        currentStage.close();
+    }
+
+    private void openAdditionalInfoWindow() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/EditAdditionalInfoView.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage newWindow = new Stage();
+        newWindow.setScene(scene);
+        newWindow.show();
+    }
+
+    @FXML
     private void handleSave(ActionEvent actionEvent) {
+        saveCitizen();
+    }
+
+    private boolean saveCitizen(){
         String fName = fNameField.getText();
         String lName = lNAmeField.getText();
         String address = addressField.getText();
@@ -80,8 +114,8 @@ public class CitizenFormViewController implements Initializable {
             phoneNumber = Integer.parseInt(phoneField.getText());
 
         if (fName.isEmpty() || lName.isEmpty() || address.isEmpty()
-            || birthDate.equals(null) || phoneNumber==-1 || cprNumber.isEmpty())
-                return;
+                || birthDate.equals(null) || phoneNumber==-1 || cprNumber.isEmpty())
+            return false;
 
         Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
         newCitizen.setAddress(address);
@@ -96,6 +130,6 @@ public class CitizenFormViewController implements Initializable {
             e.printStackTrace();
         }
 
-
+        return true;
     }
 }

@@ -45,7 +45,7 @@ public class CitizenFacade {
             ps.setString(8,cprNumber);
 
             ps.execute();
-            
+
         }
     }
 

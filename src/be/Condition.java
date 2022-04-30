@@ -9,6 +9,7 @@ public class Condition {
     private int citizenID;
     private int categoryID;
     private int status;
+
     public Condition(int id, int categoryID , int citizenID, String description, int status,String freeText, String goal) {
         this.id = id;
         this.categoryID = categoryID;
