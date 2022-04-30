@@ -1,10 +1,5 @@
-import be.AbilityCategory;
-import be.HealthCategory;
-import be.School;
-import be.Student;
-import dal.db.FunctionalAbilityDAO;
-import dal.db.HealthConditionDAO;
-import dal.db.StudentDao;
+import be.*;
+import dal.db.*;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -17,6 +12,11 @@ public class DAOTest {
         //  getAllCategoriesTree();
         // getAllAbilityCategoriesTree();
         // editStudent(new Student(7,"test","test","test","dfd","sfsf",543));
+        // createTeacher(new School(1,"SOSU ESBJERG"),"teacher","teacher","teacher","teacher","teacher@test.dk",9999999);
+        // getAllTeachers("test");
+        // deleteTeacher(new Teacher(11,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
+        // editTeacher(new Teacher(12,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
+        // getAllAdmins();
     }
     private static void getAllCategories() throws IOException, SQLException {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
@@ -62,4 +62,33 @@ public class DAOTest {
         StudentDao studentDao = new StudentDao();
         studentDao.editStudent(student);
     }
+
+    private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, int phoneNumber) throws IOException, SQLException {
+        TeacherDao teacherDao = new TeacherDao();
+        teacherDao.newTeacher(school,firstName,lastName,userName,password,email,phoneNumber);
+    }
+
+    private static void getAllTeachers(String initials) throws IOException, SQLException {
+        TeacherDao teacherDao = new TeacherDao();
+        for (Teacher teacher : teacherDao.getAllTeachers(initials))
+            System.out.println(teacher.getFirstName()+" "+teacher.getLastName()+"   School: "+teacher.getSchoolName());
+    }
+
+    private static void deleteTeacher(Teacher teacher) throws IOException, SQLException {
+        TeacherDao teacherDao = new TeacherDao();
+        teacherDao.deleteTeacher(teacher);
+    }
+
+    private static void editTeacher(Teacher teacher) throws IOException, SQLException {
+        teacher.setEmail("darbouka@error.df");
+        TeacherDao teacherDao = new TeacherDao();
+        teacherDao.editTeacher(teacher);
+    }
+
+    private static void getAllAdmins() throws IOException, SQLException {
+        AdminDao adminDao = new AdminDao();
+        for (Admin admin : adminDao.getAllAdmins())
+            System.out.println(admin.getFirstName()+" "+admin.getLastName());
+    }
+
 }
