@@ -31,14 +31,14 @@ public class UsersDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                 user = new User(
+               /*  user = new User(
                          rs.getInt("id"),
                          rs.getString("userName"),
                          rs.getString("passWord"),
                          rs.getString("email"),
                          rs.getInt("roleID")
 
-                 );
+                 );*/
             }
 
 
