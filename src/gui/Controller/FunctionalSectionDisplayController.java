@@ -29,7 +29,7 @@ public class FunctionalSectionDisplayController implements Initializable {
     private Citizen currentCitizen;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = new Citizen(1,"Jeppe Moritz","15-12-2015","123");
+        currentCitizen = new Citizen(1,"Jeppe", "Moritz","15-12-2015");
     }
 
     @Override
