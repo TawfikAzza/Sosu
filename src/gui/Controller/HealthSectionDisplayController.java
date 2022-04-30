@@ -28,7 +28,7 @@ public class HealthSectionDisplayController implements Initializable {
     private Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = new Citizen(1,"Jeppe Moritz","15-12-2015","123");
+        currentCitizen = new Citizen(1,"Jeppe", "Moritz","15-12-2015");
     }
 
     @Override
