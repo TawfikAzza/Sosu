@@ -18,6 +18,7 @@ public class DAOTest {
         // editTeacher(new Teacher(12,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
         // getAllAdmins();
         // getAllInfoCategories();
+        getAllSchools();
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
@@ -99,6 +100,12 @@ public class DAOTest {
         AdminDao adminDao = new AdminDao();
         for (Admin admin : adminDao.getAllAdmins())
             System.out.println(admin.getFirstName()+" "+admin.getLastName());
+    }
+
+    private static void getAllSchools() throws IOException, SQLException {
+        SchoolDao schoolDao = new SchoolDao();
+        for (School school : schoolDao.getAllSchools())
+            System.out.println(school.getName());
     }
 
 }

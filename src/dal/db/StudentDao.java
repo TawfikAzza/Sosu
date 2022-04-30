@@ -2,8 +2,6 @@ package dal.db;
 
 import be.School;
 import be.Student;
-import be.Teacher;
-import be.User;
 import dal.ConnectionManager;
 
 import java.io.IOException;
