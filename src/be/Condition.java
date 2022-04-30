@@ -60,11 +60,11 @@ public class Condition {
         this.citizenID = citizenID;
     }
 
-    public int getCatgoryID() {
+    public int getCategoryID() {
         return categoryID;
     }
 
-    public void setCatgoryID(int catgoryID) {
+    public void setCategoryID(int catgoryID) {
         this.categoryID = catgoryID;
     }
 

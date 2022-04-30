@@ -3,7 +3,6 @@ package dal.db;
 import be.Citizen;
 import be.Condition;
 import be.HealthCategory;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -82,7 +81,7 @@ public class HealthConditionDAO {
         try (Connection connection = cm.getConnection()) {
             String sqlInsert = "INSERT INTO CONDITIONS VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
-            pstmt.setInt(1, condition.getCatgoryID());
+            pstmt.setInt(1, condition.getCategoryID());
             pstmt.setInt(2, condition.getCitizenID());
             pstmt.setString(3, condition.getDescription());
             pstmt.setInt(4, condition.getStatus());
@@ -104,7 +103,7 @@ public class HealthConditionDAO {
             pstmt.setInt(2, condition.getStatus());
             pstmt.setString(3, condition.getFreeText());
             pstmt.setString(4, condition.getGoal());
-            pstmt.setInt(5,condition.getCatgoryID());
+            pstmt.setInt(5,condition.getCategoryID());
             pstmt.setInt(6,condition.getCitizenID());
 
             pstmt.execute();
