@@ -13,15 +13,16 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDAO {
-    ConnectionManager cm;
+    static ConnectionManager cm;
 
-    public UsersDAO() throws IOException {
+    public  UsersDAO() throws IOException {
         cm = new ConnectionManager();
     }
 
-    public User compareLogins (String userName , String passWord) throws IOException {
+    public static User compareLogins(String userName, String passWord) throws IOException {
 
         User user = null;
+
         try (Connection con = cm.getConnection()){
             String sql = "SELECT [user_name],[password],[e_mail], [roleID], [id] FROM user WHERE [user_name] =? ,[password] =?";
 
@@ -42,8 +43,8 @@ public class UsersDAO {
             }
 
 
-        } catch (SQLException sqlException) {
-            sqlException.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
         return user;
     }

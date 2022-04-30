@@ -34,7 +34,7 @@
                   <Insets bottom="11.0" top="16.0" />
                </VBox.margin>
             </PasswordField>
-            <Button fx:id="loginButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="25.0" prefWidth="91.0" text="Login">
+            <Button fx:id="submitButton" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#submitLogin" prefHeight="25.0" prefWidth="91.0" text="Submit">
                <VBox.margin>
                   <Insets left="70.0" />
                </VBox.margin></Button>

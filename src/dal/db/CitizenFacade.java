@@ -4,10 +4,7 @@ import be.*;
 import dal.ConnectionManager;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -19,10 +16,10 @@ public class CitizenFacade {
         cm = new ConnectionManager();
     }
 
-    private void addCitizen(Citizen citizen) throws SQLException {
+    private Citizen addCitizen(Citizen citizen) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
+            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
+            PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             String fname = citizen.getfName();
             String lname = citizen.getlName();
@@ -30,6 +27,7 @@ public class CitizenFacade {
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
             boolean template = citizen.isTemplate();
+            String cprNumber = citizen.getCprNumber();
 
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -38,9 +36,19 @@ public class CitizenFacade {
             ps.setInt(5, phoneNumber);
             ps.setBoolean(6, template);
 
+            ps.setInt(7,1);//The schoolID column, set to 1 by default for now
+            //TODO change
+
+            ps.setString(8,cprNumber);
+
             ps.execute();
 
+            ResultSet generatedKeys = ps.getGeneratedKeys();
+            if (generatedKeys.next())
+                citizen.setId(generatedKeys.getInt(1));
+
         }
+        return citizen;
     }
 
     private void addHealthConditions(Citizen citizen) throws SQLException {
@@ -125,11 +133,13 @@ public class CitizenFacade {
         }
     }
 
-    public void addCitizenToDB(Citizen citizen) throws SQLException {
-        addCitizen(citizen);
-        addFunctionalAbilities(citizen);
-        addGeneralInfo(citizen);
-        addHealthConditions(citizen);
+    public Citizen addCitizenToDB(Citizen citizen) throws SQLException {
+        Citizen createdCitizen = addCitizen(citizen);
+        addFunctionalAbilities(createdCitizen);
+        addGeneralInfo(createdCitizen);
+        addHealthConditions(createdCitizen);
+
+        return createdCitizen;
     }
 
 }
