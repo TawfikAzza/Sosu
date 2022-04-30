@@ -3,37 +3,37 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import be.Teacher;
+import gui.Model.UserModel;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.ListView;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 
+import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
+    public TableColumn<Teacher,String> firstNameTeacher,lastNameTeacher,userNameTeacher,passWordTeacher,emailTeacher,schoolTeacher;
+    public TableColumn<Teacher,Integer> phoneNumberTeacher;
     @FXML
-    private TextField searchTeacherField;
+    private TextField searchTeacherField,searchStudentField,searchCitizenField,searchStudentFieldSchool,searchSchoolField,searchCitizenSchoolField;
     @FXML
     private TableView<Teacher> teachersTableView;
-    @FXML
-    private TextField searchStudentField;
     @FXML
     private TableView<Student> studentsTableView;
     @FXML
     private ListView<Citizen> citizensStudentRelatedListView;
     @FXML
-    private TextField searchCitizenField;
-    @FXML
     private TableView<Citizen> citizensTableView;
-    @FXML
-    private TextField searchStudentFieldSchool;
-    @FXML
-    private TextField searchSchoolField;
-    @FXML
-    private TextField searchCitizenSchoolField;
+
+    UserModel userModel;
+
 
     public void deleteTeacher(ActionEvent actionEvent) {
     }
@@ -67,6 +67,31 @@ public class AdminViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-
+        try {
+            userModel=UserModel.getInstance();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        initializeTeachersTV();
+        searchTeacherField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        teachersTableView.setItems(userModel.getAllTeachers(searchTeacherField.getText()));
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+    }
+    private void initializeTeachersTV(){
+        firstNameTeacher.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameTeacher.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        userNameTeacher.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        passWordTeacher.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        emailTeacher.setCellValueFactory(new PropertyValueFactory<>("email"));
+        phoneNumberTeacher.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
     }
 }

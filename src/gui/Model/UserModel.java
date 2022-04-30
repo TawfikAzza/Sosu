@@ -22,13 +22,13 @@ public class UserModel {
     ObservableList<Teacher> allTeachers;
     ObservableList<Student> allStudents;
 
-    public List<Teacher>getAllTeachers(String init) throws SQLException{
+    public ObservableList<Teacher>getAllTeachers(String init) throws SQLException{
         allTeachers= FXCollections.observableArrayList();
         allTeachers.addAll(userManger.getAllTeachers(init));
         return allTeachers;
     }
 
-    public List<Student>getAllStudents(String init) throws SQLException{
+    public ObservableList<Student>getAllStudents(String init) throws SQLException{
         allStudents= FXCollections.observableArrayList();
         allStudents.addAll(userManger.getAllStudents(init));
         return allStudents;
@@ -67,7 +67,7 @@ public class UserModel {
         return single_instance;
     }
 
-    public UserModel() throws IOException {
+    private UserModel() throws IOException {
         this.userManger = new UserManger();
     }
 

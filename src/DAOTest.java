@@ -13,12 +13,12 @@ public class DAOTest {
         // getAllAbilityCategoriesTree();
         // editStudent(new Student(7,"test","test","test","dfd","sfsf",543));
         // createTeacher(new School(1,"SOSU ESBJERG"),"teacher","teacher","teacher","teacher","teacher@test.dk",9999999);
-        // getAllTeachers("test");
+         //getAllTeachers("Aaza");
         // deleteTeacher(new Teacher(11,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
         // editTeacher(new Teacher(12,"teacher","teacher","teacher","teacher","teacher@test.dk",9999999));
         // getAllAdmins();
         // getAllInfoCategories();
-        getAllSchools();
+        //getAllSchools();
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
