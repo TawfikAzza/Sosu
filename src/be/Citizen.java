@@ -1,6 +1,7 @@
 package be;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Citizen {
@@ -22,6 +23,10 @@ public class Citizen {
         this.fName = fname;
         this.lName = lName;
         this.cprNumber = cprNumber;
+
+        functionalAbilities = new ArrayList<>();
+        healthConditions = new ArrayList<>();
+        generalInfo = new ArrayList<>();
     }
 
     public boolean isTemplate() {
