@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class NewEditUserController implements Initializable {
@@ -44,6 +45,10 @@ public class NewEditUserController implements Initializable {
     private Teacher teacher;
     private Student student;
 
+    private ObservableList<Teacher>allTeacher=FXCollections.observableArrayList();
+    private String init;
+    AdminViewController adminViewController;
+
     public void handleCancel(ActionEvent actionEvent) {
     }
 
@@ -52,7 +57,9 @@ public class NewEditUserController implements Initializable {
             try {
                 Teacher newTeacher = userModel.newTeacher(schoolComboBox.getSelectionModel().getSelectedItem(),
                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
-
+                if (newTeacher.getFirstName().toLowerCase().contains(init)||newTeacher.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
+                {   allTeacher.add(newTeacher);
+                    adminViewController.refreshTView(allTeacher);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException ue){
@@ -63,9 +70,13 @@ public class NewEditUserController implements Initializable {
                 alert.showAndWait();
             }
 
-        else if(newUser&&!isTeacher)
+        else if(newUser&&!isTeacher){
             userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
                     firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),Integer.parseInt(phoneNumberField.getText()));
+
+        Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+        stage.close();
+        }
 
         else if (!newUser&&isTeacher){
             teacher.setFirstName(firstName.getText());
@@ -76,6 +87,9 @@ public class NewEditUserController implements Initializable {
             teacher.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
             try {
                 userModel.editTeacher(teacher,schoolComboBox.getSelectionModel().getSelectedItem());
+                if (!(teacher.getFirstName().toLowerCase().contains(init)||teacher.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
+                {   allTeacher.remove(teacher);
+                    adminViewController.refreshTView(allTeacher);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException ue){
@@ -153,5 +167,14 @@ public class NewEditUserController implements Initializable {
                 schoolComboBox.getSelectionModel().select(index);
             }
         }
+    }
+
+    public void updateTView(ObservableList<Teacher> allTeacherFiltered, String text) {
+        allTeacher=allTeacherFiltered;
+        init=text;
+    }
+
+    public void setController(AdminViewController adminViewController) {
+        this.adminViewController=adminViewController;
     }
 }
