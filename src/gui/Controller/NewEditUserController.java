@@ -15,6 +15,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
@@ -52,6 +53,16 @@ public class NewEditUserController implements Initializable {
     AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
+        if (!(firstName.getText().isEmpty()&&lastName.getText().isEmpty()&&userName.getText().isEmpty()&&passWord.getText().isEmpty()&&email.getText().isEmpty()&&phoneNumberField.getText().isEmpty()&&schoolComboBox.getSelectionModel().getSelectedItem()==null))
+        {Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Alert");
+        alert.setHeaderText("Are you sure you want to close this window ?");
+        alert.setContentText("All your infos will be lost in this case.");
+        alert.showAndWait();
+        if (alert.showAndWait().get() == ButtonType.OK) {
+            Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+            stage.close();
+        }}
     }
 
     public void createNewUser(ActionEvent actionEvent) throws SQLException {

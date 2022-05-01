@@ -38,4 +38,72 @@ public class SchoolDao {
             preparedStatement.executeUpdate();
         }
     }
+    public List<String>getAllTeachers(School school)throws SQLException{
+        List<String>allTeachers = new ArrayList<>();
+        int roleId=0;
+        try (Connection connection = connectionManager.getConnection()){
+            String sql0="SELECT * FROM UserRoles WHERE roleName= ?";
+            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+            preparedStatement0.setString(1,"Teacher");
+            ResultSet resultSet0= preparedStatement0.executeQuery();
+            return selectUsers(school, allTeachers, roleId, connection, resultSet0);
+        }
+    }
+
+    public List<String>getAllStudents(School school)throws SQLException{
+        List<String>allStudents = new ArrayList<>();
+        int roleId=0;
+        try (Connection connection = connectionManager.getConnection()){
+            String sql0="SELECT * FROM UserRoles WHERE roleName= ?";
+            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+            preparedStatement0.setString(1,"Student");
+            ResultSet resultSet0= preparedStatement0.executeQuery();
+            return selectUsers(school, allStudents, roleId, connection, resultSet0);
+        }
+    }
+
+    private List<String> selectUsers(School school, List<String> allStudents, int roleId, Connection connection, ResultSet resultSet0) throws SQLException {
+        if (resultSet0.next())
+            roleId = resultSet0.getInt("roleID");
+        String sql = "SELECT * FROM [user] WHERE school_id= ? AND roleID= ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1,school.getId());
+        preparedStatement.setInt(2,roleId);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        while (resultSet.next())
+            allStudents.add(resultSet.getString("first_name")+" "+resultSet.getString("last_name"));
+        return allStudents;
+    }
+
+    public List<String>getAllCitizens(School school)throws SQLException{
+        List<String>allCitizens = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection()){
+            String sql="SELECT * FROM Citizen WHERE school_id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,school.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                allCitizens.add(resultSet.getString("fname")+" "+resultSet.getString("lname"));
+            }
+        }
+        return allCitizens;
+    }
+
+    public School newSchool(String schoolName)throws SQLException{
+        checkSchoolName(schoolName);
+        School school=null;
+        try (Connection connection = connectionManager.getConnection()){
+            String sql = "INSERT INTO school VAlUES (?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1,schoolName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                 school = new School(resultSet.getInt(1),schoolName);
+            }
+        }
+        return school;
+    }
+
+    private void checkSchoolName(String schoolName) {
+    }
 }

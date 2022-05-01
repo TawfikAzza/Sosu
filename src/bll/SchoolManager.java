@@ -15,4 +15,18 @@ public class SchoolManager {
     public List<School>getAllSchools() throws SQLException {
         return schoolDao.getAllSchools();
     }
+    public List<String>getAllStudents(School school) throws SQLException {
+        return schoolDao.getAllStudents(school);
+    }
+    public List<String>getAllTeachers(School school) throws SQLException{
+        return schoolDao.getAllTeachers(school);
+    }
+
+    public List<String>getAllCitizens(School school) throws SQLException{
+        return schoolDao.getAllCitizens(school);
+    }
+    public School newSchool(String schoolName)throws SQLException{
+        return schoolDao.newSchool(schoolName);
+    }
+
 }
