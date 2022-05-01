@@ -30,7 +30,8 @@ public class FunctionalSectionDisplayController implements Initializable {
     private Citizen currentCitizen;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = GlobalCitizen.getSelectedCitizen();
+       // currentCitizen = GlobalCitizen.getSelectedCitizen();
+        currentCitizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
     }
 
     @Override

@@ -165,9 +165,7 @@ public class HealthConditionDAO {
               }
           }
 
-          List<Pair<HealthCategory,Condition>> listTmp = new ArrayList<>();
-          int currentSid = 0;
-          boolean flagFirst = false;
+
           for (Map.Entry entry:hashMapResult.entrySet()) {
                 HealthCategory healthCategory = (HealthCategory) entry.getKey();
                 Condition condition = (Condition) entry.getValue();
