@@ -65,7 +65,6 @@ public class FunctionalReportViewController implements Initializable {
                 Label subCat = new Label();
                 subCat.setText(pair.getKey().getName()+" "+pair.getValue().getScore());
                 vBox.getChildren().add(subCat);
-                System.out.println(categoryHashMap.get(sid)+" "+pair.getKey().getName()+" "+pair.getValue().getScore());
             }
             vBoxContent.getChildren().add(vBox);
         }

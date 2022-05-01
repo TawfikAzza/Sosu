@@ -73,7 +73,7 @@ public class HealthConditionReportViewController implements Initializable {
                // vBox.getChildren().add(subCat);
                 textFlow = new TextFlow(text);
                 vBox.getChildren().add(textFlow);
-                System.out.println(categoryHashMap.get(sid)+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
+                
             }
             vBoxContent.getChildren().add(vBox);
         }
