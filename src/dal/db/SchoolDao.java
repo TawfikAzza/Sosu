@@ -1,6 +1,8 @@
 package dal.db;
 
 import be.School;
+import bll.exceptions.SchoolException;
+import bll.exceptions.UserException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -89,21 +91,34 @@ public class SchoolDao {
         return allCitizens;
     }
 
-    public School newSchool(String schoolName)throws SQLException{
-        checkSchoolName(schoolName);
+    public School newSchool(String schoolName)throws SchoolException{
         School school=null;
-        try (Connection connection = connectionManager.getConnection()){
-            String sql = "INSERT INTO school VAlUES (?)";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
-            preparedStatement.setString(1,schoolName);
-            ResultSet resultSet = preparedStatement.executeQuery();
-            while (resultSet.next()){
-                 school = new School(resultSet.getInt(1),schoolName);
+        try {
+            checkSchoolName(schoolName);
+            try (Connection connection = connectionManager.getConnection()){
+                String sql = "INSERT INTO school VAlUES (?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
+                preparedStatement.setString(1,schoolName);
+                ResultSet resultSet = preparedStatement.executeQuery();
+                while (resultSet.next()){
+                    school = new School(resultSet.getInt(1),schoolName);
+                }
             }
+        }catch (SQLException sqlException){
+            throw  new SchoolException("Something went wrong in the database",new Exception());
         }
+
         return school;
     }
 
-    private void checkSchoolName(String schoolName) {
+    private void checkSchoolName(String schoolName) throws SchoolException {
+        if (schoolName.isEmpty())
+            throw new SchoolException("Please enter a school name.", new Exception());
+
+        if (!(schoolName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
+            SchoolException schoolException = new SchoolException("Please find a valid school name", new Exception());
+            schoolException.setInstructions("A valid name is only composed of Alphabet characters");
+            throw schoolException;
     }
+}
 }

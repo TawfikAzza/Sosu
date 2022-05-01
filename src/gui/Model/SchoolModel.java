@@ -4,6 +4,7 @@ import be.School;
 import be.Teacher;
 import bll.SchoolManager;
 import bll.UserManager;
+import bll.exceptions.SchoolException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -46,7 +47,7 @@ public class SchoolModel {
         return allCitizens;
     }
 
-    public School newSchool(String text) throws SQLException {
+    public School newSchool(String text) throws SchoolException {
         return schoolManager.newSchool(text);
     }
 }

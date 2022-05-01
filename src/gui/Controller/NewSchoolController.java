@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import be.School;
+import bll.exceptions.SchoolException;
 import com.jfoenix.controls.JFXButton;
 import gui.Model.SchoolModel;
 import javafx.collections.FXCollections;
@@ -42,13 +43,22 @@ public class NewSchoolController implements Initializable {
             }}
     }
 
-    public void handleConfirmNewSchool(ActionEvent actionEvent) throws SQLException {
-        School newSchool = schoolModel.newSchool(schoolName.getText());
-        allSchools.add(newSchool);
-        adminViewController.refreshLViewSchools(allSchools);
+    public void handleConfirmNewSchool(ActionEvent actionEvent)  {
+        try {
+            School newSchool = schoolModel.newSchool(schoolName.getText());
+            allSchools.add(newSchool);
+            adminViewController.refreshLViewSchools(allSchools);
 
-        Stage stage = (Stage) cnfrmBtn.getScene().getWindow();
-        stage.close();
+            Stage stage = (Stage) cnfrmBtn.getScene().getWindow();
+            stage.close();
+        }catch (SchoolException schoolException){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alert");
+            alert.setHeaderText(schoolException.getExceptionMessage());
+            alert.setContentText(schoolException.getInstructions());
+            alert.showAndWait();
+        }
+
     }
 
     @Override

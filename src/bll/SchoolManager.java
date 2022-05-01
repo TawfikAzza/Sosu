@@ -1,6 +1,7 @@
 package bll;
 
 import be.School;
+import bll.exceptions.SchoolException;
 import dal.db.SchoolDao;
 
 import java.io.IOException;
@@ -25,7 +26,7 @@ public class SchoolManager {
     public List<String>getAllCitizens(School school) throws SQLException{
         return schoolDao.getAllCitizens(school);
     }
-    public School newSchool(String schoolName)throws SQLException{
+    public School newSchool(String schoolName)throws SchoolException {
         return schoolDao.newSchool(schoolName);
     }
 
