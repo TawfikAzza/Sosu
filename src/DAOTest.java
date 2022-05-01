@@ -1,10 +1,12 @@
 import be.*;
 import dal.db.*;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOTest {
     public static void main(String[] args) throws SQLException, IOException {
@@ -19,6 +21,7 @@ public class DAOTest {
         // getAllAdmins();
         // getAllInfoCategories();
         //getAllSchools();
+        getAllConditionFromCitizen();
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
@@ -33,7 +36,6 @@ public class DAOTest {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
         healthConditionDAO.getAllMainHealthCategories();
     }
-
     private static void getAllCategoriesTree() throws IOException, SQLException {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
         List<HealthCategory> healthCategoryList = healthConditionDAO.getAllCategoriesTree();
@@ -107,5 +109,15 @@ public class DAOTest {
         for (School school : schoolDao.getAllSchools())
             System.out.println(school.getName());
     }
+    private static void getAllConditionFromCitizen() throws IOException, SQLException {
+        HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
+        HashMap <Integer, List<Pair<HealthCategory,Condition>>> hashMap = healthConditionDAO.getConditionsFromCitizen(1);
 
+
+        for (Map.Entry<Integer, List<Pair<HealthCategory, Condition>>> entry : hashMap.entrySet()) {
+            List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
+            System.out.println(list.size());
+
+        }
+    }
 }
