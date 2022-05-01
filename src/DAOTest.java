@@ -1,4 +1,5 @@
 import be.*;
+import bll.exceptions.UserException;
 import dal.db.*;
 
 import java.io.IOException;
@@ -74,7 +75,7 @@ public class DAOTest {
         studentDao.editStudent(student);
     }
 
-    private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, int phoneNumber) throws IOException, SQLException {
+    private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, String phoneNumber) throws IOException, UserException {
         TeacherDao teacherDao = new TeacherDao();
         teacherDao.newTeacher(school,firstName,lastName,userName,password,email,phoneNumber);
     }
@@ -90,10 +91,10 @@ public class DAOTest {
         teacherDao.deleteTeacher(teacher);
     }
 
-    private static void editTeacher(Teacher teacher) throws IOException, SQLException {
+    private static void editTeacher(Teacher teacher,School school) throws IOException, SQLException, UserException {
         teacher.setEmail("darbouka@error.df");
         TeacherDao teacherDao = new TeacherDao();
-        teacherDao.editTeacher(teacher);
+        teacherDao.editTeacher(teacher,school);
     }
 
     private static void getAllAdmins() throws IOException, SQLException {

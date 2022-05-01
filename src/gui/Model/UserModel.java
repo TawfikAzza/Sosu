@@ -6,6 +6,7 @@ import be.Student;
 import be.Teacher;
 import be.User;
 import bll.UserManager;
+import bll.exceptions.UserException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -36,7 +37,7 @@ public class UserModel {
         return userManager.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
-    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws SQLException {
+    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         return userManager.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
@@ -54,8 +55,8 @@ public class UserModel {
         userManager.editStudent(student);
     }
 
-    public void editTeacher(Teacher teacher) throws SQLException {
-        userManager.editTeacher(teacher);
+    public void editTeacher(Teacher teacher,School school) throws  UserException {
+        userManager.editTeacher(teacher,school);
     }
 
 
@@ -67,7 +68,7 @@ public class UserModel {
         return single_instance;
     }
 
-    private UserModel() throws IOException {
+    public UserModel() throws IOException {
         this.userManager = new UserManager();
     }
 
