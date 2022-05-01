@@ -1,6 +1,8 @@
 package dal.db;
 
 import be.*;
+import bll.exceptions.CitizenException;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -16,7 +18,7 @@ public class CitizenFacade {
         cm = new ConnectionManager();
     }
 
-    private Citizen addCitizen(Citizen citizen) throws SQLException {
+    private Citizen addCitizen(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
             String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -46,12 +48,13 @@ public class CitizenFacade {
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next())
                 citizen.setId(generatedKeys.getInt(1));
-
+        } catch (SQLException e) {
+            throw new CitizenException("Error uploading citizen to DB", e);
         }
         return citizen;
     }
 
-    private void addHealthConditions(Citizen citizen) throws SQLException {
+    private void addHealthConditions(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -79,10 +82,12 @@ public class CitizenFacade {
             }
 
             ps.executeBatch();
+        } catch (SQLException throwables) {
+            throw new CitizenException("Error uploading health conditions", throwables);
         }
     }
 
-    private void addFunctionalAbilities(Citizen citizen) throws SQLException {
+    private void addFunctionalAbilities(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
 
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?)";
@@ -105,10 +110,12 @@ public class CitizenFacade {
                 ps.addBatch(sql);
             }
             ps.executeBatch();
+        } catch (SQLException throwables) {
+            throw new CitizenException("Error uploading functional abilities", throwables);
         }
     }
 
-    private void addGeneralInfo(Citizen citizen) throws SQLException {
+    private void addGeneralInfo(Citizen citizen) throws CitizenException {
 
         try (Connection connection = cm.getConnection()) {
 
@@ -130,10 +137,12 @@ public class CitizenFacade {
                 ps.addBatch(sql);
             }
             ps.executeBatch();
+        } catch (SQLException throwables) {
+            throw new CitizenException("Error uploading general info", throwables);
         }
     }
 
-    public Citizen addCitizenToDB(Citizen citizen) throws SQLException {
+    public Citizen addCitizenToDB(Citizen citizen) throws CitizenException {
         Citizen createdCitizen = addCitizen(citizen);
         addFunctionalAbilities(createdCitizen);
         addGeneralInfo(createdCitizen);
