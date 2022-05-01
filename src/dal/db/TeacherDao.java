@@ -2,6 +2,9 @@ package dal.db;
 
 import be.School;
 import be.Teacher;
+import be.User;
+import bll.CheckInput;
+import bll.exceptions.UserException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -55,36 +58,46 @@ public class TeacherDao {
         return allTeachers;
     }
 
-    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws SQLException {
+    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         Teacher teacher = null;
-        try (Connection connection = connectionManager.getConnection()) {
-            String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
-            PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
-            preparedStatement0.setString(1, "Teacher");
-            ResultSet resultSet0 = preparedStatement0.executeQuery();
-            if (resultSet0.next()) {
-                int roleId = resultSet0.getInt("roleID");
-                String sql1 = "INSERT INTO  [user] VALUES (?,?,?,?,?,?,?,?)";
-                PreparedStatement preparedStatement1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
-                preparedStatement1.setInt(1, school.getId());
-                preparedStatement1.setString(2, firstName);
-                preparedStatement1.setString(3, lastName);
-                preparedStatement1.setString(4, userName);
-                preparedStatement1.setString(5, passWord);
-                preparedStatement1.setString(6, email);
-                preparedStatement1.setInt(7, phoneNumber);
-                preparedStatement1.setInt(8, roleId);
+        boolean creation = true;
+        try {
+            exceptionCreation(firstName,lastName,userName,passWord,email,phoneNumber, creation);
+            if (school==null){
+                throw new UserException("Please find a school for the teacher",new Exception());
+            }
+            try (Connection connection = connectionManager.getConnection()) {
+                String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
+                PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+                preparedStatement0.setString(1, "Teacher");
+                ResultSet resultSet0 = preparedStatement0.executeQuery();
+                if (resultSet0.next()) {
+                    int roleId = resultSet0.getInt("roleID");
+                    String sql1 = "INSERT INTO  [user] VALUES (?,?,?,?,?,?,?,?)";
+                    PreparedStatement preparedStatement1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement1.setInt(1, school.getId());
+                    preparedStatement1.setString(2, firstName);
+                    preparedStatement1.setString(3, lastName);
+                    preparedStatement1.setString(4, userName);
+                    preparedStatement1.setString(5, passWord);
+                    preparedStatement1.setString(6, email);
+                    preparedStatement1.setInt(7, Integer.parseInt(phoneNumber));
+                    preparedStatement1.setInt(8, roleId);
 
-                preparedStatement1.executeUpdate();
-                ResultSet resultSet1 = preparedStatement1.getGeneratedKeys();
-                while (resultSet1.next()) {
-                    int id = resultSet1.getInt(1);
-                    teacher = new Teacher(id, firstName, lastName, userName, passWord, email, phoneNumber);
-                    teacher.setSchoolId(school.getId());
-                    teacher.setSchoolName(school.getName());
+                    preparedStatement1.executeUpdate();
+                    ResultSet resultSet1 = preparedStatement1.getGeneratedKeys();
+                    while (resultSet1.next()) {
+                        int id = resultSet1.getInt(1);
+                        teacher = new Teacher(id, firstName, lastName, userName, passWord, email, Integer.parseInt(phoneNumber));
+                        teacher.setSchoolId(school.getId());
+                        teacher.setSchoolName(school.getName());
+                    }
                 }
             }
+        }catch (SQLException sqlException){
+            throw new UserException("Something went wrong in the database",new Exception());
         }
+
         return teacher;
     }
 
@@ -97,19 +110,27 @@ public class TeacherDao {
         }
     }
 
-    public void editTeacher(Teacher teacher) throws SQLException {
-        try (Connection connection = connectionManager.getConnection()) {
-            String sql = "UPDATE [user] SET first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, teacher.getFirstName());
-            preparedStatement.setString(2, teacher.getLastName());
-            preparedStatement.setString(3, teacher.getUserName());
-            preparedStatement.setString(4, teacher.getPassWord());
-            preparedStatement.setString(5, teacher.getEmail());
-            preparedStatement.setInt(6, teacher.getPhoneNumber());
-            preparedStatement.setInt(7, teacher.getId());
-            preparedStatement.executeUpdate();
+    public void editTeacher(Teacher teacher,School school) throws UserException {
+        boolean creation=false;
+        try {
+            exceptionCreation(teacher.getFirstName(), teacher.getLastName(), teacher.getUserName(), teacher.getPassWord(), teacher.getEmail(), String.valueOf(teacher.getPhoneNumber()),creation);
+            try (Connection connection = connectionManager.getConnection()) {
+                String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, school.getId());
+                preparedStatement.setString(2, teacher.getFirstName());
+                preparedStatement.setString(3, teacher.getLastName());
+                preparedStatement.setString(4, teacher.getUserName());
+                preparedStatement.setString(5, teacher.getPassWord());
+                preparedStatement.setString(6, teacher.getEmail());
+                preparedStatement.setInt(7, teacher.getPhoneNumber());
+                preparedStatement.setInt(8, teacher.getId());
+                preparedStatement.executeUpdate();
+            }
+        }catch (SQLException sqlException){
+            throw new UserException("Something went wrong in the database",new Exception());
         }
+
     }
 
     private String schoolName(int schoolId) throws SQLException {
@@ -138,4 +159,75 @@ public class TeacherDao {
         }
         return schoolId;
     }*/
+    private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email,String phoneNumber,Boolean creation) throws UserException, SQLException {
+        if (firstName.isEmpty())
+            throw new UserException("Please enter your first name.", new Exception());
+
+        if (!(firstName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
+            UserException userException = new UserException("Please find a valid first name", new Exception());
+            userException.setInstructions("A valid name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (lastName.isEmpty())
+            throw new UserException("Please enter your last name.", new Exception());
+
+        if (!(lastName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
+            UserException userException = new UserException("Please find a valid last name", new Exception());
+            userException.setInstructions("A correct name is only composed of Alphabet characters");
+            throw userException;
+        }
+        if (userName.isEmpty())
+            throw new UserException("Please find a username.", new Exception());
+
+        if (creation){
+            if (userNameTaken(userName)>0){
+                    UserException userException = new UserException("user name already exists.", new Exception());
+                    userException.setInstructions("Please find another one and try again.");
+                    throw userException;
+        }else {
+                if (userNameTaken(userName)>1){
+                    UserException userException = new UserException("user name already exists.", new Exception());
+                    userException.setInstructions("Please find another one and try again.");
+                    throw userException;
+                }
+            }
+        }
+
+        if (CheckInput.isPasswordValid(passWord)) {
+            UserException userException = new UserException("Please find a correct password.", new Exception());
+            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
+            throw userException;
+        }
+        if (email.isEmpty())
+            throw new UserException("Please enter your email.", new Exception());
+
+        if (!CheckInput.isValidEmailAddress(email))
+            throw new UserException("Please enter a valid email.", new Exception());
+        try {
+            Integer.parseInt(phoneNumber);
+        }catch (NumberFormatException numberFormatException){
+            UserException userException =new  UserException("Please enter a valid number",new Exception());
+            userException.setInstructions("A valid number is composed of 8 digits.");
+            throw userException;
+        }
+        if (phoneNumber.length()!=8){
+            UserException userException =new  UserException("Please enter a valid number",new Exception());
+            userException.setInstructions("A valid number is composed of 8 digits.");
+            throw userException;
+        }
+    }
+
+    private int userNameTaken(String userName) throws SQLException {
+        int counter = 0;
+        try (Connection connection = connectionManager.getConnection()){
+            String sql= "SELECT * FROM [user] WHERE user_name= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,userName);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            if(resultSet.next()){
+                counter+=1;
+            }
+        }
+        return counter;
+    }
 }

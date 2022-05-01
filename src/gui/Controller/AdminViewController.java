@@ -4,6 +4,8 @@ import be.Citizen;
 import be.Student;
 import be.Teacher;
 import gui.Model.UserModel;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -20,6 +22,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
@@ -113,6 +116,7 @@ public class AdminViewController implements Initializable {
     }
 
     public void editTeacher(ActionEvent actionEvent) throws IOException {
+        if (teachersTableView.getSelectionModel().getSelectedItem()!=null){
         Parent root;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
@@ -125,5 +129,23 @@ public class AdminViewController implements Initializable {
         stage.setTitle("Edit Teacher");
         stage.setScene(new Scene(root));
         stage.show();
+    }
+    }
+
+    public void handleEditStudent(ActionEvent actionEvent) throws IOException {
+        if (studentsTableView.getSelectionModel().getSelectedItem()!=null){
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.editStudent(studentsTableView.getSelectionModel().getSelectedItem());
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit Student");
+        stage.setScene(new Scene(root));
+        stage.show();
+    }
     }
 }

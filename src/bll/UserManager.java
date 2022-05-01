@@ -4,6 +4,7 @@ import be.School;
 import be.Student;
 import be.Teacher;
 import be.User;
+import bll.exceptions.UserException;
 import dal.db.StudentDao;
 import dal.db.TeacherDao;
 import dal.db.UsersDAO;
@@ -22,7 +23,7 @@ public class UserManager implements UserInterface {
         studentDao = new StudentDao();
     }
 
-    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, int phoneNumber)throws SQLException{
+    public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber)throws UserException {
         return teacherDao.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
@@ -50,8 +51,8 @@ public class UserManager implements UserInterface {
          studentDao.editStudent(student);
     }
 
-    public void editTeacher(Teacher teacher) throws SQLException{
-        teacherDao.deleteTeacher(teacher);
+    public void editTeacher(Teacher teacher,School school) throws  UserException {
+        teacherDao.editTeacher(teacher,school);
     }
 
     UsersDAO usersDAO;
