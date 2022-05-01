@@ -5,10 +5,15 @@ import bll.exceptions.CitizenException;
 import gui.Model.GInfoModel;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -16,7 +21,7 @@ import java.util.ResourceBundle;
 public class GeneralInfoReportController implements Initializable {
 
     @FXML
-    private ListView<InfoCategory> generalInfoList;
+    private ListView<InfoCategory> infoCategoryList;
 
     GInfoModel generalInfoModel;
 
@@ -29,7 +34,25 @@ public class GeneralInfoReportController implements Initializable {
     }
 
     @FXML
-    private void selectGeneralInfo(MouseEvent mouseEvent) {
+    private void selectGeneralInfo(MouseEvent mouseEvent) throws IOException {
+        InfoCategory selectedInfoCategory = infoCategoryList.getSelectionModel().getSelectedItem();
+        if (selectedInfoCategory == null)
+            return;
+        openGeneralInfoForm(selectedInfoCategory);
+    }
+
+    private void openGeneralInfoForm(InfoCategory selectedInfoCategory) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/GeneralInfoFormView.fxml"));
+        Parent root = loader.load();
+
+        GeneralInfoFormController infoFormController = loader.getController();
+
+        infoFormController.setSelectedInfoCategory(selectedInfoCategory);
+
+        Stage newWindow = new Stage();
+        newWindow.setScene(new Scene(root));
+        newWindow.show();
+
     }
 
     @Override
@@ -40,7 +63,7 @@ public class GeneralInfoReportController implements Initializable {
     private void loadCategories() {
         try {
             List<InfoCategory> categoryList = generalInfoModel.getGInfoCategories();
-            generalInfoList.setItems(FXCollections.observableArrayList(categoryList));
+            infoCategoryList.setItems(FXCollections.observableArrayList(categoryList));
         } catch (CitizenException e) {
             e.printStackTrace();
         }

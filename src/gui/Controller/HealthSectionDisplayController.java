@@ -30,7 +30,8 @@ public class HealthSectionDisplayController implements Initializable {
     private Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = GlobalCitizen.getSelectedCitizen();
+        //currentCitizen = GlobalCitizen.getSelectedCitizen();
+        currentCitizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
     }
 
     @Override
