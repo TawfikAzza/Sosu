@@ -1,5 +1,6 @@
 package bll;
 
+import be.Citizen;
 import be.GeneralInfo;
 import be.InfoCategory;
 import bll.exceptions.CitizenException;
@@ -26,6 +27,14 @@ public class GInfoManager {
             return infoDAO.getGInfoCategories();
         } catch (SQLException e) {
             throw new CitizenException("Error while retrieving data from the database",e);
+        }
+    }
+
+    public void saveInformation(Citizen currentCitizen, InfoCategory selectedInfoCategory, String infoContent) throws CitizenException {
+        try {
+            infoDAO.insertGeneralInformation(currentCitizen,selectedInfoCategory,infoContent);
+        } catch (SQLException e) {
+            throw new CitizenException("Error while inserting data in the database",e);
         }
     }
 }

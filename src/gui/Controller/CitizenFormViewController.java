@@ -131,12 +131,19 @@ public class CitizenFormViewController implements Initializable {
         newCitizen.setPhoneNumber(phoneNumber);
         newCitizen.setTemplate(true);
 
-        try {
-            Citizen createdCitizen = citizenModel.createNewCitizen(newCitizen);
-            GlobalCitizen.setSelectedCitizen(createdCitizen);
-        } catch (CitizenException e) {
-            e.printStackTrace();
-        }
+        Thread createCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Citizen createdCitizen = null;
+                try {
+                    createdCitizen = citizenModel.createNewCitizen(newCitizen);
+                } catch (CitizenException e) {
+                    e.printStackTrace();
+                }
+                GlobalCitizen.setSelectedCitizen(createdCitizen);
+            }
+        });
+        createCitizenThread.start();
 
         return true;
     }
