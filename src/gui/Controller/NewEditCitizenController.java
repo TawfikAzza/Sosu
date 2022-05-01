@@ -6,17 +6,15 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-public class NewUserController {
+public class NewEditCitizenController {
     @FXML
-    private TextField firstName,lastName,userName,passWord,email,phoneNumberField;
-    @FXML
-    private JFXComboBox<School> schoolComboBox;
+    private TextField firstName,lastName,cprNumber,address,phoneNumber;
+
+    public JFXComboBox<School> chooseSchool;
 
     public void handleCancel(ActionEvent actionEvent) {
     }
 
-    public void createNewUser(ActionEvent actionEvent) {
+    public void handleConfirm(ActionEvent actionEvent) {
     }
-
-
 }
