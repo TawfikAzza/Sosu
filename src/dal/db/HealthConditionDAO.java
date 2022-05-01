@@ -168,25 +168,19 @@ public class HealthConditionDAO {
           List<Pair<HealthCategory,Condition>> listTmp = new ArrayList<>();
           int currentSid = 0;
           boolean flagFirst = false;
-          for (Map.Entry entry: hashMapResult.entrySet()) {
-              HealthCategory healthCategory = (HealthCategory) entry.getKey();
-              Condition condition = (Condition) entry.getValue();
+          for (Map.Entry entry:hashMapResult.entrySet()) {
+                HealthCategory healthCategory = (HealthCategory) entry.getKey();
+                Condition condition = (Condition) entry.getValue();
+                hashMapResultFinal.put(healthCategory.getSid(),new ArrayList<>());
+            }
+            for (Map.Entry entry:hashMapResult.entrySet()) {
+                HealthCategory healthCategory = (HealthCategory) entry.getKey();
+                Condition condition = (Condition) entry.getValue();
+                System.out.println(healthCategory.getSid()+" "+healthCategory.getName()+" "+condition.getDescription());
 
-              if(!flagFirst) {
-                  currentSid=healthCategory.getSid();
-                  flagFirst = true;
-              }
-              if(currentSid != healthCategory.getSid()) {
-                  List<Pair<HealthCategory,Condition>> listTmp2 = new ArrayList<>();
-                  System.out.println("LIST SIZE:"+listTmp.size());
-                  hashMapResultFinal.put(healthCategory.getSid(),listTmp);
-                  listTmp = listTmp2;
-              }
-              Pair<HealthCategory,Condition> pair = new Pair<>(healthCategory,condition);
-              listTmp.add(pair);
-              System.out.println("added : "+healthCategory.getName()+" "+condition.getDescription());
-              currentSid = healthCategory.getSid();
-              }
+                hashMapResultFinal.get(healthCategory.getSid()).add(new Pair<>(healthCategory,condition));
+                hashMapResultFinal.put(healthCategory.getSid(),hashMapResultFinal.get(healthCategory.getSid()));
+            }
         }
         return hashMapResultFinal;
     }
