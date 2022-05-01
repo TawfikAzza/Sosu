@@ -43,7 +43,7 @@
       <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <buttons>
             <JFXButton onAction="#handleCancel" text="Cancel" />
-            <JFXButton onAction="#createNewUser" text="Confirm" />
+            <JFXButton fx:id="cnfrmButton" onAction="#createNewUser" text="Confirm" />
          </buttons>
       </ButtonBar>
    </children>

@@ -1,10 +1,13 @@
 import be.*;
+import bll.exceptions.UserException;
 import dal.db.*;
+import javafx.util.Pair;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DAOTest {
     public static void main(String[] args) throws SQLException, IOException {
@@ -19,6 +22,27 @@ public class DAOTest {
         // getAllAdmins();
         // getAllInfoCategories();
         //getAllSchools();
+        //getAllConditionFromCitizen();
+        //getAllAbilitiesFromCitizen();
+        //checkIfInfoExists();
+        //insertOrUpdateInfoTest();
+    }
+
+    private static void insertOrUpdateInfoTest() throws IOException, SQLException {
+        Citizen citizen = new Citizen(38,"Test","test","123");
+        InfoCategory infoCategory = new InfoCategory(4,"test","Example","Definition");
+        String infoContent = "Some content";
+        GInfoDAO gInfoDAO = new GInfoDAO();
+        gInfoDAO.insertGeneralInformation(citizen,infoCategory,infoContent);
+    }
+
+    private static void checkIfInfoExists() throws IOException, SQLException {
+        Citizen citizen = new Citizen(38,"Test","test","123");
+        InfoCategory infoCategory = new InfoCategory(5,"test","Example","Definition");
+        GInfoDAO gInfoDAO = new GInfoDAO();
+        boolean result = gInfoDAO.checkIfInfoExists(citizen,infoCategory);
+        System.out.println(result);
+
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
@@ -33,7 +57,6 @@ public class DAOTest {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
         healthConditionDAO.getAllMainHealthCategories();
     }
-
     private static void getAllCategoriesTree() throws IOException, SQLException {
         HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
         List<HealthCategory> healthCategoryList = healthConditionDAO.getAllCategoriesTree();
@@ -68,13 +91,13 @@ public class DAOTest {
         studentDao.deleteStudent(student);
     }
 
-    private static void editStudent(Student student) throws IOException, SQLException {
+    private static void editStudent(Student student) throws IOException, SQLException, UserException {
         student.setEmail("darbouka@error.df");
         StudentDao studentDao = new StudentDao();
         studentDao.editStudent(student);
     }
 
-    private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, int phoneNumber) throws IOException, SQLException {
+    private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, String phoneNumber) throws IOException, UserException {
         TeacherDao teacherDao = new TeacherDao();
         teacherDao.newTeacher(school,firstName,lastName,userName,password,email,phoneNumber);
     }
@@ -90,10 +113,10 @@ public class DAOTest {
         teacherDao.deleteTeacher(teacher);
     }
 
-    private static void editTeacher(Teacher teacher) throws IOException, SQLException {
+    private static void editTeacher(Teacher teacher,School school) throws IOException, SQLException, UserException {
         teacher.setEmail("darbouka@error.df");
         TeacherDao teacherDao = new TeacherDao();
-        teacherDao.editTeacher(teacher);
+        teacherDao.editTeacher(teacher,school);
     }
 
     private static void getAllAdmins() throws IOException, SQLException {
@@ -107,5 +130,30 @@ public class DAOTest {
         for (School school : schoolDao.getAllSchools())
             System.out.println(school.getName());
     }
+    private static void getAllConditionFromCitizen() throws IOException, SQLException {
+        HealthConditionDAO healthConditionDAO = new HealthConditionDAO();
+        HashMap <Integer, List<Pair<HealthCategory,Condition>>> hashMap = healthConditionDAO.getConditionsFromCitizen(1);
 
+
+        for (Map.Entry<Integer, List<Pair<HealthCategory, Condition>>> entry : hashMap.entrySet()) {
+            Integer sid = (Integer) entry.getKey();
+            List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
+            for (Pair<HealthCategory,Condition> pair : list){
+                System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
+            }
+        }
+    }
+    private static void getAllAbilitiesFromCitizen() throws IOException, SQLException {
+        FunctionalAbilityDAO functionalAbilityDAO = new FunctionalAbilityDAO();
+        HashMap <Integer, List<Pair<AbilityCategory,Ability>>> hashMap = functionalAbilityDAO.getAbilitiesFromCitizen(1);
+
+
+        for (Map.Entry<Integer, List<Pair<AbilityCategory, Ability>>> entry : hashMap.entrySet()) {
+            Integer sid = (Integer) entry.getKey();
+            List<Pair<AbilityCategory,Ability>> list = (List<Pair<AbilityCategory,Ability>>)entry.getValue();
+            for (Pair<AbilityCategory,Ability> pair : list){
+                System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getScore());
+            }
+        }
+    }
 }

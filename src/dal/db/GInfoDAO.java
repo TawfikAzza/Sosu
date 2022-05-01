@@ -1,7 +1,9 @@
 package dal.db;
 
+import be.Citizen;
 import be.GeneralInfo;
 import be.InfoCategory;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -38,5 +40,57 @@ public class GInfoDAO {
             }
         }
         return infoCategories;
+    }
+
+    public void insertGeneralInformation(Citizen citizen,InfoCategory infoCategory,String infoContent) throws SQLException{
+        if (checkIfInfoExists(citizen,infoCategory))
+            updateInfo(citizen,infoCategory,infoContent);
+        else
+            insetInfo(citizen,infoCategory,infoContent);
+    }
+
+    private void updateInfo(Citizen citizen, InfoCategory infoCategory, String infoContent) throws SQLException {
+        int citizenID = citizen.getId();
+        int categoryID = infoCategory.getId();
+        try(Connection connection = connectionManager.getConnection()){
+            String sql = "UPDATE CitizenInfo\n" +
+                    "SET infoContent = ?\n" +
+                    "WHERE categoryID = ? AND citizenID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,infoContent);
+            preparedStatement.setInt(2,categoryID);
+            preparedStatement.setInt(3,citizenID);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    private void insetInfo(Citizen citizen, InfoCategory infoCategory, String infoContent) throws SQLException {
+        int citizenID = citizen.getId();
+        int infoCategoryID = infoCategory.getId();
+        try(Connection connection = connectionManager.getConnection()){
+            String sql = "INSERT INTO CitizenInfo VALUES(?,?,?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,citizenID);
+            preparedStatement.setInt(2,infoCategoryID);
+            preparedStatement.setString(3,infoContent);
+            preparedStatement.executeUpdate();
+        }
+    }
+
+    public boolean checkIfInfoExists(Citizen citizen,InfoCategory infoCategory) throws SQLException {
+        int citizenID = citizen.getId();
+        int infoCategoryID = infoCategory.getId();
+        try(Connection connection = connectionManager.getConnection()){
+            String sql = "SELECT * FROm CitizenInfo\n" +
+                    "WHERE citizenID = ? AND categoryID = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,citizenID);
+            preparedStatement.setInt(2,infoCategoryID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                return true;
+            return false;
+        }
     }
 }

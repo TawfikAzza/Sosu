@@ -1,9 +1,6 @@
 package gui.Controller;
 
-import be.Admin;
-import be.Student;
-import be.Teacher;
-import be.User;
+import be.*;
 import bll.UserManager;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -111,4 +108,33 @@ public class MainController {
     }
 
 
+    public void openFAReportMgr(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/FunctionalReportView.fxml"));
+        Parent root = loader.load();
+        FunctionalReportViewController functionalReportViewController = loader.getController();
+        Citizen citizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
+        functionalReportViewController.setCurrentCitizen(citizen);
+       // functionalReportViewController.displayCitizenReport();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void openHealthReportMgr(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/HealthConditionReportView.fxml"));
+        Parent root = loader.load();
+        HealthConditionReportViewController healthConditionReportViewController = loader.getController();
+        Citizen citizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
+        healthConditionReportViewController.setCurrentCitizen(citizen);
+        // functionalReportViewController.displayCitizenReport();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
+    }
 }

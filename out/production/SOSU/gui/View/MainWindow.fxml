@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane prefHeight="570.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
       <VBox layoutX="188.0" layoutY="14.0" prefHeight="376.0" prefWidth="225.0">
          <children>
@@ -45,5 +45,7 @@
       <Button layoutX="14.0" layoutY="146.0" mnemonicParsing="false" onAction="#openFaMgr" prefHeight="107.0" prefWidth="99.0" text="Manage Abilities" />
       <Button layoutX="14.0" layoutY="278.0" mnemonicParsing="false" onAction="#openCitizenForm" prefHeight="107.0" prefWidth="99.0" text="CitizenForm" />
       <Button layoutX="486.0" layoutY="21.0" mnemonicParsing="false" onAction="#openAdminMgr" prefHeight="107.0" prefWidth="99.0" text="Administrator" />
+      <Button layoutX="200.0" layoutY="448.0" mnemonicParsing="false" onAction="#openFAReportMgr" prefHeight="107.0" prefWidth="99.0" text="Ability Report" />
+      <Button layoutX="336.0" layoutY="447.0" mnemonicParsing="false" onAction="#openHealthReportMgr" prefHeight="107.0" prefWidth="99.0" text="Health Report" />
    </children>
 </AnchorPane>

@@ -5,7 +5,6 @@ import bll.exceptions.CitizenException;
 import dal.db.CitizenFacade;
 
 import java.io.IOException;
-import java.sql.SQLException;
 
 public class CitizenManager {
 
@@ -20,10 +19,6 @@ public class CitizenManager {
     }
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
-        try {
-            return citizenFacade.addCitizenToDB(newCitizen);
-        } catch (SQLException e) {
-            throw new CitizenException("Error while creating new citizen",e);
-        }
+        return citizenFacade.addCitizenToDB(newCitizen);
     }
 }
