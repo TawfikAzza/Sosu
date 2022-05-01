@@ -40,6 +40,7 @@ public class AdminViewController implements Initializable {
     private TableView<Citizen> citizensTableView;
 
     UserModel userModel;
+    private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
 
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
@@ -53,6 +54,10 @@ public class AdminViewController implements Initializable {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
         root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.updateTView(allTeacherFiltered,searchTeacherField.getText());
+        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("New Teacher");
@@ -97,7 +102,8 @@ public class AdminViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        teachersTableView.setItems(userModel.getAllTeachers(searchTeacherField.getText()));
+                        allTeacherFiltered.setAll(userModel.getAllTeachers(searchTeacherField.getText()));
+                        teachersTableView.setItems(allTeacherFiltered);
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
@@ -124,6 +130,8 @@ public class AdminViewController implements Initializable {
 
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.editTeacher(teachersTableView.getSelectionModel().getSelectedItem());
+        newEditUserController.updateTView(allTeacherFiltered,searchTeacherField.getText());
+        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("Edit Teacher");
@@ -147,5 +155,8 @@ public class AdminViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
+    }
+    public void refreshTView(ObservableList<Teacher>allTeacherFiltered){
+        teachersTableView.setItems(allTeacherFiltered);
     }
 }
