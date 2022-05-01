@@ -48,10 +48,9 @@ public class AdminViewController implements Initializable {
     public void addTeacher(ActionEvent actionEvent) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("gui/View/NewUser.fxml"));
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
         root = loader.load();
 
-        // load controller NewUserController controller = loader.getController();
         Stage stage = new Stage();
         stage.setTitle("New Teacher");
         stage.setScene(new Scene(root));
@@ -111,5 +110,20 @@ public class AdminViewController implements Initializable {
         emailTeacher.setCellValueFactory(new PropertyValueFactory<>("email"));
         phoneNumberTeacher.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
         schoolTeacher.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+    }
+
+    public void editTeacher(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.editTeacher(teachersTableView.getSelectionModel().getSelectedItem());
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit Teacher");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 }
