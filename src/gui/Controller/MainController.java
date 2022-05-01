@@ -93,12 +93,15 @@ public class MainController {
         if (user != null){
             if (user.getRoleID()==1){
                 openAdminMgr(new ActionEvent());
+                WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==2){
                 openCitizenForm( new ActionEvent());
+                WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
-                openFaMgr( new ActionEvent());
+                openFAReportMgr( new ActionEvent());
+                WrongLoginLabel.setVisible(false);
             }
         }
         else
