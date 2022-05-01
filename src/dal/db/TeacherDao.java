@@ -29,7 +29,7 @@ public class TeacherDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1 = "SELECT * FROM [user] WHERE first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=? AND roleID=?";
+                String sql1 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=?";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                 for (int i = 1; i <= 5; i++)
                     preparedStatement1.setString(i, initials);

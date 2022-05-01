@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import be.Citizen;
+import be.School;
 import be.Student;
 import be.Teacher;
 import gui.Model.UserModel;
@@ -26,8 +27,15 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
-    public TableColumn<Teacher,String> firstNameTeacher,lastNameTeacher,userNameTeacher,passWordTeacher,emailTeacher,schoolTeacher;
-    public TableColumn<Teacher,Integer> phoneNumberTeacher;
+    @FXML
+    private TableColumn<Teacher,String> firstNameTeacher,lastNameTeacher,userNameTeacher,passWordTeacher,emailTeacher,schoolTeacher;
+    @FXML
+    private TableColumn<Teacher,Integer> phoneNumberTeacher;
+    @FXML
+    private TableColumn<Student,String> firstNameStudent,lastNameStudent,userNameStudent,passWordStudent,emailStudent,schoolStudent;
+    @FXML
+    private TableColumn<Student,Integer>phoneNumberStudent;
+
     @FXML
     private TextField searchTeacherField,searchStudentField,searchCitizenField,searchStudentFieldSchool,searchSchoolField,searchCitizenSchoolField;
     @FXML
@@ -41,6 +49,8 @@ public class AdminViewController implements Initializable {
 
     UserModel userModel;
     private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
+    private ObservableList<Student>allStudentsFiltered=FXCollections.observableArrayList();
+
 
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
@@ -68,10 +78,26 @@ public class AdminViewController implements Initializable {
     public void logOut(ActionEvent actionEvent) {
     }
 
-    public void deleteStudent(ActionEvent actionEvent) {
+    public void deleteStudent(ActionEvent actionEvent) throws SQLException {
+        Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
+        userModel.deleteStudent(selectedStudent);
     }
 
-    public void addStudent(ActionEvent actionEvent) {
+    public void addStudent(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.newStudent();
+        newEditUserController.updateTViewStudent(allStudentsFiltered,searchTeacherField.getText());
+        newEditUserController.setController(this);
+
+        Stage stage = new Stage();
+        stage.setTitle("New Student");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void manageHealth(ActionEvent actionEvent) {
@@ -97,6 +123,8 @@ public class AdminViewController implements Initializable {
             e.printStackTrace();
         }
         initializeTeachersTV();
+        initializeStudentsTV();
+
         searchTeacherField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
@@ -110,7 +138,32 @@ public class AdminViewController implements Initializable {
                 }
             }
         });
+
+        searchStudentField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        allStudentsFiltered.setAll(userModel.getAllStudents(searchStudentField.getText()));
+                        studentsTableView.setItems(allStudentsFiltered);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
+
+    private void initializeStudentsTV() {
+        firstNameStudent.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        lastNameStudent.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        userNameStudent.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        passWordStudent.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        emailStudent.setCellValueFactory(new PropertyValueFactory<>("email"));
+        phoneNumberStudent.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+    }
+
     private void initializeTeachersTV(){
         firstNameTeacher.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         lastNameTeacher.setCellValueFactory(new PropertyValueFactory<>("lastName"));
@@ -149,6 +202,8 @@ public class AdminViewController implements Initializable {
 
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.editStudent(studentsTableView.getSelectionModel().getSelectedItem());
+        newEditUserController.updateTViewStudent(allStudentsFiltered,searchStudentField.getText());
+        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("Edit Student");
@@ -159,4 +214,9 @@ public class AdminViewController implements Initializable {
     public void refreshTView(ObservableList<Teacher>allTeacherFiltered){
         teachersTableView.setItems(allTeacherFiltered);
     }
+
+    public void refreshTViewStudents(ObservableList<Student>allStudentsFiltered){
+        studentsTableView.setItems(allStudentsFiltered);
+    }
+
 }

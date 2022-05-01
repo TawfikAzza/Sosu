@@ -27,7 +27,7 @@ public class UserManager implements UserInterface {
         return teacherDao.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
-    public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, int phoneNumber)throws SQLException{
+    public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         return studentDao.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
@@ -47,7 +47,7 @@ public class UserManager implements UserInterface {
         studentDao.deleteStudent(student);
     }
 
-    public void editStudent(Student student) throws SQLException{
+    public void editStudent(Student student) throws SQLException, UserException {
          studentDao.editStudent(student);
     }
 

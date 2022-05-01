@@ -71,7 +71,7 @@ public class DAOTest {
         studentDao.deleteStudent(student);
     }
 
-    private static void editStudent(Student student) throws IOException, SQLException {
+    private static void editStudent(Student student) throws IOException, SQLException, UserException {
         student.setEmail("darbouka@error.df");
         StudentDao studentDao = new StudentDao();
         studentDao.editStudent(student);

@@ -46,6 +46,8 @@ public class NewEditUserController implements Initializable {
     private Student student;
 
     private ObservableList<Teacher>allTeacher=FXCollections.observableArrayList();
+    private ObservableList<Student>allStudents=FXCollections.observableArrayList();
+
     private String init;
     AdminViewController adminViewController;
 
@@ -71,11 +73,21 @@ public class NewEditUserController implements Initializable {
             }
 
         else if(newUser&&!isTeacher){
-            userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
-                    firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),Integer.parseInt(phoneNumberField.getText()));
-
-        Stage stage = (Stage) cnfrmButton.getScene().getWindow();
-        stage.close();
+            try {
+                Student student = userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
+                        firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
+                if (student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
+                {   allStudents.add(student);
+                    adminViewController.refreshTViewStudents(allStudents);}
+                Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+                stage.close();
+            }catch (UserException ue){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(ue.getExceptionMessage());
+                alert.setContentText(ue.getInstructions());
+                alert.showAndWait();
+            }
         }
 
         else if (!newUser&&isTeacher){
@@ -107,7 +119,21 @@ public class NewEditUserController implements Initializable {
             student.setPassWord(passWord.getText());
             student.setEmail(email.getText());
             student.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
-            userModel.editStudent(student);
+            try {
+                userModel.editStudent(student);
+                if (!(student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
+                {   allStudents.remove(student);
+                    adminViewController.refreshTViewStudents(allStudents);}
+                Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+                stage.close();
+            }catch (UserException ue){
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(ue.getExceptionMessage());
+                alert.setContentText(ue.getInstructions());
+                alert.showAndWait();
+            }
+
         }
 
     }
@@ -176,5 +202,15 @@ public class NewEditUserController implements Initializable {
 
     public void setController(AdminViewController adminViewController) {
         this.adminViewController=adminViewController;
+    }
+
+    public void updateTViewStudent(ObservableList<Student> allStudentsFiltered, String text) {
+        allStudents=allStudentsFiltered;
+        init=text;
+    }
+
+    public void newStudent() {
+        isTeacher=false;
+        mainLabel.setText("New student");
     }
 }

@@ -33,7 +33,7 @@ public class UserModel {
         return allStudents;
     }
 
-    public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, int phoneNumber) throws SQLException {
+    public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         return userManager.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
@@ -51,7 +51,7 @@ public class UserModel {
          userManager.deleteStudent(student);
     }
 
-    public void editStudent(Student student) throws SQLException {
+    public void editStudent(Student student) throws SQLException, UserException {
         userManager.editStudent(student);
     }
 
