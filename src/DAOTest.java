@@ -23,7 +23,26 @@ public class DAOTest {
         // getAllInfoCategories();
         //getAllSchools();
         //getAllConditionFromCitizen();
-        getAllAbilitiesFromCitizen();
+        //getAllAbilitiesFromCitizen();
+        //checkIfInfoExists();
+        //insertOrUpdateInfoTest();
+    }
+
+    private static void insertOrUpdateInfoTest() throws IOException, SQLException {
+        Citizen citizen = new Citizen(38,"Test","test","123");
+        InfoCategory infoCategory = new InfoCategory(4,"test","Example","Definition");
+        String infoContent = "Some content";
+        GInfoDAO gInfoDAO = new GInfoDAO();
+        gInfoDAO.insertGeneralInformation(citizen,infoCategory,infoContent);
+    }
+
+    private static void checkIfInfoExists() throws IOException, SQLException {
+        Citizen citizen = new Citizen(38,"Test","test","123");
+        InfoCategory infoCategory = new InfoCategory(5,"test","Example","Definition");
+        GInfoDAO gInfoDAO = new GInfoDAO();
+        boolean result = gInfoDAO.checkIfInfoExists(citizen,infoCategory);
+        System.out.println(result);
+
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
