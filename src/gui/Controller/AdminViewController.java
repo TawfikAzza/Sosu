@@ -54,8 +54,10 @@ public class AdminViewController implements Initializable {
 
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
+        if (teachersTableView.getSelectionModel().getSelectedItem()!=null){
         Teacher selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
         userModel.deleteTeacher(selectedTeacher);
+        }
 
     }
 
@@ -79,8 +81,10 @@ public class AdminViewController implements Initializable {
     }
 
     public void deleteStudent(ActionEvent actionEvent) throws SQLException {
+        if ( studentsTableView.getSelectionModel().getSelectedItem()!=null){
         Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
         userModel.deleteStudent(selectedStudent);
+        }
     }
 
     public void addStudent(ActionEvent actionEvent) throws IOException {
