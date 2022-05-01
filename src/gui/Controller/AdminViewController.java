@@ -4,6 +4,7 @@ import be.Citizen;
 import be.School;
 import be.Student;
 import be.Teacher;
+import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,15 +19,28 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
+    @FXML
+    private ListView<String> citizensSchoolLV;
+    @FXML
+    private TextField searchTeacherFieldSchool;
+    @FXML
+    private ListView<String> allStudentsSchool;
+    @FXML
+    private ListView<String> allTeachersSchool;
+    @FXML
+    private ListView<School> allSchoolsLV;
     @FXML
     private TableColumn<Teacher,String> firstNameTeacher,lastNameTeacher,userNameTeacher,passWordTeacher,emailTeacher,schoolTeacher;
     @FXML
@@ -47,9 +61,18 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableView<Citizen> citizensTableView;
 
-    UserModel userModel;
+    private UserModel userModel;
+    private SchoolModel schoolModel;
+
     private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
     private ObservableList<Student>allStudentsFiltered=FXCollections.observableArrayList();
+
+    private final List<String>allTeachers=new ArrayList<>();
+    private final List<String>allStudents=new ArrayList<>();
+    private final List<School>allSchools=new ArrayList<>();
+    private final List<String>allCitizens=new ArrayList<>();
+
+
 
 
 
@@ -116,18 +139,59 @@ public class AdminViewController implements Initializable {
     public void deleteSchool(ActionEvent actionEvent) {
     }
 
-    public void addSchool(ActionEvent actionEvent) {
+    public void addSchool(ActionEvent actionEvent) throws IOException {
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewSchool.fxml"));
+            root = loader.load();
+
+            NewSchoolController newSchoolController = loader.getController();
+            newSchoolController.setController(this);
+            newSchoolController.setListSchool(allSchoolsLV.getItems());
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Teacher");
+            stage.setScene(new Scene(root));
+            stage.show();
     }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
             userModel=UserModel.getInstance();
+            schoolModel = new SchoolModel();
+
         } catch (IOException e) {
             e.printStackTrace();
         }
+
         initializeTeachersTV();
         initializeStudentsTV();
+        try {
+            allSchoolsLV.setItems(schoolModel.getAllSchools());
+            allSchools.addAll(allSchoolsLV.getItems());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        allSchoolsLV.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    allStudentsSchool.setItems(schoolModel.getAllStudents(allSchoolsLV.getSelectionModel().getSelectedItem()));
+                    allStudents.addAll(allStudentsSchool.getItems());
+
+                    allTeachersSchool.setItems(schoolModel.getAllTeachers(allSchoolsLV.getSelectionModel().getSelectedItem()));
+                    allTeachers.addAll(allTeachersSchool.getItems());
+
+                    citizensSchoolLV.setItems(schoolModel.getAllCitizens(allSchoolsLV.getSelectionModel().getSelectedItem()));
+                    allCitizens.addAll(citizensSchoolLV.getItems());
+
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
         searchTeacherField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
@@ -155,6 +219,42 @@ public class AdminViewController implements Initializable {
                     }
                 }
             }
+        });
+
+        SearchFilterSchool(searchStudentFieldSchool, allStudents, allStudentsSchool);
+
+        SearchFilterSchool(searchTeacherFieldSchool, allTeachers, allTeachersSchool);
+
+        searchSchoolField.setOnKeyReleased(event->{
+            ObservableList<School>allSchoolsFiltered=FXCollections.observableArrayList();
+            for (School school :allSchools){
+                if (school.getName().toLowerCase(Locale.ROOT).contains(searchSchoolField.getText().toLowerCase(Locale.ROOT))){
+                    allSchoolsFiltered.add(school);
+                }
+                allSchoolsLV.setItems(allSchoolsFiltered);
+            }
+        });
+
+        searchCitizenSchoolField.setOnKeyReleased(event -> {
+            ObservableList<String>allCitizensFiltered=FXCollections.observableArrayList();
+            for (String str :allCitizens){
+                if (str.toLowerCase(Locale.ROOT).contains(searchCitizenSchoolField.getText().toLowerCase(Locale.ROOT))){
+                    allCitizensFiltered.add(str);
+                }
+                citizensSchoolLV.setItems(allCitizensFiltered);
+            }
+        });
+
+    }
+
+    private void SearchFilterSchool(TextField searchTeacherFieldSchool, List<String> allTeachers, ListView<String> allTeachersSchool) {
+        searchTeacherFieldSchool.setOnKeyReleased(event -> {
+            ObservableList<String> allTeachersFiltered= FXCollections.observableArrayList();
+            for (String string : allTeachers){
+                if (string.toLowerCase(Locale.ROOT).contains(searchTeacherFieldSchool.getText().toLowerCase(Locale.ROOT)))
+                    allTeachersFiltered.add(string);
+            }
+            allTeachersSchool.setItems(allTeachersFiltered);
         });
     }
 
@@ -221,6 +321,10 @@ public class AdminViewController implements Initializable {
 
     public void refreshTViewStudents(ObservableList<Student>allStudentsFiltered){
         studentsTableView.setItems(allStudentsFiltered);
+    }
+
+    public void refreshLViewSchools(ObservableList<School>allSchools){
+        allSchoolsLV.setItems(allSchools);
     }
 
 }
