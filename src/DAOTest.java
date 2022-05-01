@@ -115,9 +115,11 @@ public class DAOTest {
 
 
         for (Map.Entry<Integer, List<Pair<HealthCategory, Condition>>> entry : hashMap.entrySet()) {
+            Integer sid = (Integer) entry.getKey();
             List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
-            System.out.println(list.size());
-
+            for (Pair<HealthCategory,Condition> pair : list){
+                System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
+            }
         }
     }
 }
