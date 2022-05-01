@@ -25,6 +25,8 @@ public class MainController {
 
     @FXML
     private Label loginLabel;
+    @FXML
+    private Label WrongLoginLabel;
 
     @FXML
     private PasswordField passwordField;
@@ -89,7 +91,7 @@ public class MainController {
     public void submitLogin(ActionEvent actionEvent) throws Exception {
 
         User user = userManager.submitLogin(userField.getText(), passwordField.getText());
-        System.out.println(user.getRoleID());
+        //System.out.println(user.getRoleID());
 
         if (user != null){
             if (user.getRoleID()==1){
@@ -101,6 +103,10 @@ public class MainController {
             if (user.getRoleID()==3){
                 openFaMgr( new ActionEvent());
             }
+        }
+        else
+        {
+            WrongLoginLabel.setVisible(true);
         }
     }
 
