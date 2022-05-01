@@ -22,7 +22,8 @@ public class DAOTest {
         // getAllAdmins();
         // getAllInfoCategories();
         //getAllSchools();
-        getAllConditionFromCitizen();
+        //getAllConditionFromCitizen();
+        getAllAbilitiesFromCitizen();
     }
 
     private static void getAllInfoCategories() throws IOException, SQLException {
@@ -120,6 +121,19 @@ public class DAOTest {
             List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
             for (Pair<HealthCategory,Condition> pair : list){
                 System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
+            }
+        }
+    }
+    private static void getAllAbilitiesFromCitizen() throws IOException, SQLException {
+        FunctionalAbilityDAO functionalAbilityDAO = new FunctionalAbilityDAO();
+        HashMap <Integer, List<Pair<AbilityCategory,Ability>>> hashMap = functionalAbilityDAO.getAbilitiesFromCitizen(1);
+
+
+        for (Map.Entry<Integer, List<Pair<AbilityCategory, Ability>>> entry : hashMap.entrySet()) {
+            Integer sid = (Integer) entry.getKey();
+            List<Pair<AbilityCategory,Ability>> list = (List<Pair<AbilityCategory,Ability>>)entry.getValue();
+            for (Pair<AbilityCategory,Ability> pair : list){
+                System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getScore());
             }
         }
     }
