@@ -39,8 +39,6 @@ public class AdminViewController implements Initializable {
     @FXML
     private TableView<Citizen> citizensTableView;
 
-    private ObservableList<Teacher> allTeachersFilter;
-
     UserModel userModel;
 
 
@@ -99,9 +97,7 @@ public class AdminViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        allTeachersFilter= FXCollections.observableArrayList();
-                        allTeachersFilter.addAll(userModel.getAllTeachers(searchTeacherField.getText()));
-                        teachersTableView.setItems(allTeachersFilter);
+                        teachersTableView.setItems(userModel.getAllTeachers(searchTeacherField.getText()));
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
