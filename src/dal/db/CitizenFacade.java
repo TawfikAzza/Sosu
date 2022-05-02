@@ -19,7 +19,7 @@ public class CitizenFacade {
         cm = new ConnectionManager();
     }
 
-    private Citizen addCitizen(Citizen citizen) throws CitizenException {
+    private Citizen addCitizen(Citizen citizen, boolean isTemplate) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
             String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -29,7 +29,6 @@ public class CitizenFacade {
             String address = citizen.getAddress();
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
-            boolean template = citizen.isTemplate();
             String cprNumber = citizen.getCprNumber();
 
             ps.setString(1, fname);
@@ -37,7 +36,7 @@ public class CitizenFacade {
             ps.setString(3, address);
             ps.setDate(4, Date.valueOf(birthdate));
             ps.setInt(5, phoneNumber);
-            ps.setBoolean(6, template);
+            ps.setBoolean(6, isTemplate);
 
             ps.setInt(7,1);//The schoolID column, set to 1 by default for now
             //TODO change
@@ -79,7 +78,7 @@ public class CitizenFacade {
                 ps.setString(5, text);
                 ps.setString(6, goal);
 
-                ps.addBatch(sql);
+                ps.addBatch();
             }
 
             ps.executeBatch();
@@ -91,7 +90,7 @@ public class CitizenFacade {
     private void addFunctionalAbilities(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
 
-            String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             List<Ability> abilities = citizen.getFunctionalAbilities();
@@ -108,7 +107,7 @@ public class CitizenFacade {
                 //ps.setString(3, text);
                 ps.setInt(4, status);
 
-                ps.addBatch(sql);
+                ps.addBatch();
             }
             ps.executeBatch();
         } catch (SQLException throwables) {
@@ -120,7 +119,7 @@ public class CitizenFacade {
 
         try (Connection connection = cm.getConnection()) {
 
-            String sql = "INSERT INTO Conditions VALUES(?, ?, ?)";
+            String sql = "INSERT INTO CitizenInfo VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             List<GeneralInfo> generalInfo = citizen.getGeneralInfo();
@@ -135,7 +134,7 @@ public class CitizenFacade {
                 ps.setInt(2, citizenID);
                 ps.setString(3, content);
 
-                ps.addBatch(sql);
+                ps.addBatch();
             }
             ps.executeBatch();
         } catch (SQLException throwables) {
@@ -163,8 +162,8 @@ public class CitizenFacade {
     }
 
 
-    public Citizen addCitizenToDB(Citizen citizen) throws CitizenException {
-        Citizen createdCitizen = addCitizen(citizen);
+    public Citizen addCitizenToDB(Citizen citizen, boolean isTemplate) throws CitizenException {
+        Citizen createdCitizen = addCitizen(citizen, isTemplate);
         addFunctionalAbilities(createdCitizen);
         addGeneralInfo(createdCitizen);
         addHealthConditions(createdCitizen);
@@ -173,7 +172,7 @@ public class CitizenFacade {
     }
 
     public void copyCitizenToDB(Citizen citizen, ArrayList<Student> students) throws CitizenException {
-        Citizen added = addCitizenToDB(citizen);
+        Citizen added = addCitizenToDB(citizen, false);
         for(Student stud : students)
         {
             addStudentCitizenRelation(added, stud);
