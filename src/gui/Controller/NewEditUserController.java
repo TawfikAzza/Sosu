@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -168,6 +170,20 @@ public class NewEditUserController implements Initializable {
         } catch (SQLException | SchoolException e) {
             e.printStackTrace();
         }
+
+        phoneNumberField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    phoneNumberField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                if (phoneNumberField.getText().length() > 8) {
+                    String s = phoneNumberField.getText().substring(0, 8);
+                    phoneNumberField.setText(s);
+                }
+            }
+        });
     }
 
     public void editTeacher(Teacher selectedItem) {
