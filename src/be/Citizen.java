@@ -29,6 +29,18 @@ public class Citizen {
         generalInfo = new ArrayList<>();
     }
 
+    public Citizen(int id, String fName, String lName, String cprNumber, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
+        this.id = id;
+        this.fName = fName;
+        this.lName = lName;
+        this.cprNumber = cprNumber;
+        this.address = address;
+        this.phoneNumber = phoneNumber;
+        this.birthDate = birthDate;
+        this.isTemplate = isTemplate;
+        this.schoolID = schoolID;
+    }
+
     public boolean isTemplate() {
         return isTemplate;
     }
