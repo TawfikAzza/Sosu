@@ -6,6 +6,7 @@ public class Ability {
     private int categoryID;
     private int citizenID;
     private int status;
+    //private String goals;
 
     public Ability(int id, int categoryID,int citizenID, int score,int status) {
         this.id = id;
@@ -14,6 +15,7 @@ public class Ability {
         this.score = score;
         this.status=status;
     }
+
 
     public int getId() {
         return id;
