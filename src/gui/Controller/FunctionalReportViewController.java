@@ -72,9 +72,10 @@ public class FunctionalReportViewController implements Initializable {
         }
 
         //Parsing through the HashMap
+        assert hashMap != null;
         for (Map.Entry<Integer, List<Pair<AbilityCategory, Ability>>> entry : hashMap.entrySet()) {
-            Integer sid = (Integer) entry.getKey();
-            List<Pair<AbilityCategory,Ability>> list = (List<Pair<AbilityCategory,Ability>>)entry.getValue();
+            Integer sid = entry.getKey();
+            List<Pair<AbilityCategory,Ability>> list = entry.getValue();
             //Creating a Vbox for display purpose as well as a lable associated which hold the name of the Main category
             VBox vBox = new VBox();
             Label mainCat = new Label();
