@@ -70,6 +70,8 @@ public class AdminViewController implements Initializable {
     private UserModel userModel;
     private SchoolModel schoolModel;
 
+    private School newSchool;
+
     private Teacher selectedTeacher;
 
     private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
@@ -472,13 +474,7 @@ public class AdminViewController implements Initializable {
                 try {
                     ue.checkPhoneNumber(string);
                 } catch (UserException nfe) {
-                    selectedTeacher =teachersTableView.getSelectionModel().getSelectedItem();
-                    test = -1;
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText(nfe.getExceptionMessage());
-                    alert.setContentText(nfe.getInstructions());
-                    alert.showAndWait();
+                    OnSchoolEditException(nfe.getExceptionMessage(), nfe.getInstructions());
                     return selectedTeacher.getPhoneNumber();
 
                 }
@@ -502,6 +498,55 @@ public class AdminViewController implements Initializable {
             }
         });
         schoolTeacher.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+        schoolTeacher.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    for (School school : allSchools)
+                        if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+                            newSchool=school;
+                            return school.getName();
+                        }
+                    SchoolException schoolException = new SchoolException("School not found",new Exception());
+                    schoolException.setInstructions("Please find an existing school");
+                    throw schoolException;
+
+                } catch (SchoolException e) {
+                    OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
+                    return selectedTeacher.getSchoolName();
+                }
+            }
+        }));
+        schoolTeacher.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Teacher, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Teacher, String> event) {
+                Teacher teacher = event.getRowValue();
+                if (test>0){
+                    try {
+                        userModel.editTeacher(teacher,newSchool);
+                    } catch (UserException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
+
+    }
+
+    private void OnSchoolEditException(String exceptionMessage, String instructions) {
+        selectedTeacher =teachersTableView.getSelectionModel().getSelectedItem();
+        test = -1;
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Alert");
+        alert.setHeaderText(exceptionMessage);
+        alert.setContentText(instructions);
+        alert.showAndWait();
     }
 
     private void ExceptionOnEdit(UserException e) {
