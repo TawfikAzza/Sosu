@@ -8,9 +8,12 @@ import bll.exceptions.UserException;
 import dal.db.StudentDao;
 import dal.db.TeacherDao;
 import dal.db.UsersDAO;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class UserManager implements UserInterface {
@@ -53,6 +56,13 @@ public class UserManager implements UserInterface {
 
     public void editTeacher(Teacher teacher,School school) throws  UserException {
         teacherDao.editTeacher(teacher,school);
+    }
+
+    public ObservableList<Student> getStudents() throws UserException {
+        ArrayList<Student> students = studentDao.getAllStudentsFromDB();
+        ObservableList<Student> obsStuds = FXCollections.observableArrayList();
+        obsStuds.addAll(students);
+        return obsStuds;
     }
 
     UsersDAO usersDAO;

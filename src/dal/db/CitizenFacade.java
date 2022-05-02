@@ -2,11 +2,13 @@ package dal.db;
 
 import be.*;
 import bll.exceptions.CitizenException;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitizenFacade {
@@ -141,6 +143,26 @@ public class CitizenFacade {
         }
     }
 
+    private void addStudentCitizenRelation(Citizen citizen, Student student) throws CitizenException {
+        try (Connection connection = cm.getConnection()) {
+
+            String sql = "INSERT INTO CitizenStudentRelation VALUES(?, ?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            int citizenID = citizen.getId();
+            int studentID = student.getId();
+
+            ps.setInt(1, citizenID);
+            ps.setInt(2, studentID);
+
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throw new CitizenException("Error connecting to DB", throwables);
+        }
+    }
+
+
     public Citizen addCitizenToDB(Citizen citizen) throws CitizenException {
         Citizen createdCitizen = addCitizen(citizen);
         addFunctionalAbilities(createdCitizen);
@@ -148,6 +170,14 @@ public class CitizenFacade {
         addHealthConditions(createdCitizen);
 
         return createdCitizen;
+    }
+
+    public void copyCitizenToDB(Citizen citizen, ArrayList<Student> students) throws CitizenException {
+        Citizen added = addCitizenToDB(citizen);
+        for(Student stud : students)
+        {
+            addStudentCitizenRelation(added, stud);
+        }
     }
 
 }

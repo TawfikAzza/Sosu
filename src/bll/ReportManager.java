@@ -1,4 +1,4 @@
-package bll.util;
+package bll;
 
 import be.*;
 import bll.exceptions.CitizenReportException;
