@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 
 public class FunctionalAbilityDAO {
-    private ConnectionManager cm;
+    private final ConnectionManager cm;
 
     public FunctionalAbilityDAO() throws IOException {
         cm = new ConnectionManager();
