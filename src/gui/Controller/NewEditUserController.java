@@ -3,7 +3,6 @@ package gui.Controller;
 import be.School;
 import be.Student;
 import be.Teacher;
-import be.User;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import com.jfoenix.controls.JFXButton;
@@ -15,12 +14,15 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -31,6 +33,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class NewEditUserController implements Initializable {
+    @FXML
+    private GridPane gridPane;
     @FXML
     private JFXButton cnfrmButton;
     @FXML
@@ -56,6 +60,7 @@ public class NewEditUserController implements Initializable {
     AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
+        Stage stage;
         if (!(firstName.getText().isEmpty()&&lastName.getText().isEmpty()&&userName.getText().isEmpty()&&passWord.getText().isEmpty()&&email.getText().isEmpty()&&phoneNumberField.getText().isEmpty()&&schoolComboBox.getSelectionModel().getSelectedItem()==null))
         {Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Alert");
@@ -63,9 +68,12 @@ public class NewEditUserController implements Initializable {
         alert.setContentText("All your infos will be lost in this case.");
         alert.showAndWait();
         if (alert.showAndWait().get() == ButtonType.OK) {
-            Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+             stage = (Stage) cnfrmButton.getScene().getWindow();
             stage.close();
         }}
+        else
+        { stage = (Stage) cnfrmButton.getScene().getWindow();
+            stage.close();}
     }
 
     public void createNewUser(ActionEvent actionEvent) throws SQLException {
@@ -73,6 +81,7 @@ public class NewEditUserController implements Initializable {
             try {
                 Teacher newTeacher = userModel.newTeacher(schoolComboBox.getSelectionModel().getSelectedItem(),
                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
+                adminViewController.addTeacherLV(newTeacher);
                 if (newTeacher.getFirstName().toLowerCase().contains(init)||newTeacher.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
                 {   allTeacher.add(newTeacher);
                     adminViewController.refreshTView(allTeacher);}
@@ -90,6 +99,7 @@ public class NewEditUserController implements Initializable {
             try {
                 Student student = userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
+                adminViewController.addStudentLV(student);
                 if (student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
                 {   allStudents.add(student);
                     adminViewController.refreshTViewStudents(allStudents);}
@@ -182,6 +192,20 @@ public class NewEditUserController implements Initializable {
                     String s = phoneNumberField.getText().substring(0, 8);
                     phoneNumberField.setText(s);
                 }
+            }
+        });
+
+        gridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    try {
+                        createNewUser(new ActionEvent());
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }else if(event.getCode().equals(KeyCode.ESCAPE)){
+                    handleCancel(new ActionEvent());}
             }
         });
     }

@@ -80,9 +80,10 @@ public class SchoolDao {
     public List<String>getAllCitizens(School school)throws SQLException{
         List<String>allCitizens = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()){
-            String sql="SELECT * FROM Citizen WHERE school_id= ?";
+            String sql="SELECT * FROM Citizen WHERE school_id= ? AND isTemplate=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,school.getId());
+            preparedStatement.setBoolean(2,true);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 allCitizens.add(resultSet.getString("fname")+" "+resultSet.getString("lname"));

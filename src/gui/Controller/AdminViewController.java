@@ -71,6 +71,7 @@ public class AdminViewController implements Initializable {
     private SchoolModel schoolModel;
 
     private School newSchool;
+    private School selectedSchool;
 
     private Teacher selectedTeacher;
     private Student selectedStudent;
@@ -93,6 +94,7 @@ public class AdminViewController implements Initializable {
         Teacher selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
         userModel.deleteTeacher(selectedTeacher);
         allTeacherFiltered.remove(selectedTeacher);
+        allTeachersSchool.getItems().remove(selectedTeacher.getFirstName()+" "+selectedTeacher.getLastName());
         }
 
     }
@@ -121,6 +123,8 @@ public class AdminViewController implements Initializable {
         Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
         userModel.deleteStudent(selectedStudent);
         allStudentsFiltered.remove(selectedStudent);
+        allStudentsSchool.getItems().remove(selectedStudent.getFirstName()+" "+selectedStudent.getLastName());
+
         }
     }
 
@@ -845,6 +849,18 @@ public class AdminViewController implements Initializable {
 
     public void refreshLViewSchools(ObservableList<School>allSchools){
         allSchoolsLV.setItems(allSchools);
+    }
+
+    public void addStudentLV(Student student){
+        if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(student.getSchoolName())){
+            allStudentsSchool.getItems().add(student.getFirstName()+" "+student.getLastName());
+        }
+    }
+
+    public void addTeacherLV(Teacher teacher){
+        if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(teacher.getSchoolName())){
+            allTeachersSchool.getItems().add(teacher.getFirstName()+" "+teacher.getLastName());
+        }
     }
 
 }
