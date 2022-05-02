@@ -289,21 +289,6 @@ public class AdminViewController implements Initializable {
         firstNameTeacher.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
-
-                if (object.isEmpty()||!(object.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))){
-                        test=-1;
-                    try {
-                        throw new UserException("Please find a valid name",new Exception());
-                    } catch (UserException e) {
-                        selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
-                        Alert alert = new Alert(Alert.AlertType.ERROR);
-                        alert.setTitle("Alert");
-                        alert.setHeaderText(e.getExceptionMessage());
-                        alert.setContentText(e.getInstructions());
-                        alert.showAndWait();
-                        return selectedTeacher.getFirstName();
-                    }
-                }
                 return object;
             }
 
@@ -336,6 +321,7 @@ public class AdminViewController implements Initializable {
                 } catch (UserException e) {
                     e.printStackTrace();
                 }
+                test=1;
             }
         });
         lastNameTeacher.setCellValueFactory(new PropertyValueFactory<>("lastName"));
