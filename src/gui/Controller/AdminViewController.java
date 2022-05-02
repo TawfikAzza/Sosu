@@ -1,9 +1,6 @@
 package gui.Controller;
 
-import be.Citizen;
-import be.School;
-import be.Student;
-import be.Teacher;
+import be.*;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
@@ -72,6 +69,8 @@ public class AdminViewController implements Initializable {
 
     private UserModel userModel;
     private SchoolModel schoolModel;
+
+    private Teacher selectedTeacher;
 
     private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
     private ObservableList<Student>allStudentsFiltered=FXCollections.observableArrayList();
@@ -284,7 +283,47 @@ public class AdminViewController implements Initializable {
     }
 
     private void initializeTeachersTV(){
+
+        teachersTableView.setEditable(true);
         firstNameTeacher.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        firstNameTeacher.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                if (string.isEmpty()||!(string.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$")))
+                    test=-1;
+                try {
+                    throw new UserException("Please find a valid name",new Exception());
+                } catch (UserException e) {
+                    selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText(e.getExceptionMessage());
+                    alert.setContentText(e.getInstructions());
+                    alert.showAndWait();
+                    return selectedTeacher.getFirstName();
+
+                }
+            }
+        }));
+        firstNameTeacher.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Teacher, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Teacher, String> event) {
+                Teacher teacher = event.getRowValue();
+                teacher.setFirstName(event.getNewValue());
+                if (test>0)
+                    try {
+                    userModel.editTeacher(teacher,new School(teacher.getSchoolId(),teacher.getSchoolName()));
+                } catch (UserException e) {
+                    e.printStackTrace();
+                }
+                test=1;
+            }
+        });
         lastNameTeacher.setCellValueFactory(new PropertyValueFactory<>("lastName"));
         userNameTeacher.setCellValueFactory(new PropertyValueFactory<>("userName"));
         passWordTeacher.setCellValueFactory(new PropertyValueFactory<>("passWord"));
