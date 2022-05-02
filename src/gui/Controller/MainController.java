@@ -96,7 +96,7 @@ public class MainController {
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==2){
-                openCitizenForm( new ActionEvent());
+                openTeacher( new ActionEvent());
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
