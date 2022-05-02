@@ -2,7 +2,6 @@ package dal.db;
 
 import be.*;
 import bll.exceptions.CitizenException;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -23,8 +22,8 @@ public class CitizenFacade {
             String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
-            String fname = citizen.getfName();
-            String lname = citizen.getlName();
+            String fname = citizen.getFName();
+            String lname = citizen.getLName();
             String address = citizen.getAddress();
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();

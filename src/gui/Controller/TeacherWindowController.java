@@ -35,8 +35,8 @@ public class TeacherWindowController implements Initializable {
             this.tableViewTemplates.setItems(cits);
             for(Citizen citizen : cits)
             {
-                System.out.println(citizen.getfName());
-                System.out.println(citizen.getlName());
+                System.out.println(citizen.getFName());
+                System.out.println(citizen.getLName());
             }
             this.initTables();
         } catch (CitizenException e) {
