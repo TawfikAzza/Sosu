@@ -143,7 +143,7 @@ public class MainController {
 
     public void openTeacher(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
+        loader.setLocation(getClass().getResource("/gui/View/TeacherLayoutPossibly.fxml"));
         Parent root = loader.load();
 
         Scene scene = new Scene(root);

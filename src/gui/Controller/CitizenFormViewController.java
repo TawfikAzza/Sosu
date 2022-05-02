@@ -75,8 +75,6 @@ public class CitizenFormViewController implements Initializable {
 
     @FXML
     private void handleAdditionalInfo(ActionEvent actionEvent) throws IOException {
-
-        //TODO retrieve just created citizen, to change its additional inf (functional abilities,health conditions and general info)
         if (saveCitizen()) {
             closeThisWindow();
             openAdditionalInfoWindow();
@@ -101,7 +99,8 @@ public class CitizenFormViewController implements Initializable {
 
     @FXML
     private void handleSave(ActionEvent actionEvent) {
-        saveCitizen();
+        if(saveCitizen())
+            closeThisWindow();
     }
 
     private void setupValidators() {
