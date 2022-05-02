@@ -16,6 +16,7 @@ import java.util.List;
 public class StudentDao {
 
     private final ConnectionManager connectionManager;
+    UsersDAO usersDAO = new UsersDAO();
 
     public StudentDao() throws IOException {
         connectionManager = new ConnectionManager();
@@ -148,61 +149,17 @@ public class StudentDao {
         UserException ue = new UserException();
         ue.checkUserFN(firstName);
         ue.checkUserLN(lastName);
+        ue.checkUserUN(userName);
 
-        if (userName.isEmpty())
-            throw new UserException("Please find a username.", new Exception());
+        if (creation)
+                ue.checkUserUName(userName, usersDAO.userNameTaken(userName));
+        ue.checkUserPassword(passWord);
+        ue.checkEmail(email);
+        ue.checkPhoneNumber(phoneNumber);
 
-        if (creation){
-            if (userNameTaken(userName)>0){
-                UserException userException = new UserException("user name already exists.", new Exception());
-                userException.setInstructions("Please find another one and try again.");
-                throw userException;
-            }else {
-                if (userNameTaken(userName)>1){
-                    UserException userException = new UserException("user name already exists.", new Exception());
-                    userException.setInstructions("Please find another one and try again.");
-                    throw userException;
-                }
-            }
-        }
-
-        if (CheckInput.isPasswordValid(passWord)) {
-            UserException userException = new UserException("Please find a correct password.", new Exception());
-            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
-            throw userException;
-        }
-        if (email.isEmpty())
-            throw new UserException("Please enter your email.", new Exception());
-
-        if (!CheckInput.isValidEmailAddress(email))
-            throw new UserException("Please enter a valid email.", new Exception());
-        try {
-            Integer.parseInt(phoneNumber);
-        }catch (NumberFormatException numberFormatException){
-            UserException userException =new  UserException("Please enter a valid number",new Exception());
-            userException.setInstructions("A valid number is composed of 8 digits.");
-            throw userException;
-        }
-        if (phoneNumber.length()!=8){
-            UserException userException =new  UserException("Please enter a valid number",new Exception());
-            userException.setInstructions("A valid number is composed of 8 digits.");
-            throw userException;
-        }
     }
 
-    private int userNameTaken(String userName) throws SQLException {
-        int counter = 0;
-        try (Connection connection = connectionManager.getConnection()){
-            String sql= "SELECT * FROM [user] WHERE user_name= ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1,userName);
-            ResultSet resultSet= preparedStatement.executeQuery();
-            if(resultSet.next()){
-                counter+=1;
-            }
-        }
-        return counter;
-    }
+
 
     public ArrayList<Student> getAllStudentsFromDB() throws UserException {
         ArrayList<Student> students = new ArrayList<>();

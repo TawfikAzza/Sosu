@@ -80,6 +80,10 @@ public class UserModel {
         return userManager.getStudents();
     }
 
+    public int userNameTaken(String userName) throws SQLException {
+        return userManager.isUserNameTaken(userName);
+    }
+
 
 
 }

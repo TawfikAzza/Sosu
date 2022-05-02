@@ -85,4 +85,8 @@ public class UserManager implements UserInterface {
             return null;
         }
     }
+
+    public int isUserNameTaken(String userName) throws SQLException {
+        return usersDAO.userNameTaken(userName);
+    }
 }

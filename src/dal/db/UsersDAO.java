@@ -68,5 +68,19 @@ public class UsersDAO {
         return user;
     }
 
+    public int userNameTaken(String userName) throws SQLException {
+        int counter = 0;
+        try (Connection connection = cm.getConnection()){
+            String sql= "SELECT * FROM [user] WHERE user_name= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,userName);
+            ResultSet resultSet= preparedStatement.executeQuery();
+            if(resultSet.next()){
+                counter+=1;
+            }
+        }
+        return counter;
+    }
+
 }
 

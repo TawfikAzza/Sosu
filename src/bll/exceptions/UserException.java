@@ -1,16 +1,18 @@
 package bll.exceptions;
 
 import be.User;
+import bll.util.CheckInput;
 
 public class UserException extends Throwable {
     String exceptionMessage;
     String instructions;
-    public UserException(String exceptionMessage,Exception exception){
+
+    public UserException(String exceptionMessage, Exception exception) {
         //System.out.println( exceptionMessage+"\n" + exception);
-        this.exceptionMessage=exceptionMessage;
+        this.exceptionMessage = exceptionMessage;
     }
 
-    public UserException(){
+    public UserException() {
     }
 
     public String getExceptionMessage() {
@@ -25,7 +27,7 @@ public class UserException extends Throwable {
         this.instructions = instructions;
     }
 
-    public void checkUserFN(String fn)throws UserException {
+    public void checkUserFN(String fn) throws UserException {
         if (fn.isEmpty())
             throw new UserException("Please enter your first name.", new Exception());
 
@@ -36,14 +38,65 @@ public class UserException extends Throwable {
         }
     }
 
-    public void checkUserLN(String ln)throws UserException {
+    public void checkUserLN(String ln) throws UserException {
 
         if (ln.isEmpty())
             throw new UserException("Please enter your last name.", new Exception());
 
         if (!(ln.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
-        UserException userException = new UserException("Please find a valid last name", new Exception());
-        userException.setInstructions("A correct name is only composed of Alphabet characters");
-        throw userException;
-    }}
+            UserException userException = new UserException("Please find a valid last name", new Exception());
+            userException.setInstructions("A correct name is only composed of Alphabet characters");
+            throw userException;
+        }
+    }
+
+    public void checkUserUN(String un) throws UserException {
+        if (un.isEmpty())
+            throw new UserException("Please find a username.", new Exception());
+    }
+
+    public void checkUserUName(String un, int userNameTaken) throws UserException {
+        if (userNameTaken > 0) {
+            UserException userException = new UserException("user name already exists.", new Exception());
+            userException.setInstructions("Please find another one and try again.");
+            throw userException;
+        } else {
+            if (userNameTaken > 1) {
+                UserException userException = new UserException("user name already exists.", new Exception());
+                userException.setInstructions("Please find another one and try again.");
+                throw userException;
+            }
+        }
+    }
+
+    public void checkUserPassword(String passWord) throws UserException {
+        if (CheckInput.isPasswordValid(passWord)) {
+            UserException userException = new UserException("Please find a correct password.", new Exception());
+            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
+            throw userException;
+        }
+    }
+
+    public void checkEmail(String email) throws UserException {
+        if (email.isEmpty())
+            throw new UserException("Please enter your email.", new Exception());
+
+        if (!CheckInput.isValidEmailAddress(email))
+            throw new UserException("Please enter a valid email.", new Exception());
+    }
+
+    public void checkPhoneNumber(String phoneNumber) throws UserException {
+        try {
+            Integer.parseInt(phoneNumber);
+        } catch (NumberFormatException numberFormatException) {
+            UserException userException = new UserException("Please enter a valid number", new Exception());
+            userException.setInstructions("A valid number is composed of 8 digits.");
+            throw userException;
+        }
+        if (phoneNumber.length() != 8) {
+            UserException userException = new UserException("Please enter a valid number", new Exception());
+            userException.setInstructions("A valid number is composed of 8 digits.");
+            throw userException;
+        }
+    }
 }
