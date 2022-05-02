@@ -73,6 +73,7 @@ public class AdminViewController implements Initializable {
     private School newSchool;
 
     private Teacher selectedTeacher;
+    private Student selectedStudent;
 
     private ObservableList<Teacher>allTeacherFiltered=FXCollections.observableArrayList();
     private ObservableList<Student>allStudentsFiltered=FXCollections.observableArrayList();
@@ -277,13 +278,250 @@ public class AdminViewController implements Initializable {
     }
 
     private void initializeStudentsTV() {
+        studentsTableView.setEditable(true);
         firstNameStudent.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        firstNameStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkUserFN(string);
+                } catch (UserException e) {
+                    ExceptionOnEdit(e);
+                    return selectedStudent.getFirstName();
+                }
+                return string;
+            }
+        }));
+        firstNameStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student  student = event.getRowValue();
+                if (test>0){
+                    student.setFirstName(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
+
         lastNameStudent.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        lastNameStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkUserLN(string);
+                } catch (UserException e) {
+                    ExceptionOnEdit(e);
+                    return selectedStudent.getLastName();
+                }
+                return string;
+            }
+        }));
+        lastNameStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student  student = event.getRowValue();
+                if (test>0){
+                    student.setLastName(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
+
         userNameStudent.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        userNameStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkUserUName(string,userModel.userNameTaken(string));
+                } catch (UserException e) {
+                    ExceptionOnEdit(e);
+                    return selectedStudent.getUserName();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+                return string;
+            }
+        }));
+        userNameStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student  student = event.getRowValue();
+                if (test>0){
+                    student.setUserName(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
         passWordStudent.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        passWordStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkUserPassword(string);
+                } catch (UserException e) {
+                    ExceptionOnEdit(e);
+                    return selectedStudent.getPassWord();
+                }
+                return string;
+            }
+        }));
+        passWordStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student  student = event.getRowValue();
+                if (test>0){
+                    student.setPassWord(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
         emailStudent.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkEmail(string);
+                } catch (UserException e) {
+                    ExceptionOnEdit(e);
+                    return selectedStudent.getEmail();
+                }
+                return string;
+            }
+        }));
+        emailStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student  student = event.getRowValue();
+                if (test>0){
+                    student.setEmail(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
         phoneNumberStudent.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        phoneNumberStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer object) {
+                return String.valueOf(object);
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                try {
+                    ue.checkPhoneNumber(string);
+                } catch (UserException nfe) {
+                    OnSchoolEditException(nfe.getExceptionMessage(), nfe.getInstructions());
+                    return selectedTeacher.getPhoneNumber();
+
+                }
+                return test;
+            }
+        }));
+        phoneNumberStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, Integer>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, Integer> event) {
+                Student student = event.getRowValue();
+                if (test >= 0) {
+                    student.setPhoneNumber(event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                    } catch ( UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    test = 1;
+                }
+            }
+        });
         schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+        schoolStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    for (School school : allSchools)
+                        if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+                            newSchool=school;
+                            return school.getName();
+                        }
+                    SchoolException schoolException = new SchoolException("School not found",new Exception());
+                    schoolException.setInstructions("Please find an existing school");
+                    throw schoolException;
+
+                } catch (SchoolException e) {
+                    OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
+                    return selectedTeacher.getSchoolName();
+                }
+            }
+        }));
+        schoolStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<Student, String> event) {
+                Student student = event.getRowValue();
+                if (test>0){
+                    try {
+                        userModel.editStudent(newSchool,student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                test=1;
+            }
+        });
     }
 
     private void initializeTeachersTV(){
@@ -552,6 +790,7 @@ public class AdminViewController implements Initializable {
     private void ExceptionOnEdit(UserException e) {
         test=-1;
         selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
+        selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Alert");
         alert.setHeaderText(e.getExceptionMessage());

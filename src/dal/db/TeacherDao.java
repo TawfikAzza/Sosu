@@ -14,9 +14,11 @@ import java.util.List;
 public class TeacherDao {
 
     private final ConnectionManager connectionManager;
+    UsersDAO usersDAO;
 
     public TeacherDao() throws IOException {
         connectionManager = new ConnectionManager();
+        usersDAO = new UsersDAO();
     }
 
     public List<Teacher> getAllTeachers(String initials) throws SQLException {
@@ -159,61 +161,16 @@ public class TeacherDao {
         return schoolId;
     }*/
     private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email,String phoneNumber,Boolean creation) throws UserException, SQLException {
-        if (firstName.isEmpty())
-            throw new UserException("Please enter your first name.", new Exception());
+        UserException ue = new UserException();
+        ue.checkUserFN(firstName);
+        ue.checkUserLN(lastName);
+        ue.checkUserUN(userName);
 
-        if (!(firstName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
-            UserException userException = new UserException("Please find a valid first name", new Exception());
-            userException.setInstructions("A valid name is only composed of Alphabet characters");
-            throw userException;
-        }
-        if (lastName.isEmpty())
-            throw new UserException("Please enter your last name.", new Exception());
-
-        if (!(lastName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
-            UserException userException = new UserException("Please find a valid last name", new Exception());
-            userException.setInstructions("A correct name is only composed of Alphabet characters");
-            throw userException;
-        }
-        if (userName.isEmpty())
-            throw new UserException("Please find a username.", new Exception());
-
-        if (creation){
-            if (userNameTaken(userName)>0){
-                    UserException userException = new UserException("user name already exists.", new Exception());
-                    userException.setInstructions("Please find another one and try again.");
-                    throw userException;
-        }else {
-                if (userNameTaken(userName)>1){
-                    UserException userException = new UserException("user name already exists.", new Exception());
-                    userException.setInstructions("Please find another one and try again.");
-                    throw userException;
-                }
-            }
-        }
-
-        if (CheckInput.isPasswordValid(passWord)) {
-            UserException userException = new UserException("Please find a correct password.", new Exception());
-            userException.setInstructions("A password is composed of an 9-length string containing only characters and digits, at least two of the digits");
-            throw userException;
-        }
-        if (email.isEmpty())
-            throw new UserException("Please enter your email.", new Exception());
-
-        if (!CheckInput.isValidEmailAddress(email))
-            throw new UserException("Please enter a valid email.", new Exception());
-        try {
-            Integer.parseInt(phoneNumber);
-        }catch (NumberFormatException numberFormatException){
-            UserException userException =new  UserException("Please enter a valid number",new Exception());
-            userException.setInstructions("A valid number is composed of 8 digits.");
-            throw userException;
-        }
-        if (phoneNumber.length()!=8){
-            UserException userException =new  UserException("Please enter a valid number",new Exception());
-            userException.setInstructions("A valid number is composed of 8 digits.");
-            throw userException;
-        }
+        if (creation)
+            ue.checkUserUName(userName, usersDAO.userNameTaken(userName));
+        ue.checkUserPassword(passWord);
+        ue.checkEmail(email);
+        ue.checkPhoneNumber(phoneNumber);
     }
 
     private int userNameTaken(String userName) throws SQLException {

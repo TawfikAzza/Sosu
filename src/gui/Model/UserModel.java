@@ -51,8 +51,8 @@ public class UserModel {
          userManager.deleteStudent(student);
     }
 
-    public void editStudent(Student student) throws SQLException, UserException {
-        userManager.editStudent(student);
+    public void editStudent(School school,Student student) throws SQLException, UserException {
+        userManager.editStudent(school,student);
     }
 
     public void editTeacher(Teacher teacher,School school) throws  UserException {

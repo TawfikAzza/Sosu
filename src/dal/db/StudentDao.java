@@ -111,20 +111,21 @@ public class StudentDao {
         }
     }
 
-    public void editStudent(Student student) throws  UserException {
+    public void editStudent(School school, Student student) throws  UserException {
         boolean creation=false;
         try {
             exceptionCreation(student.getFirstName(),student.getLastName(),student.getUserName(),student.getPassWord(),student.getEmail(),String.valueOf(student.getPhoneNumber()),creation);
             try (Connection connection = connectionManager.getConnection()) {
-                String sql = "UPDATE [user] SET first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
+                String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
-                preparedStatement.setString(1, student.getFirstName());
-                preparedStatement.setString(2, student.getLastName());
-                preparedStatement.setString(3, student.getUserName());
-                preparedStatement.setString(4, student.getPassWord());
-                preparedStatement.setString(5, student.getEmail());
-                preparedStatement.setInt(6, student.getPhoneNumber());
-                preparedStatement.setInt(7, student.getId());
+                preparedStatement.setInt(1, school.getId());
+                preparedStatement.setString(2, student.getFirstName());
+                preparedStatement.setString(3, student.getLastName());
+                preparedStatement.setString(4, student.getUserName());
+                preparedStatement.setString(5, student.getPassWord());
+                preparedStatement.setString(6, student.getEmail());
+                preparedStatement.setInt(7, student.getPhoneNumber());
+                preparedStatement.setInt(8, student.getId());
                 preparedStatement.executeUpdate();
             }
         }catch (SQLException sqlException){

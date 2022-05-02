@@ -50,8 +50,8 @@ public class UserManager implements UserInterface {
         studentDao.deleteStudent(student);
     }
 
-    public void editStudent(Student student) throws SQLException, UserException {
-         studentDao.editStudent(student);
+    public void editStudent(School school, Student student) throws SQLException, UserException {
+         studentDao.editStudent(school, student);
     }
 
     public void editTeacher(Teacher teacher,School school) throws  UserException {

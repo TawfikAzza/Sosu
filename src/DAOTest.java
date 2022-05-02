@@ -91,10 +91,10 @@ public class DAOTest {
         studentDao.deleteStudent(student);
     }
 
-    private static void editStudent(Student student) throws IOException, SQLException, UserException {
+    private static void editStudent(School school, Student student) throws IOException, SQLException, UserException {
         student.setEmail("darbouka@error.df");
         StudentDao studentDao = new StudentDao();
-        studentDao.editStudent(student);
+        studentDao.editStudent(school, student);
     }
 
     private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, String phoneNumber) throws IOException, UserException {

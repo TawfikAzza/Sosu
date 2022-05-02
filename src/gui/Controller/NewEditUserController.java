@@ -134,7 +134,7 @@ public class NewEditUserController implements Initializable {
             student.setEmail(email.getText());
             student.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
             try {
-                userModel.editStudent(student);
+                userModel.editStudent(schoolComboBox.getSelectionModel().getSelectedItem(),student);
                 if (!(student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
                 {   allStudents.remove(student);
                     adminViewController.refreshTViewStudents(allStudents);}
