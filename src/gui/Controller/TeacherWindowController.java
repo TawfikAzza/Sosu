@@ -6,6 +6,7 @@ import bll.exceptions.CitizenException;
 import bll.exceptions.UserException;
 import gui.Model.TeacherModel;
 import gui.Model.UserModel;
+import gui.utils.DisplayMessage;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +18,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TeacherWindowController implements Initializable {
@@ -69,6 +71,17 @@ public class TeacherWindowController implements Initializable {
     }
 
     public void handleActionDuplicate(ActionEvent actionEvent) {
+        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
+        Student student = tableViewStudents.getSelectionModel().getSelectedItem();
+        ArrayList<Student> students = new ArrayList<>();
+
+        students.add(student);
+
+        try {
+            model.copyCitizenToDB(template, students);
+        } catch (CitizenException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 
     public void setAdminView() {

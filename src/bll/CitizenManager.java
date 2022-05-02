@@ -22,7 +22,7 @@ public class CitizenManager {
     }
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
-        return citizenFacade.addCitizenToDB(newCitizen);
+        return citizenFacade.addCitizenToDB(newCitizen, true);
     }
 
 
