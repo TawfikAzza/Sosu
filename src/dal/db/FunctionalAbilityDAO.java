@@ -1,7 +1,6 @@
 package dal.db;
 
 import be.*;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 import javafx.util.Pair;
 
