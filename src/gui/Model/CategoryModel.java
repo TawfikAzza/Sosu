@@ -4,14 +4,13 @@ import be.*;
 import bll.CategoryManager;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+
 
 import java.util.List;
 
 public class CategoryModel {
 
-    private CategoryManager manager;
+    private final CategoryManager manager;
 
 
     public CategoryModel() throws HealthCategoryException {
