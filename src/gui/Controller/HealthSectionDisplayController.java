@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -43,7 +44,6 @@ public class HealthSectionDisplayController implements Initializable {
             for (HealthCategory healthCategory : healthCategories) {
                 TitledPane titledPane = new TitledPane();
                 titledPane.setText(healthCategory.getName());
-
                 ListView<HealthCategory> subCategoryList = new ListView<>();
                 subCategoryList.setOnMouseClicked(e-> {
                     openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
@@ -53,7 +53,6 @@ public class HealthSectionDisplayController implements Initializable {
                 }
                 titledPane.setContent(subCategoryList);
                 healthContainer.getPanes().add(titledPane);
-
             }
         } catch (HealthCategoryException e) {
             e.printStackTrace();
