@@ -1,10 +1,8 @@
 package gui.Controller;
 
 import be.Citizen;
-import be.Condition;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
-import bll.util.GlobalCitizen;
 import gui.Model.CategoryModel;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,8 +11,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
-import javafx.scene.control.Tooltip;
-import javafx.scene.input.MouseEvent;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,8 +32,8 @@ public class HealthSectionDisplayController implements Initializable {
 
     public Accordion healthContainer;
 
-    private CategoryModel categoryModel;
-    private Citizen currentCitizen;
+    private final CategoryModel categoryModel;
+    private final Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
         //currentCitizen = GlobalCitizen.getSelectedCitizen();
@@ -79,9 +75,7 @@ public class HealthSectionDisplayController implements Initializable {
                 //COndition/ability in the database.
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
-                subCategoryList.setOnMouseClicked(e-> {
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
-                });
+                subCategoryList.setOnMouseClicked(e-> openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen));
                 //We then fill the ListView with the subcategories of the currently parsed Main category.
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
@@ -116,6 +110,7 @@ public class HealthSectionDisplayController implements Initializable {
         conditionReportViewController.setCurrentHealthCategory(healthCategory);
         conditionReportViewController.setCurrentCitizen(citizen);
         conditionReportViewController.setFields();
+        assert root != null;
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
