@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="755.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/16">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="755.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TeacherWindowController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.4000244140625" minWidth="10.0" prefWidth="277.1999877929687" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.4000244140625" minWidth="10.0" prefWidth="226.80001220703127" />
@@ -26,11 +26,14 @@
    <children>
       <VBox GridPane.rowIndex="2">
          <children>
-            <TableView prefWidth="200.0">
+            <TableView fx:id="tableViewTemplates" prefWidth="200.0">
               <columns>
-                <TableColumn prefWidth="75.0" text="C1" />
-                <TableColumn prefWidth="75.0" text="C2" />
+                <TableColumn fx:id="fNameTableColumn" prefWidth="75.0" text="First Name" />
+                <TableColumn fx:id="lNameTableColumn" prefWidth="75.0" text="Last Name" />
               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
          <padding>
