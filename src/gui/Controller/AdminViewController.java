@@ -24,7 +24,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
-import javafx.util.converter.DefaultStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -255,7 +254,7 @@ public class AdminViewController implements Initializable {
         });
 
         FXMLLoader loaderTeacher = new FXMLLoader();
-        loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherLayoutPossibly.fxml"));
+        loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
         try {
             GridPane teacherDisplay = loaderTeacher.load();
             teacherPane.getChildren().add(teacherDisplay);
