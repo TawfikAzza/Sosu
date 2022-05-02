@@ -19,10 +19,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
+import javafx.util.converter.DefaultStringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -33,6 +38,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
+    @FXML
+    private AnchorPane teacherPane;
     @FXML
     private ListView<String> citizensSchoolLV;
     @FXML
@@ -74,14 +81,14 @@ public class AdminViewController implements Initializable {
     private final List<School>allSchools=new ArrayList<>();
     private final List<String>allCitizens=new ArrayList<>();
 
-
-
+    private Integer test = 1;
 
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
         if (teachersTableView.getSelectionModel().getSelectedItem()!=null){
         Teacher selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
         userModel.deleteTeacher(selectedTeacher);
+        allTeacherFiltered.remove(selectedTeacher);
         }
 
     }
@@ -109,6 +116,7 @@ public class AdminViewController implements Initializable {
         if ( studentsTableView.getSelectionModel().getSelectedItem()!=null){
         Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
         userModel.deleteStudent(selectedStudent);
+        allStudentsFiltered.remove(selectedStudent);
         }
     }
 
@@ -127,15 +135,6 @@ public class AdminViewController implements Initializable {
         stage.setTitle("New Student");
         stage.setScene(new Scene(root));
         stage.show();
-    }
-
-    public void manageHealth(ActionEvent actionEvent) {
-    }
-
-    public void deleteCitizen(ActionEvent actionEvent) {
-    }
-
-    public void addCitizen(ActionEvent actionEvent) {
     }
 
     public void deleteSchool(ActionEvent actionEvent) {
@@ -246,6 +245,20 @@ public class AdminViewController implements Initializable {
                 citizensSchoolLV.setItems(allCitizensFiltered);
             }
         });
+
+        FXMLLoader loaderTeacher = new FXMLLoader();
+        loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherLayoutPossibly.fxml"));
+        try {
+            GridPane teacherDisplay = loaderTeacher.load();
+            teacherPane.getChildren().add(teacherDisplay);
+            teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
+            teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
+            TeacherWindowController teacherWindowController = loaderTeacher.getController();
+            teacherWindowController.setAdminView();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
