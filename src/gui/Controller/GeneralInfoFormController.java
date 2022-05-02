@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.InfoCategory;
 import bll.exceptions.CitizenException;
+import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalCitizen;
 import gui.Model.GInfoModel;
 import javafx.event.ActionEvent;
@@ -27,7 +28,7 @@ public class GeneralInfoFormController {
     public GeneralInfoFormController() {
         try {
             model = new GInfoModel();
-        } catch (CitizenException e) {
+        } catch (GeneralInfoException e) {
             e.printStackTrace();
         }
     }
@@ -71,7 +72,7 @@ public class GeneralInfoFormController {
             String infoContent = infoContentField.getText();
             try {
                 model.saveInformation(currentCitizen,selectedInfoCategory,infoContent);
-            } catch (CitizenException e) {
+            } catch (GeneralInfoException e) {
                 e.printStackTrace();
             }
         }

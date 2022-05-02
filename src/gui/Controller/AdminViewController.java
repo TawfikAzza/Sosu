@@ -4,6 +4,8 @@ import be.Citizen;
 import be.School;
 import be.Student;
 import be.Teacher;
+import bll.exceptions.SchoolException;
+import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import javafx.collections.FXCollections;
@@ -161,7 +163,7 @@ public class AdminViewController implements Initializable {
             userModel=UserModel.getInstance();
             schoolModel = new SchoolModel();
 
-        } catch (IOException e) {
+        } catch (IOException | SchoolException e) {
             e.printStackTrace();
         }
 
@@ -170,7 +172,7 @@ public class AdminViewController implements Initializable {
         try {
             allSchoolsLV.setItems(schoolModel.getAllSchools());
             allSchools.addAll(allSchoolsLV.getItems());
-        } catch (SQLException e) {
+        } catch (SQLException | SchoolException e) {
             e.printStackTrace();
         }
 
@@ -187,7 +189,7 @@ public class AdminViewController implements Initializable {
                     citizensSchoolLV.setItems(schoolModel.getAllCitizens(allSchoolsLV.getSelectionModel().getSelectedItem()));
                     allCitizens.addAll(citizensSchoolLV.getItems());
 
-                } catch (SQLException e) {
+                } catch (SQLException | UserException e) {
                     e.printStackTrace();
                 }
             }

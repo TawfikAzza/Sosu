@@ -2,8 +2,7 @@ package dal.db;
 
 import be.School;
 import be.Teacher;
-import be.User;
-import bll.CheckInput;
+import bll.util.CheckInput;
 import bll.exceptions.UserException;
 import dal.ConnectionManager;
 

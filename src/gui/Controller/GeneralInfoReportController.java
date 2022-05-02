@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.InfoCategory;
 import bll.exceptions.CitizenException;
+import bll.exceptions.GeneralInfoException;
 import gui.Model.GInfoModel;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
@@ -28,7 +29,7 @@ public class GeneralInfoReportController implements Initializable {
     public GeneralInfoReportController() {
         try {
             generalInfoModel = new GInfoModel();
-        } catch (CitizenException e) {
+        } catch (GeneralInfoException e) {
             e.printStackTrace();
         }
     }
@@ -64,7 +65,7 @@ public class GeneralInfoReportController implements Initializable {
         try {
             List<InfoCategory> categoryList = generalInfoModel.getGInfoCategories();
             infoCategoryList.setItems(FXCollections.observableArrayList(categoryList));
-        } catch (CitizenException e) {
+        } catch (GeneralInfoException e) {
             e.printStackTrace();
         }
     }

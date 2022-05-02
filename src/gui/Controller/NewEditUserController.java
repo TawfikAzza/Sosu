@@ -4,6 +4,7 @@ import be.School;
 import be.Student;
 import be.Teacher;
 import be.User;
+import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -159,12 +160,12 @@ public class NewEditUserController implements Initializable {
         }
         try {
             schoolModel = new SchoolModel();
-        } catch (IOException e) {
+        } catch (IOException | SchoolException e) {
             e.printStackTrace();
         }
         try {
             schoolComboBox.getItems().setAll(schoolModel.getAllSchools());
-        } catch (SQLException e) {
+        } catch (SQLException | SchoolException e) {
             e.printStackTrace();
         }
     }

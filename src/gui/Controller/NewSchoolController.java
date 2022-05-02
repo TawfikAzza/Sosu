@@ -65,7 +65,7 @@ public class NewSchoolController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             schoolModel =new SchoolModel();
-        } catch (IOException e) {
+        } catch (IOException | SchoolException e) {
             e.printStackTrace();
         }
     }
