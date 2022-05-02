@@ -4,6 +4,7 @@ import be.School;
 import be.Student;
 import bll.util.CheckInput;
 import bll.exceptions.UserException;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -213,4 +214,32 @@ public class StudentDao {
         }
         return counter;
     }
-}
+
+    public ArrayList<Student> getAllStudentsFromDB() throws UserException {
+        ArrayList<Student> students = new ArrayList<>();
+        try (Connection connection = connectionManager.getConnection()) {
+
+            String sql = "SELECT * FROM [user] WHERE roleID = ?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, 3);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                int id = rs.getInt(1);
+                int schoolID = rs.getInt(2);
+                String firstName = rs.getString(3);
+                String lastName = rs.getString(4);
+
+                Student student = new Student(id, schoolID, firstName, lastName);
+                students.add(student);
+
+            }
+        } catch (SQLException throwables) {
+            throw new UserException("Could not connect to DB", throwables);
+        }
+        return students;
+    }
+    }

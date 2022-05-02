@@ -28,8 +28,8 @@
          <children>
             <TableView fx:id="tableViewTemplates" prefWidth="200.0">
               <columns>
-                <TableColumn fx:id="fNameTableColumn" prefWidth="75.0" text="First Name" />
-                <TableColumn fx:id="lNameTableColumn" prefWidth="75.0" text="Last Name" />
+                <TableColumn fx:id="fNameTemplateTableColumn" prefWidth="75.0" text="First Name" />
+                <TableColumn fx:id="lNameTemplateTableColumn" prefWidth="75.0" text="Last Name" />
               </columns>
                <columnResizePolicy>
                   <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -42,11 +42,14 @@
       </VBox>
       <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
-            <TableView prefWidth="200.0">
+            <TableView fx:id="tableViewStudents" prefWidth="200.0">
                <columns>
-                  <TableColumn prefWidth="75.0" text="C1" />
-                  <TableColumn prefWidth="75.0" text="C2" />
+                  <TableColumn fx:id="fNameStudentsColumn" prefWidth="75.0" text="First Name" />
+                  <TableColumn fx:id="lNameStudentsColumn" prefWidth="75.0" text="Last Name" />
                </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
             </TableView>
          </children>
          <padding>
@@ -73,7 +76,7 @@
          <children>
             <Button mnemonicParsing="false" text="Create" />
             <Button mnemonicParsing="false" text="Edit" />
-            <Button mnemonicParsing="false" text="Duplicate" />
+            <Button mnemonicParsing="false" onAction="#handleActionDuplicate" text="Duplicate" />
             <Button mnemonicParsing="false" text="Delete" />
          </children>
          <padding>

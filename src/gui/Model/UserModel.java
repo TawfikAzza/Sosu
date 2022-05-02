@@ -76,6 +76,10 @@ public class UserModel {
         return this.userManager.submitLogin(username,password);
     }
 
+    public ObservableList<Student> getStudents() throws UserException {
+        return userManager.getStudents();
+    }
+
 
 
 }
