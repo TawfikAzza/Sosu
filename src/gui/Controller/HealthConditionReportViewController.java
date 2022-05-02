@@ -71,9 +71,10 @@ public class HealthConditionReportViewController implements Initializable {
         }
 
         //Parsing through the HashMap
+        assert hashMap != null;
         for (Map.Entry<Integer, List<Pair<HealthCategory, Condition>>> entry : hashMap.entrySet()) {
-            Integer sid = (Integer) entry.getKey();
-            List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
+            Integer sid = entry.getKey();
+            List<Pair<HealthCategory,Condition>> list = entry.getValue();
             //Creating a Vbox for display purpose as well as a lable associated which hold the name of the Main category
             VBox vBox = new VBox();
             Label mainCat = new Label();
