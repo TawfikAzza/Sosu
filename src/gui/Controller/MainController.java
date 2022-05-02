@@ -140,4 +140,16 @@ public class MainController {
 
         stage.show();
     }
+
+    public void openTeacher(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
+    }
 }
