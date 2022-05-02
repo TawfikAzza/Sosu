@@ -30,10 +30,7 @@ public class CheckInput {
                 }
             }
         }
-        if(digitCounter < 2) {
-            return false;
-        }
-        return true;
+        return digitCounter >= 2;
     }
 
     public boolean isValidName(String s) {

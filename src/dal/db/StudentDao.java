@@ -2,6 +2,7 @@ package dal.db;
 
 import be.School;
 import be.Student;
+import be.User;
 import bll.util.CheckInput;
 import bll.exceptions.UserException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -144,22 +145,10 @@ public class StudentDao {
         return schoolName;
     }
     private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email,String phoneNumber,Boolean creation) throws UserException, SQLException {
-        if (firstName.isEmpty())
-            throw new UserException("Please enter your first name.", new Exception());
+        UserException ue = new UserException();
+        ue.checkUserFN(firstName);
+        ue.checkUserLN(lastName);
 
-        if (!(firstName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
-            UserException userException = new UserException("Please find a valid first name", new Exception());
-            userException.setInstructions("A valid name is only composed of Alphabet characters");
-            throw userException;
-        }
-        if (lastName.isEmpty())
-            throw new UserException("Please enter your last name.", new Exception());
-
-        if (!(lastName.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$"))) {
-            UserException userException = new UserException("Please find a valid last name", new Exception());
-            userException.setInstructions("A correct name is only composed of Alphabet characters");
-            throw userException;
-        }
         if (userName.isEmpty())
             throw new UserException("Please find a username.", new Exception());
 

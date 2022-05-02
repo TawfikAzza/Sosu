@@ -82,6 +82,8 @@ public class AdminViewController implements Initializable {
 
     private Integer test = 1;
 
+    private UserException ue = new UserException();
+
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
         if (teachersTableView.getSelectionModel().getSelectedItem()!=null){
@@ -294,11 +296,10 @@ public class AdminViewController implements Initializable {
 
             @Override
             public String fromString(String string) {
-                if (string.isEmpty()||!(string.matches("(?i)(^[a-z])((?![ .,'-]$)[a-z .,'-]){0,24}$")))
-                    test=-1;
                 try {
-                    throw new UserException("Please find a valid name",new Exception());
+                    ue.checkUserFN(string);
                 } catch (UserException e) {
+                    test=-1;
                     selectedTeacher = teachersTableView.getSelectionModel().getSelectedItem();
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
@@ -306,8 +307,8 @@ public class AdminViewController implements Initializable {
                     alert.setContentText(e.getInstructions());
                     alert.showAndWait();
                     return selectedTeacher.getFirstName();
-
                 }
+                return string;
             }
         }));
         firstNameTeacher.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Teacher, String>>() {
