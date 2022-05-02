@@ -47,7 +47,7 @@ public class GetTemplatesFacade {
                 String cpr = rs.getString(9);
 
 
-                Citizen citizen = new Citizen(id, fname, lname, cpr, address, phoneNumber, birthdayConverted, false, schoolID);
+                Citizen citizen = new Citizen(id, fname, lname, cpr, address, phoneNumber, birthdayConverted, true, schoolID);
                 citizens.add(citizen);
             }
         } catch (SQLException throwables) {
