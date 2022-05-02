@@ -19,4 +19,6 @@ public class UserException extends Throwable {
     public void setInstructions(String instructions) {
         this.instructions = instructions;
     }
+
+
 }

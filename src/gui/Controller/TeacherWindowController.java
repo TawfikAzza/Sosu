@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -29,6 +30,8 @@ public class TeacherWindowController implements Initializable {
     private TableColumn<Student, String> fNameStudentsColumn;
     @FXML
     private TableColumn<Student, String> lNameStudentsColumn;
+    @FXML
+    private Button newStudentBtn,deleteStudentBtn,editStudentBtn;
     @FXML
     private TableView<Citizen> tableViewTemplates;
     @FXML
@@ -66,5 +69,11 @@ public class TeacherWindowController implements Initializable {
     }
 
     public void handleActionDuplicate(ActionEvent actionEvent) {
+    }
+
+    public void setAdminView() {
+        newStudentBtn.setDisable(true);
+        editStudentBtn.setDisable(true);
+        deleteStudentBtn.setDisable(true);
     }
 }

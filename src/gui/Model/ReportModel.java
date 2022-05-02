@@ -3,7 +3,7 @@ package gui.Model;
 import be.*;
 import bll.exceptions.CitizenReportException;
 import bll.exceptions.HealthCategoryException;
-import bll.util.ReportManager;
+import bll.ReportManager;
 import javafx.util.Pair;
 
 import java.util.HashMap;
