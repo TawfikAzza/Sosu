@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
+import bll.util.GlobalCitizen;
 import gui.Model.CategoryModel;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -37,7 +38,7 @@ public class HealthSectionDisplayController implements Initializable {
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
         //currentCitizen = GlobalCitizen.getSelectedCitizen();
-        currentCitizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
+        currentCitizen = GlobalCitizen.getSelectedCitizen();
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user
