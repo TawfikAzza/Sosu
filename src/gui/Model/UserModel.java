@@ -1,25 +1,28 @@
 package gui.Model;
 
 
-import be.School;
-import be.Student;
-import be.Teacher;
-import be.User;
+import be.*;
+import bll.StudentCitizenRelationshipManager;
 import bll.UserManager;
+import bll.exceptions.CitizenException;
+import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class UserModel {
 
-
+    private final StudentCitizenRelationshipManager studentCitizenRelationshipManager;
     private static UserModel single_instance = null;
     UserManager userManager;
     ObservableList<Teacher> allTeachers;
     ObservableList<Student> allStudents;
+    ObservableList<String> allCitizensStudent;
+
 
     public ObservableList<Teacher> getAllTeachers(String init) throws SQLException{
         allTeachers= FXCollections.observableArrayList();
@@ -72,6 +75,7 @@ public class UserModel {
 
     public UserModel() throws IOException {
         this.userManager = new UserManager();
+        this.studentCitizenRelationshipManager=new StudentCitizenRelationshipManager();
     }
 
     public User submitLogin (String username , String password) throws Exception {
@@ -87,5 +91,10 @@ public class UserModel {
     }
 
 
-
+    public ObservableList<Citizen> getCitizensOfStudent(Student student) throws StudentException, CitizenException {
+        ObservableList<Citizen> obsList = FXCollections.observableArrayList();
+        ArrayList<Citizen> citizens = studentCitizenRelationshipManager.getCitizensOfStudent(student);
+        obsList.addAll(citizens);
+        return obsList;
+    }
 }

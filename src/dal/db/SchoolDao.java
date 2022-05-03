@@ -121,5 +121,24 @@ public class SchoolDao {
             schoolException.setInstructions("A valid name is only composed of Alphabet characters");
             throw schoolException;
     }
-}
+        try {
+            if (schoolAlreadyExists(schoolName)){
+                SchoolException schoolException = new SchoolException("School name already exists", new Exception());
+                schoolException.setInstructions("Please find another name for your new school");
+                throw schoolException;
+
+            }
+        } catch (SQLException e) {
+            throw new SchoolException("Something went wrong in the database",new Exception());
+        }
+    }
+    private boolean schoolAlreadyExists(String schoolName)throws SQLException{
+        try (Connection connection = connectionManager.getConnection()){
+            String sql="SELECT * FROM school WHERE name= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,schoolName);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            return resultSet.next();
+        }
+    }
 }

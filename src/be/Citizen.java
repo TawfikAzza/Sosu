@@ -136,4 +136,9 @@ public class Citizen {
     public void setSchoolID(int schoolID) {
         this.schoolID = schoolID;
     }
+
+    @Override
+    public String toString() {
+        return fName + " "+lName;
+    }
 }

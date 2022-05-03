@@ -1,7 +1,9 @@
 package gui.Controller;
 
 import be.*;
+import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
+import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
@@ -63,8 +65,6 @@ public class AdminViewController implements Initializable {
     private TableView<Student> studentsTableView;
     @FXML
     private ListView<Citizen> citizensStudentRelatedListView;
-    @FXML
-    private TableView<Citizen> citizensTableView;
 
     private UserModel userModel;
     private SchoolModel schoolModel;
@@ -175,6 +175,7 @@ public class AdminViewController implements Initializable {
 
         initializeTeachersTV();
         initializeStudentsTV();
+
         try {
             allSchoolsLV.setItems(schoolModel.getAllSchools());
             allSchools.addAll(allSchoolsLV.getItems());
@@ -195,8 +196,17 @@ public class AdminViewController implements Initializable {
                     citizensSchoolLV.setItems(schoolModel.getAllCitizens(allSchoolsLV.getSelectionModel().getSelectedItem()));
                     allCitizens.addAll(citizensSchoolLV.getItems());
 
-                } catch (SQLException | UserException e) {
-                    e.printStackTrace();
+                } catch (SQLException | UserException ignored) {
+                }
+            }
+        });
+
+        studentsTableView.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                try {
+                    citizensStudentRelatedListView.setItems(userModel.getCitizensOfStudent(studentsTableView.getSelectionModel().getSelectedItem()));
+                } catch (StudentException | CitizenException ignored) {
                 }
             }
         });
