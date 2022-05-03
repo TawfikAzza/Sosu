@@ -129,14 +129,14 @@ public class CitizenFacade {
             for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();
-                System.out.println(catID);
+                System.out.println("Sout from CitizenFacade category ID : "+catID);
                 int citizenID = info.getCitizenID();
-                System.out.println(citizenID);
+                System.out.println("Citizen ID :"+citizenID);
                 String content = info.getContent();
                 System.out.println(content);
 
-                ps.setInt(1, citizenID);
-                ps.setInt(2, catID);
+                ps.setInt(1, catID);
+                ps.setInt(2, citizenID);
                 ps.setString(3, content);
 
                 ps.addBatch();
@@ -169,9 +169,9 @@ public class CitizenFacade {
 
     public Citizen addCitizenToDB(Citizen citizen, boolean isTemplate) throws CitizenException {
         Citizen createdCitizen = addCitizen(citizen, isTemplate);
-        addFunctionalAbilities(createdCitizen);
+     //   addFunctionalAbilities(createdCitizen);
         addGeneralInfo(createdCitizen);
-        addHealthConditions(createdCitizen);
+      //  addHealthConditions(createdCitizen);
 
         return createdCitizen;
     }
