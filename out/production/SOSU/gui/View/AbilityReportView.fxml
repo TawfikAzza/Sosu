@@ -4,6 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -11,15 +12,15 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<GridPane prefHeight="247.0" prefWidth="639.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
+<GridPane prefHeight="368.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="153.1999954223633" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="153.1999954223633" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="123.60001220703126" minHeight="10.0" prefHeight="83.60000457763672" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="87.99994812011718" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="87.99994812011718" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="133.6000518798828" minHeight="10.0" prefHeight="133.6000518798828" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="1">
@@ -79,7 +80,7 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.rowIndex="2" />
+      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.rowIndex="3" />
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <RadioButton fx:id="statusIrrelevant" mnemonicParsing="false" text="Irrelevant">
@@ -89,6 +90,16 @@
             </RadioButton>
             <RadioButton fx:id="statusPotentiel" mnemonicParsing="false" text="Potentielt" toggleGroup="$status" />
             <RadioButton fx:id="statusAkute" mnemonicParsing="false" text="Akute" toggleGroup="$status" />
+         </children>
+      </HBox>
+      <HBox GridPane.rowIndex="2">
+         <children>
+            <Label text="Citizen's Goal" />
+            <TextArea fx:id="citizenGoal" prefHeight="64.0" prefWidth="199.0">
+               <HBox.margin>
+                  <Insets left="100.0" />
+               </HBox.margin>
+            </TextArea>
          </children>
       </HBox>
    </children>

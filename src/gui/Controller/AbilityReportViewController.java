@@ -99,7 +99,7 @@ public class AbilityReportViewController implements Initializable {
             if(ability.getStatus()==2) {
                 statusAkute.setSelected(true);
             }
-
+            citizenGoal.setText(ability.getGoals());
         } catch (AbilityCategoryException e) {
             e.printStackTrace();
         }
