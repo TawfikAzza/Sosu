@@ -21,7 +21,7 @@ public class SchoolModel {
     ObservableList<String> allCitizens;
 
 
-    public SchoolModel() throws IOException, SchoolException {
+    public SchoolModel() throws SchoolException {
         schoolManager = new SchoolManager();
     }
     public ObservableList<School>getAllSchools() throws SQLException, SchoolException {

@@ -172,7 +172,7 @@ public class NewEditUserController implements Initializable {
         }
         try {
             schoolModel = new SchoolModel();
-        } catch (IOException | SchoolException e) {
+        } catch (SchoolException e) {
             e.printStackTrace();
         }
         try {

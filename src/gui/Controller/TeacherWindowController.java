@@ -10,11 +10,15 @@ import gui.utils.DisplayMessage;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -101,7 +105,19 @@ public class TeacherWindowController implements Initializable {
     }
 
     @FXML
-    private void handleCreateCitizen(ActionEvent actionEvent) {
+    private void handleCreateCitizen(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
+        Parent root = loader.load();
+
+        CitizenFormController formController = loader.getController();
+        if (isAdmin())
+            formController.enableDisableSchoolChoice();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+
+        stage.show();
     }
 
     @FXML

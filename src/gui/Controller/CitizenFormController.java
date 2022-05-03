@@ -1,9 +1,13 @@
 package gui.Controller;
 
 import be.Citizen;
+import be.School;
 import bll.exceptions.CitizenException;
+import bll.exceptions.SchoolException;
 import bll.util.GlobalCitizen;
+import com.jfoenix.controls.JFXComboBox;
 import gui.Model.CitizenModel;
+import gui.Model.SchoolModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,32 +23,28 @@ import javafx.stage.Window;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.Date;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
-public class CitizenFormViewController implements Initializable {
+public class CitizenFormController implements Initializable {
 
+    @FXML
+    private JFXComboBox<School> schoolChoiceBox;
     @FXML
     private VBox schoolBox2;
     @FXML
     private VBox schoolBox1;
     @FXML
-    private ChoiceBox schoolChoiceBox;
-    @FXML
     private TextField cprNumberField;
-
     @FXML
     private TextField fNameField;
-
     @FXML
     private TextField lNAmeField;
-
     @FXML
     private TextField addressField;
-
     @FXML
     private DatePicker birthDatePicker;
-
     @FXML
     private TextField phoneField;
 
@@ -52,11 +52,13 @@ public class CitizenFormViewController implements Initializable {
     private int schoolID;
 
     private CitizenModel citizenModel;
+    private SchoolModel schoolModel;
 
-    public CitizenFormViewController() {
+    public CitizenFormController() {
         try {
             citizenModel = new CitizenModel();
-        } catch (CitizenException e) {
+            schoolModel = new SchoolModel();
+        } catch (CitizenException | SchoolException e) {
             e.printStackTrace();
         }
     }
@@ -66,8 +68,27 @@ public class CitizenFormViewController implements Initializable {
         setupValidators();
         bindSizes();
         enableDisableSchoolChoice();
+        loadSchools();
 
+    }
 
+    private void loadSchools() {
+        if (adminModeDisabled())
+            return;
+        try {
+            schoolChoiceBox.setItems(schoolModel.getAllSchools());
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (SchoolException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+    private boolean adminModeDisabled() {
+        if (schoolBox1.isDisabled())
+            return false;
+        return true;
     }
 
     public void enableDisableSchoolChoice() {

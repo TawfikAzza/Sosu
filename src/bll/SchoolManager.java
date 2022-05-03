@@ -11,6 +11,7 @@ import java.util.List;
 
 public class SchoolManager {
     SchoolDao schoolDao;
+
     public SchoolManager() throws SchoolException {
         try {
             schoolDao = new SchoolDao();
