@@ -90,7 +90,7 @@ public class CitizenFacade {
     private void addFunctionalAbilities(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
 
-            String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?)";
+            String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?,?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             List<Ability> abilities = citizen.getFunctionalAbilities();
@@ -99,13 +99,15 @@ public class CitizenFacade {
             {
                 int catID = ability.getCategoryID();
                 int citizenID = ability.getCitizenID();
-                int status = ability.getScore();
-                //String text = ability.getCitizenText();
+                int score = ability.getScore();
+                int status = ability.getStatus();
+                String text = ability.getGoals();
 
                 ps.setInt(1, catID);
                 ps.setInt(2, citizenID);
-                //ps.setString(3, text);
+                ps.setInt(3, score);
                 ps.setInt(4, status);
+                ps.setString(5, text);
 
                 ps.addBatch();
             }
@@ -127,11 +129,14 @@ public class CitizenFacade {
             for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();
+                System.out.println(catID);
                 int citizenID = info.getCitizenID();
+                System.out.println(citizenID);
                 String content = info.getContent();
+                System.out.println(content);
 
-                ps.setInt(1, catID);
-                ps.setInt(2, citizenID);
+                ps.setInt(1, citizenID);
+                ps.setInt(2, catID);
                 ps.setString(3, content);
 
                 ps.addBatch();

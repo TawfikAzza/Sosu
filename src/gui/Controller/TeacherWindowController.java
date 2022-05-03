@@ -5,6 +5,7 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.Model.TeacherModel;
 import gui.Model.UserModel;
@@ -29,9 +30,11 @@ import java.util.ResourceBundle;
 
 public class TeacherWindowController implements Initializable {
 
-    private final TeacherModel model;
-    private final UserModel userModel;
-    private final StudentModel studentModel;
+
+    private TeacherModel model;
+    private UserModel userModel;
+    private StudentCitizenRelationShipModel relationShipModel;
+    private boolean isAdmin;
 
     @FXML
     private TableView<Citizen> tableViewAssignments;
@@ -54,23 +57,20 @@ public class TeacherWindowController implements Initializable {
     @FXML
     private TableColumn<Citizen, String> lNameTemplateTableColumn;
 
-    public TeacherWindowController() throws IOException {
-        this.model = new TeacherModel();
-        this.userModel = new UserModel();
-        this.studentModel = new StudentModel();
-    }
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            this.model = new TeacherModel();
+            this.userModel = new UserModel();
+            this.relationShipModel = new StudentCitizenRelationShipModel();
             ObservableList<Citizen> cits = model.getTemplates();
             ObservableList<Student> studs = userModel.getStudents();
             this.tableViewTemplates.setItems(cits);
             this.tableViewStudents.setItems(studs);
 
             this.initTables();
-        } catch (CitizenException | UserException e) {
-            e.printStackTrace();
+        } catch (CitizenException | UserException | IOException e) {
+            DisplayMessage.displayError(e);
         }
     }
 
@@ -157,7 +157,7 @@ public class TeacherWindowController implements Initializable {
     public void handleLoadAssignments(ActionEvent actionEvent) {
         try {
             Student selectedStudent = tableViewStudents.getSelectionModel().getSelectedItem();
-            ObservableList<Citizen> citizens = studentModel.getCitizensOfStudent(selectedStudent);
+            ObservableList<Citizen> citizens = relationShipModel.getCitizensOfStudent(selectedStudent);
             tableViewAssignments.setItems(citizens);
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
