@@ -33,11 +33,8 @@ public class FunctionalSectionDisplayController implements Initializable {
     @FXML
     private Accordion functionalAbilityContainer;
     private CategoryModel categoryModel;
-    private Citizen currentCitizen;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-       // currentCitizen = GlobalCitizen.getSelectedCitizen();
-        currentCitizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user
@@ -74,7 +71,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
                 subCategoryList.setOnMouseClicked(e-> {
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),GlobalCitizen.getSelectedCitizen());
                 });
                 //We then fill the ListView with the subcategories of the currently parsed Main category.
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {

@@ -16,4 +16,8 @@ public class CitizenModel {
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
         return citizenManager.createNewCitizen(newCitizen);
     }
+
+    public Citizen editCitizen(Citizen citizenToEdit, Citizen newCitizen) throws CitizenException {
+        return citizenManager.editCitizen(citizenToEdit,newCitizen);
+    }
 }
