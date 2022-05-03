@@ -91,7 +91,6 @@ public class CitizenFormController implements Initializable {
         birthDatePicker.setValue(citizenToEdit.getBirthDate());
         cprNumberField.setText(citizenToEdit.getCprNumber());
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
-        System.out.println("yes");
     }
 
     private void loadSchools() {
@@ -244,7 +243,6 @@ public class CitizenFormController implements Initializable {
                     e.printStackTrace();
                 }
                 GlobalCitizen.setSelectedCitizen(editedCitizen);
-                System.out.println(GlobalCitizen.getSelectedCitizen());
             }
         });
         createCitizenThread.start();

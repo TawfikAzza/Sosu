@@ -50,7 +50,6 @@ public class ConditionReportViewController implements Initializable {
         this.healthCategory = healthCategory;
     }
     public void setFields() {
-
         try {
             Condition condition = categoryModel.getCondition(healthCategory,currentCitizen);
             if(condition==null) {

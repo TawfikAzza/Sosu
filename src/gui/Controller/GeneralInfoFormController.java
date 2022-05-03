@@ -9,6 +9,7 @@ import gui.Model.GInfoModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.stage.Stage;
 
 public class GeneralInfoFormController {
 
@@ -35,8 +36,15 @@ public class GeneralInfoFormController {
 
     @FXML
     void handleSave(ActionEvent event) {
-        if (checkFields())
+        if (checkFields()){
+            closeWindow(event);
             saveInformation();
+        }
+    }
+
+    private void closeWindow(ActionEvent event) {
+        Button sourceButton = ((Button) event.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
     }
 
     private void saveInformation() {
