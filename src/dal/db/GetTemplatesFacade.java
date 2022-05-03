@@ -135,7 +135,7 @@ public class GetTemplatesFacade {
                 while(rs.next())
                 {
                     int id = rs.getInt(1);
-                    int catID = rs.getInt(2);
+                    int catID = rs.getInt(3);
                     String infoContent = rs.getString(4);
 
                     GeneralInfo content = new GeneralInfo(id, catID, citizenID, infoContent);
