@@ -129,8 +129,9 @@ public class TeacherWindowController implements Initializable {
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
-        if (isEditing)
+        if (isEditing) {
             formController.setCitizenToEdit(citizen);
+        }
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

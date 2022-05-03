@@ -2,7 +2,7 @@ package dal.db;
 
 import be.*;
 import bll.exceptions.CitizenException;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -46,8 +46,9 @@ public class CitizenFacade {
             ps.execute();
 
             ResultSet generatedKeys = ps.getGeneratedKeys();
-            if (generatedKeys.next())
+            if (generatedKeys.next()) {
                 citizen.setId(generatedKeys.getInt(1));
+            }
         } catch (SQLException e) {
             throw new CitizenException("Error uploading citizen to DB", e);
         }
@@ -64,7 +65,7 @@ public class CitizenFacade {
             for(Condition con: conditions)
             {
                 int catID = con.getCategoryID();
-                int citizenID = con.getCitizenID();
+                int citizenID = citizen.getId();
                 String description = con.getDescription();
                 int status = con.getStatus();
                 String text = con.getFreeText();
@@ -98,7 +99,7 @@ public class CitizenFacade {
             for(Ability ability: abilities)
             {
                 int catID = ability.getCategoryID();
-                int citizenID = ability.getCitizenID();
+                int citizenID = citizen.getId();
                 int score = ability.getScore();
                 int status = ability.getStatus();
                 String text = ability.getGoals();
@@ -129,9 +130,9 @@ public class CitizenFacade {
             for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();
-                System.out.println("Sout from CitizenFacade category ID : "+catID);
+
                 int citizenID = info.getCitizenID();
-                System.out.println("Citizen ID :"+citizenID);
+
                 String content = info.getContent();
                 System.out.println(content);
 
@@ -169,15 +170,16 @@ public class CitizenFacade {
 
     public Citizen addCitizenToDB(Citizen citizen, boolean isTemplate) throws CitizenException {
         Citizen createdCitizen = addCitizen(citizen, isTemplate);
-     //   addFunctionalAbilities(createdCitizen);
+        System.out.println("In citizen facade addCitizen: id:  "+createdCitizen.getId());
+        addFunctionalAbilities(createdCitizen);
         addGeneralInfo(createdCitizen);
-      //  addHealthConditions(createdCitizen);
+        addHealthConditions(createdCitizen);
 
         return createdCitizen;
     }
 
-    public void copyCitizenToDB(Citizen citizen, ArrayList<Student> students) throws CitizenException {
-        Citizen added = addCitizenToDB(citizen, false);
+    public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
+        Citizen added = addCitizenToDB(template, false);
         for(Student stud : students)
         {
             addStudentCitizenRelation(added, stud);

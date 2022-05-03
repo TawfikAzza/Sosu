@@ -91,7 +91,7 @@ public class FunctionalReportViewController implements Initializable {
                 //we are currently displaying only the score of the ability.
                 //if the customer wants the Motivation as well, a TextFlow may need to be used instead of a Label.
                 Label subCat = new Label();
-                subCat.setText(pair.getKey().getName()+" "+pair.getValue().getScore());
+                subCat.setText(pair.getKey().getName()+" "+pair.getValue().getScore()+" "+pair.getValue().getGoals());
                 vBox.getChildren().add(subCat);
             }
             vBoxContent.getChildren().add(vBox);

@@ -110,6 +110,7 @@ public class GetTemplatesFacade {
                     //String goals = rs.getString(6);
 
                     Ability ability = new Ability(id, catID, citizenID, score, status);
+                    ability.setGoals(rs.getString("citizenGoals"));
                     abilities.add(ability);
                 }
                 cit.setFunctionalAbilities(abilities);

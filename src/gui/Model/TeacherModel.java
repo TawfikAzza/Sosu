@@ -22,7 +22,7 @@ public class TeacherModel {
         return teacherManager.getTemplates();
     }
 
-    public void copyCitizenToDB(Citizen citizen, ArrayList<Student> students) throws CitizenException {
-        teacherManager.copyCitizenToDB(citizen, students);
+    public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
+        teacherManager.copyCitizenToDB(template, students);
     }
 }

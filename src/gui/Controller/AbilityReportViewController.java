@@ -18,6 +18,8 @@ public class AbilityReportViewController implements Initializable {
     @FXML
     private Button btnConfirm;
     @FXML
+    private TextArea citizenGoal;
+    @FXML
     private RadioButton radio0,radio1,radio2,radio3,radio4,radio9,statusAkute,statusIrrelevant,statusPotentiel;
 
     @FXML
@@ -114,6 +116,7 @@ public class AbilityReportViewController implements Initializable {
                         , currentCitizen.getId()
                         , Integer.parseInt(score.getSelectedToggle().getUserData().toString())
                         , Integer.parseInt(status.getSelectedToggle().getUserData().toString()));
+                ability.setGoals(citizenGoal.getText());
                 try {
                     categoryModel.addAbility(ability);
                     Stage stage = (Stage) (statusIrrelevant.getScene().getWindow());
@@ -132,6 +135,7 @@ public class AbilityReportViewController implements Initializable {
                         ,Integer.parseInt(score.getSelectedToggle().getUserData().toString())
                         ,Integer.parseInt(status.getSelectedToggle().getUserData().toString())
                         );
+                ability.setGoals(citizenGoal.getText());
                 try {
                     categoryModel.updateAbility(ability);
                     Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
@@ -149,7 +153,8 @@ public class AbilityReportViewController implements Initializable {
             message += "- Specify a score for the ability \n";
         if(status.getSelectedToggle()==null)
             message+="- No choice as to the status has been made";
-
+        if(citizenGoal.getText().equals(""))
+            message+="- No goals set for the Citizen";
         if(!message.equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();

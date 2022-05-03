@@ -122,6 +122,7 @@ public class FunctionalAbilityDAO {
                                             rs.getInt("citizenID"),
                                             rs.getInt("score"),
                                             rs.getInt("status") );
+                abilitySearched.setGoals(rs.getString("citizenGoals"));
             }
         }
         return abilitySearched;
@@ -138,7 +139,7 @@ public class FunctionalAbilityDAO {
             pstmt.setInt(2,ability.getCitizenID());
             pstmt.setInt(3,ability.getScore());
             pstmt.setInt(4,ability.getStatus());
-            pstmt.setString(5,"something");//TODO add the goals field to ability form
+            pstmt.setString(5, ability.getGoals());
             pstmt.execute();
         }
     }
@@ -153,13 +154,14 @@ public class FunctionalAbilityDAO {
 
     public void updateAbility(Ability ability) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlUpdate = "UPDATE Abilities set score = ?, status= ? " +
+            String sqlUpdate = "UPDATE Abilities set score = ?, status= ?,citizenGoals=? " +
                     " WHERE categoryID=? AND citizenID = ?";
             PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
             pstmt.setInt(1,ability.getScore());
             pstmt.setInt(2,ability.getStatus());
-            pstmt.setInt(3,ability.getCategoryID());
-            pstmt.setInt(4,ability.getCitizenID());
+            pstmt.setString(3,ability.getGoals());
+            pstmt.setInt(4,ability.getCategoryID());
+            pstmt.setInt(5,ability.getCitizenID());
             pstmt.execute();
         }
     }
@@ -210,6 +212,7 @@ public class FunctionalAbilityDAO {
                         rs.getInt("citizenID"),
                         rs.getInt("score"),
                         rs.getInt("status") );
+                ability.setGoals(rs.getString("citizenGoals"));
                 abilityHashMap.put(ability.getId(),ability);
             }
             //Filling the HashMap of the temporary results with the right SubCategory/Functional abilities values
