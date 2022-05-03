@@ -3,7 +3,9 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
+import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import gui.Model.StudentModel;
 import gui.Model.TeacherModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
@@ -29,8 +31,15 @@ public class TeacherWindowController implements Initializable {
 
     private final TeacherModel model;
     private final UserModel userModel;
+    private final StudentModel studentModel;
+    private boolean isAdmin;
 
-
+    @FXML
+    private TableView<Citizen> tableViewAssignments;
+    @FXML
+    private TableColumn<Citizen, String> fNameAssignmentsColumn;
+    @FXML
+    private TableColumn<Citizen, String> lNameAssignmentsColumn;
     @FXML
     private TableView<Student> tableViewStudents;
     @FXML
@@ -49,6 +58,7 @@ public class TeacherWindowController implements Initializable {
     public TeacherWindowController() throws IOException {
         this.model = new TeacherModel();
         this.userModel = new UserModel();
+        this.studentModel = new StudentModel();
     }
 
     @Override
@@ -65,6 +75,14 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     private void initTables() {
         //citizens
         this.fNameTemplateTableColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
@@ -73,6 +91,10 @@ public class TeacherWindowController implements Initializable {
         //students
         this.fNameStudentsColumn.setCellValueFactory(new PropertyValueFactory<>("firstName"));
         this.lNameStudentsColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+
+        //assignments
+        this.fNameAssignmentsColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
+        this.lNameAssignmentsColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
     }
 
     @FXML
@@ -98,16 +120,12 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleCreateCitizen(ActionEvent actionEvent) throws IOException {
-        openCitizenForm(false, null);
-    }
-
-    private void openCitizenForm(boolean isEditing, Citizen citizen) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
-        if (isEditing)
-            formController.setCitizenToEdit(citizen);
+        if (isAdmin())
+            formController.enableDisableSchoolChoice();
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -117,12 +135,7 @@ public class TeacherWindowController implements Initializable {
     }
 
     @FXML
-    private void handleEditCitizen(ActionEvent actionEvent) throws IOException {
-        Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (citizen == null)
-            return;
-        openCitizenForm(true,citizen);
-        System.out.println("yes");
+    private void handleEditCitizen(ActionEvent actionEvent) {
     }
 
     @FXML
@@ -139,5 +152,15 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleDeleteStudent(ActionEvent actionEvent) {
+    }
+
+    public void handleLoadAssignments(ActionEvent actionEvent) {
+        try {
+            Student selectedStudent = tableViewStudents.getSelectionModel().getSelectedItem();
+            ObservableList<Citizen> citizens = studentModel.getCitizensOfStudent(selectedStudent);
+            tableViewAssignments.setItems(citizens);
+        } catch (StudentException | CitizenException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 }
