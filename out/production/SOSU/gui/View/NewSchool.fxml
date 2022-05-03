@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.NewSchoolController">
+<GridPane fx:id="mainGridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="113.0" prefWidth="282.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.NewSchoolController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="353.0" minWidth="10.0" prefWidth="31.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="492.0" minWidth="0.0" prefWidth="267.0" />
@@ -36,7 +36,7 @@
             <TextField fx:id="schoolName" promptText="Please enter a name" />
          </children>
       </HBox>
-      <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <ButtonBar fx:id="gridPane" prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <buttons>
             <JFXButton onAction="#handleCancelCreation" text="Cancel" />
             <JFXButton fx:id="cnfrmBtn" onAction="#handleConfirmNewSchool" text="Confirm" />
