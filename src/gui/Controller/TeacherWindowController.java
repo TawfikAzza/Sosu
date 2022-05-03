@@ -25,6 +25,7 @@ public class TeacherWindowController implements Initializable {
 
     private final TeacherModel model;
     private final UserModel userModel;
+    private boolean isAdmin;
 
     @FXML
     private TableView<Student> tableViewStudents;
@@ -60,6 +61,14 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
+    public boolean isAdmin() {
+        return isAdmin;
+    }
+
+    public void setAdmin(boolean admin) {
+        isAdmin = admin;
+    }
+
     private void initTables() {
         //citizens
         this.fNameTemplateTableColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
@@ -70,7 +79,8 @@ public class TeacherWindowController implements Initializable {
         this.lNameStudentsColumn.setCellValueFactory(new PropertyValueFactory<>("lastName"));
     }
 
-    public void handleActionDuplicate(ActionEvent actionEvent) {
+    @FXML
+    private void handleActionDuplicate(ActionEvent actionEvent) {
         Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
         Student student = tableViewStudents.getSelectionModel().getSelectedItem();
         ArrayList<Student> students = new ArrayList<>();
@@ -88,5 +98,29 @@ public class TeacherWindowController implements Initializable {
         newStudentBtn.setDisable(true);
         editStudentBtn.setDisable(true);
         deleteStudentBtn.setDisable(true);
+    }
+
+    @FXML
+    private void handleCreateCitizen(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleEditCitizen(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleDeleteCitizen(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleCreateStudent(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleEditStudent(ActionEvent actionEvent) {
+    }
+
+    @FXML
+    private void handleDeleteStudent(ActionEvent actionEvent) {
     }
 }

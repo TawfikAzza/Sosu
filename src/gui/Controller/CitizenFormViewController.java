@@ -10,10 +10,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.CheckBox;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
+import javafx.scene.control.*;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -25,6 +24,12 @@ import java.util.ResourceBundle;
 
 public class CitizenFormViewController implements Initializable {
 
+    @FXML
+    private VBox schoolBox2;
+    @FXML
+    private VBox schoolBox1;
+    @FXML
+    private ChoiceBox schoolChoiceBox;
     @FXML
     private TextField cprNumberField;
 
@@ -59,6 +64,36 @@ public class CitizenFormViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
+        bindSizes();
+        enableDisableSchoolChoice();
+
+
+    }
+
+    public void enableDisableSchoolChoice() {
+        if (schoolBox1.isDisabled()){
+
+            schoolBox1.setDisable(false);
+            schoolBox1.setOpacity(100);
+
+            schoolBox2.setDisable(false);
+            schoolBox2.setOpacity(100);
+        }
+        else{
+
+            schoolBox1.setDisable(true);
+            schoolBox1.setOpacity(0);
+
+            schoolBox2.setDisable(true);
+            schoolBox2.setOpacity(0);
+        }
+    }
+
+    private void bindSizes() {
+        VBox choiceBoxParent = ((VBox) schoolChoiceBox.getParent());
+        schoolChoiceBox.prefWidthProperty().bind(choiceBoxParent.widthProperty());
+        VBox datePickerParent = ((VBox) birthDatePicker.getParent());
+        birthDatePicker.prefWidthProperty().bind(datePickerParent.widthProperty());
     }
 
     public int getSchoolID() {

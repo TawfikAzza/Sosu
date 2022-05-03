@@ -261,6 +261,7 @@ public class AdminViewController implements Initializable {
             teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
             teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
             TeacherWindowController teacherWindowController = loaderTeacher.getController();
+            teacherWindowController.setAdmin(true);
             teacherWindowController.setAdminView();
 
         } catch (IOException e) {
