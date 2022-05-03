@@ -29,7 +29,7 @@ public class TeacherWindowController implements Initializable {
 
     private final TeacherModel model;
     private final UserModel userModel;
-    private boolean isAdmin;
+
 
     @FXML
     private TableView<Student> tableViewStudents;
@@ -65,14 +65,6 @@ public class TeacherWindowController implements Initializable {
         }
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
-    }
-
-    public void setAdmin(boolean admin) {
-        isAdmin = admin;
-    }
-
     private void initTables() {
         //citizens
         this.fNameTemplateTableColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
@@ -106,12 +98,16 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleCreateCitizen(ActionEvent actionEvent) throws IOException {
+        openCitizenForm(false, null);
+    }
+
+    private void openCitizenForm(boolean isEditing, Citizen citizen) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
-        if (isAdmin())
-            formController.enableDisableSchoolChoice();
+        if (isEditing)
+            formController.setCitizenToEdit(citizen);
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
@@ -121,7 +117,12 @@ public class TeacherWindowController implements Initializable {
     }
 
     @FXML
-    private void handleEditCitizen(ActionEvent actionEvent) {
+    private void handleEditCitizen(ActionEvent actionEvent) throws IOException {
+        Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (citizen == null)
+            return;
+        openCitizenForm(true,citizen);
+        System.out.println("yes");
     }
 
     @FXML

@@ -5,6 +5,7 @@ import javafx.util.Pair;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,20 @@ public class DAOTest {
         //getAllAbilitiesFromCitizen();
         //checkIfInfoExists();
         //insertOrUpdateInfoTest();
+        editCitizenTest();
+    }
+
+
+    private static void editCitizenTest() throws IOException, SQLException {
+        Citizen citizenToEdit = new Citizen(48,"1","1","cpr");
+        Citizen editedCitizen = new Citizen(48,"edited","edited","edited");
+        editedCitizen.setPhoneNumber(1213);
+        editedCitizen.setAddress("edited");
+        editedCitizen.setBirthDate(LocalDate.now());
+        editedCitizen.setTemplate(true);
+
+        CitizenDAO citizenDAO = new CitizenDAO();
+        citizenDAO.editCitizen(citizenToEdit,editedCitizen);
     }
 
     private static void insertOrUpdateInfoTest() throws IOException, SQLException {

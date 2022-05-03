@@ -54,7 +54,10 @@ public class CitizenFormController implements Initializable {
     private CitizenModel citizenModel;
     private SchoolModel schoolModel;
 
+    private Citizen citizenToEdit;
+
     public CitizenFormController() {
+        citizenToEdit = null;
         try {
             citizenModel = new CitizenModel();
             schoolModel = new SchoolModel();
@@ -67,9 +70,28 @@ public class CitizenFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
         bindSizes();
-        enableDisableSchoolChoice();
+        enableDisableSchoolChoice();//disabled but could be nice if the admin wanted to create templates for different schools
         loadSchools();
 
+    }
+
+    public Citizen getCitizenToEdit() {
+        return citizenToEdit;
+    }
+
+    public void setCitizenToEdit(Citizen citizenToEdit) {
+        this.citizenToEdit = citizenToEdit;
+        fillFields(citizenToEdit);
+    }
+
+    private void fillFields(Citizen citizenToEdit) {
+        fNameField.setText(citizenToEdit.getFName());
+        lNAmeField.setText(citizenToEdit.getLName());
+        addressField.setText(citizenToEdit.getAddress());
+        birthDatePicker.setValue(citizenToEdit.getBirthDate());
+        cprNumberField.setText(citizenToEdit.getCprNumber());
+        phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
+        System.out.println("yes");
     }
 
     private void loadSchools() {
@@ -90,6 +112,7 @@ public class CitizenFormController implements Initializable {
             return false;
         return true;
     }
+
 
     public void enableDisableSchoolChoice() {
         if (schoolBox1.isDisabled()){
@@ -186,21 +209,46 @@ public class CitizenFormController implements Initializable {
         newCitizen.setPhoneNumber(phoneNumber);
         newCitizen.setTemplate(true);
 
+        if (citizenToEdit==null)
+            createCitizen(newCitizen);
+        else
+            editCitizen(citizenToEdit,newCitizen);
+
+        return true;
+    }
+
+    private void createCitizen(Citizen newCitizen) {
         Thread createCitizenThread = new Thread(new Runnable() {
             @Override
             public void run() {
-                Citizen createdCitizen = null;
+                Citizen citizen = null;
                 try {
-                    createdCitizen = citizenModel.createNewCitizen(newCitizen);
+                    citizen = citizenModel.createNewCitizen(newCitizen);
                 } catch (CitizenException e) {
                     e.printStackTrace();
                 }
-                GlobalCitizen.setSelectedCitizen(createdCitizen);
+                GlobalCitizen.setSelectedCitizen(citizen);
+            }
+        });
+        createCitizenThread.start();
+    }
+
+    private void editCitizen(Citizen citizenToEdit,Citizen newCitizen){
+        Thread createCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Citizen editedCitizen = null;
+                try {
+                    editedCitizen = citizenModel.editCitizen(citizenToEdit, newCitizen);
+                } catch (CitizenException e) {
+                    e.printStackTrace();
+                }
+                GlobalCitizen.setSelectedCitizen(editedCitizen);
+                System.out.println(GlobalCitizen.getSelectedCitizen());
             }
         });
         createCitizenThread.start();
 
-        return true;
     }
 
     TextFormatter intFormatter = new TextFormatter<Object>(change -> {
