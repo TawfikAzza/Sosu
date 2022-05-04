@@ -29,11 +29,11 @@
                <children>
                   <AnchorPane prefHeight="400.0" prefWidth="800.0" GridPane.columnIndex="1">
                      <children>
-                        <Button layoutX="385.0" layoutY="47.0" mnemonicParsing="false" onAction="#openAbilities" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Functional Ability" AnchorPane.rightAnchor="10.0" />
-                        <Button layoutX="385.0" layoutY="112.0" mnemonicParsing="false" onAction="#openHealthCondition" prefHeight="56.0" prefWidth="133.0" style="-fx-background-radius: 15;" text="Heath Condition" AnchorPane.rightAnchor="10.000000000000028" />
-                        <Button layoutX="384.0" layoutY="178.0" mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="General Information" AnchorPane.rightAnchor="10.000000000000028" />
-                        <Button layoutX="384.0" layoutY="244.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Medicine List" AnchorPane.rightAnchor="10.000000000000028" />
-                        <Button layoutX="383.0" layoutY="311.0" mnemonicParsing="false" prefHeight="56.0" prefWidth="135.0" style="-fx-background-radius: 15;" text="Observation" AnchorPane.rightAnchor="10.000000000000028" />
+                        <Button layoutX="365.0" layoutY="47.0" mnemonicParsing="false" onAction="#openAbilities" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Functional Ability" AnchorPane.rightAnchor="25.0" />
+                        <Button layoutX="366.0" layoutY="112.0" mnemonicParsing="false" onAction="#openHealthCondition" prefHeight="56.0" prefWidth="133.0" style="-fx-background-radius: 15;" text="Heath Condition" AnchorPane.rightAnchor="25.0" />
+                        <Button layoutX="365.0" layoutY="178.0" mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="General Information" AnchorPane.rightAnchor="25.0" />
+                        <Button layoutX="365.0" layoutY="244.0" mnemonicParsing="false" onAction="#openMedicinelist" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Medicine List" AnchorPane.rightAnchor="25.0" />
+                        <Button layoutX="364.0" layoutY="311.0" mnemonicParsing="false" onAction="#openObservation" prefHeight="56.0" prefWidth="135.0" style="-fx-background-radius: 15;" text="Observation" AnchorPane.rightAnchor="25.0" />
                         <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="27.0" prefWidth="226.0" text="Citizen Management">
                            <font>
                               <Font name="System Bold" size="18.0" />
@@ -90,7 +90,7 @@
                         <Insets />
                      </GridPane.margin>
                   </AnchorPane>
-                  <VBox prefHeight="400.0" prefWidth="209.0">
+                  <VBox prefHeight="400.0" prefWidth="232.0">
                      <children>
                         <Label text="My Citizens">
                            <font>
@@ -99,14 +99,17 @@
                            <VBox.margin>
                               <Insets left="5.0" top="5.0" />
                            </VBox.margin></Label>
-                        <TableView fx:id="citizenTableview" onMouseClicked="#displayCitizen" prefHeight="298.0" prefWidth="186.0">
+                        <TableView fx:id="citizenTableview" onMouseClicked="#displayCitizen" prefHeight="307.0" prefWidth="181.0">
                           <columns>
                             <TableColumn fx:id="fnameColumn" prefWidth="95.99996793270111" text="First name" />
                             <TableColumn fx:id="lnameColumn" prefWidth="91.19995880126953" text="Last name" />
                           </columns>
                            <VBox.margin>
-                              <Insets left="5.0" top="15.0" />
+                              <Insets left="5.0" right="5.0" top="15.0" />
                            </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </TableView>
                      </children>
                   </VBox>

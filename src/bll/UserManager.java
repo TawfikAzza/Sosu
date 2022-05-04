@@ -5,6 +5,8 @@ import be.Student;
 import be.Teacher;
 import be.User;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
+import dal.db.SchoolDAO;
 import dal.db.StudentDAO;
 import dal.db.TeacherDAO;
 import dal.db.UsersDAO;
@@ -18,12 +20,16 @@ import java.util.List;
 
 public class UserManager implements UserInterface {
 
-    TeacherDAO teacherDao;
-    StudentDAO studentDao;
+    private TeacherDAO teacherDao;
+    private StudentDAO studentDao;
+    private UsersDAO usersDAO;
+    private SchoolDAO schoolDAO;
 
     public UserManager() throws IOException {
         teacherDao = new TeacherDAO();
         studentDao = new StudentDAO();
+        usersDAO = new UsersDAO();
+        schoolDAO = new SchoolDAO();
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber)throws UserException {
@@ -65,25 +71,27 @@ public class UserManager implements UserInterface {
         return obsStuds;
     }
 
-    UsersDAO usersDAO;
-    {
-        try{
-            usersDAO = new UsersDAO();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
     public User submitLogin(String username, String password) throws Exception {
+        User user = usersDAO.compareLogins(username, password);
+        setCurrentSchool(user);
+        return user;
+    }
 
-        User user = UsersDAO.compareLogins(username, password);
-        if (user != null) {
-            return user;
-        } else {
-            return null;
-        }
+    private void setCurrentSchool(User user) {
+        Thread setCurrentSchoolThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
+                    System.out.println(GlobalVariables.getCurrentSchool().getName());
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        });
+        setCurrentSchoolThread.start();
     }
 
     public int isUserNameTaken(String userName) throws SQLException {

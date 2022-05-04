@@ -3,6 +3,7 @@ package dal.db;
 import be.School;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -140,5 +141,24 @@ public class SchoolDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             return resultSet.next();
         }
+    }
+
+    public School getSchoolByUserID(int userID) throws SQLException {
+        School school = null;
+        try(Connection connection = connectionManager.getConnection()){
+            String sqlQuery = "SELECT * \n" +
+                                "FROM school\n" +
+                                "WHERE id IN (SELECT school_id\n" +
+                                "\t\t\tFROM [user]\n" +
+                            "\t\t\tWHERE id = ?)";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
+            preparedStatement.setInt(1,userID);
+
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next())
+                school = new School(resultSet.getInt("id"),
+                                    resultSet.getString("name"));
+        }
+        return school;
     }
 }

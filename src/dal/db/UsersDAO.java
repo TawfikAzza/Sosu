@@ -2,6 +2,7 @@ package dal.db;
 
 
 import be.*;
+import bll.util.GlobalVariables;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -11,14 +12,15 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDAO {
-    static ConnectionManager cm;
-    
+    private  ConnectionManager cm;
 
-    public  UsersDAO() throws IOException {
+    private SchoolDAO schoolDAO;
+
+    public UsersDAO() throws IOException {
         cm = new ConnectionManager();
     }
 
-    public static User compareLogins(String userName, String passWord) throws IOException {
+    public User compareLogins(String userName, String passWord) throws IOException {
 
         User user=null;
 
@@ -53,6 +55,7 @@ public class UsersDAO {
                             "student",rs.getString("user_name"),
                             rs.getString("password"),
                             rs.getString("e_mail"),25478963);
+
                 }
                 user.setRoleID(roleID);
             }
@@ -63,7 +66,6 @@ public class UsersDAO {
         }
         return user;
     }
-
     public int userNameTaken(String userName) throws SQLException {
         int counter = 0;
         try (Connection connection = cm.getConnection()){
