@@ -68,7 +68,7 @@ public class AbilityReportViewController implements Initializable {
     }
 
     private void setTooltips() {
-        
+
     }
 
     private void setEventHandlers() {

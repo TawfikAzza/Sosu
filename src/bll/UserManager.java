@@ -18,12 +18,14 @@ import java.util.List;
 
 public class UserManager implements UserInterface {
 
-    TeacherDAO teacherDao;
-    StudentDAO studentDao;
+    private TeacherDAO teacherDao;
+    private StudentDAO studentDao;
+    private UsersDAO usersDAO;
 
     public UserManager() throws IOException {
         teacherDao = new TeacherDAO();
         studentDao = new StudentDAO();
+        usersDAO = new UsersDAO();
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber)throws UserException {
@@ -65,20 +67,10 @@ public class UserManager implements UserInterface {
         return obsStuds;
     }
 
-    UsersDAO usersDAO;
-    {
-        try{
-            usersDAO = new UsersDAO();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-
     @Override
     public User submitLogin(String username, String password) throws Exception {
 
-        User user = UsersDAO.compareLogins(username, password);
+        User user = usersDAO.compareLogins(username, password);
         if (user != null) {
             return user;
         } else {
