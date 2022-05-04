@@ -154,6 +154,6 @@ public class StudentMenuViewController implements Initializable {
     }
 
 
-    public void openObservation(ActionEvent actionEvent) {
+    public void openObservation() {
     }
 }
