@@ -7,6 +7,7 @@ import bll.exceptions.StudentException;
 import bll.util.GlobalVariables;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -39,7 +40,7 @@ public class StudentMenuViewController implements Initializable {
     private Citizen currentCitizen;
     public StudentMenuViewController() {
         studentModel = new StudentModel();
-        currentStudent = new Student(28,2, "Miskine", "Nurse");
+        currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
     @Override
@@ -117,6 +118,26 @@ public class StudentMenuViewController implements Initializable {
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/GeneralInfoReportView.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void openMedicineList() {
+        if(GlobalVariables.getSelectedCitizen()==null)
+            return;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/MedicineListView.fxml"));
         Parent root = null;
         try {
             root = loader.load();
