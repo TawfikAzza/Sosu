@@ -20,35 +20,36 @@ public class MedicineListDAO {
     }
 
 
-
     public MedicineList getMedicineList(Citizen citizen) throws SQLException {
         MedicineList medicineListSearched = null;
 
-        try (Connection con = connectionManager.getConnection()){
-            String sql = "SELECT * FROM MedicineList WHERE citizenID = ? " ;
+        try (Connection con = connectionManager.getConnection()) {
+            String sql = "SELECT * FROM MedicineList WHERE citizenID = ? ";
 
             PreparedStatement prst = con.prepareStatement(sql);
             prst.setInt(1, citizen.getId());
 
             ResultSet rst = prst.executeQuery();
-            while (rst.next()){
+            while (rst.next()) {
                 medicineListSearched = new MedicineList(rst.getInt("id"),
                         rst.getInt("citizenID"),
                         rst.getString("content"));
             }
 
         }
-       return medicineListSearched;
+        return medicineListSearched;
 
     }
 
 
     public void addMedicineList(MedicineList medicineList) throws SQLException {
-        try (Connection con = connectionManager.getConnection()){
+        try (Connection con = connectionManager.getConnection()) {
 
             String sql = "INSERT INTO MedicineList VALUES (?,?) ";
             PreparedStatement prst = con.prepareStatement(sql);
-            prst.setInt(1, medicineList.getId());
+            prst.setInt(1, medicineList.getCitizenID());
+            prst.setString(2, medicineList.getMedicineList());
+            prst.execute();
         }
 
     }
@@ -56,22 +57,17 @@ public class MedicineListDAO {
 
     public void updateMedicineList(MedicineList medicineList) throws SQLException {
 
+        try (Connection con = connectionManager.getConnection()) {
+
+            String sql = "UPDATE MedicineList  set content =? WHERE id =? ";
+            PreparedStatement prst = con.prepareStatement(sql);
+            prst.setString(1, medicineList.getMedicineList());
+            prst.setInt(2, medicineList.getId());
+            prst.execute();
+
+        }
+
+
     }
-
-
 }
 
-/*
- public void addAbility(Ability ability) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
-            String sqlInsert = "INSERT INTO Abilities VALUES (?,?,?,?,?)";
-            PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
-            pstmt.setInt(1,ability.getCategoryID());
-            pstmt.setInt(2,ability.getCitizenID());
-            pstmt.setInt(3,ability.getScore());
-            pstmt.setInt(4,ability.getStatus());
-            pstmt.setString(5, ability.getGoals());
-            pstmt.execute();
-        }
-    }
- */
