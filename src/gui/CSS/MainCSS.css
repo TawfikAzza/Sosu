@@ -1,12 +1,14 @@
 * {
-    -fx-root-primary: white;
-    -fx-root-secondary: #08415c;
-    -fx-basic-controls: #5b8c5a;
-    -fx-basic-controls-secondary: #43281c;
+    -fx-root-base: #0E402D;
+    -fx-base-controls: #0B3324;
+
+    -fx-base-border: WHITE;
+
+    -fx-root-accent:#361440;
 }
 
 /*
-    Refferences:
+    References:
     For rounding edges order is top-left, top-right, bottom-right, and bottom-left corners, in that
     order.
  */
@@ -15,16 +17,15 @@
     Root (all the panes)
  */
 .root{
-    -fx-background-color:-fx-root-primary;
+    -fx-background-color:-fx-root-base;
 }
 
 /*
     Radio buttons
  */
 .radio-button .radio {
-
-    -fx-border-color: -fx-basic-controls;
-    -fx-border-width: 2;
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 1;
 
     -fx-background-radius:20 ;
     -fx-background-insets:2;
@@ -37,13 +38,17 @@
 .radio-button .dot {
     -fx-background-radius: 20px;
     -fx-padding: 8px;
-
 }
 
-.radio-button .dot:selected{
-    -fx-background-color:-fx-basic-controls-secondary;
-    -fx-border-color: black;
+.radio-button:selected{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-mark-highlight-color: -fx-root-base;
+    -fx-mark-color: -fx-root-base;
+}
 
+.radio-button{
+    -fx-text-fill: black;
 }
 
 /*
@@ -53,6 +58,25 @@
 /*
     Text fields/areas
  */
+
+.text-area{
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 2;
+    -fx-background-color: black;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: white;
+    -fx-padding:8;
+    -fx-text-fill: black;
+}
+
+.text-area:focused{
+    -fx-padding: 2;
+}
+
+/*
+For rounded text area if needed
 .text-area{
     -fx-border-radius: 20;
     -fx-border-color: black;
@@ -67,13 +91,18 @@
 }
 
 .text-area .scroll-pane .content{
-    -fx-background-color: transparent;
+    -fx-background-color: white;
     -fx-padding:8;
+    -fx-background-radius: 50;
 }
 
 .scroll-bar{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
+}
+
+.scroll-bar.thumb {
+    -fx-border-color: black;
 }
 
 .scroll-bar .decrement-button .decrement-arrow,
@@ -83,11 +112,14 @@
     -fx-border-color: transparent;
 }
 
-.scroll-bar .decrement-button .decrement-arrow:hover,
+.scroll-bar .decrement-button .decrement-arrow,
 .scroll-bar .increment-button .increment-arrow{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
+
+ */
+
 
 
 /*
@@ -95,9 +127,32 @@
  */
 
 .button{
-
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: black;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 1;
+    -fx-padding: 5;
 }
 
+.button:hover{
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 7;
+}
+
+
+
+/*
+    Text
+ */
+.label{
+    -fx-text-fill: black;
+    -fx-font-weight: 14;
+}
 
 /*
     Customer alerts
