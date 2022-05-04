@@ -65,7 +65,7 @@
 
 .table-view .column-header-background{
     -fx-font-size: 14;
-    -fx-font-weight: Bold;
+    -fx-font-weight: BOLD;
     -fx-background-color: -fx-base-controls;
 }
 
@@ -103,7 +103,7 @@
 }
 
 .table-view:row-selection.virtual-flow.corner{
-    
+
 }
 
 /*
@@ -201,7 +201,7 @@ For rounded text area if needed
  */
 .label{
     -fx-text-fill: black;
-    -fx-font-weight: 14;
+    -fx-font-weight: BOLD;
 }
 
 /*
