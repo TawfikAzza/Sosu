@@ -1,8 +1,10 @@
 package gui.Controller;
 
 import be.MedicineList;
+import bll.exceptions.MedicineListException;
 import bll.util.GlobalVariables;
 import gui.Model.MedicineListModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -40,7 +42,12 @@ public class MedicineListController implements Initializable {
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-     medicineListModel = new MedicineListModel();
+        try {
+            medicineListModel = new MedicineListModel();
+
+        } catch (MedicineListException e) {
+            DisplayMessage.displayError(e);
+        }
 
     }
 
@@ -48,7 +55,21 @@ public class MedicineListController implements Initializable {
     @FXML
     private void saveMedicineList() {
         MedicineList medicineList = null;
+        try {
+            medicineList = medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen());
+        } catch (MedicineListException e) {
+            DisplayMessage.displayError(e);
+        }
         medicineList = new MedicineList(1, GlobalVariables.getSelectedCitizen().getId(), textMedicineList.getText());
+
+        if (medicineList != null ){
+         medicineListModel.updateMedicineList(medicineList);
+        }
+        else{
+
+        }
+
+
 
     }
 }

@@ -222,8 +222,7 @@ public class CitizenFormController implements Initializable {
             popupMessage+="- Make sure the phone number is valid";
 
         if(!popupMessage.equals("")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, popupMessage, ButtonType.OK, ButtonType.CANCEL);
-            alert.showAndWait();
+            DisplayMessage.displayMessage(popupMessage);
             return false;
         }
         return true;

@@ -22,8 +22,13 @@ public class MedicineListManger {
     }
 
 
-    public void getMedicineList (MedicineList medicineList , Citizen citizen) throws MedicineListException{
+    public MedicineList getMedicineList(Citizen citizen) throws MedicineListException{
+        try {
+            return  medicineListDAO.getMedicineList(citizen);
 
+        } catch (SQLException e) {
+            throw new MedicineListException("Error while getting th medicine list from the database",e);
+        }
     }
 
 
