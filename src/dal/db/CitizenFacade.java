@@ -131,13 +131,13 @@ public class CitizenFacade {
             {
                 int catID = info.getCategoryID();
 
-                int citizenID = info.getCitizenID();
+                int citizenID = citizen.getId();
 
                 String content = info.getContent();
                 System.out.println(content);
 
-                ps.setInt(1, catID);
-                ps.setInt(2, citizenID);
+                ps.setInt(1, citizenID);
+                ps.setInt(2, catID);
                 ps.setString(3, content);
 
                 ps.addBatch();
