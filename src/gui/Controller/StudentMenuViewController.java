@@ -40,7 +40,7 @@ public class StudentMenuViewController implements Initializable {
     private Citizen currentCitizen;
     public StudentMenuViewController() {
         studentModel = new StudentModel();
-        currentStudent = new Student(28,2, "Miskine", "Nurse");
+        currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
     @Override
@@ -51,6 +51,7 @@ public class StudentMenuViewController implements Initializable {
     public void upadateTableCitizen() {
         fnameColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
+
         try {
             citizenTableview.getItems().addAll(studentModel.getCitizensOfStudent(currentStudent));
         } catch (StudentException | CitizenException e) {
@@ -133,10 +134,27 @@ public class StudentMenuViewController implements Initializable {
         stage.show();
     }
 
-    public void openMedicinelist(ActionEvent actionEvent) {
+    public void openMedicinelist() {
+        if(GlobalVariables.getSelectedCitizen()==null)
+            return;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/MedicineListView.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
     }
 
 
-    public void openObservation(ActionEvent actionEvent) {
+    public void openObservation() {
     }
 }

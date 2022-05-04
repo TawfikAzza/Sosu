@@ -18,7 +18,6 @@ public class UsersDAO {
 
     public UsersDAO() throws IOException {
         cm = new ConnectionManager();
-        schoolDAO = new SchoolDAO();
     }
 
     public User compareLogins(String userName, String passWord) throws IOException {
@@ -59,8 +58,6 @@ public class UsersDAO {
 
                 }
                 user.setRoleID(roleID);
-                GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user
-                //to use it in operations
             }
 
 
@@ -69,7 +66,6 @@ public class UsersDAO {
         }
         return user;
     }
-
     public int userNameTaken(String userName) throws SQLException {
         int counter = 0;
         try (Connection connection = cm.getConnection()){
