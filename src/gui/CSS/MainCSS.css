@@ -55,6 +55,57 @@
     List and tableviews
  */
 
+
+.table-view{
+    -fx-background-color: -fx-root-base;
+}
+.table-view .column-header {
+    -fx-background-color: -fx-base-controls;
+}
+
+.table-view .column-header-background{
+    -fx-font-size: 14;
+    -fx-font-weight: Bold;
+    -fx-background-color: -fx-base-controls;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -fx-root-accent;
+
+}
+.table-row-cell:empty{
+    -fx-background-color: #e1dd72;
+}
+
+.table-row-cell{
+    -fx-background-color: #91AB5E, #91AB5E;
+    -fx-table-cell-border-color: -fx-base-border;
+
+}
+
+.table-row-cell:hover{
+    -fx-background-color: -fx-root-accent;
+    -fx-table-cell-border-color: -fx-base-border;
+    -fx-text-fill: white;
+}
+
+.table-view .filler{
+    -fx-background-color: transparent;
+}
+
+.table-view.scroll-bar:vertical.track-background{
+    -fx-background-color: -fx-root-base;
+}
+
+.table-view:row-selection.virtual-flow.corner{
+    
+}
+
 /*
     Text fields/areas
  */
@@ -95,7 +146,7 @@ For rounded text area if needed
     -fx-padding:8;
     -fx-background-radius: 50;
 }
-
+*/
 .scroll-bar{
     -fx-background-color: transparent;
     -fx-border-color: transparent;
@@ -118,7 +169,6 @@ For rounded text area if needed
     -fx-border-color: transparent;
 }
 
- */
 
 
 
