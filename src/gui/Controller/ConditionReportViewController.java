@@ -137,4 +137,10 @@ public class ConditionReportViewController implements Initializable {
         }
        return true;
     }
+
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
+        Button sourceButton = ((Button) actionEvent.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
+    }
 }

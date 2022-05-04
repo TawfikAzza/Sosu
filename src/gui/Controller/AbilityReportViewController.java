@@ -163,4 +163,9 @@ public class AbilityReportViewController implements Initializable {
         return true;
 
     }
+
+    @FXML void handleCancel(ActionEvent actionEvent) {
+        Button sourceButton = ((Button) actionEvent.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
+    }
 }

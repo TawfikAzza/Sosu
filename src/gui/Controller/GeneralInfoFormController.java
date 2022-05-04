@@ -10,10 +10,15 @@ import gui.Model.GInfoModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class GeneralInfoFormController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GeneralInfoFormController implements Initializable {
 
     @FXML
     private Label infoCategoryNameLabel;
@@ -22,7 +27,7 @@ public class GeneralInfoFormController {
     private Label definitionLabel;
 
     @FXML
-    private TextField infoContentField;
+    private TextArea infoContentField;
 
     private InfoCategory selectedInfoCategory;
 
@@ -95,4 +100,17 @@ public class GeneralInfoFormController {
             }
         }
     });
+
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
+        Button sourceButton = ((Button) actionEvent.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        HBox infoParentBox = ((HBox) infoContentField.getParent());
+        infoContentField.prefHeightProperty().bind(infoParentBox.heightProperty());
+        infoContentField.prefWidthProperty().bind(infoParentBox.widthProperty());
+    }
 }

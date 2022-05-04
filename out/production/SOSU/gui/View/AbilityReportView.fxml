@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="368.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
+<GridPane prefHeight="368.0" prefWidth="691.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
    </columnConstraints>
@@ -80,7 +80,12 @@
             </VBox>
          </children>
       </HBox>
-      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.rowIndex="3" />
+      <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="3">
+         <children>
+            <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" />
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+         </children>
+      </HBox>
       <HBox prefHeight="100.0" prefWidth="200.0">
          <children>
             <RadioButton fx:id="statusIrrelevant" mnemonicParsing="false" text="Irrelevant">

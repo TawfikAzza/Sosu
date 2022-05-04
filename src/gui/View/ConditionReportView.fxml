@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 
-<GridPane prefHeight="297.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
+<GridPane prefHeight="297.0" prefWidth="663.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="336.8" />
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="325.40000000000003" />
@@ -42,6 +42,11 @@
       <TextArea fx:id="description" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <TextArea fx:id="freeText" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextArea fx:id="goal" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+         <children>
+            <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+            <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
+         </children>
+      </HBox>
    </children>
 </GridPane>
