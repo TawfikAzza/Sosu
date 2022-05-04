@@ -193,8 +193,7 @@ public class CitizenFormController implements Initializable {
         if (!phoneField.getText().isEmpty())
             phoneNumber = Integer.parseInt(phoneField.getText());
 
-        if (fName.isEmpty() || lName.isEmpty() || address.isEmpty()
-                || birthDate.equals(null) || phoneNumber==-1 || cprNumber.isEmpty())
+        if (!inputIsValid(fName,lName,address,birthDate,cprNumber,phoneNumber))
             return false;
 
         Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
@@ -212,6 +211,33 @@ public class CitizenFormController implements Initializable {
 
         return true;
     }
+
+    private boolean inputIsValid(String fName, String lName, String address, LocalDate birthDate, String cprNumber, int phoneNumber) {
+        String popupMessage = "";
+        if (fName.isBlank())
+            popupMessage+="- Enter a first name \n";
+        if (lName.isBlank())
+            popupMessage+="- Enter a last name \n";
+        if (address.isBlank())
+            popupMessage+="- Enter an address\n";
+        if (birthDate==null)
+            popupMessage+="- Select a birthdate\n";
+        if (cprNumber.isEmpty())
+            popupMessage+="- Enter a cpr number\n";
+        if (phoneNumber==-1)
+            popupMessage+="- Enter a phone number\n";
+        if (String.valueOf(phoneNumber).length()<8)
+            popupMessage+="- Make sure the phone number is valid";
+
+        if(!popupMessage.equals("")) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION, popupMessage, ButtonType.OK, ButtonType.CANCEL);
+            alert.showAndWait();
+            return false;
+        }
+        return true;
+    }
+
+
 
     private void createCitizen(Citizen newCitizen) {
         Thread createCitizenThread = new Thread(new Runnable() {

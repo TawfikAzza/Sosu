@@ -261,6 +261,7 @@ public class AdminViewController implements Initializable {
                 }
                 citizensSchoolLV.setItems(allCitizensFiltered);
             }
+
         });
 
         FXMLLoader loaderTeacher = new FXMLLoader();
