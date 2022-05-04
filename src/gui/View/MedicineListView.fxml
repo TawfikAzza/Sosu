@@ -36,8 +36,7 @@
             <Label fx:id="lblCPR" prefHeight="18.0" prefWidth="163.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
          </children>
       </GridPane>
-      <Button layoutX="381.0" layoutY="338.0" mnemonicParsing="false" text="Create" />
-      <Button layoutX="450.0" layoutY="338.0" mnemonicParsing="false" text="Update" />
+      <Button fx:id="btnSave" layoutX="381.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveMedicineList" text="Save" />
       <Button layoutX="522.0" layoutY="338.0" mnemonicParsing="false" text="Close" />
    </children>
 </AnchorPane>
