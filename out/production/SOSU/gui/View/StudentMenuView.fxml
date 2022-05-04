@@ -90,7 +90,7 @@
                         <Insets />
                      </GridPane.margin>
                   </AnchorPane>
-                  <VBox prefHeight="400.0" prefWidth="209.0">
+                  <VBox prefHeight="400.0" prefWidth="232.0">
                      <children>
                         <Label text="My Citizens">
                            <font>
@@ -105,8 +105,11 @@
                             <TableColumn fx:id="lnameColumn" prefWidth="91.19995880126953" text="Last name" />
                           </columns>
                            <VBox.margin>
-                              <Insets left="5.0" top="15.0" />
+                              <Insets left="5.0" right="5.0" top="15.0" />
                            </VBox.margin>
+                           <opaqueInsets>
+                              <Insets />
+                           </opaqueInsets>
                         </TableView>
                      </children>
                   </VBox>
