@@ -5,6 +5,7 @@ import be.Condition;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.CategoryModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -25,7 +26,6 @@ public class ConditionReportViewController implements Initializable {
     @FXML
     private ToggleGroup status;
 
-
     private Citizen currentCitizen;
     private HealthCategory healthCategory;
     private CategoryModel categoryModel;
@@ -38,7 +38,7 @@ public class ConditionReportViewController implements Initializable {
             statusPotentiel.setUserData(1);
             statusAkute.setUserData(2);
         } catch (HealthCategoryException e) {
-            e.printStackTrace();
+            DisplayMessage.displayError(e);
         }
     }
     public void setCurrentCitizen(Citizen citizen) {
@@ -73,7 +73,7 @@ public class ConditionReportViewController implements Initializable {
             }
             System.out.println(status.getSelectedToggle());
         } catch (HealthCategoryException e) {
-            e.printStackTrace();
+            DisplayMessage.displayError(e);
         }
 
     }
@@ -95,7 +95,7 @@ public class ConditionReportViewController implements Initializable {
                      Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
                      stage.close();
                 } catch (HealthCategoryException e) {
-                    e.printStackTrace();
+                    DisplayMessage.displayError(e);
                 }
             }
         }
@@ -114,7 +114,7 @@ public class ConditionReportViewController implements Initializable {
                     Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
                     stage.close();
                 } catch (HealthCategoryException e) {
-                    e.printStackTrace();
+                    DisplayMessage.displayError(e);
                 }
             }
         }

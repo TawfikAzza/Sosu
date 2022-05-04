@@ -4,6 +4,7 @@ import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.CategoryModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -49,6 +50,7 @@ public class AbilityReportViewController implements Initializable {
         try {
             categoryModel = new CategoryModel();
         } catch (HealthCategoryException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
     }
@@ -62,6 +64,7 @@ public class AbilityReportViewController implements Initializable {
             setEventHandlers();
             setTooltips();
         } catch (HealthCategoryException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -151,6 +154,7 @@ public class AbilityReportViewController implements Initializable {
             }
             citizenGoal.setText(ability.getGoals());
         } catch (AbilityCategoryException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -172,6 +176,7 @@ public class AbilityReportViewController implements Initializable {
                     Stage stage = (Stage) (statusIrrelevant.getScene().getWindow());
                     stage.close();
                 } catch (AbilityCategoryException e) {
+                    DisplayMessage.displayError(e);
                     e.printStackTrace();
                 }
             }
@@ -191,6 +196,7 @@ public class AbilityReportViewController implements Initializable {
                     Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
                     stage.close();
                 } catch (AbilityCategoryException e) {
+                    DisplayMessage.displayError(e);
                     e.printStackTrace();
                 }
             }

@@ -56,6 +56,7 @@ public class StudentMenuViewController implements Initializable {
             citizenTableview.getItems().addAll(studentModel.getCitizensOfStudent(currentStudent));
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
 
     }
@@ -82,6 +83,7 @@ public class StudentMenuViewController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -103,6 +105,7 @@ public class StudentMenuViewController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -123,6 +126,7 @@ public class StudentMenuViewController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -143,6 +147,7 @@ public class StudentMenuViewController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 

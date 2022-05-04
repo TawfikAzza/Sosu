@@ -7,6 +7,7 @@ import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
+import gui.utils.DisplayMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -85,6 +86,7 @@ public class FunctionalSectionDisplayController implements Initializable {
 
             }
         } catch (AbilityCategoryException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
     }
@@ -103,6 +105,7 @@ public class FunctionalSectionDisplayController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
         //Setting the variables of the target controller and setting the fields of it if the report has already been

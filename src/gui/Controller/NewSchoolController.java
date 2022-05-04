@@ -4,6 +4,7 @@ import be.School;
 import bll.exceptions.SchoolException;
 import com.jfoenix.controls.JFXButton;
 import gui.Model.SchoolModel;
+import gui.utils.DisplayMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -64,12 +65,9 @@ public class NewSchoolController implements Initializable {
 
             Stage stage = (Stage) cnfrmBtn.getScene().getWindow();
             stage.close();
-        }catch (SchoolException schoolException){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alert");
-            alert.setHeaderText(schoolException.getExceptionMessage());
-            alert.setContentText(schoolException.getInstructions());
-            alert.showAndWait();
+        }catch (SchoolException e){
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
 
     }
@@ -79,6 +77,7 @@ public class NewSchoolController implements Initializable {
         try {
             schoolModel =new SchoolModel();
         } catch (SchoolException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
         mainGridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {

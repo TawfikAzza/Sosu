@@ -7,6 +7,7 @@ import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
+import gui.utils.DisplayMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -95,7 +96,6 @@ public class AdminViewController implements Initializable {
         allTeacherFiltered.remove(selectedTeacher);
         allTeachersSchool.getItems().remove(selectedTeacher.getFirstName()+" "+selectedTeacher.getLastName());
         }
-
     }
 
     public void addTeacher(ActionEvent actionEvent) throws IOException {
@@ -119,11 +119,10 @@ public class AdminViewController implements Initializable {
 
     public void deleteStudent(ActionEvent actionEvent) throws SQLException {
         if ( studentsTableView.getSelectionModel().getSelectedItem()!=null){
-        Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
-        userModel.deleteStudent(selectedStudent);
-        allStudentsFiltered.remove(selectedStudent);
-        allStudentsSchool.getItems().remove(selectedStudent.getFirstName()+" "+selectedStudent.getLastName());
-
+            Student selectedStudent = studentsTableView.getSelectionModel().getSelectedItem();
+            userModel.deleteStudent(selectedStudent);
+            allStudentsFiltered.remove(selectedStudent);
+            allStudentsSchool.getItems().remove(selectedStudent.getFirstName()+" "+selectedStudent.getLastName());
         }
     }
 
@@ -170,6 +169,7 @@ public class AdminViewController implements Initializable {
             schoolModel = new SchoolModel();
 
         } catch (IOException | SchoolException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -179,7 +179,8 @@ public class AdminViewController implements Initializable {
         try {
             allSchoolsLV.setItems(schoolModel.getAllSchools());
             allSchools.addAll(allSchoolsLV.getItems());
-        } catch (SQLException | SchoolException e) {
+        } catch (SchoolException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -196,7 +197,9 @@ public class AdminViewController implements Initializable {
                     citizensSchoolLV.setItems(schoolModel.getAllCitizens(allSchoolsLV.getSelectionModel().getSelectedItem()));
                     allCitizens.addAll(citizensSchoolLV.getItems());
 
-                } catch (SQLException | UserException ignored) {
+                } catch (SQLException | UserException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
                 }
             }
         });
@@ -206,7 +209,9 @@ public class AdminViewController implements Initializable {
             public void handle(MouseEvent event) {
                 try {
                     citizensStudentRelatedListView.setItems(userModel.getCitizensOfStudent(studentsTableView.getSelectionModel().getSelectedItem()));
-                } catch (StudentException | CitizenException ignored) {
+                } catch (StudentException | CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
                 }
             }
         });
@@ -219,6 +224,7 @@ public class AdminViewController implements Initializable {
                         allTeacherFiltered.setAll(userModel.getAllTeachers(searchTeacherField.getText()));
                         teachersTableView.setItems(allTeacherFiltered);
                     } catch (SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -233,6 +239,7 @@ public class AdminViewController implements Initializable {
                         allStudentsFiltered.setAll(userModel.getAllStudents(searchStudentField.getText()));
                         studentsTableView.setItems(allStudentsFiltered);
                     } catch (SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -320,6 +327,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch (UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -354,6 +362,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch (UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -376,6 +385,7 @@ public class AdminViewController implements Initializable {
                     ExceptionOnEdit(e);
                     return selectedStudent.getUserName();
                 } catch (SQLException e) {
+                    DisplayMessage.displayError(e);
                     e.printStackTrace();
                 }
                 return string;
@@ -390,6 +400,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch (UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -423,6 +434,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch (UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -456,6 +468,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch (UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }
@@ -490,6 +503,7 @@ public class AdminViewController implements Initializable {
                     try {
                         userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
                     } catch ( UserException | SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 } else {

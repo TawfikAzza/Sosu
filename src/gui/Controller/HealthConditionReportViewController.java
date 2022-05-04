@@ -40,6 +40,7 @@ public class HealthConditionReportViewController implements Initializable {
             reportModel = new ReportModel();
         } catch (HealthCategoryException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
     }
     /**
@@ -68,6 +69,7 @@ public class HealthConditionReportViewController implements Initializable {
             categoryHashMap = reportModel.getAllConditionsMainCategories();
         } catch (CitizenReportException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
 
         //Parsing through the HashMap

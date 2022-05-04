@@ -8,6 +8,7 @@ import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.CitizenModel;
 import gui.Model.SchoolModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -59,7 +60,7 @@ public class CitizenFormController implements Initializable {
             citizenModel = new CitizenModel();
             schoolModel = new SchoolModel();
         } catch (CitizenException | SchoolException e) {
-            e.printStackTrace();
+            DisplayMessage.displayError(e);
         }
     }
 
@@ -95,10 +96,9 @@ public class CitizenFormController implements Initializable {
             return;
         try {
             schoolChoiceBox.setItems(schoolModel.getAllSchools());
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (SchoolException e) {
-            e.printStackTrace();
+        }
+        catch (SchoolException e) {
+            DisplayMessage.displayError(e);
         }
 
     }
@@ -134,14 +134,6 @@ public class CitizenFormController implements Initializable {
         schoolChoiceBox.prefWidthProperty().bind(choiceBoxParent.widthProperty());
         VBox datePickerParent = ((VBox) birthDatePicker.getParent());
         birthDatePicker.prefWidthProperty().bind(datePickerParent.widthProperty());
-    }
-
-    public int getSchoolID() {
-        return schoolID;
-    }
-
-    public void setSchoolID(int schoolID) {
-        this.schoolID = schoolID;
     }
 
     @FXML
@@ -247,7 +239,7 @@ public class CitizenFormController implements Initializable {
                 try {
                     citizen = citizenModel.createNewCitizen(newCitizen);
                 } catch (CitizenException e) {
-                    e.printStackTrace();
+                    DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(citizen);
             }
@@ -263,7 +255,7 @@ public class CitizenFormController implements Initializable {
                 try {
                     editedCitizen = citizenModel.editCitizen(citizenToEdit, newCitizen);
                 } catch (CitizenException e) {
-                    e.printStackTrace();
+                    DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(editedCitizen);
             }

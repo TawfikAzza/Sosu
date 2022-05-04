@@ -24,7 +24,7 @@ public class SchoolModel {
     public SchoolModel() throws SchoolException {
         schoolManager = new SchoolManager();
     }
-    public ObservableList<School>getAllSchools() throws SQLException, SchoolException {
+    public ObservableList<School>getAllSchools() throws SchoolException {
         allSchools= FXCollections.observableArrayList();
         allSchools.addAll(schoolManager.getAllSchools());
         return allSchools;

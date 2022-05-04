@@ -9,6 +9,7 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
+import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -87,12 +88,9 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTView(allTeacher);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
-            }catch (UserException ue){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Alert");
-                alert.setHeaderText(ue.getExceptionMessage());
-                alert.setContentText(ue.getInstructions());
-                alert.showAndWait();
+            }catch (UserException e){
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
             }
 
         else if(newUser&&!isTeacher){
@@ -105,12 +103,9 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
-            }catch (UserException ue){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Alert");
-                alert.setHeaderText(ue.getExceptionMessage());
-                alert.setContentText(ue.getInstructions());
-                alert.showAndWait();
+            }catch (UserException e){
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
             }
         }
 
@@ -128,12 +123,9 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTView(allTeacher);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
-            }catch (UserException ue){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Alert");
-                alert.setHeaderText(ue.getExceptionMessage());
-                alert.setContentText(ue.getInstructions());
-                alert.showAndWait();
+            }catch (UserException e){
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
             }
         }
         else {
@@ -150,12 +142,9 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
-            }catch (UserException ue){
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setTitle("Alert");
-                alert.setHeaderText(ue.getExceptionMessage());
-                alert.setContentText(ue.getInstructions());
-                alert.showAndWait();
+            }catch (UserException e){
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
             }
 
         }
@@ -168,16 +157,19 @@ public class NewEditUserController implements Initializable {
         try {
             userModel = new UserModel();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
         try {
             schoolModel = new SchoolModel();
         } catch (SchoolException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
         try {
             schoolComboBox.getItems().setAll(schoolModel.getAllSchools());
-        } catch (SQLException | SchoolException e) {
+        } catch (SchoolException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
@@ -202,6 +194,7 @@ public class NewEditUserController implements Initializable {
                     try {
                         createNewUser(new ActionEvent());
                     } catch (SQLException e) {
+                        DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
                 }else if(event.getCode().equals(KeyCode.ESCAPE)){

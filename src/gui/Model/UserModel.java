@@ -64,8 +64,6 @@ public class UserModel {
         userManager.editTeacher(teacher,school);
     }
 
-
-
     public static UserModel getInstance() throws IOException {
         if (single_instance == null)
             single_instance = new UserModel();

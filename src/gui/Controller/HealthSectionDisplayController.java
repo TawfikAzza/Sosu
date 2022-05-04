@@ -5,6 +5,7 @@ import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
+import gui.utils.DisplayMessage;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -86,6 +87,7 @@ public class HealthSectionDisplayController implements Initializable {
                 healthContainer.getPanes().add(titledPane);
             }
         } catch (HealthCategoryException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
     }
@@ -102,6 +104,7 @@ public class HealthSectionDisplayController implements Initializable {
         try {
             root = loader.load();
         } catch (IOException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
         //Setting the variables of the target controller and setting the fields of it if the report has already been

@@ -36,6 +36,7 @@ public class GeneralInfoFormController implements Initializable {
         try {
             model = new GInfoModel();
         } catch (GeneralInfoException e) {
+            DisplayMessage.displayError(e);
             e.printStackTrace();
         }
     }
@@ -79,6 +80,7 @@ public class GeneralInfoFormController implements Initializable {
             generalInfo = model.getGeneralInfoCitizen(GlobalVariables.getSelectedCitizen(), selectedInfoCategory);
         } catch (GeneralInfoException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
         assert generalInfo != null;
         if(generalInfo!=null)
@@ -95,6 +97,7 @@ public class GeneralInfoFormController implements Initializable {
             try {
                 model.saveInformation(currentCitizen,selectedInfoCategory,infoContent);
             } catch (GeneralInfoException e) {
+                DisplayMessage.displayError(e);
                 e.printStackTrace();
             }
         }

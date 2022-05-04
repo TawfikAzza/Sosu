@@ -71,6 +71,7 @@ public class TeacherWindowController implements Initializable {
             this.initTables();
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();;
         }
     }
 
@@ -101,6 +102,7 @@ public class TeacherWindowController implements Initializable {
             model.copyCitizenToDB(template, students);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
     }
 
@@ -162,6 +164,7 @@ public class TeacherWindowController implements Initializable {
             tableViewAssignments.setItems(citizens);
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
     }
 }
