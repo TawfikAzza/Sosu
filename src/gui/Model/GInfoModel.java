@@ -2,6 +2,7 @@ package gui.Model;
 
 
 import be.Citizen;
+import be.GeneralInfo;
 import be.InfoCategory;
 import bll.GInfoManager;
 import bll.exceptions.GeneralInfoException;
@@ -22,5 +23,9 @@ public class GInfoModel {
 
     public void saveInformation(Citizen currentCitizen, InfoCategory selectedInfoCategory, String infoContent) throws GeneralInfoException {
         generalInfoManager.saveInformation(currentCitizen,selectedInfoCategory,infoContent);
+    }
+
+    public GeneralInfo getGeneralInfoCitizen(Citizen citizen, InfoCategory selectedInfoCategory) throws GeneralInfoException {
+        return generalInfoManager.getGeneralInfoCitizen(citizen,selectedInfoCategory);
     }
 }

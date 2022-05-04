@@ -38,4 +38,12 @@ public class GInfoManager {
             throw new GeneralInfoException("Error while inserting data in the database",e);
         }
     }
+
+    public GeneralInfo getGeneralInfoCitizen(Citizen citizen, InfoCategory selectedInfoCategory) throws GeneralInfoException {
+        try {
+            return infoDAO.getGeneralInfoCitizen(citizen,selectedInfoCategory);
+        } catch (SQLException e) {
+            throw new GeneralInfoException("Error while retrieving general Info data from the database",e);
+        }
+    }
 }

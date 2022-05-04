@@ -11,6 +11,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -43,6 +44,7 @@ public class MainController {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -54,6 +56,7 @@ public class MainController {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -65,6 +68,7 @@ public class MainController {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -75,6 +79,7 @@ public class MainController {
 
         Scene scene = new Scene(root,755,400);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -121,6 +126,7 @@ public class MainController {
        // functionalReportViewController.displayCitizenReport();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -136,6 +142,7 @@ public class MainController {
         // functionalReportViewController.displayCitizenReport();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
@@ -148,6 +155,20 @@ public class MainController {
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+
+        stage.show();
+    }
+
+    public void openStudent() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/StudentMenuView.fxml"));
+        Parent root = loader.load();
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
 
         stage.show();
