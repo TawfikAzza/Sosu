@@ -1,5 +1,5 @@
 * {
-    -fx-root-primary:#08415C;
+    -fx-root-primary:black;
     -fx-root-secondary: #FBF2C0;
     -fx-basic-controls: #5b8c5a;
     -fx-basic-controls-secondary: #43281c;
@@ -9,39 +9,61 @@
     Root (all the panes)
  */
 .root{
-    -fx-background-color:white;
+    -fx-background-color:-fx-root-primary;
 }
 
 /*
     Radio buttons
  */
-
-
 .radio-button .radio {
-    -fx-border-width: 1px;
+
     -fx-border-color: -fx-basic-controls;
+    -fx-border-width: 2;
+
+    -fx-background-radius:20 ;
+    -fx-background-insets:2;
     -fx-background-color: white;
-    -fx-background-image: null;
-    -fx-border-radius: 15px;
-    -fx-padding: 3px;
+
+    -fx-border-radius: 20px;
+
 }
-.radio-button .radio:selected {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:armed {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:determinate {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:indeterminate {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
+
+
 .radio-button .dot {
-    -fx-background-radius: 15px;
+    -fx-background-radius: 20px;
     -fx-padding: 8px;
+
+}
+
+.radio-button .dot:selected{
+    -fx-background-color:-fx-basic-controls-secondary;
+    -fx-border-color: black;
+
+}
+
+/*
+    Buttons
+ */
+
+.button{
+
+}
+
+.myDialog{
+    -fx-background-color: #f9d900;
+}
+.myDialog > *.button-bar > *.container{
+    -fx-background-color: #a9e200;
+}
+.myDialog > *.label.content{
+    -fx-font-size: 14px;
+    -fx-font-weight: bold;
+}
+.myDialog.header-panel *.header-panel{
+    -fx-background-color: #a59c31;
+}
+.myDialog.header-panel *.header-panel *.label{
+    -fx-font-size: 18px;
+    -fx-font-style: italic;
+    -fx-fill: #292929;
 }

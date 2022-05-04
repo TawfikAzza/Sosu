@@ -1,47 +1,108 @@
 * {
-    -fx-root-primary:#08415C;
-    -fx-root-secondary: #FBF2C0;
+    -fx-root-primary: white;
+    -fx-root-secondary: #08415c;
     -fx-basic-controls: #5b8c5a;
     -fx-basic-controls-secondary: #43281c;
 }
 
 /*
+    Refferences:
+    For rounding edges order is top-left, top-right, bottom-right, and bottom-left corners, in that
+    order.
+ */
+
+/*
     Root (all the panes)
  */
 .root{
-    -fx-background-color:white;
+    -fx-background-color:-fx-root-primary;
 }
 
 /*
     Radio buttons
  */
-
-
 .radio-button .radio {
-    -fx-border-width: 1px;
+
     -fx-border-color: -fx-basic-controls;
+    -fx-border-width: 2;
+
+    -fx-background-radius:20 ;
+    -fx-background-insets:2;
     -fx-background-color: white;
-    -fx-background-image: null;
-    -fx-border-radius: 15px;
-    -fx-padding: 3px;
+
+    -fx-border-radius: 20px;
+
 }
-.radio-button .radio:selected {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:armed {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:determinate {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
-.radio-button -radio:indeterminate {
-    -fx-background-color: white;
-    -fx-background-image: null;
-}
+
 .radio-button .dot {
-    -fx-background-radius: 15px;
+    -fx-background-radius: 20px;
     -fx-padding: 8px;
+
 }
+
+.radio-button .dot:selected{
+    -fx-background-color:-fx-basic-controls-secondary;
+    -fx-border-color: black;
+
+}
+
+/*
+    List and tableviews
+ */
+
+/*
+    Text fields/areas
+ */
+.text-area{
+    -fx-border-radius: 20;
+    -fx-border-color: black;
+    -fx-background-radius: 20;
+}
+
+.text-area .scroll-pane {
+    -fx-background-color:transparent ;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: transparent;
+    -fx-padding:8;
+}
+
+.scroll-bar{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .decrement-button .decrement-arrow,
+.scroll-bar .increment-button .increment-arrow
+{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .decrement-button .decrement-arrow:hover,
+.scroll-bar .increment-button .increment-arrow{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+/*
+    Buttons
+ */
+
+.button{
+
+}
+
+
+/*
+    Customer alerts
+ */
+.myDialog{
+    -fx-background-color: #f9d900;
+}
+

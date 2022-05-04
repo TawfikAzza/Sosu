@@ -212,8 +212,7 @@ public class AbilityReportViewController implements Initializable {
         if(citizenGoal.getText().equals(""))
             message+="- No goals set for the Citizen";
         if(!message.equals("")) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK, ButtonType.CANCEL);
-            alert.showAndWait();
+            DisplayMessage.displayMessage(message);
             return false;
         }
         return true;
