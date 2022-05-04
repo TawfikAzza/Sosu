@@ -59,10 +59,10 @@ public class MedicineListDAO {
 
         try (Connection con = connectionManager.getConnection()) {
 
-            String sql = "UPDATE MedicineList  set content =? WHERE id =? ";
+            String sql = "UPDATE MedicineList  set content =? WHERE citizenID =? ";
             PreparedStatement prst = con.prepareStatement(sql);
             prst.setString(1, medicineList.getMedicineList());
-            prst.setInt(2, medicineList.getId());
+            prst.setInt(2, medicineList.getCitizenID());
             prst.execute();
 
         }
