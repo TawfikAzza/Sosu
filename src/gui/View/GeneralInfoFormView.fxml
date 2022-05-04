@@ -34,7 +34,7 @@
             <children>
             <HBox>
                <children>
-                      <Label fx:id="definitionLabel" alignment="TOP_LEFT" contentDisplay="BOTTOM" prefHeight="115.0" prefWidth="270.0" text="Definition" wrapText="true">
+                      <Label fx:id="definitionLabel" alignment="TOP_LEFT" contentDisplay="BOTTOM" prefHeight="150.0" prefWidth="270.0" text="Definition" wrapText="true">
                           <font>
                               <Font name="System Bold" size="10.0" />
                           </font>
