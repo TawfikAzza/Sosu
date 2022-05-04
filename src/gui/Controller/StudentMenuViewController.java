@@ -40,7 +40,7 @@ public class StudentMenuViewController implements Initializable {
     private Citizen currentCitizen;
     public StudentMenuViewController() {
         studentModel = new StudentModel();
-        currentStudent = new Student(28,2, "Miskine", "Nurse");
+        currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
     @Override
@@ -51,6 +51,7 @@ public class StudentMenuViewController implements Initializable {
     public void upadateTableCitizen() {
         fnameColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
+
         try {
             citizenTableview.getItems().addAll(studentModel.getCitizensOfStudent(currentStudent));
         } catch (StudentException | CitizenException e) {
