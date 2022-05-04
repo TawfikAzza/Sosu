@@ -95,42 +95,42 @@ public class DAOTest {
     }
 
     private static void createStudent() throws IOException, SQLException {
-        StudentDao studentDao = new StudentDao();
+        StudentDAO studentDao = new StudentDAO();
         for (Student student : studentDao.getAllStudents("sid")){
             System.out.println(student.getFirstName()+" "+student.getLastName()+"   school:"+student.getSchoolName());
         }
     }
 
     private static void deleteStudent(Student student) throws IOException, SQLException {
-        StudentDao studentDao = new StudentDao();
+        StudentDAO studentDao = new StudentDAO();
         studentDao.deleteStudent(student);
     }
 
     private static void editStudent(School school, Student student) throws IOException, SQLException, UserException {
         student.setEmail("darbouka@error.df");
-        StudentDao studentDao = new StudentDao();
+        StudentDAO studentDao = new StudentDAO();
         studentDao.editStudent(school, student);
     }
 
     private static void createTeacher(School school,String firstName,String lastName,String userName,String password,String email, String phoneNumber) throws IOException, UserException {
-        TeacherDao teacherDao = new TeacherDao();
+        TeacherDAO teacherDao = new TeacherDAO();
         teacherDao.newTeacher(school,firstName,lastName,userName,password,email,phoneNumber);
     }
 
     private static void getAllTeachers(String initials) throws IOException, SQLException {
-        TeacherDao teacherDao = new TeacherDao();
+        TeacherDAO teacherDao = new TeacherDAO();
         for (Teacher teacher : teacherDao.getAllTeachers(initials))
             System.out.println(teacher.getFirstName()+" "+teacher.getLastName()+"   School: "+teacher.getSchoolName());
     }
 
     private static void deleteTeacher(Teacher teacher) throws IOException, SQLException {
-        TeacherDao teacherDao = new TeacherDao();
+        TeacherDAO teacherDao = new TeacherDAO();
         teacherDao.deleteTeacher(teacher);
     }
 
     private static void editTeacher(Teacher teacher,School school) throws IOException, SQLException, UserException {
         teacher.setEmail("darbouka@error.df");
-        TeacherDao teacherDao = new TeacherDao();
+        TeacherDAO teacherDao = new TeacherDAO();
         teacherDao.editTeacher(teacher,school);
     }
 
@@ -141,7 +141,7 @@ public class DAOTest {
     }
 
     private static void getAllSchools() throws IOException, SQLException {
-        SchoolDao schoolDao = new SchoolDao();
+        SchoolDAO schoolDao = new SchoolDAO();
         for (School school : schoolDao.getAllSchools())
             System.out.println(school.getName());
     }

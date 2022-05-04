@@ -3,9 +3,8 @@ package gui.Controller;
 import be.Citizen;
 import be.GeneralInfo;
 import be.InfoCategory;
-import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import gui.Model.GInfoModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -77,7 +76,7 @@ public class GeneralInfoFormController implements Initializable {
         definitionLabel.setText(selectedInfoCategory.getDefinition());
         GeneralInfo generalInfo=null;
         try {
-            generalInfo = model.getGeneralInfoCitizen(GlobalCitizen.getSelectedCitizen(), selectedInfoCategory);
+            generalInfo = model.getGeneralInfoCitizen(GlobalVariables.getSelectedCitizen(), selectedInfoCategory);
         } catch (GeneralInfoException e) {
             DisplayMessage.displayError(e);
         }
@@ -91,7 +90,7 @@ public class GeneralInfoFormController implements Initializable {
     Thread saveInformationThread = new Thread(new Runnable() {
         @Override
         public void run() {
-            Citizen currentCitizen = GlobalCitizen.getSelectedCitizen();
+            Citizen currentCitizen = GlobalVariables.getSelectedCitizen();
             String infoContent = infoContentField.getText();
             try {
                 model.saveInformation(currentCitizen,selectedInfoCategory,infoContent);

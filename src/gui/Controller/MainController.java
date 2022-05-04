@@ -37,42 +37,6 @@ public class MainController {
     public MainController() throws IOException {
     }
 
-
-    public void openHpMgr(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/HealthSectionDisplay.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void openFaMgr(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/FunctionalSectionDisplay.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void openCitizenForm(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
     public void openAdminMgr(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminView.fxml"));
         Parent root = loader.load();
@@ -84,6 +48,7 @@ public class MainController {
 
         stage.show();
     }
+
     public void closeWindow() throws IOException{
         Stage window = (Stage) this.passwordField.getScene().getWindow();
         window.close();
@@ -101,7 +66,7 @@ public class MainController {
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==2){
-                openTeacher( new ActionEvent());
+                openTeacher(new ActionEvent());
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
@@ -123,7 +88,7 @@ public class MainController {
         FunctionalReportViewController functionalReportViewController = loader.getController();
         Citizen citizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
         functionalReportViewController.setCurrentCitizen(citizen);
-       // functionalReportViewController.displayCitizenReport();
+        // functionalReportViewController.displayCitizenReport();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);

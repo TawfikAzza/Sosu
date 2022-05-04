@@ -5,9 +5,8 @@ import be.Citizen;
 
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -73,7 +72,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
                 subCategoryList.setOnMouseClicked(e-> {
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),GlobalCitizen.getSelectedCitizen());
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(), GlobalVariables.getSelectedCitizen());
                 });
                 //We then fill the ListView with the subcategories of the currently parsed Main category.
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {

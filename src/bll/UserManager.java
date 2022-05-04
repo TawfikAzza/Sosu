@@ -5,8 +5,8 @@ import be.Student;
 import be.Teacher;
 import be.User;
 import bll.exceptions.UserException;
-import dal.db.StudentDao;
-import dal.db.TeacherDao;
+import dal.db.StudentDAO;
+import dal.db.TeacherDAO;
 import dal.db.UsersDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,12 +18,12 @@ import java.util.List;
 
 public class UserManager implements UserInterface {
 
-    TeacherDao teacherDao;
-    StudentDao studentDao;
+    TeacherDAO teacherDao;
+    StudentDAO studentDao;
 
     public UserManager() throws IOException {
-        teacherDao = new TeacherDao();
-        studentDao = new StudentDao();
+        teacherDao = new TeacherDAO();
+        studentDao = new StudentDAO();
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber)throws UserException {

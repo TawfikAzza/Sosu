@@ -10,10 +10,10 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SchoolDao {
+public class SchoolDAO {
     private final ConnectionManager connectionManager;
 
-    public SchoolDao() throws IOException {
+    public SchoolDAO() throws IOException {
         connectionManager = new ConnectionManager();
     }
 

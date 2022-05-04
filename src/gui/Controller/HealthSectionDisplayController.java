@@ -3,9 +3,8 @@ package gui.Controller;
 import be.Citizen;
 import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -38,7 +37,7 @@ public class HealthSectionDisplayController implements Initializable {
     private final Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = GlobalCitizen.getSelectedCitizen();
+        currentCitizen = GlobalVariables.getSelectedCitizen();
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user

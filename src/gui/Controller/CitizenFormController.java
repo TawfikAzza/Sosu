@@ -4,7 +4,7 @@ import be.Citizen;
 import be.School;
 import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.CitizenModel;
 import gui.Model.SchoolModel;
@@ -15,14 +15,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import javafx.stage.Window;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -226,7 +223,7 @@ public class CitizenFormController implements Initializable {
                 } catch (CitizenException e) {
                     e.printStackTrace();
                 }
-                GlobalCitizen.setSelectedCitizen(citizen);
+                GlobalVariables.setSelectedCitizen(citizen);
             }
         });
         createCitizenThread.start();
@@ -242,7 +239,7 @@ public class CitizenFormController implements Initializable {
                 } catch (CitizenException e) {
                     e.printStackTrace();
                 }
-                GlobalCitizen.setSelectedCitizen(editedCitizen);
+                GlobalVariables.setSelectedCitizen(editedCitizen);
             }
         });
         createCitizenThread.start();
