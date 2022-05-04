@@ -12,8 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<GridPane prefHeight="295.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
+<GridPane prefHeight="295.0" prefWidth="479.0" styleClass="RootPrimary" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.999951171875" minWidth="10.0" prefWidth="114.39999618530274" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="549.2000518798827" minWidth="10.0" prefWidth="344.40000381469724" />

@@ -1,0 +1,47 @@
+* {
+    -fx-root-primary:#08415C;
+    -fx-root-secondary: #FBF2C0;
+    -fx-basic-controls: #5b8c5a;
+    -fx-basic-controls-secondary: #43281c;
+}
+
+/*
+    Root (all the panes)
+ */
+.root{
+    -fx-background-color:white;
+}
+
+/*
+    Radio buttons
+ */
+
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: -fx-basic-controls;
+    -fx-background-color: white;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 3px;
+}
+.radio-button .radio:selected {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:armed {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:determinate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button -radio:indeterminate {
+    -fx-background-color: white;
+    -fx-background-image: null;
+}
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-padding: 8px;
+}
