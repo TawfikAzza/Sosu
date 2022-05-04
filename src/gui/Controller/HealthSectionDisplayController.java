@@ -5,6 +5,7 @@ import be.HealthCategory;
 import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalCitizen;
 import gui.Model.CategoryModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -119,5 +120,9 @@ public class HealthSectionDisplayController implements Initializable {
         stage.show();
     }
 
-    
+
+    public void closeWindow() {
+        Stage stage = (Stage) healthContainer.getScene().getWindow();
+        stage.close();
+    }
 }

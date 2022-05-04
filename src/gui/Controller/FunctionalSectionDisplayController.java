@@ -2,11 +2,12 @@ package gui.Controller;
 
 import be.AbilityCategory;
 import be.Citizen;
-import be.HealthCategory;
+
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalCitizen;
 import gui.Model.CategoryModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -32,6 +33,7 @@ import java.util.ResourceBundle;
 public class FunctionalSectionDisplayController implements Initializable {
     @FXML
     private Accordion functionalAbilityContainer;
+
     private CategoryModel categoryModel;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
@@ -117,5 +119,11 @@ public class FunctionalSectionDisplayController implements Initializable {
         stage.show();
 
 
+    }
+
+    @FXML
+    private void closeWindow() {
+        Stage stage = (Stage) functionalAbilityContainer.getScene().getWindow();
+        stage.close();
     }
 }
