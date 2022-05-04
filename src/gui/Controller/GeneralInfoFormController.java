@@ -3,17 +3,21 @@ package gui.Controller;
 import be.Citizen;
 import be.GeneralInfo;
 import be.InfoCategory;
-import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import gui.Model.GInfoModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class GeneralInfoFormController {
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class GeneralInfoFormController implements Initializable {
 
     @FXML
     private Label infoCategoryNameLabel;
@@ -22,7 +26,7 @@ public class GeneralInfoFormController {
     private Label definitionLabel;
 
     @FXML
-    private TextField infoContentField;
+    private TextArea infoContentField;
 
     private InfoCategory selectedInfoCategory;
 
@@ -72,7 +76,7 @@ public class GeneralInfoFormController {
         definitionLabel.setText(selectedInfoCategory.getDefinition());
         GeneralInfo generalInfo=null;
         try {
-            generalInfo = model.getGeneralInfoCitizen(GlobalCitizen.getSelectedCitizen(), selectedInfoCategory);
+            generalInfo = model.getGeneralInfoCitizen(GlobalVariables.getSelectedCitizen(), selectedInfoCategory);
         } catch (GeneralInfoException e) {
             DisplayMessage.displayError(e);
         }
@@ -86,7 +90,7 @@ public class GeneralInfoFormController {
     Thread saveInformationThread = new Thread(new Runnable() {
         @Override
         public void run() {
-            Citizen currentCitizen = GlobalCitizen.getSelectedCitizen();
+            Citizen currentCitizen = GlobalVariables.getSelectedCitizen();
             String infoContent = infoContentField.getText();
             try {
                 model.saveInformation(currentCitizen,selectedInfoCategory,infoContent);
@@ -95,4 +99,17 @@ public class GeneralInfoFormController {
             }
         }
     });
+
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
+        Button sourceButton = ((Button) actionEvent.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        HBox infoParentBox = ((HBox) infoContentField.getParent());
+        infoContentField.prefHeightProperty().bind(infoParentBox.heightProperty());
+        infoContentField.prefWidthProperty().bind(infoParentBox.widthProperty());
+    }
 }

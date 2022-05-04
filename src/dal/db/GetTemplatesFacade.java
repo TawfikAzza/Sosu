@@ -57,12 +57,12 @@ public class GetTemplatesFacade {
     }
 
     private void attachHealthConditions(List<Citizen> citizens) throws CitizenException {
-        List<Condition> conditions = new ArrayList<>();
         try (Connection connection = cm.getConnection()) {
             for(Citizen cit : citizens)
             {
                 String sqlSelect = "SELECT * FROM Conditions WHERE citizenID = ?";
                 PreparedStatement ps = connection.prepareStatement(sqlSelect);
+                List<Condition> conditions = new ArrayList<>();
 
                 int citizenID = cit.getId();
                 ps.setInt(1, citizenID);
@@ -89,12 +89,13 @@ public class GetTemplatesFacade {
     }
 
     private void attachFunctionalAbilities(List<Citizen> citizens) throws CitizenException {
-        List<Ability> abilities = new ArrayList<>();
+
         try (Connection connection = cm.getConnection()) {
             for(Citizen cit : citizens)
             {
                 String sqlSelect = "SELECT * FROM Abilities WHERE citizenID = ?";
                 PreparedStatement ps = connection.prepareStatement(sqlSelect);
+                List<Ability> abilities = new ArrayList<>();
 
                 int citizenID = cit.getId();
                 ps.setInt(1, citizenID);
@@ -121,12 +122,12 @@ public class GetTemplatesFacade {
     }
 
     private void attachGeneralInfo(List<Citizen> citizens) throws CitizenException {
-        List<GeneralInfo> info = new ArrayList<>();
         try (Connection connection = cm.getConnection()) {
             for(Citizen cit : citizens)
             {
                 String sqlSelect = "SELECT * FROM CitizenInfo WHERE citizenID = ?";
                 PreparedStatement ps = connection.prepareStatement(sqlSelect);
+                List<GeneralInfo> info = new ArrayList<>();
 
                 int citizenID = cit.getId();
                 ps.setInt(1, citizenID);
@@ -139,7 +140,7 @@ public class GetTemplatesFacade {
                     int catID = rs.getInt(3);
                     String infoContent = rs.getString(4);
 
-                    GeneralInfo content = new GeneralInfo(id, catID, citizenID, infoContent);
+                    GeneralInfo content = new GeneralInfo(id, citizenID, catID, infoContent);
                     info.add(content);
                 }
                 cit.setGeneralInfo(info);

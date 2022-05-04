@@ -3,18 +3,18 @@ package bll;
 import be.School;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
-import dal.db.SchoolDao;
+import dal.db.SchoolDAO;
 
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
 
 public class SchoolManager {
-    SchoolDao schoolDao;
+    SchoolDAO schoolDao;
 
     public SchoolManager() throws SchoolException {
         try {
-            schoolDao = new SchoolDao();
+            schoolDao = new SchoolDAO();
         } catch (IOException e) {
             throw new SchoolException("Error while connecting to the database",e);
         }

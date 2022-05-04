@@ -8,6 +8,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -15,6 +18,18 @@ import java.util.ResourceBundle;
 
 public class AbilityReportViewController implements Initializable {
 
+    @FXML
+    private ImageView functionalLevel_0;
+    @FXML
+    private ImageView functionalLevel_1;
+    @FXML
+    private ImageView functionalLevel_2;
+    @FXML
+    private ImageView functionalLevel_3;
+    @FXML
+    private ImageView functionalLevel_4;
+    @FXML
+    private ImageView functionalLevel_9;
     @FXML
     private Button btnConfirm;
     @FXML
@@ -41,19 +56,54 @@ public class AbilityReportViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             categoryModel = new CategoryModel();
-            radio0.setUserData(0);
-            radio1.setUserData(1);
-            radio2.setUserData(2);
-            radio3.setUserData(3);
-            radio4.setUserData(4);
-            radio9.setUserData(9);
-            statusIrrelevant.setUserData(0);
-            statusPotentiel.setUserData(1);
-            statusAkute.setUserData(2);
+            setUserData();
+            bindSizes();
+            setImages();
+            setEventHandlers();
+            setTooltips();
         } catch (HealthCategoryException e) {
             e.printStackTrace();
         }
 
+    }
+
+    private void setTooltips() {
+        
+    }
+
+    private void setEventHandlers() {
+        functionalLevel_0.setOnMouseClicked(event -> {radio0.setSelected(true);});
+        functionalLevel_1.setOnMouseClicked(event -> {radio1.setSelected(true);});
+        functionalLevel_2.setOnMouseClicked(event -> {radio2.setSelected(true);});
+        functionalLevel_3.setOnMouseClicked(event -> {radio3.setSelected(true);});
+        functionalLevel_4.setOnMouseClicked(event -> {radio4.setSelected(true);});
+        functionalLevel_9.setOnMouseClicked(event -> {radio9.setSelected(true);});
+    }
+
+    private void setImages() {
+        functionalLevel_0.setImage(new Image("functional_level_0.png"));
+        functionalLevel_1.setImage(new Image("functional_level_1.png"));
+        functionalLevel_2.setImage(new Image("functional_level_2.png"));
+        functionalLevel_3.setImage(new Image("functional_level_3.png"));
+        functionalLevel_4.setImage(new Image("functional_level_4.png"));
+    }
+
+    private void bindSizes() {
+        HBox citizenGoalParent = ((HBox) citizenGoal.getParent());
+        citizenGoal.prefWidthProperty().bind(citizenGoalParent.widthProperty());
+        citizenGoal.prefHeightProperty().bind(citizenGoalParent.heightProperty());
+    }
+
+    private void setUserData() {
+        radio0.setUserData(0);
+        radio1.setUserData(1);
+        radio2.setUserData(2);
+        radio3.setUserData(3);
+        radio4.setUserData(4);
+        radio9.setUserData(9);
+        statusIrrelevant.setUserData(0);
+        statusPotentiel.setUserData(1);
+        statusAkute.setUserData(2);
     }
 
     public void setCurrentAbilityCategory(AbilityCategory abilityCategory) {
@@ -162,5 +212,10 @@ public class AbilityReportViewController implements Initializable {
         }
         return true;
 
+    }
+
+    @FXML void handleCancel(ActionEvent actionEvent) {
+        Button sourceButton = ((Button) actionEvent.getSource());
+        ((Stage) sourceButton.getParent().getScene().getWindow()).close();
     }
 }

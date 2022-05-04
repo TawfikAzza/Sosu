@@ -4,10 +4,9 @@ import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
-import bll.util.GlobalCitizen;
+import bll.util.GlobalVariables;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -64,7 +63,7 @@ public class StudentMenuViewController implements Initializable {
             return;
         currentCitizen = citizenTableview.getSelectionModel().getSelectedItem();
         System.out.println(currentCitizen.getId());
-        GlobalCitizen.setSelectedCitizen(currentCitizen);
+        GlobalVariables.setSelectedCitizen(currentCitizen);
         lblFname.setText(currentCitizen.getFName());
         lblLname.setText(currentCitizen.getLName());
         lblCpr.setText(currentCitizen.getCprNumber());
@@ -73,7 +72,7 @@ public class StudentMenuViewController implements Initializable {
     }
 
     public void openAbilities() {
-        if(GlobalCitizen.getSelectedCitizen()==null)
+        if(GlobalVariables.getSelectedCitizen()==null)
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/FunctionalSectionDisplay.fxml"));
@@ -94,7 +93,7 @@ public class StudentMenuViewController implements Initializable {
     }
 
     public void openHealthCondition() {
-        if(GlobalCitizen.getSelectedCitizen()==null)
+        if(GlobalVariables.getSelectedCitizen()==null)
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/HealthSectionDisplay.fxml"));
@@ -114,7 +113,7 @@ public class StudentMenuViewController implements Initializable {
     }
 
     public void openGeneralInfo() {
-        if(GlobalCitizen.getSelectedCitizen()==null)
+        if(GlobalVariables.getSelectedCitizen()==null)
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/GeneralInfoReportView.fxml"));
