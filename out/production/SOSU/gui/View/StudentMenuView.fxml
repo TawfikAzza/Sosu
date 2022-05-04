@@ -90,14 +90,14 @@
                         <Insets />
                      </GridPane.margin>
                   </AnchorPane>
-                  <VBox>
+                  <VBox prefHeight="400.0" prefWidth="209.0">
                      <children>
                         <Label text="My Citizens">
                            <font>
                               <Font name="System Bold" size="12.0" />
                            </font>
                            <VBox.margin>
-                              <Insets top="5.0" />
+                              <Insets left="5.0" top="5.0" />
                            </VBox.margin></Label>
                         <TableView fx:id="citizenTableview" onMouseClicked="#displayCitizen" prefHeight="298.0" prefWidth="186.0">
                           <columns>
@@ -105,7 +105,7 @@
                             <TableColumn fx:id="lnameColumn" prefWidth="91.19995880126953" text="Last name" />
                           </columns>
                            <VBox.margin>
-                              <Insets top="15.0" />
+                              <Insets left="5.0" top="15.0" />
                            </VBox.margin>
                         </TableView>
                      </children>

@@ -105,7 +105,7 @@ public class MainController {
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
-                openFAReportMgr( new ActionEvent());
+                openStudent();
                 WrongLoginLabel.setVisible(false);
             }
         }
