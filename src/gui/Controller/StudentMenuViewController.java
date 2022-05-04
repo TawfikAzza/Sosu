@@ -132,4 +132,11 @@ public class StudentMenuViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    public void openMedicinelist(ActionEvent actionEvent) {
+    }
+
+
+    public void openObservation(ActionEvent actionEvent) {
+    }
 }

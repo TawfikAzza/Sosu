@@ -1,10 +1,7 @@
 package bll;
 
-import be.Ability;
-import be.AbilityCategory;
 import be.Citizen;
 import be.MedicineList;
-import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.MedicineListException;
 import dal.db.MedicineListDAO;
 
@@ -23,6 +20,22 @@ public class MedicineListManger {
             throw new MedicineListException("Error while connecting to the database",e);
         }
     }
+
+
+    public void getMedicineList (MedicineList medicineList , Citizen citizen) throws MedicineListException{
+
+    }
+
+
+    public void addMedicineList(MedicineList medicineList) throws SQLException {
+
+    }
+
+
+    public void updateMedicineList(MedicineList medicineList) throws SQLException {
+
+    }
+
 
 
 }
