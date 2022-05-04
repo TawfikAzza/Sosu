@@ -2,6 +2,8 @@ package gui.Controller;
 
 import be.*;
 import bll.UserManager;
+import bll.exceptions.HealthCategoryException;
+import gui.Model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +13,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 public class MainController {
+
 
     @FXML
     private Button submitButton;
@@ -36,6 +43,9 @@ public class MainController {
 
     public MainController() throws IOException {
     }
+
+
+
 
     public void openAdminMgr(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminView.fxml"));
@@ -64,6 +74,7 @@ public class MainController {
             if (user.getRoleID()==1){
                 openAdminMgr(new ActionEvent());
                 WrongLoginLabel.setVisible(false);
+
             }
             if (user.getRoleID()==2){
                 openTeacher(new ActionEvent());

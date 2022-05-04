@@ -11,13 +11,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="570.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane prefHeight="570.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
       <VBox layoutX="188.0" layoutY="14.0" prefHeight="376.0" prefWidth="225.0">
          <children>
-            <ImageView fitHeight="208.0" fitWidth="269.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="237.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../out/production/SOSU/Images/applogo.png" />
+                  <Image url="@../../../Resources/applogo.png" />
                </image></ImageView>
             <Label fx:id="loginLabel" alignment="CENTER" prefHeight="27.0" prefWidth="271.0" text="Login">
                <font>
