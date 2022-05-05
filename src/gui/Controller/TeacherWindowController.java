@@ -18,6 +18,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -67,6 +68,7 @@ public class TeacherWindowController implements Initializable {
             ObservableList<Student> studs = userModel.getStudents();
             this.tableViewTemplates.setItems(cits);
             this.tableViewStudents.setItems(studs);
+            this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
             this.initTables();
         } catch (CitizenException | UserException | IOException e) {
