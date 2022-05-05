@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public class Ability {
     private int id;
-    private int score;
     private int categoryID;
     private int citizenID;
+    private int score;
     private int status;
     private String goals;
     private int performance;

@@ -1,12 +1,12 @@
 * {
     -fx-root-base: WHITE;
-    -fx-base-controls: #FCC800;
+    -fx-base-controls: #55738f;
 
-    -fx-base-border: #223146;
+    -fx-base-border: #55738f;
 
-    -fx-root-accent:#223146;
-    -fx-root-accent-dark:#00081f;
-    -fx-root-accent-light:#4c5a71;
+    -fx-root-accent:#d59800;
+    -fx-root-accent-dark:#9f6a00;
+    -fx-root-accent-light:#ffc845;
 
     -fx-controls-text: WHITE;
 }
@@ -64,23 +64,23 @@
     -fx-background-color: -fx-root-base;
 }
 .table-view .column-header {
-    -fx-background-color: -fx-root-accent-dark;
+    -fx-background-color: -fx-root-accent;
 }
 
 .table-view .column-header-background{
     -fx-font-size: 14;
     -fx-font-weight: BOLD;
-    -fx-background-color: -fx-root-accent-dark;
+    -fx-background-color: -fx-root-accent;
 }
 
 .table-view .column-header-background .label{
-    -fx-background-color: -fx-root-accent-dark;
+    -fx-background-color: -fx-root-accent;
     -fx-text-fill: white;
 }
 
 .table-row-cell:selected {
     -fx-background-color: -fx-root-accent;
-    -fx-table-cell-border-color: -fx-root-accent;
+    -fx-table-cell-border-color: -fx-root-accent-light;
 }
 
 .table-row-cell{
@@ -88,11 +88,23 @@
     -fx-table-cell-border-color: WHITE;
 }
 
+.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected{
+    -fx-background-color: -fx-root-accent-light;
+    -fx-font-weight: bold;
+}
 
-.table-row-cell:hover{
-    -fx-background-color: -fx-root-accent;
-    -fx-table-cell-border-color: -fx-root-accent;
-    -fx-text-fill: white;
+.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected:focused{
+    -fx-background-color: -fx-root-accent-light;
+    -fx-font-weight: bold;
+    -fx-text-background-color: white;
+}
+
+
+
+.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:hover{
+    -fx-background-color: -fx-root-accent-light;
+    -fx-table-cell-border-color: -fx-root-accent-light;
+    -fx-text-background-color: white;
     -fx-font-weight: bold;
 }
 
@@ -108,7 +120,7 @@
 .table-view:row-selection:constrained-resize .virtual-flow .scroll-bar:vertical .thumb,
 .table-view:row-selection:constrained-resize .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-radius: 0;
-    -fx-background-color: -fx-root-accent-dark;
+    -fx-background-color: -fx-root-accent;
 }
 
 
