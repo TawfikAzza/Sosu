@@ -133,11 +133,11 @@ public class HealthConditionDAO {
                         ,rs.getString("goal") );
                         conditionSearched.setExpectedScore(rs.getInt("expectedScore"));
                         conditionSearched.setObservation(rs.getString("observations"));
-                System.out.println(" IN HEALTH DAO : "+rs.getDate("visitDate").toString());
+
                 String dateTmp = rs.getDate("visitDate").toString();
-                System.out.println(dateTmp);
+
                         conditionSearched.setVisitDate(DateUtil.parseDate(dateTmp));
-                System.out.println(conditionSearched.getVisitDate());
+
             }
         }
         return conditionSearched;

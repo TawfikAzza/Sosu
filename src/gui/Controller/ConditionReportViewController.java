@@ -70,10 +70,10 @@ public class ConditionReportViewController implements Initializable {
             importantNote.setText(condition.getImportantNote());
             assessement.setText(condition.getAssessement());
             goal.setText(condition.getGoal());
-            System.out.println("Condition visit : "+condition.getVisitDate());
+
             visitDate.setValue(DateUtil.parseDate(condition.getVisitDate().toString()));
             observation.setText(condition.getObservation());
-            System.out.println("Expected score : "+condition.getExpectedScore());
+
             switch (condition.getExpectedScore()) {
                 case 0 -> radio0.setSelected(true);
                 case 1 -> radio1.setSelected(true);
@@ -90,7 +90,7 @@ public class ConditionReportViewController implements Initializable {
             if(condition.getStatus()==2) {
                 statusAkute.setSelected(true);
             }
-            System.out.println(status.getSelectedToggle());
+
         } catch (HealthCategoryException e) {
             DisplayMessage.displayError(e);
         }
