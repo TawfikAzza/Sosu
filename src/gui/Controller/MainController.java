@@ -97,7 +97,7 @@ public class MainController {
         loader.setLocation(getClass().getResource("/gui/View/FunctionalReportView.fxml"));
         Parent root = loader.load();
         FunctionalReportViewController functionalReportViewController = loader.getController();
-        Citizen citizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
+        Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
         functionalReportViewController.setCurrentCitizen(citizen);
         // functionalReportViewController.displayCitizenReport();
         Scene scene = new Scene(root);
@@ -113,7 +113,7 @@ public class MainController {
         loader.setLocation(getClass().getResource("/gui/View/HealthConditionReportView.fxml"));
         Parent root = loader.load();
         HealthConditionReportViewController healthConditionReportViewController = loader.getController();
-        Citizen citizen = new Citizen(1,"Jeppe", "moritz","1254789636587");
+        Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
         healthConditionReportViewController.setCurrentCitizen(citizen);
         // functionalReportViewController.displayCitizenReport();
         Scene scene = new Scene(root);

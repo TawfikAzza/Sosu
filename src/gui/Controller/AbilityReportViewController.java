@@ -38,15 +38,15 @@ public class AbilityReportViewController implements Initializable {
     @FXML
     private Button btnConfirm;
     @FXML
-    private TextArea citizenGoal;
+    private TextArea citizenGoal,importantNote;
 
     @FXML
     private DatePicker visitDate;
     @FXML
     private RadioButton radio0,radio1,radio2,radio3,radio4,radio9,statusAkute,statusIrrelevant,statusPotentiel,
-            /* expected level radio buttons */ radio01,radio11,radio21,radio31,radio41,radio91,
-            /* performance radio buttons  */radio02,radio12,radio22,radio32,
-            /* meaning radio buttons */radio03,radio13;
+    /* expected level radio buttons */ radio01,radio11,radio21,radio31,radio41,radio91,
+    /* performance radio buttons  */radio02,radio12,radio22,radio32,
+    /* meaning radio buttons */radio03,radio13;
 
     @FXML
     private ToggleGroup score,status,expectedScore,meaning,performance;
@@ -160,19 +160,19 @@ public class AbilityReportViewController implements Initializable {
             btnConfirm.setText("Update Ability");
             switch(ability.getScore()) {
                 case 0: radio0.setSelected(true);
-                break;
+                    break;
                 case 1: radio1.setSelected(true);
-                break;
+                    break;
                 case 2: radio2.setSelected(true);
-                break;
+                    break;
                 case 3: radio3.setSelected(true);
-                break;
+                    break;
                 case 4: radio4.setSelected(true);
-                break;
+                    break;
                 case 9: radio9.setSelected(true);
-                break;
+                    break;
                 default:
-                break;
+                    break;
             }
             switch(ability.getPerformance()) {
                 case 0: radio02.setSelected(true);
@@ -222,7 +222,7 @@ public class AbilityReportViewController implements Initializable {
 
             citizenGoal.setText(ability.getGoals());
             visitDate.setValue(DateUtil.parseDate(String.valueOf(ability.getVisitDate())));
-
+            importantNote.setText(ability.getImportantNote());
             observation.setText(ability.getObservation());
         } catch (AbilityCategoryException e) {
             DisplayMessage.displayError(e);
@@ -242,6 +242,7 @@ public class AbilityReportViewController implements Initializable {
                         , Integer.parseInt(score.getSelectedToggle().getUserData().toString())
                         , Integer.parseInt(status.getSelectedToggle().getUserData().toString()));
                 ability.setGoals(citizenGoal.getText());
+                ability.setImportantNote(importantNote.getText());
                 ability.setPerformance(Integer.parseInt(performance.getSelectedToggle().getUserData().toString()));
                 ability.setMeaning(Integer.parseInt(meaning.getSelectedToggle().getUserData().toString()));
                 ability.setExpectedScore(Integer.parseInt(expectedScore.getSelectedToggle().getUserData().toString()));
@@ -265,8 +266,9 @@ public class AbilityReportViewController implements Initializable {
                         , currentCitizen.getId()
                         ,Integer.parseInt(score.getSelectedToggle().getUserData().toString())
                         ,Integer.parseInt(status.getSelectedToggle().getUserData().toString())
-                        );
+                );
                 ability.setGoals(citizenGoal.getText());
+                 ability.setImportantNote(importantNote.getText());
                 ability.setPerformance(Integer.parseInt(performance.getSelectedToggle().getUserData().toString()));
                 ability.setMeaning(Integer.parseInt(meaning.getSelectedToggle().getUserData().toString()));
                 ability.setExpectedScore(Integer.parseInt(expectedScore.getSelectedToggle().getUserData().toString()));
@@ -292,6 +294,8 @@ public class AbilityReportViewController implements Initializable {
             message+="- No choice as to the status has been made";
         if(citizenGoal.getText().equals(""))
             message+="- No goals set for the Citizen";
+        if(importantNote.getText().equals(""))
+            message+="- No important notes set for the Citizen";
         if(expectedScore.getSelectedToggle()==null)
             message += "- Specify an expected score for the ability \n";
         if(observation.getText().equals(""))
