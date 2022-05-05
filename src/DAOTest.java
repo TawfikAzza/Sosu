@@ -154,7 +154,7 @@ public class DAOTest {
             Integer sid = (Integer) entry.getKey();
             List<Pair<HealthCategory,Condition>> list = (List<Pair<HealthCategory,Condition>>)entry.getValue();
             for (Pair<HealthCategory,Condition> pair : list){
-                System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
+               // System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getDescription());
             }
         }
     }

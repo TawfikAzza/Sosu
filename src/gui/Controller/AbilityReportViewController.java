@@ -3,6 +3,7 @@ package gui.Controller;
 import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
+import bll.util.DateUtil;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -19,6 +20,9 @@ import java.util.ResourceBundle;
 
 public class AbilityReportViewController implements Initializable {
 
+
+    @FXML
+    private TextArea observation;
     @FXML
     private ImageView functionalLevel_0;
     @FXML
@@ -35,11 +39,17 @@ public class AbilityReportViewController implements Initializable {
     private Button btnConfirm;
     @FXML
     private TextArea citizenGoal;
-    @FXML
-    private RadioButton radio0,radio1,radio2,radio3,radio4,radio9,statusAkute,statusIrrelevant,statusPotentiel;
 
     @FXML
-    private ToggleGroup score,status;
+    private DatePicker visitDate;
+    @FXML
+    private RadioButton radio0,radio1,radio2,radio3,radio4,radio9,statusAkute,statusIrrelevant,statusPotentiel,
+            /* expected level radio buttons */ radio01,radio11,radio21,radio31,radio41,radio91,
+            /* performance radio buttons  */radio02,radio12,radio22,radio32,
+            /* meaning radio buttons */radio03,radio13;
+
+    @FXML
+    private ToggleGroup score,status,expectedScore,meaning,performance;
 
     private Citizen currentCitizen;
     private AbilityCategory abilityCategory;
@@ -98,12 +108,33 @@ public class AbilityReportViewController implements Initializable {
     }
 
     private void setUserData() {
+        /* Current level radio buttons */
         radio0.setUserData(0);
         radio1.setUserData(1);
         radio2.setUserData(2);
         radio3.setUserData(3);
         radio4.setUserData(4);
         radio9.setUserData(9);
+
+        /* Expected level radio buttons */
+        radio01.setUserData(0);
+        radio11.setUserData(1);
+        radio21.setUserData(2);
+        radio31.setUserData(3);
+        radio41.setUserData(4);
+        radio91.setUserData(9);
+
+        /* Performance radio buttons */
+        radio02.setUserData(0);
+        radio12.setUserData(1);
+        radio22.setUserData(2);
+        radio32.setUserData(3);
+
+        /* Meaning radio button */
+        radio03.setUserData(0);
+        radio13.setUserData(1);
+
+        /* Status radio Buttons */
         statusIrrelevant.setUserData(0);
         statusPotentiel.setUserData(1);
         statusAkute.setUserData(2);
@@ -143,6 +174,42 @@ public class AbilityReportViewController implements Initializable {
                 default:
                 break;
             }
+            switch(ability.getExpectedScore()) {
+                case 0: radio02.setSelected(true);
+                    break;
+                case 1: radio12.setSelected(true);
+                    break;
+                case 2: radio22.setSelected(true);
+                    break;
+                case 3: radio32.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
+            switch(ability.getPerformance()) {
+                case 0: radio01.setSelected(true);
+                    break;
+                case 1: radio1.setSelected(true);
+                    break;
+                case 2: radio2.setSelected(true);
+                    break;
+                case 3: radio3.setSelected(true);
+                    break;
+                case 4: radio4.setSelected(true);
+                    break;
+                case 9: radio9.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
+            switch(ability.getScore()) {
+                case 0: radio03.setSelected(true);
+                    break;
+                case 1: radio13.setSelected(true);
+                    break;
+                default:
+                    break;
+            }
             if(ability.getStatus()==0) {
                 statusIrrelevant.setSelected(true);
             }
@@ -153,6 +220,9 @@ public class AbilityReportViewController implements Initializable {
                 statusAkute.setSelected(true);
             }
             citizenGoal.setText(ability.getGoals());
+            visitDate.setValue(DateUtil.parseDate(String.valueOf(ability.getVisitDate())));
+
+            observation.setText(ability.getObservation());
         } catch (AbilityCategoryException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();

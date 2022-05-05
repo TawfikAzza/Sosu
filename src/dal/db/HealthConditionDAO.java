@@ -133,7 +133,8 @@ public class HealthConditionDAO {
                         ,rs.getString("goal") );
                         conditionSearched.setExpectedScore(rs.getInt("expectedScore"));
                         conditionSearched.setObservation(rs.getString("observations"));
-                        conditionSearched.setVisitDate(DateUtil.parseDate(rs.getString("visiteDate")));
+                System.out.println(" IN HEALTH DAO : "+rs.getDate("visitDate"));
+                        conditionSearched.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
             }
         }
         return conditionSearched;
@@ -154,7 +155,7 @@ public class HealthConditionDAO {
             pstmt.setString(5, condition.getAssessement());
             pstmt.setString(6, condition.getGoal());
             pstmt.setInt(7,condition.getExpectedScore());
-            pstmt.setString(8,DateUtil.formatDateGui(condition.getVisitDate()));
+            pstmt.setString(8,DateUtil.formatDateTime(condition.getVisitDate()));
             pstmt.setString(9,condition.getObservation());
             pstmt.execute();
 
@@ -171,7 +172,7 @@ public class HealthConditionDAO {
 
     public void updateCondition(Condition condition) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlUpdate = "UPDATE CONDITIONS set importantNote=?, status = ?, assessement= ?, goal= ?, visiteDate=?," +
+            String sqlUpdate = "UPDATE CONDITIONS set importantNote=?, status = ?, assessement= ?, goal= ?, visitDate=?," +
                     "observations=?,expectedScore=? " +
                     " WHERE categoryID=? AND citizenID=?  ";
             PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
@@ -180,7 +181,7 @@ public class HealthConditionDAO {
             pstmt.setInt(2, condition.getStatus());
             pstmt.setString(3, condition.getAssessement());
             pstmt.setString(4, condition.getGoal());
-            pstmt.setString(5,DateUtil.formatDateGui(condition.getVisitDate()));
+            pstmt.setString(5,DateUtil.formatDateTime(condition.getVisitDate()));
             pstmt.setString(6,condition.getObservation());
             pstmt.setInt(7,condition.getExpectedScore());
             pstmt.setInt(8,condition.getCategoryID());

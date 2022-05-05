@@ -41,6 +41,8 @@ public class DateUtil {
     }
     public static LocalDate parseDate(String dateString) {
         try {
+            if(dateString==null)
+                System.out.println("DATE IS NULL");
             return DATE_FORMATTER.parse(dateString, LocalDate::from);
         } catch (DateTimeParseException e) {
             return null;
