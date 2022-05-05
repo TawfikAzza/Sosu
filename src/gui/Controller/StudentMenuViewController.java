@@ -65,7 +65,7 @@ public class StudentMenuViewController implements Initializable {
         if(citizenTableview.getSelectionModel().getSelectedIndex()==-1)
             return;
         currentCitizen = citizenTableview.getSelectionModel().getSelectedItem();
-        System.out.println(currentCitizen.getId());
+        //System.out.println(currentCitizen.getId());
         GlobalVariables.setSelectedCitizen(currentCitizen);
         lblFname.setText(currentCitizen.getFName());
         lblLname.setText(currentCitizen.getLName());
@@ -152,12 +152,14 @@ public class StudentMenuViewController implements Initializable {
         }
 
 
+
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
     }
+
 
 
     public void openObservation() {

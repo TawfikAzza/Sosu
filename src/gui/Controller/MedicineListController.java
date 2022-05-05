@@ -13,6 +13,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -52,6 +53,8 @@ public class MedicineListController implements Initializable {
     }
 
 
+
+
     @FXML
     private void saveMedicineList() {
         MedicineList medicineList = null;
@@ -63,9 +66,16 @@ public class MedicineListController implements Initializable {
         medicineList = new MedicineList(1, GlobalVariables.getSelectedCitizen().getId(), textMedicineList.getText());
 
         if (medicineList != null ){
-         medicineListModel.updateMedicineList(medicineList);
+            try {
+                medicineListModel.updateMedicineList(medicineList);
+            } catch (MedicineListException e) {
+                e.printStackTrace();
+            } catch (SQLException sqlException) {
+                sqlException.printStackTrace();
+            }
         }
         else{
+
 
         }
 

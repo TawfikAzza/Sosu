@@ -5,6 +5,8 @@ import be.MedicineList;
 import bll.MedicineListManger;
 import bll.exceptions.MedicineListException;
 
+import java.sql.SQLException;
+
 public class MedicineListModel {
 
     private MedicineListManger medicineListManger;
@@ -21,7 +23,12 @@ public class MedicineListModel {
     }
 
 
-    public void updateMedicineList(MedicineList medicineList) {
+    public MedicineList updateMedicineList(MedicineList medicineList) throws MedicineListException, SQLException {
+        return  medicineListManger.updateMedicineList(medicineList);
 
+    }
+
+    public MedicineList saveMedicineList(MedicineList medicineList) throws MedicineListException {
+        return  medicineListManger.saveMedicineList(medicineList);
     }
 }
