@@ -134,7 +134,7 @@ public class HealthConditionDAO {
                         conditionSearched.setExpectedScore(rs.getInt("expectedScore"));
                         conditionSearched.setObservation(rs.getString("observations"));
 
-                String dateTmp = rs.getDate("visitDate").toString();
+                        String dateTmp = rs.getDate("visitDate").toString();
 
                         conditionSearched.setVisitDate(DateUtil.parseDate(dateTmp));
 
