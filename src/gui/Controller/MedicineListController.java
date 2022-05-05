@@ -69,7 +69,7 @@ public class MedicineListController implements Initializable {
 
 
         try {
-            textMedicineList.setText(String.valueOf(medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen())));
+            textMedicineList.setText(String.valueOf(medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen()).getMedicineList()));
         } catch (MedicineListException e) {
             e.printStackTrace();
         }
