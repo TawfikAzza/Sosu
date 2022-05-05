@@ -23,7 +23,7 @@ public class MedicineListModel {
     }
 
 
-    public MedicineList updateMedicineList(MedicineList medicineList) throws MedicineListException, SQLException {
+    public MedicineList updateMedicineList(MedicineList medicineList) throws MedicineListException {
         return  medicineListManger.updateMedicineList(medicineList);
 
     }
