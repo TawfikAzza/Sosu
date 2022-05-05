@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="367.0" prefWidth="644.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
+<GridPane prefHeight="511.0" prefWidth="638.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -21,13 +21,14 @@
       <ColumnConstraints />
       <ColumnConstraints />
       <ColumnConstraints />
-      <ColumnConstraints maxWidth="9.5999755859375" minWidth="4.79998779296875" prefWidth="9.5999755859375" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="536.8000122070314" minWidth="10.0" prefWidth="532.0000244140626" />
+      <ColumnConstraints maxWidth="9.5999755859375" minWidth="0.0" prefWidth="0.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="544.4" minWidth="10.0" prefWidth="544.4" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="32.00001831054688" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="123.19998168945312" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="136.20001220703125" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="23.19998970031738" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="118.3999984741211" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="124.79999389648435" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="102.4000061035157" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="133.6000518798828" minHeight="10.0" prefHeight="56.19998779296873" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
@@ -79,7 +80,7 @@
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="563.0" spacing="10.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_RIGHT" prefHeight="69.0" prefWidth="563.0" spacing="10.0" GridPane.columnIndex="7" GridPane.rowIndex="4">
          <children>
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
             <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Save" />
@@ -96,7 +97,7 @@
             <RadioButton fx:id="statusAkute" mnemonicParsing="false" text="Akute" toggleGroup="$status" />
          </children>
       </HBox>
-      <HBox prefHeight="116.0" prefWidth="543.0" spacing="5.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+      <HBox prefHeight="116.0" prefWidth="543.0" spacing="5.0" GridPane.columnIndex="7" GridPane.rowIndex="3">
          <children>
             <TextArea fx:id="citizenGoal" prefHeight="108.0" prefWidth="199.0">
                <HBox.margin>
@@ -107,7 +108,7 @@
       </HBox>
       <VBox GridPane.rowIndex="1">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Functional level" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Current level" />
          </children>
       </VBox>
       <VBox>
@@ -115,11 +116,60 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Relevancy" />
          </children>
       </VBox>
-      <VBox GridPane.rowIndex="2">
+      <VBox GridPane.rowIndex="3">
          <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Citizen's Goal" />
          </children>
       </VBox>
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="2">
+         <children>
+            <HBox>
+               <children>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_01" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio01" mnemonicParsing="false" text="0">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="expectedScore" />
+                           </toggleGroup>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_11" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio11" mnemonicParsing="false" text="1" toggleGroup="$expectedScore" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_21" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio21" mnemonicParsing="false" text="2" toggleGroup="$expectedScore" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_31" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio31" mnemonicParsing="false" text="3" toggleGroup="$expectedScore" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_41" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio41" mnemonicParsing="false" text="4" toggleGroup="$expectedScore" />
+                     </children>
+                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <ImageView fx:id="functionalLevel_91" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
+                        <RadioButton fx:id="radio91" mnemonicParsing="false" text="9" toggleGroup="$expectedScore" />
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+         </children>
+      </HBox>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Expected level" GridPane.rowIndex="2" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

@@ -3,6 +3,7 @@ package dal.db;
 import be.Citizen;
 import be.Condition;
 import be.HealthCategory;
+import bll.util.DateUtil;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 import javafx.util.Pair;
@@ -12,6 +13,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -123,12 +125,15 @@ public class HealthConditionDAO {
             ResultSet rs = pstmt.executeQuery();
             if(rs.next()) {
                 conditionSearched = new Condition(rs.getInt("id")
-                                                 ,rs.getInt("categoryID")
-                                                , rs.getInt("citizenID")
-                                                , rs.getString("description")
-                                                , rs.getInt("status")
-                                                , rs.getString("text")
-                                                ,rs.getString("goal") );
+                        ,rs.getInt("categoryID")
+                        , rs.getInt("citizenID")
+                        , rs.getString("importantNote")
+                        , rs.getInt("status")
+                        , rs.getString("assessement")
+                        ,rs.getString("goal") );
+                        conditionSearched.setExpectedScore(rs.getInt("expectedScore"));
+                        conditionSearched.setObservation(rs.getString("observations"));
+                        conditionSearched.setVisitDate(DateUtil.parseDate(rs.getString("visiteDate")));
             }
         }
         return conditionSearched;
@@ -137,17 +142,20 @@ public class HealthConditionDAO {
      * Author : Tawfik
      * Add a condition in the database.
      * **/
+
     public void addCondition(Condition condition) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlInsert = "INSERT INTO CONDITIONS VALUES(?, ?, ?, ?, ?, ?)";
+            String sqlInsert = "INSERT INTO CONDITIONS VALUES(?, ?, ?, ?, ?, ?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
             pstmt.setInt(1, condition.getCategoryID());
             pstmt.setInt(2, condition.getCitizenID());
-            pstmt.setString(3, condition.getDescription());
+            pstmt.setString(3, condition.getImportantNote());
             pstmt.setInt(4, condition.getStatus());
-            pstmt.setString(5, condition.getFreeText());
+            pstmt.setString(5, condition.getAssessement());
             pstmt.setString(6, condition.getGoal());
-
+            pstmt.setInt(7,condition.getExpectedScore());
+            pstmt.setString(8,DateUtil.formatDateGui(condition.getVisitDate()));
+            pstmt.setString(9,condition.getObservation());
             pstmt.execute();
 
         }
@@ -163,16 +171,20 @@ public class HealthConditionDAO {
 
     public void updateCondition(Condition condition) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlUpdate = "UPDATE CONDITIONS set description=?, status = ?, text= ?, goal= ?" +
+            String sqlUpdate = "UPDATE CONDITIONS set importantNote=?, status = ?, assessement= ?, goal= ?, visiteDate=?," +
+                    "observations=?,expectedScore=? " +
                     " WHERE categoryID=? AND citizenID=?  ";
             PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
 
-            pstmt.setString(1, condition.getDescription());
+            pstmt.setString(1, condition.getImportantNote());
             pstmt.setInt(2, condition.getStatus());
-            pstmt.setString(3, condition.getFreeText());
+            pstmt.setString(3, condition.getAssessement());
             pstmt.setString(4, condition.getGoal());
-            pstmt.setInt(5,condition.getCategoryID());
-            pstmt.setInt(6,condition.getCitizenID());
+            pstmt.setString(5,DateUtil.formatDateGui(condition.getVisitDate()));
+            pstmt.setString(6,condition.getObservation());
+            pstmt.setInt(7,condition.getExpectedScore());
+            pstmt.setInt(8,condition.getCategoryID());
+            pstmt.setInt(9,condition.getCitizenID());
 
             pstmt.execute();
 
@@ -225,11 +237,16 @@ public class HealthConditionDAO {
                 Condition condition = new Condition(rs.getInt("id")
                         ,rs.getInt("categoryID")
                         , rs.getInt("citizenID")
-                        , rs.getString("description")
+                        , rs.getString("importantNote")
                         , rs.getInt("status")
-                        , rs.getString("text")
+                        , rs.getString("assessement")
                         ,rs.getString("goal") );
+                condition.setExpectedScore(rs.getInt("expectedScore"));
+                condition.setObservation(rs.getString("observations"));
+                condition.setVisitDate(DateUtil.parseDate(rs.getString("visiteDate")));
+
                 conditionHashMap.put(condition.getId(),condition);
+
             }
             //Filling the HashMap of the temporary results with the right SubCategory/Condition values
             for (Map.Entry entry: conditionHashMap.entrySet()) {
