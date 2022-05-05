@@ -28,7 +28,7 @@ public class MedicineListModel {
 
     }
 
-    public MedicineList saveMedicineList(MedicineList medicineList) throws MedicineListException {
-        return  medicineListManger.saveMedicineList(medicineList);
+    public MedicineList addMedicineList(MedicineList medicineList) throws MedicineListException {
+        return  medicineListManger.addMedicineList(medicineList);
     }
 }

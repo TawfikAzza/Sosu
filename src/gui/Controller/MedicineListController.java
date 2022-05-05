@@ -1,5 +1,7 @@
 package gui.Controller;
 
+import be.Citizen;
+import be.Condition;
 import be.MedicineList;
 import bll.exceptions.MedicineListException;
 import bll.util.GlobalVariables;
@@ -11,7 +13,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
@@ -34,13 +38,22 @@ public class MedicineListController implements Initializable {
     private Label lblfirstname;
 
     @FXML
+    private Button btnclose;
+
+    @FXML
     private TextArea textMedicineList;
+    private String operationType;
+
     private MedicineListModel medicineListModel;
+    private Citizen currentCitizen;
+    private StudentMenuViewController studentMenuViewController;
 
     public  MedicineListController () {
 
 
     }
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
@@ -50,20 +63,50 @@ public class MedicineListController implements Initializable {
             DisplayMessage.displayError(e);
         }
 
+        lblfirstname.setText(GlobalVariables.getSelectedCitizen().getFName());
+        lblLastname.setText(GlobalVariables.getSelectedCitizen().getLName());
+        lblCPR.setText(GlobalVariables.getSelectedCitizen().getCprNumber());
+
+
+        try {
+            textMedicineList.setText(String.valueOf(medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen())));
+        } catch (MedicineListException e) {
+            e.printStackTrace();
+        }
+
+
     }
 
 
 
 
-    @FXML
-    private void saveMedicineList() {
+/*
+        public void setFields() {
+            try {
+                MedicineList medicineList = medicineListModel.getMedicineList(currentCitizen);
+                if (medicineList == null) {
+                    operationType = "insert";
+                    return;
+                }
+
+
+            } catch (MedicineListException e) {
+                e.printStackTrace();
+            }
+        }
+
+
+ */
+
+            @FXML
+    private void saveMedicineList() throws MedicineListException {
         MedicineList medicineList = null;
         try {
             medicineList = medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen());
         } catch (MedicineListException e) {
             DisplayMessage.displayError(e);
         }
-        medicineList = new MedicineList(1, GlobalVariables.getSelectedCitizen().getId(), textMedicineList.getText());
+
 
         if (medicineList != null ){
             try {
@@ -74,12 +117,23 @@ public class MedicineListController implements Initializable {
                 sqlException.printStackTrace();
             }
         }
-        else{
 
+        else{
+            medicineList = new MedicineList(1, GlobalVariables.getSelectedCitizen().getId(), textMedicineList.getText());
+
+                medicineListModel.addMedicineList(medicineList);
 
         }
 
+        //clickclose();
+
+    }
 
 
+
+
+    public void clickclose() {
+        Stage window = (Stage) this.btnclose.getScene().getWindow();
+        window.close();
     }
 }

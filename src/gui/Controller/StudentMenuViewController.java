@@ -59,6 +59,8 @@ public class StudentMenuViewController implements Initializable {
             e.printStackTrace();
         }
 
+
+
     }
 
     public void displayCitizen() {
