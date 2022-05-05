@@ -1,10 +1,14 @@
 * {
-    -fx-root-base: #0E402D;
-    -fx-base-controls: #0B3324;
+    -fx-root-base: WHITE;
+    -fx-base-controls: #FCC800;
 
-    -fx-base-border: WHITE;
+    -fx-base-border: #223146;
 
-    -fx-root-accent:#361440;
+    -fx-root-accent:#223146;
+    -fx-root-accent-dark:#00081f;
+    -fx-root-accent-light:#4c5a71;
+
+    -fx-controls-text: WHITE;
 }
 
 /*
@@ -43,8 +47,8 @@
 .radio-button:selected{
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-mark-highlight-color: -fx-root-base;
-    -fx-mark-color: -fx-root-base;
+    -fx-mark-highlight-color: -fx-root-accent;
+    -fx-mark-color: -fx-root-accent;
 }
 
 .radio-button{
@@ -60,65 +64,69 @@
     -fx-background-color: -fx-root-base;
 }
 .table-view .column-header {
-    -fx-background-color: -fx-base-controls;
+    -fx-background-color: -fx-root-accent-dark;
 }
 
 .table-view .column-header-background{
     -fx-font-size: 14;
     -fx-font-weight: BOLD;
-    -fx-background-color: -fx-base-controls;
+    -fx-background-color: -fx-root-accent-dark;
 }
 
 .table-view .column-header-background .label{
-    -fx-background-color: -fx-base-controls;
+    -fx-background-color: -fx-root-accent-dark;
     -fx-text-fill: white;
 }
 
 .table-row-cell:selected {
     -fx-background-color: -fx-root-accent;
-
-}
-.table-row-cell:empty{
-    -fx-background-color: #e1dd72;
+    -fx-table-cell-border-color: -fx-root-accent;
 }
 
 .table-row-cell{
-    -fx-background-color: #91AB5E, #91AB5E;
-    -fx-table-cell-border-color: -fx-base-border;
-
+    -fx-text-fill: -fx-root-accent;
+    -fx-table-cell-border-color: WHITE;
 }
+
 
 .table-row-cell:hover{
     -fx-background-color: -fx-root-accent;
-    -fx-table-cell-border-color: -fx-base-border;
+    -fx-table-cell-border-color: -fx-root-accent;
     -fx-text-fill: white;
+    -fx-font-weight: bold;
 }
+
 
 .table-view .filler{
     -fx-background-color: transparent;
 }
 
-.table-view.scroll-bar:vertical.track-background{
-    -fx-background-color: -fx-root-base;
+.table-view:row-selection:constrained-resize .virtual-flow .corner{
+    -fx-background-color: transparent;
 }
 
-.table-view:row-selection.virtual-flow.corner{
-
+.table-view:row-selection:constrained-resize .virtual-flow .scroll-bar:vertical .thumb,
+.table-view:row-selection:constrained-resize .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-radius: 0;
+    -fx-background-color: -fx-root-accent-dark;
 }
+
 
 /*
     Text fields/areas
  */
 
 .text-area{
-    -fx-border-color: -fx-base-border;
+    -fx-border-color: -fx-root-accent;
     -fx-border-width: 2;
-    -fx-background-color: black;
+    -fx-background-color: -fx-root-base;
 }
 
 .text-area .scroll-pane .content{
-    -fx-background-color: white;
+    -fx-background-color: -fx-root-base;
     -fx-padding:8;
+    -fx-border-color: -fx-root-accent;
+    -fx-border-width: 1;
     -fx-text-fill: black;
 }
 
@@ -152,10 +160,6 @@ For rounded text area if needed
     -fx-border-color: transparent;
 }
 
-.scroll-bar.thumb {
-    -fx-border-color: black;
-}
-
 .scroll-bar .decrement-button .decrement-arrow,
 .scroll-bar .increment-button .increment-arrow
 {
@@ -178,19 +182,17 @@ For rounded text area if needed
 
 .button{
     -fx-background-color: -fx-base-controls;
-    -fx-text-fill: black;
-    -fx-border-radius: 25;
-    -fx-background-radius: 25;
-    -fx-border-color: -fx-base-border;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-border-radius: 5;
+    -fx-background-radius: 5;
     -fx-border-width: 1;
     -fx-padding: 5;
 }
 
 .button:hover{
     -fx-background-color: -fx-base-controls;
-    -fx-text-fill: black;
-    -fx-border-radius: 20;
-    -fx-background-radius: 20;
+    -fx-text-fill: white;
     -fx-padding: 7;
 }
 
