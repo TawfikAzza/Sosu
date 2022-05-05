@@ -32,12 +32,13 @@ public class MedicineListManger {
     }
 
 
-    public void addMedicineList(MedicineList medicineList) throws MedicineListException {
+    public MedicineList addMedicineList(MedicineList medicineList) throws MedicineListException {
         try {
             medicineListDAO.addMedicineList(medicineList);
         } catch (SQLException e) {
             throw new MedicineListException("Error while getting the medicine list from the database",e);
         }
+        return medicineList;
     }
 
 
@@ -51,15 +52,6 @@ public class MedicineListManger {
         return medicineList;
     }
 
-
-    public MedicineList saveMedicineList(MedicineList medicineList) throws  MedicineListException {
-        try {
-             medicineListDAO.updateMedicineList(medicineList);
-        } catch (SQLException e) {
-            throw new MedicineListException("Error while getting the medicine list from the database",e);
-        }
-        return medicineList;
-    }
 
 }
 

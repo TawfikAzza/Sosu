@@ -37,6 +37,6 @@
          </children>
       </GridPane>
       <Button fx:id="btnSave" layoutX="381.0" layoutY="338.0" mnemonicParsing="false" onAction="#saveMedicineList" text="Save" />
-      <Button layoutX="522.0" layoutY="338.0" mnemonicParsing="false" text="Close" />
+      <Button fx:id="btnclose" layoutX="522.0" layoutY="338.0" mnemonicParsing="false" onAction="#clickclose" text="Close" />
    </children>
 </AnchorPane>
