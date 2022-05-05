@@ -73,12 +73,18 @@ public class GetTemplatesFacade {
                 {
                     int id = rs.getInt(1);
                     int catID = rs.getInt(2);
-                    String description = rs.getString(4);
+                    String importantNote = rs.getString(4);
                     int status = rs.getInt(5);
-                    String text = rs.getString(6);
+                    String assessment = rs.getString(6);
                     String goal = rs.getString(7);
+                    int expectedScore = rs.getInt(8);
+                    LocalDate visitDate = rs.getDate(9).toLocalDate();
+                    String observations = rs.getString(10);
 
-                    Condition condition = new Condition(id, catID, citizenID, description, status, text, goal);
+                    Condition condition = new Condition(id, catID, citizenID, importantNote, status, assessment, goal);
+                    condition.setExpectedScore(expectedScore);
+                    condition.setVisitDate(visitDate);
+                    condition.setObservation(observations);
                     conditions.add(condition);
                 }
                 cit.setHealthConditions(conditions);
@@ -108,10 +114,22 @@ public class GetTemplatesFacade {
                     int catID = rs.getInt(2);
                     int score = rs.getInt(4);
                     int status = rs.getInt(5);
-                    //String goals = rs.getString(6);
+                    String goals = rs.getString(6);
+                    int performance = rs.getInt(7);
+                    int meaning = rs.getInt(8);
+                    int expectedScore = rs.getInt(9);
+                    String importantNote = rs.getString(10);
+                    LocalDate visitDate = rs.getDate(11).toLocalDate();
+                    String observations = rs.getString(12);
 
                     Ability ability = new Ability(id, catID, citizenID, score, status);
-                    ability.setGoals(rs.getString("citizenGoals"));
+                    ability.setGoals(goals);
+                    ability.setPerformance(performance);
+                    ability.setMeaning(meaning);
+                    ability.setExpectedScore(expectedScore);
+                    ability.setImportantNote(importantNote);
+                    ability.setVisitDate(visitDate);
+                    ability.setObservation(observations);
                     abilities.add(ability);
                 }
                 cit.setFunctionalAbilities(abilities);

@@ -57,7 +57,7 @@ public class CitizenFacade {
 
     private void addHealthConditions(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
-            String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             List<Condition> conditions = citizen.getHealthConditions();
@@ -66,18 +66,24 @@ public class CitizenFacade {
             {
                 int catID = con.getCategoryID();
                 int citizenID = citizen.getId();
-                String description = con.getDescription();
+                String importantNote = con.getImportantNote();
                 int status = con.getStatus();
-                String text = con.getFreeText();
+                String assessment = con.getAssessement();
                 String goal = con.getGoal();
+                int expectedScore = con.getExpectedScore();
+                Date visitDate = Date.valueOf(con.getVisitDate());
+                String observations = con.getObservation();
 
 
                 ps.setInt(1, catID);
                 ps.setInt(2, citizenID);
-                ps.setString(3, description);
+                ps.setString(3, importantNote);
                 ps.setInt(4, status);
-                ps.setString(5, text);
+                ps.setString(5, assessment);
                 ps.setString(6, goal);
+                ps.setInt(7, expectedScore);
+                ps.setDate(8, visitDate);
+                ps.setString(9, observations);
 
                 ps.addBatch();
             }
@@ -91,7 +97,7 @@ public class CitizenFacade {
     private void addFunctionalAbilities(Citizen citizen) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
 
-            String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?,?)";
+            String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             List<Ability> abilities = citizen.getFunctionalAbilities();
@@ -102,13 +108,25 @@ public class CitizenFacade {
                 int citizenID = citizen.getId();
                 int score = ability.getScore();
                 int status = ability.getStatus();
-                String text = ability.getGoals();
+                String goals = ability.getGoals();
+                int performance = ability.getPerformance();
+                int meaning = ability.getMeaning();
+                int expectedScore = ability.getExpectedScore();
+                String importantNote = ability.getImportantNote();
+                Date visitDate = Date.valueOf(ability.getVisitDate());
+                String observation = ability.getObservation();
 
                 ps.setInt(1, catID);
                 ps.setInt(2, citizenID);
                 ps.setInt(3, score);
                 ps.setInt(4, status);
-                ps.setString(5, text);
+                ps.setString(5, goals);
+                ps.setInt(6, performance);
+                ps.setInt(7, meaning);
+                ps.setInt(8, expectedScore);
+                ps.setString(9, importantNote);
+                ps.setDate(10, visitDate);
+                ps.setString(11, observation);
 
                 ps.addBatch();
             }
