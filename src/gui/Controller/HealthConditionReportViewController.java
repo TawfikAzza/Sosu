@@ -92,8 +92,8 @@ public class HealthConditionReportViewController implements Initializable {
                 TextFlow textFlow;
                 Text text = new Text();
                 text.setText(pair.getKey().getName()+": \n "
-                 //       +pair.getValue().getDescription()
-                   //     +"\n "+pair.getValue().getFreeText()
+                        +pair.getValue().getImportantNote()
+                       +"\n "+pair.getValue().getAssessement()
                         +"\n "+pair.getValue().getGoal()
                         +"\n Status : "+pair.getValue().getStatus());
 
