@@ -1,5 +1,7 @@
 package be;
 
+import java.time.LocalDate;
+
 public class Ability {
     private int id;
     private int score;
@@ -7,6 +9,12 @@ public class Ability {
     private int citizenID;
     private int status;
     private String goals;
+    private int performance;
+    private int meaning;
+    private int expectedScore;
+    private String importantNote;
+    private LocalDate visitDate;
+    private String observation;
 
     public Ability(int id, int categoryID,int citizenID, int score,int status) {
         this.id = id;
@@ -62,5 +70,53 @@ public class Ability {
 
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public int getPerformance() {
+        return performance;
+    }
+
+    public void setPerformance(int performance) {
+        this.performance = performance;
+    }
+
+    public int getMeaning() {
+        return meaning;
+    }
+
+    public void setMeaning(int meaning) {
+        this.meaning = meaning;
+    }
+
+    public int getExpectedScore() {
+        return expectedScore;
+    }
+
+    public void setExpectedScore(int expectedScore) {
+        this.expectedScore = expectedScore;
+    }
+
+    public String getImportantNote() {
+        return importantNote;
+    }
+
+    public void setImportantNote(String importantNote) {
+        this.importantNote = importantNote;
+    }
+
+    public LocalDate getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(LocalDate visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observations) {
+        this.observation = observations;
     }
 }

@@ -1,22 +1,27 @@
 package be;
 
+import java.time.LocalDate;
+
 public class Condition {
     private int id;
 
-    private String description;
-    private String freeText;
+    private String importantNote;
+    private String assessement;
     private String goal;
     private int citizenID;
     private int categoryID;
     private int status;
+    private int expectedScore;
+    private LocalDate visitDate;
+    private String observation;
 
-    public Condition(int id, int categoryID , int citizenID, String description, int status,String freeText, String goal) {
+    public Condition(int id, int categoryID , int citizenID, String importantNote, int status,String assessement, String goal) {
         this.id = id;
         this.categoryID = categoryID;
         this.citizenID = citizenID;
-        this.description = description;
+        this.importantNote = importantNote;
         this.status=status;
-        this.freeText = freeText;
+        this.assessement = assessement;
         this.goal=goal;
     }
 
@@ -29,20 +34,44 @@ public class Condition {
     }
 
 
-    public String getDescription() {
-        return description;
+    public String getImportantNote() {
+        return importantNote;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setImportantNote(String importantNote) {
+        this.importantNote = importantNote;
     }
 
-    public String getFreeText() {
-        return freeText;
+    public String getAssessement() {
+        return assessement;
     }
 
-    public void setFreeText(String freeText) {
-        this.freeText = freeText;
+    public void setAssessement(String assessement) {
+        this.assessement = assessement;
+    }
+
+    public int getExpectedScore() {
+        return expectedScore;
+    }
+
+    public void setExpectedScore(int expectedScore) {
+        this.expectedScore = expectedScore;
+    }
+
+    public LocalDate getVisitDate() {
+        return visitDate;
+    }
+
+    public void setVisitDate(LocalDate visitDate) {
+        this.visitDate = visitDate;
+    }
+
+    public String getObservation() {
+        return observation;
+    }
+
+    public void setObservation(String observation) {
+        this.observation = observation;
     }
 
     public String getGoal() {
