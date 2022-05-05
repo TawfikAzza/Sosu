@@ -1,24 +1,31 @@
 * {
-    -fx-root-primary:black;
-    -fx-root-secondary: #FBF2C0;
-    -fx-basic-controls: #5b8c5a;
-    -fx-basic-controls-secondary: #43281c;
+    -fx-root-base: #0E402D;
+    -fx-base-controls: #0B3324;
+
+    -fx-base-border: WHITE;
+
+    -fx-root-accent:#361440;
 }
+
+/*
+    References:
+    For rounding edges order is top-left, top-right, bottom-right, and bottom-left corners, in that
+    order.
+ */
 
 /*
     Root (all the panes)
  */
 .root{
-    -fx-background-color:-fx-root-primary;
+    -fx-background-color:-fx-root-base;
 }
 
 /*
     Radio buttons
  */
 .radio-button .radio {
-
-    -fx-border-color: -fx-basic-controls;
-    -fx-border-width: 2;
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 1;
 
     -fx-background-radius:20 ;
     -fx-background-insets:2;
@@ -28,42 +35,179 @@
 
 }
 
-
 .radio-button .dot {
     -fx-background-radius: 20px;
     -fx-padding: 8px;
+}
+
+.radio-button:selected{
+    -fx-font-size: 14;
+    -fx-font-weight: bold;
+    -fx-mark-highlight-color: -fx-root-base;
+    -fx-mark-color: -fx-root-base;
+}
+
+.radio-button{
+    -fx-text-fill: black;
+}
+
+/*
+    List and tableviews
+ */
+
+
+.table-view{
+    -fx-background-color: -fx-root-base;
+}
+.table-view .column-header {
+    -fx-background-color: -fx-base-controls;
+}
+
+.table-view .column-header-background{
+    -fx-font-size: 14;
+    -fx-font-weight: BOLD;
+    -fx-background-color: -fx-base-controls;
+}
+
+.table-view .column-header-background .label{
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: white;
+}
+
+.table-row-cell:selected {
+    -fx-background-color: -fx-root-accent;
+
+}
+.table-row-cell:empty{
+    -fx-background-color: #e1dd72;
+}
+
+.table-row-cell{
+    -fx-background-color: #91AB5E, #91AB5E;
+    -fx-table-cell-border-color: -fx-base-border;
 
 }
 
-.radio-button .dot:selected{
-    -fx-background-color:-fx-basic-controls-secondary;
+.table-row-cell:hover{
+    -fx-background-color: -fx-root-accent;
+    -fx-table-cell-border-color: -fx-base-border;
+    -fx-text-fill: white;
+}
+
+.table-view .filler{
+    -fx-background-color: transparent;
+}
+
+.table-view.scroll-bar:vertical.track-background{
+    -fx-background-color: -fx-root-base;
+}
+
+.table-view:row-selection.virtual-flow.corner{
+
+}
+
+/*
+    Text fields/areas
+ */
+
+.text-area{
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 2;
+    -fx-background-color: black;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: white;
+    -fx-padding:8;
+    -fx-text-fill: black;
+}
+
+.text-area:focused{
+    -fx-padding: 2;
+}
+
+/*
+For rounded text area if needed
+.text-area{
+    -fx-border-radius: 20;
     -fx-border-color: black;
-
+    -fx-background-radius: 20;
 }
+
+.text-area .scroll-pane {
+    -fx-background-color:transparent ;
+}
+.text-area .scroll-pane .viewport{
+    -fx-background-color: transparent;
+}
+
+.text-area .scroll-pane .content{
+    -fx-background-color: white;
+    -fx-padding:8;
+    -fx-background-radius: 50;
+}
+*/
+.scroll-bar{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar.thumb {
+    -fx-border-color: black;
+}
+
+.scroll-bar .decrement-button .decrement-arrow,
+.scroll-bar .increment-button .increment-arrow
+{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+.scroll-bar .decrement-button .decrement-arrow,
+.scroll-bar .increment-button .increment-arrow{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
+
+
 
 /*
     Buttons
  */
 
 .button{
-
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: black;
+    -fx-border-radius: 25;
+    -fx-background-radius: 25;
+    -fx-border-color: -fx-base-border;
+    -fx-border-width: 1;
+    -fx-padding: 5;
 }
 
+.button:hover{
+    -fx-background-color: -fx-base-controls;
+    -fx-text-fill: black;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
+    -fx-padding: 7;
+}
+
+
+
+/*
+    Text
+ */
+.label{
+    -fx-text-fill: black;
+    -fx-font-weight: BOLD;
+}
+
+/*
+    Customer alerts
+ */
 .myDialog{
     -fx-background-color: #f9d900;
 }
-.myDialog > *.button-bar > *.container{
-    -fx-background-color: #a9e200;
-}
-.myDialog > *.label.content{
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-}
-.myDialog.header-panel *.header-panel{
-    -fx-background-color: #a59c31;
-}
-.myDialog.header-panel *.header-panel *.label{
-    -fx-font-size: 18px;
-    -fx-font-style: italic;
-    -fx-fill: #292929;
-}
+
