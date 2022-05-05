@@ -153,11 +153,11 @@ public class AbilityReportViewController implements Initializable {
             Ability ability = categoryModel.getAbility(abilityCategory,currentCitizen);
             if(ability==null) {
                 operationType="insert";
-                btnConfirm.setText("Add Condition");
+                btnConfirm.setText("Add Ability");
                 return;
             }
             operationType="update";
-            btnConfirm.setText("Update Condition");
+            btnConfirm.setText("Update Ability");
             switch(ability.getScore()) {
                 case 0: radio0.setSelected(true);
                 break;
@@ -174,7 +174,7 @@ public class AbilityReportViewController implements Initializable {
                 default:
                 break;
             }
-            switch(ability.getExpectedScore()) {
+            switch(ability.getPerformance()) {
                 case 0: radio02.setSelected(true);
                     break;
                 case 1: radio12.setSelected(true);
@@ -186,23 +186,23 @@ public class AbilityReportViewController implements Initializable {
                 default:
                     break;
             }
-            switch(ability.getPerformance()) {
+            switch(ability.getExpectedScore()) {
                 case 0: radio01.setSelected(true);
                     break;
-                case 1: radio1.setSelected(true);
+                case 1: radio11.setSelected(true);
                     break;
-                case 2: radio2.setSelected(true);
+                case 2: radio21.setSelected(true);
                     break;
-                case 3: radio3.setSelected(true);
+                case 3: radio31.setSelected(true);
                     break;
-                case 4: radio4.setSelected(true);
+                case 4: radio41.setSelected(true);
                     break;
-                case 9: radio9.setSelected(true);
+                case 9: radio91.setSelected(true);
                     break;
                 default:
                     break;
             }
-            switch(ability.getScore()) {
+            switch(ability.getMeaning()) {
                 case 0: radio03.setSelected(true);
                     break;
                 case 1: radio13.setSelected(true);
@@ -219,6 +219,7 @@ public class AbilityReportViewController implements Initializable {
             if(ability.getStatus()==2) {
                 statusAkute.setSelected(true);
             }
+
             citizenGoal.setText(ability.getGoals());
             visitDate.setValue(DateUtil.parseDate(String.valueOf(ability.getVisitDate())));
 
@@ -241,6 +242,11 @@ public class AbilityReportViewController implements Initializable {
                         , Integer.parseInt(score.getSelectedToggle().getUserData().toString())
                         , Integer.parseInt(status.getSelectedToggle().getUserData().toString()));
                 ability.setGoals(citizenGoal.getText());
+                ability.setPerformance(Integer.parseInt(performance.getSelectedToggle().getUserData().toString()));
+                ability.setMeaning(Integer.parseInt(meaning.getSelectedToggle().getUserData().toString()));
+                ability.setExpectedScore(Integer.parseInt(expectedScore.getSelectedToggle().getUserData().toString()));
+                ability.setVisitDate(DateUtil.parseDate(visitDate.getValue().toString()));
+                ability.setObservation(observation.getText());
                 try {
                     categoryModel.addAbility(ability);
                     Stage stage = (Stage) (statusIrrelevant.getScene().getWindow());
@@ -261,6 +267,11 @@ public class AbilityReportViewController implements Initializable {
                         ,Integer.parseInt(status.getSelectedToggle().getUserData().toString())
                         );
                 ability.setGoals(citizenGoal.getText());
+                ability.setPerformance(Integer.parseInt(performance.getSelectedToggle().getUserData().toString()));
+                ability.setMeaning(Integer.parseInt(meaning.getSelectedToggle().getUserData().toString()));
+                ability.setExpectedScore(Integer.parseInt(expectedScore.getSelectedToggle().getUserData().toString()));
+                ability.setVisitDate(DateUtil.parseDate(visitDate.getValue().toString()));
+                ability.setObservation(observation.getText());
                 try {
                     categoryModel.updateAbility(ability);
                     Stage stage = (Stage)(statusIrrelevant.getScene().getWindow());
@@ -281,6 +292,17 @@ public class AbilityReportViewController implements Initializable {
             message+="- No choice as to the status has been made";
         if(citizenGoal.getText().equals(""))
             message+="- No goals set for the Citizen";
+        if(expectedScore.getSelectedToggle()==null)
+            message += "- Specify an expected score for the ability \n";
+        if(observation.getText().equals(""))
+            message += "- Specify an observation \n";
+        if(visitDate.getValue()==null)
+            message += "- Specify a visit date \n";
+        if(meaning.getSelectedToggle()==null)
+            message += "- Specify a meaning \n";
+        if(performance.getSelectedToggle()==null)
+            message += "- Specify a performance \n";
+
         if(!message.equals("")) {
             DisplayMessage.displayMessage(message);
             return false;

@@ -1,6 +1,7 @@
 package dal.db;
 
 import be.*;
+import bll.util.DateUtil;
 import dal.ConnectionManager;
 import javafx.util.Pair;
 
@@ -123,6 +124,13 @@ public class FunctionalAbilityDAO {
                                             rs.getInt("score"),
                                             rs.getInt("status") );
                 abilitySearched.setGoals(rs.getString("citizenGoals"));
+                abilitySearched.setGoals(rs.getString("citizenGoals"));
+                abilitySearched.setPerformance(rs.getInt("performance"));
+                abilitySearched.setMeaning(rs.getInt("meaning"));
+                abilitySearched.setExpectedScore(rs.getInt("expectedScore"));
+                abilitySearched.setImportantNote(rs.getString("importantNote"));
+                abilitySearched.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
+                abilitySearched.setObservation(rs.getString("observations"));
             }
         }
         return abilitySearched;
@@ -133,13 +141,20 @@ public class FunctionalAbilityDAO {
      * **/
     public void addAbility(Ability ability) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlInsert = "INSERT INTO Abilities VALUES (?,?,?,?,?)";
+
+            String sqlInsert = "INSERT INTO Abilities VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
             pstmt.setInt(1,ability.getCategoryID());
             pstmt.setInt(2,ability.getCitizenID());
             pstmt.setInt(3,ability.getScore());
             pstmt.setInt(4,ability.getStatus());
             pstmt.setString(5, ability.getGoals());
+            pstmt.setInt(6,ability.getPerformance());
+            pstmt.setInt(7,ability.getMeaning());
+            pstmt.setInt(8,ability.getExpectedScore());
+            pstmt.setString(9, ability.getImportantNote());
+            pstmt.setString(10, DateUtil.formatDateTime(ability.getVisitDate()));
+            pstmt.setString(11, ability.getObservation());
             pstmt.execute();
         }
     }
@@ -154,14 +169,22 @@ public class FunctionalAbilityDAO {
 
     public void updateAbility(Ability ability) throws SQLException {
         try (Connection connection = cm.getConnection()) {
-            String sqlUpdate = "UPDATE Abilities set score = ?, status= ?,citizenGoals=? " +
+
+            String sqlUpdate = "UPDATE Abilities set score = ?, status= ?,citizenGoals=?,performance=?, meaning=? ," +
+                    " expectedScore=? , importantNote=? , visitDate=? , observations=? " +
                     " WHERE categoryID=? AND citizenID = ?";
             PreparedStatement pstmt = connection.prepareStatement(sqlUpdate);
             pstmt.setInt(1,ability.getScore());
             pstmt.setInt(2,ability.getStatus());
             pstmt.setString(3,ability.getGoals());
-            pstmt.setInt(4,ability.getCategoryID());
-            pstmt.setInt(5,ability.getCitizenID());
+            pstmt.setInt(4,ability.getPerformance());
+            pstmt.setInt(5,ability.getMeaning());
+            pstmt.setInt(6,ability.getExpectedScore());
+            pstmt.setString(7,ability.getImportantNote());
+            pstmt.setString(8,DateUtil.formatDateTime(ability.getVisitDate()));
+            pstmt.setString(9,ability.getObservation());
+            pstmt.setInt(10,ability.getCategoryID());
+            pstmt.setInt(11,ability.getCitizenID());
             pstmt.execute();
         }
     }
@@ -213,6 +236,13 @@ public class FunctionalAbilityDAO {
                         rs.getInt("score"),
                         rs.getInt("status") );
                 ability.setGoals(rs.getString("citizenGoals"));
+                ability.setPerformance(rs.getInt("performance"));
+                ability.setMeaning(rs.getInt("meaning"));
+                ability.setExpectedScore(rs.getInt("expectedScore"));
+                ability.setImportantNote(rs.getString("importantNote"));
+                ability.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
+                ability.setObservation(rs.getString("observations"));
+
                 abilityHashMap.put(ability.getId(),ability);
             }
             //Filling the HashMap of the temporary results with the right SubCategory/Functional abilities values

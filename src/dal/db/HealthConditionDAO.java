@@ -133,8 +133,11 @@ public class HealthConditionDAO {
                         ,rs.getString("goal") );
                         conditionSearched.setExpectedScore(rs.getInt("expectedScore"));
                         conditionSearched.setObservation(rs.getString("observations"));
-                System.out.println(" IN HEALTH DAO : "+rs.getDate("visitDate"));
-                        conditionSearched.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
+                System.out.println(" IN HEALTH DAO : "+rs.getDate("visitDate").toString());
+                String dateTmp = rs.getDate("visitDate").toString();
+                System.out.println(dateTmp);
+                        conditionSearched.setVisitDate(DateUtil.parseDate(dateTmp));
+                System.out.println(conditionSearched.getVisitDate());
             }
         }
         return conditionSearched;
@@ -244,7 +247,7 @@ public class HealthConditionDAO {
                         ,rs.getString("goal") );
                 condition.setExpectedScore(rs.getInt("expectedScore"));
                 condition.setObservation(rs.getString("observations"));
-                condition.setVisitDate(DateUtil.parseDate(rs.getString("visiteDate")));
+                condition.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
 
                 conditionHashMap.put(condition.getId(),condition);
 

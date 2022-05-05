@@ -67,9 +67,12 @@ public class ConditionReportViewController implements Initializable {
             }
             operationType="update";
             btnConfirm.setText("Update Condition");
-          //  description.setText(condition.getDescription());
-         //   freeText.setText(condition.getFreeText());
+            importantNote.setText(condition.getImportantNote());
+            assessement.setText(condition.getAssessement());
             goal.setText(condition.getGoal());
+            System.out.println("Condition visit : "+condition.getVisitDate());
+            visitDate.setValue(DateUtil.parseDate(condition.getVisitDate().toString()));
+            observation.setText(condition.getObservation());
             System.out.println("Expected score : "+condition.getExpectedScore());
             switch (condition.getExpectedScore()) {
                 case 0 -> radio0.setSelected(true);
@@ -152,6 +155,12 @@ public class ConditionReportViewController implements Initializable {
         if(status.getSelectedToggle()==null) {
             message+="- No choice as to the status has been made";
         }
+        if(expectedScore.getSelectedToggle()==null)
+            message += "- Specify an expected score for the condition \n";
+        if(observation.getText().equals(""))
+            message += "- Specify an observation \n";
+        if(visitDate.getValue()==null)
+            message += "- Specify a visit date \n";
         if(!message.equals("")) {
             Alert alert = new Alert(Alert.AlertType.INFORMATION, message, ButtonType.OK, ButtonType.CANCEL);
             alert.showAndWait();

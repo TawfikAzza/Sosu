@@ -14,7 +14,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<GridPane prefHeight="728.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
+<GridPane prefHeight="724.0" prefWidth="730.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AbilityReportViewController">
    <columnConstraints>
       <ColumnConstraints />
       <ColumnConstraints />
@@ -208,11 +208,7 @@
                      </children>
                   </VBox>
                   <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="functionalLevel_92" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
+                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" />
                </children>
             </HBox>
          </children>
@@ -235,31 +231,6 @@
                      <children>
                         <ImageView fx:id="functionalLevel_13" fitHeight="98.0" fitWidth="188.0" pickOnBounds="true" preserveRatio="true" />
                         <RadioButton fx:id="radio13" mnemonicParsing="false" text="Oplever begransing" toggleGroup="$meaning" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="functionalLevel_23" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="functionalLevel_33" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="functionalLevel_43" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-                     </children>
-                  </VBox>
-                  <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
-                     <children>
-                        <ImageView fx:id="functionalLevel_93" fitHeight="98.0" fitWidth="105.0" pickOnBounds="true" preserveRatio="true" />
-                        <RadioButton fx:id="radio93" mnemonicParsing="false" text="9">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="score2" />
-                           </toggleGroup>
-                        </RadioButton>
                      </children>
                   </VBox>
                </children>
