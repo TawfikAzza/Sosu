@@ -27,21 +27,39 @@ public class MedicineListManger {
             return  medicineListDAO.getMedicineList(citizen);
 
         } catch (SQLException e) {
-            throw new MedicineListException("Error while getting th medicine list from the database",e);
+            throw new MedicineListException("Error while getting the medicine list from the database",e);
         }
     }
 
 
-    public void addMedicineList(MedicineList medicineList) throws SQLException {
-
+    public void addMedicineList(MedicineList medicineList) throws MedicineListException {
+        try {
+            medicineListDAO.addMedicineList(medicineList);
+        } catch (SQLException e) {
+            throw new MedicineListException("Error while getting the medicine list from the database",e);
+        }
     }
 
 
-    public void updateMedicineList(MedicineList medicineList) throws SQLException {
+    public MedicineList updateMedicineList(MedicineList medicineList) throws  MedicineListException {
+        try {
+              medicineListDAO.updateMedicineList(medicineList);
+        } catch (SQLException e) {
+            throw new MedicineListException("Error while getting the medicine list from the database",e);
+        }
 
+        return medicineList;
     }
 
 
+    public MedicineList saveMedicineList(MedicineList medicineList) throws  MedicineListException {
+        try {
+             medicineListDAO.updateMedicineList(medicineList);
+        } catch (SQLException e) {
+            throw new MedicineListException("Error while getting the medicine list from the database",e);
+        }
+        return medicineList;
+    }
 
 }
 
