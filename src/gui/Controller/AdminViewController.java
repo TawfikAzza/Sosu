@@ -880,15 +880,15 @@ public class AdminViewController implements Initializable {
     }
 
     public void addStudentLV(Student student){
-        if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(student.getSchoolName())){
-            allStudentsSchool.getItems().add(student.getFirstName()+" "+student.getLastName());
-        }
+        if (allSchoolsLV.getSelectionModel().getSelectedItem()!=null)
+            if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(student.getSchoolName()))
+                allStudentsSchool.getItems().add(student.getFirstName()+" "+student.getLastName());
     }
 
     public void addTeacherLV(Teacher teacher){
-        if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(teacher.getSchoolName())){
-            allTeachersSchool.getItems().add(teacher.getFirstName()+" "+teacher.getLastName());
-        }
+        if (allSchoolsLV.getSelectionModel().getSelectedItem()!=null)
+            if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(teacher.getSchoolName()))
+                allTeachersSchool.getItems().add(teacher.getFirstName()+" "+teacher.getLastName());
     }
     public void setMain(Main main){
         this.main=main;

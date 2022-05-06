@@ -6,6 +6,7 @@ import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -128,5 +129,21 @@ public class HealthSectionDisplayController implements Initializable {
     public void closeWindow() {
         Stage stage = (Stage) healthContainer.getScene().getWindow();
         stage.close();
+    }
+
+    public void openHealthReportMgr() throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/HealthConditionReportView.fxml"));
+        Parent root = loader.load();
+        HealthConditionReportViewController healthConditionReportViewController = loader.getController();
+        //Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
+        healthConditionReportViewController.setCurrentCitizen(GlobalVariables.getSelectedCitizen());
+        // functionalReportViewController.displayCitizenReport();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+
+        stage.show();
     }
 }
