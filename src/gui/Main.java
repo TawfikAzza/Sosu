@@ -43,7 +43,7 @@ public class Main extends Application {
 
         primaryStage.setScene(scene);
         primaryStage.setWidth(635);
-        primaryStage.setHeight(429);
+        primaryStage.setHeight(500);
         primaryStage.setTitle("Main window");
         primaryStage.show();
     }
