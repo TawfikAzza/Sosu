@@ -15,7 +15,7 @@ public class Main extends Application {
 
         primaryStage.show();
         setUserAgentStylesheet(getClass().getResource("gui/CSS/MainCSS.css").toExternalForm());
-        
+
     }
 
     public static void main(String[] args) {

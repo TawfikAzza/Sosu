@@ -1,6 +1,7 @@
 * {
     -fx-root-base: WHITE;
     -fx-base-controls: #55738f;
+    -fx-base-controls-light: #84a1bf;
 
     -fx-base-border: #55738f;
 
@@ -295,3 +296,22 @@ For rounded text area if needed
     -fx-background-color: #f9d900;
 }
 
+/*
+    Accordions
+ */
+
+.titled-pane:collapsed .title{
+    -fx-background-color: -fx-base-controls-light;
+}
+
+.titled-pane:expanded .title{
+    -fx-background-color: -fx-base-controls;
+}
+
+.titled-pane{
+    -fx-background-color: -fx-base-controls;
+}
+
+.first-titled-pane:expanded .content{
+    -fx-background-color: -fx-base-root;
+}
