@@ -80,8 +80,8 @@ public class UserModel {
         return this.userManager.submitLogin(username,password);
     }
 
-    public ObservableList<Student> getStudents() throws UserException {
-        return userManager.getStudents();
+    public ObservableList<Student> getStudents(Teacher currentTeacher) throws UserException {
+        return userManager.getStudents(currentTeacher);
     }
 
     public int userNameTaken(String userName) throws SQLException {

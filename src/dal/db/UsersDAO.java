@@ -20,7 +20,7 @@ public class UsersDAO {
         cm = new ConnectionManager();
     }
 
-    public User compareLogins(String userName, String passWord) throws IOException {
+    public User compareLogins(String userName, String passWord){
 
         User user=null;
 
@@ -48,7 +48,9 @@ public class UsersDAO {
                     user = new Teacher(id,"Teacher",
                             "teacher",rs.getString("user_name"),
                             rs.getString("password"),
-                            rs.getString("e_mail"),25478963);
+                            rs.getString("e_mail"),
+                            25478963,
+                             rs.getInt("school_id"));
                 }
                 if(roleID==3){
                     user = new Student(id,"Student",

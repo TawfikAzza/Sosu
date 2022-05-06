@@ -2,6 +2,7 @@ package bll;
 
 import be.Citizen;
 import be.Student;
+import be.Teacher;
 import bll.exceptions.CitizenException;
 import dal.db.CitizenFacade;
 import dal.db.GetTemplatesFacade;
@@ -22,8 +23,8 @@ public class TeacherManager {
         this.citizenFacade = new CitizenFacade();
     }
 
-    public ObservableList<Citizen> getTemplates() throws CitizenException {
-        List<Citizen> citizens = templatesFacade.retrieveTemplates();
+    public ObservableList<Citizen> getTemplates(Teacher currentTeacher) throws CitizenException {
+        List<Citizen> citizens = templatesFacade.retrieveTemplates(currentTeacher);
         ObservableList<Citizen> obsCitizens = FXCollections.observableArrayList();
         obsCitizens.addAll(citizens);
         return obsCitizens;

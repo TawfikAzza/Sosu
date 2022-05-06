@@ -1,9 +1,6 @@
 package dal.db;
 
-import be.Ability;
-import be.Citizen;
-import be.Condition;
-import be.GeneralInfo;
+import be.*;
 import bll.exceptions.CitizenException;
 import dal.ConnectionManager;
 
@@ -23,14 +20,15 @@ public class GetTemplatesFacade {
     }
 
 
-    private List<Citizen> getCitizens() throws CitizenException {
+    private List<Citizen> getCitizens(Teacher currentTeacher) throws CitizenException {
         List<Citizen> citizens = new ArrayList<>();
 
         try (Connection connection = cm.getConnection()) {
-            String sqlSelect = "SELECT * FROM Citizen WHERE isTemplate = ?";
+            String sqlSelect = "SELECT * FROM Citizen WHERE isTemplate = ? AND school_id=?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
 
             ps.setInt(1, 1);
+            ps.setInt(2,currentTeacher.getSchoolId());
 
             ResultSet rs = ps.executeQuery();
 
@@ -168,8 +166,8 @@ public class GetTemplatesFacade {
         }
     }
 
-    public List<Citizen> retrieveTemplates() throws CitizenException {
-        List<Citizen> citizens = getCitizens();
+    public List<Citizen> retrieveTemplates(Teacher currentTeacher) throws CitizenException {
+        List<Citizen> citizens = getCitizens(currentTeacher);
         attachHealthConditions(citizens);
         attachFunctionalAbilities(citizens);
         attachGeneralInfo(citizens);

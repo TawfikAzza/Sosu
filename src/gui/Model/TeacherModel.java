@@ -2,6 +2,7 @@ package gui.Model;
 
 import be.Citizen;
 import be.Student;
+import be.Teacher;
 import bll.TeacherManager;
 import bll.exceptions.CitizenException;
 import javafx.collections.ObservableList;
@@ -18,8 +19,8 @@ public class TeacherModel {
         this.teacherManager = new TeacherManager();
     }
 
-    public ObservableList<Citizen> getTemplates() throws CitizenException {
-        return teacherManager.getTemplates();
+    public ObservableList<Citizen> getTemplates(Teacher currentTeacher) throws CitizenException {
+        return teacherManager.getTemplates(currentTeacher);
     }
 
     public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {

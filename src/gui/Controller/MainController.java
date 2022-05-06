@@ -68,7 +68,7 @@ public class MainController {
 
             }
             if (user.getRoleID()==2){
-                openTeacher(new ActionEvent());
+                openTeacher(user);
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
@@ -115,10 +115,14 @@ public class MainController {
         stage.show();
     }
 
-    public void openTeacher(ActionEvent actionEvent) throws IOException {
+    public void openTeacher(User user) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
         Parent root = loader.load();
+
+        TeacherWindowController teacherWindowController = loader.getController();
+        teacherWindowController.setCurrentTeacher((Teacher) user);
+        teacherWindowController.loadData();
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();

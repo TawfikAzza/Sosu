@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.Citizen;
 import be.Student;
+import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
@@ -36,6 +37,7 @@ public class TeacherWindowController implements Initializable {
     private UserModel userModel;
     private StudentCitizenRelationShipModel relationShipModel;
     private boolean isAdmin;
+    private Teacher currentTeacher;
 
     @FXML
     private TableView<Citizen> tableViewAssignments;
@@ -64,14 +66,8 @@ public class TeacherWindowController implements Initializable {
             this.model = new TeacherModel();
             this.userModel = new UserModel();
             this.relationShipModel = new StudentCitizenRelationShipModel();
-            ObservableList<Citizen> cits = model.getTemplates();
-            ObservableList<Student> studs = userModel.getStudents();
-            this.tableViewTemplates.setItems(cits);
-            this.tableViewStudents.setItems(studs);
-            this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-            this.initTables();
-        } catch (CitizenException | UserException | IOException e) {
+        } catch (IOException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }
@@ -167,6 +163,27 @@ public class TeacherWindowController implements Initializable {
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
+        }
+    }
+
+    public void setCurrentTeacher(Teacher currentTeacher) {
+        this.currentTeacher = currentTeacher;
+    }
+
+    public void loadData(){
+
+        try { //You should only be able to get citizens from relevant school!
+        ObservableList<Citizen> cits = model.getTemplates(currentTeacher);
+        //Y should only be able to get students from relevant school!
+        ObservableList<Student> studs = userModel.getStudents(currentTeacher);
+        this.tableViewTemplates.setItems(cits);
+        this.tableViewStudents.setItems(studs);
+        this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        this.initTables();
+        } catch (CitizenException | UserException  e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();;
         }
     }
 }
