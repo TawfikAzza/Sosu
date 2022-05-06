@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -38,17 +40,33 @@ public class ConditionReportViewController implements Initializable {
         try {
             categoryModel = new CategoryModel();
             /* Expected score radio */
-            radio0.setUserData(0);
-            radio1.setUserData(1);
-            radio2.setUserData(2);
-
-            statusIrrelevant.setUserData(0);
-            statusPotentiel.setUserData(1);
-            statusAkute.setUserData(2);
+            setUserData();
+            bindSizes();
         } catch (HealthCategoryException e) {
             DisplayMessage.displayError(e);
         }
     }
+
+    private void bindSizes() {
+        bindDatePicker();
+    }
+
+    private void bindDatePicker() {
+        VBox datePickerParent = ((VBox) visitDate.getParent());
+        visitDate.prefHeightProperty().bind(datePickerParent.heightProperty());
+        visitDate.prefWidthProperty().bind(datePickerParent.widthProperty());
+    }
+
+    private void setUserData() {
+        radio0.setUserData(0);
+        radio1.setUserData(1);
+        radio2.setUserData(2);
+
+        statusIrrelevant.setUserData(0);
+        statusPotentiel.setUserData(1);
+        statusAkute.setUserData(2);
+    }
+
     public void setCurrentCitizen(Citizen citizen) {
         this.currentCitizen = citizen;
     }

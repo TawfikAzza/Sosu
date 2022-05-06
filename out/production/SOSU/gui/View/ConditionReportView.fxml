@@ -13,26 +13,54 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="295.0" prefWidth="479.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
+<GridPane prefHeight="496.0" prefWidth="479.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.999951171875" minWidth="10.0" prefWidth="114.39999618530274" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="549.2000518798827" minWidth="10.0" prefWidth="344.40000381469724" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="147.19998779296876" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="147.19998779296876" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="56.800012207031244" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <Label text="Status" />
-      <Label text="Important Note" GridPane.rowIndex="1" />
-      <Label text="Assessement" GridPane.rowIndex="2" />
-      <Label text="Mål" GridPane.rowIndex="4" />
+      <VBox alignment="CENTER_RIGHT">
+         <children>
+            <Label text="Status" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="1">
+         <children>
+            <Label text="Important Note" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="2">
+         <children>
+            <Label text="Assessement" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="4">
+         <children>
+            <Label text="Mål" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1">
          <children>
             <RadioButton fx:id="statusIrrelevant" mnemonicParsing="false" stylesheets="@../CSS/MainCSS.css" text="Irrelevant">
@@ -80,7 +108,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <RadioButton fx:id="radio0" mnemonicParsing="false" text="Mindskes">
                <toggleGroup>
@@ -90,12 +118,54 @@
             <RadioButton fx:id="radio1" mnemonicParsing="false" text="Forbliver Uændret" toggleGroup="$expectedScore" />
             <RadioButton fx:id="radio2" mnemonicParsing="false" text="Forsvinder" toggleGroup="$expectedScore" />
          </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
       </HBox>
-      <Label text="Expected score" GridPane.rowIndex="3" />
-      <Label text="Visit Date" GridPane.rowIndex="5" />
-      <Label text="Observation" GridPane.rowIndex="6" />
-      <TextArea fx:id="observation" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-      <DatePicker fx:id="visitDate" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="3">
+         <children>
+            <Label text="Expected score" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="5">
+         <children>
+            <Label text="Visit Date" />
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="6">
+         <children>
+            <VBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label text="Observation" />
+               </children>
+            </VBox>
+         </children>
+         <padding>
+            <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+         </padding>
+      </VBox>
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="6">
+         <children>
+            <TextArea fx:id="observation" prefHeight="200.0" prefWidth="200.0" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+         <children>
+            <DatePicker fx:id="visitDate" />
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

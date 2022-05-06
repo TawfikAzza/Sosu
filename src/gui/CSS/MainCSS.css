@@ -9,6 +9,8 @@
     -fx-root-accent-light:#ffc845;
 
     -fx-controls-text: WHITE;
+
+    -fx-selected-highlight:BLACK;
 }
 
 /*
@@ -47,8 +49,8 @@
 .radio-button:selected{
     -fx-font-size: 14;
     -fx-font-weight: bold;
-    -fx-mark-highlight-color: -fx-root-accent;
-    -fx-mark-color: -fx-root-accent;
+    -fx-mark-highlight-color: -fx-base-controls;
+    -fx-mark-color: -fx-base-controls;
 }
 
 .radio-button{
@@ -128,23 +130,66 @@
     Text fields/areas
  */
 
+.text-field{
+    -fx-border-color: -fx-root-accent;
+    -fx-border-width: 2;
+    -fx-background-color: -fx-root-base;
+}
+
+.text-field:focused{
+    -fx-border-color:black;
+}
+
+.text-field:hover{
+    -fx-padding: 6;
+    -fx-background-color: -fx-root-base;
+
+    -fx-border-width: 3;
+    -fx-border-color: -fx-selected-highlight;
+    -fx-text-fill: black;
+}
+
 .text-area{
     -fx-border-color: -fx-root-accent;
     -fx-border-width: 2;
     -fx-background-color: -fx-root-base;
 }
 
-.text-area .scroll-pane .content{
+.text-area:focused{
+    -fx-padding: 2;
     -fx-background-color: -fx-root-base;
-    -fx-padding:8;
-    -fx-border-color: -fx-root-accent;
-    -fx-border-width: 1;
+
+    -fx-border-color: -fx-selected-highlight;
+    -fx-border-width: 4;
     -fx-text-fill: black;
 }
 
-.text-area:focused{
-    -fx-padding: 2;
+.text-area:hover{
+    -fx-padding: 6;
+    -fx-background-color: -fx-root-base;
+
+    -fx-border-color: -fx-selected-highlight;
+    -fx-border-width: 2;
+    -fx-text-fill: black;
 }
+
+.text-area:focused .scroll-pane .content{
+    -fx-background-color: -fx-root-base;
+    -fx-padding:5;
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+}
+.text-area:hover .scroll-pane.content{
+    -fx-background-color: -fx-root-base;
+    -fx-border-color: -fx-root-base;
+    -fx-padding:5;
+    -fx-border-width: 2;
+    -fx-text-fill: black;
+}
+
+
+
+
 
 /*
 For rounded text area if needed
@@ -167,26 +212,26 @@ For rounded text area if needed
     -fx-background-radius: 50;
 }
 */
-.scroll-bar{
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-}
+
 
 .scroll-bar .decrement-button .decrement-arrow,
-.scroll-bar .increment-button .increment-arrow
-{
+.scroll-bar .increment-button .increment-arrow {
     -fx-background-color: transparent;
     -fx-border-color: transparent;
 }
 
-.scroll-bar .decrement-button .decrement-arrow,
-.scroll-bar .increment-button .increment-arrow{
+.scroll-bar:vertical{
     -fx-background-color: transparent;
-    -fx-border-color: transparent;
 }
 
+.text-area.scroll-pane.scroll-bar:vertical .thumb{
+    -fx-background-color: -fx-selected-highlight;
+}
 
-
+.text-area .scroll-bar:vertical.thumb {
+    -fx-opacity: 100;
+    -fx-background-color:-fx-selected-highlight ;
+}
 
 /*
     Buttons
@@ -206,6 +251,31 @@ For rounded text area if needed
     -fx-background-color: -fx-base-controls;
     -fx-text-fill: white;
     -fx-padding: 7;
+}
+
+.date-picker{
+    -fx-background-color: transparent;
+}
+
+.date-picker:hover{
+    -fx-background-color: transparent;
+    -fx-border-radius: 0 20 20 0 ;
+    -fx-background-radius: 0 20 20 0 ;
+    -fx-border-width: 2;
+    -fx-padding: 6;
+}
+
+
+.date-picker:editable .arrow-button{
+    -fx-background-color: -fx-base-controls;
+    -fx-border-color: -fx-base-root;
+
+    -fx-border-radius: 0 20 20 0;
+    -fx-background-radius: 0 20 20 0 ;
+    -fx-border-width: 0;
+    -fx-padding: 5;
+}
+
 }
 
 
