@@ -8,6 +8,7 @@ import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -84,6 +85,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //We add the TitledPane to the Accordion node.
                 functionalAbilityContainer.getPanes().add(titledPane);
 
+
             }
         } catch (AbilityCategoryException e) {
             DisplayMessage.displayError(e);
@@ -127,5 +129,21 @@ public class FunctionalSectionDisplayController implements Initializable {
     private void closeWindow() {
         Stage stage = (Stage) functionalAbilityContainer.getScene().getWindow();
         stage.close();
+    }
+
+    public void openFAReportMgr(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/FunctionalReportView.fxml"));
+        Parent root = loader.load();
+        FunctionalReportViewController functionalReportViewController = loader.getController();
+        //Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
+        functionalReportViewController.setCurrentCitizen(GlobalVariables.getSelectedCitizen());
+        // functionalReportViewController.displayCitizenReport();
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+
+        stage.show();
     }
 }

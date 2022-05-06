@@ -79,8 +79,10 @@ public class FunctionalReportViewController implements Initializable {
         int i = 1;
         GridPane mainPane = new GridPane();
         //GridPane.setMargin(mainPane, new Insets(10, 10, 10, 10));
-        mainPane.setHgap(10);
-        mainPane.setVgap(10);
+
+        mainPane.setHgap(0);
+        mainPane.setVgap(0);
+        mainPane.setAlignment(Pos.CENTER);
         Label headerCategory = new Label("Category Name");
         headerCategory.setStyle("-fx-font-size: 16px;");
         headerCategory.setStyle("-fx-font-weight: bold;");
