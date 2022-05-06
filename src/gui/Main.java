@@ -58,6 +58,10 @@ public class Main extends Application {
             FXMLLoader loaderAdmin = new FXMLLoader();
             loaderAdmin.setLocation(getClass().getResource("/gui/View/AdminView.fxml"));
             TabPane adminDisplay = loaderAdmin.load();
+
+            AdminViewController adminViewController = loaderAdmin.getController();
+            adminViewController.setMain(this);
+
             adminDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             adminDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(adminDisplay);

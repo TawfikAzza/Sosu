@@ -130,39 +130,6 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void openTeacher(User user) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
-        Parent root = loader.load();
-
-        TeacherWindowController teacherWindowController = loader.getController();
-        teacherWindowController.setCurrentTeacher((Teacher) user);
-        teacherWindowController.loadData();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-    public void openStudent(User user) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/StudentMenuView.fxml"));
-        Parent root = loader.load();
-
-        StudentMenuViewController studentMenuViewController = loader.getController();
-        studentMenuViewController.setCurrentStudent((Student) user);
-        studentMenuViewController.upadateTableCitizen();
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
 
     public void setMainApp(Main main) {
         this.main= main;
