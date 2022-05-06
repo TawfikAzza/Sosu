@@ -15,7 +15,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="755.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AdminViewController">
+<TabPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="398.0" prefWidth="755.0" stylesheets="@../CSS/MainCSS.css" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AdminViewController">
   <tabs>
     <Tab text="Manage teacher">
       <content>
@@ -283,7 +283,7 @@
                            <children>
                               <ButtonBar nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="200.0">
                                  <buttons>
-                                    <JFXButton onAction="#deleteSchool" text="Delete school" />
+                                    <JFXButton onAction="#deleteSchool" prefHeight="27.0" prefWidth="119.0" text="Delete school" />
                                     <JFXButton onAction="#addSchool" text="Add school" />
                                  </buttons>
                               </ButtonBar>

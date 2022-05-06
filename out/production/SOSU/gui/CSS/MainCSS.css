@@ -84,6 +84,13 @@
 .table-row-cell:selected {
     -fx-background-color: -fx-root-accent;
     -fx-table-cell-border-color: -fx-root-accent-light;
+    -fx-text-background-color: white;
+}
+
+.table-row-cell:selected .text,
+.table-row-cell:hover .text
+{
+    -fx-fill: white;
 }
 
 .table-row-cell{
@@ -94,6 +101,8 @@
 .table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected{
     -fx-background-color: -fx-root-accent-light;
     -fx-font-weight: bold;
+    -fx-text-background-color: white;
+    -fx-text-fill: white;
 }
 
 .table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected:focused{
@@ -126,26 +135,59 @@
     -fx-background-color: -fx-root-accent;
 }
 
+.table-view:row-selection:constrained-resize .virtual-flow .corner{
+    -fx-background-color: transparent;
+}
+
+.list-view:row-selection:constrained-resize .virtual-flow .scroll-bar:vertical .thumb,
+.list-view:row-selection:constrained-resize .virtual-flow .scroll-bar:horizontal .thumb {
+    -fx-background-radius: 0;
+    -fx-background-color: -fx-root-accent;
+}
+
+.list-view:row-selection .virtual-flow .scroll-bar:vertical .thumb{
+    -fx-background-radius: 0;
+    -fx-background-color: -fx-root-accent;
+}
+
+.list-view{
+    -fx-border-color: -fx-root-accent;
+}
+
+.list-cell:filled:hover {
+    -fx-background-color: -fx-root-accent-light;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-cell:filled:selected {
+    -fx-background-color: -fx-root-accent-light;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
 
 /*
     Text fields/areas
  */
 
 .text-field{
+    -fx-padding: 4;
     -fx-border-color: -fx-root-accent;
     -fx-border-width: 2;
     -fx-background-color: -fx-root-base;
 }
 
 .text-field:focused{
+    -fx-padding: 4;
     -fx-border-color:black;
 }
 
 .text-field:hover{
-    -fx-padding: 6;
+    -fx-padding: 4;
     -fx-background-color: -fx-root-base;
 
-    -fx-border-width: 3;
+    -fx-border-width: 2;
     -fx-border-color: -fx-selected-highlight;
     -fx-text-fill: black;
 }
@@ -242,6 +284,8 @@ For rounded text area if needed
     -fx-background-color: -fx-base-controls;
     -fx-text-fill: white;
     -fx-font-weight: bold;
+    -fx-text-alignment: center;
+    -fx-alignment: center;
     -fx-border-radius: 5;
     -fx-background-radius: 5;
     -fx-border-width: 1;
@@ -277,7 +321,6 @@ For rounded text area if needed
     -fx-padding: 5;
 }
 
-}
 
 
 
@@ -315,3 +358,44 @@ For rounded text area if needed
 .first-titled-pane:expanded .content{
     -fx-background-color: -fx-base-root;
 }
+
+/*
+    Tab pane and tabs
+ */
+
+.tab-pane:top .tab-header-area .headers-region .tab:top{
+    -fx-background-color: -fx-base-controls-light;
+    -fx-padding: 0 10 0 10 ;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:top .tab-container .tab-label{
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top{
+    -fx-background-color:-fx-base-controls ;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container{
+    -fx-border-color: -fx-base-controls -fx-base-controls -fx-base-controls  -fx-base-controls ;
+    -fx-background-color: -fx-base-controls;
+
+}
+
+.tab-pane:top .tab-header-area .tab-header-background{
+    -fx-background-color: -fx-base-root;
+}
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container .tab-label{
+    -fx-border-color: transparent;
+}
+
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container .focus-indicator{
+    -fx-border-color: transparent;
+}
+.tab-pane:top .tab-header-area .headers-region{
+    -fx-background-color: -fx-root-base;
+}
+
+
+
