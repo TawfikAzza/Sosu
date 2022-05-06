@@ -57,6 +57,7 @@ public class UsersDAO {
                             rs.getString("e_mail"),25478963);
 
                 }
+                assert user != null;
                 user.setRoleID(roleID);
             }
 

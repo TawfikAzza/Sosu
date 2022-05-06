@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.Citizen;
 import be.Student;
+import be.User;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.util.GlobalVariables;
@@ -25,7 +26,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StudentMenuViewController implements Initializable {
+public class StudentMenuViewController {
     @FXML
     private TableView<Citizen> citizenTableview;
     @FXML
@@ -36,16 +37,16 @@ public class StudentMenuViewController implements Initializable {
     private Label lblAdress,lblCpr,lblFname,lblLname,lblPhone,lblSchool;
 
     private StudentModel studentModel;
+
+    public void setCurrentStudent(Student currentStudent) {
+        this.currentStudent = currentStudent;
+    }
+
     private Student currentStudent;
     private Citizen currentCitizen;
     public StudentMenuViewController() {
         studentModel = new StudentModel();
-        currentStudent = new Student(51,2, "Miskine", "Nurse");
-    }
-
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        upadateTableCitizen();
+        //currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
     public void upadateTableCitizen() {

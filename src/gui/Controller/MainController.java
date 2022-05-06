@@ -2,8 +2,6 @@ package gui.Controller;
 
 import be.*;
 import bll.UserManager;
-import bll.exceptions.HealthCategoryException;
-import gui.Model.CategoryModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -13,14 +11,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class MainController {
 
@@ -43,9 +37,6 @@ public class MainController {
 
     public MainController() throws IOException {
     }
-
-
-
 
     public void openAdminMgr(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminView.fxml"));
@@ -81,7 +72,7 @@ public class MainController {
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
-                openStudent();
+                openStudent(user);
                 WrongLoginLabel.setVisible(false);
             }
         }
@@ -137,10 +128,14 @@ public class MainController {
         stage.show();
     }
 
-    public void openStudent() throws IOException {
+    public void openStudent(User user) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/StudentMenuView.fxml"));
         Parent root = loader.load();
+
+        StudentMenuViewController studentMenuViewController = loader.getController();
+        studentMenuViewController.setCurrentStudent((Student) user);
+        studentMenuViewController.upadateTableCitizen();
 
         Scene scene = new Scene(root);
         Stage stage = new Stage();
