@@ -81,6 +81,8 @@ public class FunctionalSectionDisplayController implements Initializable {
                 }
                 //We add the bulk to the titledPane
                 titledPane.setContent(subCategoryList);
+                subCategoryList.maxHeight(200);
+
                 //We add the TitledPane to the Accordion node.
                 functionalAbilityContainer.getPanes().add(titledPane);
 

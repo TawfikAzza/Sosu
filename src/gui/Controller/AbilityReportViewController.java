@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.net.URL;
@@ -21,6 +22,18 @@ import java.util.ResourceBundle;
 public class AbilityReportViewController implements Initializable {
 
 
+    @FXML
+    private ImageView functionalLevel_0_1;
+    @FXML
+    private ImageView functionalLevel_1_1;
+    @FXML
+    private ImageView functionalLevel_2_1;
+    @FXML
+    private ImageView functionalLevel_3_1;
+    @FXML
+    private ImageView functionalLevel_4_1;
+    @FXML
+    private ImageView functionalLevel_9_1;
     @FXML
     private TextArea observation;
     @FXML
@@ -99,12 +112,22 @@ public class AbilityReportViewController implements Initializable {
         functionalLevel_2.setImage(new Image("functional_level_2.png"));
         functionalLevel_3.setImage(new Image("functional_level_3.png"));
         functionalLevel_4.setImage(new Image("functional_level_4.png"));
+
+        functionalLevel_0_1.setImage(new Image("functional_level_0.png"));
+        functionalLevel_1_1.setImage(new Image("functional_level_1.png"));
+        functionalLevel_2_1.setImage(new Image("functional_level_2.png"));
+        functionalLevel_3_1.setImage(new Image("functional_level_3.png"));
+        functionalLevel_4_1.setImage(new Image("functional_level_4.png"));
     }
 
     private void bindSizes() {
-        HBox citizenGoalParent = ((HBox) citizenGoal.getParent());
+        VBox citizenGoalParent = ((VBox) citizenGoal.getParent());
         citizenGoal.prefWidthProperty().bind(citizenGoalParent.widthProperty());
         citizenGoal.prefHeightProperty().bind(citizenGoalParent.heightProperty());
+
+        VBox visitDateParent = ((VBox) visitDate.getParent());
+        visitDate.prefWidthProperty().bind(citizenGoalParent.widthProperty());
+        visitDate.prefHeightProperty().bind(citizenGoalParent.heightProperty());
     }
 
     private void setUserData() {

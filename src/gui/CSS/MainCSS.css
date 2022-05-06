@@ -139,8 +139,8 @@
     -fx-background-color: transparent;
 }
 
-.list-view:row-selection:constrained-resize .virtual-flow .scroll-bar:vertical .thumb,
-.list-view:row-selection:constrained-resize .virtual-flow .scroll-bar:horizontal .thumb {
+.list-view .virtual-flow .scroll-bar:vertical .thumb,
+.list-view .virtual-flow .scroll-bar:horizontal .thumb {
     -fx-background-radius: 0;
     -fx-background-color: -fx-root-accent;
 }
@@ -152,6 +152,10 @@
 
 .list-view{
     -fx-border-color: -fx-root-accent;
+}
+
+.list-cell:empty{
+    -fx-background-color: transparent;
 }
 
 .list-cell:filled:hover {
@@ -203,12 +207,12 @@
     -fx-background-color: -fx-root-base;
 
     -fx-border-color: -fx-selected-highlight;
-    -fx-border-width: 4;
+    -fx-border-width: 2;
     -fx-text-fill: black;
 }
 
 .text-area:hover{
-    -fx-padding: 6;
+    -fx-padding: 2;
     -fx-background-color: -fx-root-base;
 
     -fx-border-color: -fx-selected-highlight;
@@ -313,7 +317,7 @@ For rounded text area if needed
 
 .date-picker:editable .arrow-button{
     -fx-background-color: -fx-base-controls;
-    -fx-border-color: -fx-base-root;
+    -fx-border-color: -fx-root-base;
 
     -fx-border-radius: 0 20 20 0;
     -fx-background-radius: 0 20 20 0 ;
@@ -351,12 +355,25 @@ For rounded text area if needed
     -fx-background-color: -fx-base-controls;
 }
 
+.titled-pane:hover .title{
+    -fx-background-color: -fx-base-controls;
+}
+
 .titled-pane{
     -fx-background-color: -fx-base-controls;
 }
 
-.first-titled-pane:expanded .content{
-    -fx-background-color: -fx-base-root;
+.titled-pane:expanded .content{
+    -fx-background-color: -fx-root-base;
+}
+
+.titled-pane .content
+{
+}
+
+.titled-pane .title .arrow-button .arrow{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 
 /*
@@ -378,13 +395,13 @@ For rounded text area if needed
 }
 
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container{
-    -fx-border-color: -fx-base-controls -fx-base-controls -fx-base-controls  -fx-base-controls ;
+    -fx-border-color: -fx-base-controls -fx-base-controls -fx-root-base  -fx-base-controls ;
     -fx-background-color: -fx-base-controls;
 
 }
 
 .tab-pane:top .tab-header-area .tab-header-background{
-    -fx-background-color: -fx-base-root;
+    -fx-background-color: -fx-root-base;
 }
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container .tab-label{
     -fx-border-color: transparent;

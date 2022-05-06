@@ -13,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -81,8 +82,10 @@ public class HealthSectionDisplayController implements Initializable {
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }
+
                 //We add the bulk to the titledPane
                 titledPane.setContent(subCategoryList);
+
                 //We add the TitledPane to the Accordion node.
                 healthContainer.getPanes().add(titledPane);
             }
