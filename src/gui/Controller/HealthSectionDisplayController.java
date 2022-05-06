@@ -52,8 +52,8 @@ public class HealthSectionDisplayController implements Initializable {
         List<HealthCategory> healthCategories;
 
         try {
-            //We first start by first getting the Main categories with the subacategories associated
-            //via the subcategories list present in the Main category class.
+            //We first start by first getting the gui.Main categories with the subacategories associated
+            //via the subcategories list present in the gui.Main category class.
 
             healthCategories = categoryModel.getHealthCategories();
             for (HealthCategory healthCategory : healthCategories) {
@@ -62,9 +62,9 @@ public class HealthSectionDisplayController implements Initializable {
 
                 TitledPane titledPane = new TitledPane();
                 titledPane.setText(healthCategory.getName());
-                //As each Main categories possess a different number/type of subcategories, we create a List
-                //of subcategories which we will use for each Main categories, we reinitialize the ListView
-                //variable at each loop in order for it to contain only the subactegories of the Main
+                //As each gui.Main categories possess a different number/type of subcategories, we create a List
+                //of subcategories which we will use for each gui.Main categories, we reinitialize the ListView
+                //variable at each loop in order for it to contain only the subactegories of the gui.Main
                 //Category currently parsed for later display when we add the total of listView to the TitlePane
                 // Which in turn will be added to the root (Accordion in this case).
                 ListView<HealthCategory> subCategoryList = new ListView<>();
@@ -77,7 +77,7 @@ public class HealthSectionDisplayController implements Initializable {
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
                 subCategoryList.setOnMouseClicked(e-> openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen));
-                //We then fill the ListView with the subcategories of the currently parsed Main category.
+                //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }

@@ -24,7 +24,7 @@ public class FunctionalAbilityDAO {
     /**
      * Author : Tawfik
      *
-     * Method in charge of returning a list of Main abilityCategories object
+     * Method in charge of returning a list of gui.Main abilityCategories object
      * with the subcategories associated to it (the subcategories are stored in
      * the subCategories List with is held in the AbilityCategory object.)
      * This method is called by the Functional Ability management Controller in charge of the input of values
@@ -51,7 +51,7 @@ public class FunctionalAbilityDAO {
     /***
      * Author: Tawfik
      *
-     * Method in charge of retrieving the Main functional abilty category and returning it as
+     * Method in charge of retrieving the gui.Main functional abilty category and returning it as
      * an HashMap<Integer,AbilityCategory>.
      * This method is called by either the Report on functional abilities or
      * the Controller in charge of managing the input of values in the functional abilities
@@ -210,7 +210,7 @@ public class FunctionalAbilityDAO {
         //HashMap which will store the temporary result of the task, I need to first have the Abilities and subcategories
         //associated to be tightly linked together, this the way I do it.
         HashMap<AbilityCategory,Ability> hashMapResult = new HashMap<>();
-        //HasMap which will store the results previously compiled in the "hashMapResult" and associating t with the Main category
+        //HasMap which will store the results previously compiled in the "hashMapResult" and associating t with the gui.Main category
         //associated (beware not the subcategory, the previous hashMap is in charge of it.)
         //For that purpose I create a HashMap which have the id of the main category as the Key and
         //a List of all the subcategories/Functional Abilities associated to it.

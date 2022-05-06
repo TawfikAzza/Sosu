@@ -28,7 +28,7 @@ public class HealthConditionDAO {
     /**
      * Author : Tawfik
      *
-     * Method in charge of returning a list of Main healthCategory object
+     * Method in charge of returning a list of gui.Main healthCategory object
      * with the subcategories associated to it (the subcategories are stored in
      * the subCategories List with is held in the HealthCondition object.)
      * This method is called by the HealthCondition management Controller in charge of the input of values
@@ -88,7 +88,7 @@ public class HealthConditionDAO {
     /***
      * Author: Tawfik
      *
-     * Method in charge of retrieving the Main Health category and returning it as
+     * Method in charge of retrieving the gui.Main Health category and returning it as
      * an HashMap<Integer,HealthCategory>.
      * This method is called by either the Report on health controller or
      * the Controller in charge of managing the input of values in the conditions
@@ -218,7 +218,7 @@ public class HealthConditionDAO {
         //HashMap which will store the temporary result of the task, I need to first have the Condition and subcategories
         //associated to be tightly linked together, this the way I do it.
         HashMap<HealthCategory,Condition> hashMapResult = new HashMap<>();
-        //HasMap which will store the results previously compiled in the "hashMapResult" and associating t with the Main category
+        //HasMap which will store the results previously compiled in the "hashMapResult" and associating t with the gui.Main category
         //associated (beware not the subcategory, the previous hashMap is in charge of it.
         //For that purpose I create a HashMap which have the id of the main category as the Key and
         //a List of all the subcategories/COnditions associated to it.

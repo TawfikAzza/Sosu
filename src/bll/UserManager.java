@@ -83,8 +83,9 @@ public class UserManager implements UserInterface {
             @Override
             public void run() {
                 try {
-                    GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
-                    System.out.println(GlobalVariables.getCurrentSchool().getName());
+                    if (user!=null){
+                        GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
+                        System.out.println(GlobalVariables.getCurrentSchool().getName());}
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

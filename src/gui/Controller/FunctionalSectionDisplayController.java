@@ -50,17 +50,17 @@ public class FunctionalSectionDisplayController implements Initializable {
         List<AbilityCategory> abilityCategories;
 
         try {
-            //We first start by first getting the Main categories with the subacategories associated
-            //via the subcategories list present in the Main category class.
+            //We first start by first getting the gui.Main categories with the subacategories associated
+            //via the subcategories list present in the gui.Main category class.
             abilityCategories = categoryModel.getAbilityCategories();
             for (AbilityCategory abilityCategory : abilityCategories) {
                 //we then parse the main categories and associate the name of said category with the
                 //TitlePane of the Accordion Node of the View.
                 TitledPane titledPane = new TitledPane();
                 titledPane.setText(abilityCategory.getName());
-                //As each Main categories possess a different number/type of subcategories, we create a List
-                //of subcategories which we will use for each Main categories, we reinitialize the ListView
-                //variable at each loop in order for it to contain only the subactegories of the Main
+                //As each gui.Main categories possess a different number/type of subcategories, we create a List
+                //of subcategories which we will use for each gui.Main categories, we reinitialize the ListView
+                //variable at each loop in order for it to contain only the subactegories of the gui.Main
                 //Category currently parsed for later display when we add the total of listView to the TitlePane
                 // Which in turn will be added to the root (Accordion in this case).
                 ListView<AbilityCategory> subCategoryList = new ListView<>();
@@ -75,7 +75,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 subCategoryList.setOnMouseClicked(e-> {
                     openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(), GlobalVariables.getSelectedCitizen());
                 });
-                //We then fill the ListView with the subcategories of the currently parsed Main category.
+                //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }

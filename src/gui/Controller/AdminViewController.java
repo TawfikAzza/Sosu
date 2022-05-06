@@ -5,6 +5,8 @@ import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+
+import gui.Main;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
@@ -86,7 +88,7 @@ public class AdminViewController implements Initializable {
 
     private Integer test = 1;
 
-    private UserException ue = new UserException();
+    private final UserException ue = new UserException();
 
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
@@ -164,6 +166,7 @@ public class AdminViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
         try {
             userModel=UserModel.getInstance();
             schoolModel = new SchoolModel();
@@ -886,5 +889,4 @@ public class AdminViewController implements Initializable {
             allTeachersSchool.getItems().add(teacher.getFirstName()+" "+teacher.getLastName());
         }
     }
-
 }

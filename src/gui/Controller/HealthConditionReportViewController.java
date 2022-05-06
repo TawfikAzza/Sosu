@@ -117,11 +117,11 @@ public class HealthConditionReportViewController implements Initializable {
         for (Map.Entry<Integer, List<Pair<HealthCategory, Condition>>> entry : hashMap.entrySet()) {
             Integer sid = entry.getKey();
             List<Pair<HealthCategory,Condition>> list = entry.getValue();
-            //Creating a Vbox for display purpose as well as a lable associated which hold the name of the Main category
+            //Creating a Vbox for display purpose as well as a lable associated which hold the name of the gui.Main category
             VBox vBox = new VBox();
             Label mainCat = new Label();
             mainCat.setStyle("-fx-font-weight: bold");
-            //We add the Main Category label to the Vbox
+            //We add the gui.Main Category label to the Vbox
             vBox.getChildren().add(mainCat);
             mainCat.setText(categoryHashMap.get(sid).getName());
             //we then parse the subcategories held in the Pair List.

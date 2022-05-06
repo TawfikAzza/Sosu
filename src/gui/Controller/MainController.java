@@ -2,28 +2,36 @@ package gui.Controller;
 
 import be.*;
 import bll.UserManager;
+import gui.Main;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class MainController {
+public class MainController implements Initializable {
 
 
     @FXML
-    private Button submitButton;
+    private AnchorPane mainPane;
 
-    @FXML
-    private Label loginLabel;
     @FXML
     private Label WrongLoginLabel;
 
@@ -33,22 +41,13 @@ public class MainController {
     @FXML
     private TextField userField;
 
+    private Main main;
+
     public UserManager userManager = new UserManager();
 
     public MainController() throws IOException {
     }
 
-    public void openAdminMgr(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminView.fxml"));
-        Parent root = loader.load();
-
-        Scene scene = new Scene(root,755,400);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
 
     public void closeWindow() throws IOException{
         Stage window = (Stage) this.passwordField.getScene().getWindow();
@@ -59,20 +58,36 @@ public class MainController {
     public void submitLogin(ActionEvent actionEvent) throws Exception {
 
         User user = userManager.submitLogin(userField.getText(), passwordField.getText());
+        main.setUser(user);
         //System.out.println(user.getRoleID());
 
         if (user != null){
             if (user.getRoleID()==1){
-                openAdminMgr(new ActionEvent());
+                main.setLayoutChosen("admin");
+                try {
+                    main.initRootLayout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 WrongLoginLabel.setVisible(false);
 
             }
             if (user.getRoleID()==2){
-                openTeacher(user);
+                main.setLayoutChosen("teacher");
+                try {
+                    main.initRootLayout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 WrongLoginLabel.setVisible(false);
             }
             if (user.getRoleID()==3){
-                openStudent(user);
+                main.setLayoutChosen("student");
+                try {
+                    main.initRootLayout();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
                 WrongLoginLabel.setVisible(false);
             }
         }
@@ -147,5 +162,25 @@ public class MainController {
         stage.setScene(scene);
 
         stage.show();
+    }
+
+    public void setMainApp(Main main) {
+        this.main= main;
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        submitLogin(new ActionEvent());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }
