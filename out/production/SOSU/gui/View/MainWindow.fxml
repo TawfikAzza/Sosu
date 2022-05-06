@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
+<AnchorPane fx:id="mainPane" prefHeight="300.0" prefWidth="600.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.MainController">
    <children>
       <VBox layoutX="188.0" layoutY="14.0" prefHeight="376.0" prefWidth="225.0">
          <children>
@@ -41,7 +41,6 @@
                </VBox.margin></Button>
          </children>
       </VBox>
-      <Button layoutX="486.0" layoutY="21.0" mnemonicParsing="false" onAction="#openAdminMgr" prefHeight="107.0" prefWidth="99.0" text="Administrator" />
       <Button layoutX="28.0" layoutY="33.0" mnemonicParsing="false" onAction="#openFAReportMgr" prefHeight="107.0" prefWidth="99.0" text="Ability Report" />
       <Button layoutX="28.0" layoutY="185.0" mnemonicParsing="false" onAction="#openHealthReportMgr" prefHeight="107.0" prefWidth="99.0" text="Health Report" />
    </children>
