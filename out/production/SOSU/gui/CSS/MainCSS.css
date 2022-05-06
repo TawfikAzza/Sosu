@@ -177,7 +177,6 @@
     -fx-background-color: -fx-root-base;
     -fx-padding:5;
     -fx-border-color: transparent;
-    -fx-border-width:;
     -fx-text-fill: black;
 }
 .text-area:hover .scroll-pane.content{
