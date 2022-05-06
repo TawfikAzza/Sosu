@@ -44,6 +44,5 @@
       <Button layoutX="486.0" layoutY="21.0" mnemonicParsing="false" onAction="#openAdminMgr" prefHeight="107.0" prefWidth="99.0" text="Administrator" />
       <Button layoutX="28.0" layoutY="33.0" mnemonicParsing="false" onAction="#openFAReportMgr" prefHeight="107.0" prefWidth="99.0" text="Ability Report" />
       <Button layoutX="28.0" layoutY="185.0" mnemonicParsing="false" onAction="#openHealthReportMgr" prefHeight="107.0" prefWidth="99.0" text="Health Report" />
-      <Button layoutX="486.0" layoutY="148.0" mnemonicParsing="false" onAction="#openTeacher" prefHeight="107.0" prefWidth="99.0" text="Teacher" />
    </children>
 </AnchorPane>
