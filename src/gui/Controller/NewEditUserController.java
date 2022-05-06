@@ -77,7 +77,7 @@ public class NewEditUserController implements Initializable {
             stage.close();}
     }
 
-    public void createNewUser(ActionEvent actionEvent) throws SQLException {
+    public void createNewUser(ActionEvent actionEvent) {
         if(newUser&&isTeacher)
             try {
                 Teacher newTeacher = userModel.newTeacher(schoolComboBox.getSelectionModel().getSelectedItem(),
@@ -89,8 +89,11 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
-                DisplayMessage.displayError(e);
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(e.getExceptionMessage());
+                alert.setContentText(e.getInstructions());
+                alert.showAndWait();
             }
 
         else if(newUser&&!isTeacher){
@@ -104,8 +107,11 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
-                DisplayMessage.displayError(e);
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(e.getExceptionMessage());
+                alert.setContentText(e.getInstructions());
+                alert.showAndWait();
             }
         }
 
@@ -124,8 +130,11 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
-                DisplayMessage.displayError(e);
-                e.printStackTrace();
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(e.getExceptionMessage());
+                alert.setContentText(e.getInstructions());
+                alert.showAndWait();
             }
         }
         else {
@@ -143,12 +152,15 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
-                DisplayMessage.displayError(e);
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Alert");
+                alert.setHeaderText(e.getExceptionMessage());
+                alert.setContentText(e.getInstructions());
+                alert.showAndWait();
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
-
         }
-
     }
 
 
@@ -191,12 +203,7 @@ public class NewEditUserController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        createNewUser(new ActionEvent());
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+                    createNewUser(new ActionEvent());
                 }else if(event.getCode().equals(KeyCode.ESCAPE)){
                     handleCancel(new ActionEvent());}
             }
