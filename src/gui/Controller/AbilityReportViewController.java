@@ -179,6 +179,7 @@ public class AbilityReportViewController implements Initializable {
             if(ability==null) {
                 operationType="insert";
                 lblCategory.setText(abilityCategory.getName());
+                statusIrrelevant.setSelected(true);
                 btnConfirm.setText("Add Ability");
                 return;
             }

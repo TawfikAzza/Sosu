@@ -83,6 +83,7 @@ public class ConditionReportViewController implements Initializable {
             if(condition==null) {
                 operationType="insert";
                 lblCategory.setText(healthCategory.getName());
+                statusIrrelevant.setSelected(true);
                 btnConfirm.setText("Add Condition");
                 return;
             }
