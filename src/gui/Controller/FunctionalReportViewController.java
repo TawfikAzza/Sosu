@@ -7,17 +7,23 @@ import bll.exceptions.CitizenReportException;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.ReportModel;
 import gui.utils.DisplayMessage;
+import gui.utils.GeneratePdf;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -33,9 +39,11 @@ import java.util.ResourceBundle;
 public class FunctionalReportViewController implements Initializable {
 
     @FXML
-    private ScrollPane scrollPane;
+    private ScrollPane scrollPane,currentScrollPane;
     @FXML
     private VBox vBoxContent;
+    @FXML
+    private Button btnPrint;
 
     private ReportModel reportModel;
     private Citizen currentCitizen;
@@ -55,6 +63,15 @@ public class FunctionalReportViewController implements Initializable {
         this.currentCitizen = currentCitizen;
         displayCitizenReport();
     }
+
+    public ScrollPane getCurrentScrollPane() {
+        return currentScrollPane;
+    }
+
+    public void setCurrentScrollPane(ScrollPane currentScrollPane) {
+        this.currentScrollPane = currentScrollPane;
+    }
+
     /**
      * This method is quite straightforward, it search through the HashMap<Integer(Id of main category),List<Pair<AbilityCategory, Ability>>>
      * and displays it for the user to see.
@@ -199,5 +216,27 @@ public class FunctionalReportViewController implements Initializable {
         System.out.println(i);
         mainPane.setAlignment(Pos.CENTER);
         scrollPane.setContent(mainPane);
+        setCurrentScrollPane(scrollPane);
+
+    }
+
+    public Window getPrimaryStage() {
+        return scrollPane.getScene().getWindow();
+    }
+
+    public void printResult() {
+        HashMap<Integer, List<Pair<AbilityCategory, Ability>>> hashMap=null;
+        try {
+            hashMap = reportModel.getAbilitiesFromCitizen(currentCitizen);
+        } catch (CitizenReportException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(btnPrint.getScene().getWindow());
+        GeneratePdf.generateFunctionalReportPDF(hashMap, selectedFile);
     }
 }

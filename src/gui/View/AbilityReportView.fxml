@@ -31,8 +31,8 @@
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="75.00000076293944" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="81.39999923706054" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="167.20000610351562" minHeight="10.0" prefHeight="129.6000061035156" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="199.5999755859375" minHeight="10.0" prefHeight="155.1999938964844" vgrow="SOMETIMES" />
-      <RowConstraints maxHeight="186.6000427246094" minHeight="10.0" prefHeight="59.79998779296875" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="199.5999755859375" minHeight="10.0" prefHeight="115.60004882812501" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="186.6000427246094" minHeight="10.0" prefHeight="74.79995117187502" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="59.199963378906205" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="58.39996337890625" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="153.1999954223633" minHeight="10.0" prefHeight="48.40006713867183" vgrow="SOMETIMES" />
@@ -215,7 +215,7 @@
             </HBox>
          </children>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
+      <HBox alignment="CENTER_LEFT" prefHeight="86.0" prefWidth="545.0" GridPane.columnIndex="7" GridPane.rowIndex="6">
          <children>
             <HBox>
                <children>

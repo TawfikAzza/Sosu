@@ -12,5 +12,7 @@
     <orderEntry type="library" name="microsoft.sqlserver.mssql.jdbc" level="project" />
     <orderEntry type="library" name="openjfx.javafx.fxml" level="project" />
     <orderEntry type="library" name="jfoenix" level="project" />
+    <orderEntry type="library" name="itextpdf.kernel" level="project" />
+    <orderEntry type="library" name="itextpdf" level="project" />
   </component>
 </module>

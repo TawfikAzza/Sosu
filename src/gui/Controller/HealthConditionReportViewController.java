@@ -5,18 +5,23 @@ import bll.exceptions.CitizenReportException;
 import bll.exceptions.HealthCategoryException;
 import gui.Model.ReportModel;
 import gui.utils.DisplayMessage;
+import gui.utils.GeneratePdf;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
+import java.io.File;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +35,9 @@ import java.util.ResourceBundle;
  *
  * ***/
 public class HealthConditionReportViewController implements Initializable {
+
+    @FXML
+    private Button btnReport;
     @FXML
     private ScrollPane scrollPane;
     @FXML
@@ -185,5 +193,21 @@ public class HealthConditionReportViewController implements Initializable {
         mainPane.setAlignment(Pos.CENTER);
         //  scrollPane.setContent(vBoxContent);
         scrollPane.setContent(mainPane);
+    }
+
+    public void openReport(ActionEvent actionEvent) {
+        HashMap<Integer, List<Pair<HealthCategory, Condition>>> hashMap=null;
+        try {
+            hashMap = reportModel.getConditionsFromCitizen(currentCitizen);
+        } catch (CitizenReportException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(btnReport.getScene().getWindow());
+        GeneratePdf.generateConditionReportPDF(hashMap, selectedFile);
     }
 }
