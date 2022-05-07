@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -23,11 +24,15 @@
             <VBox fx:id="vBoxContent" prefHeight="603.0" prefWidth="719.0" />
          </content>
       </ScrollPane>
-      <Label prefHeight="129.0" prefWidth="714.0" text="Citizen's Health Condition Report:">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnReport" mnemonicParsing="false" onAction="#openReport" text="Button" />
+      <HBox>
+         <children>
+            <Label prefHeight="129.0" prefWidth="714.0" text="Citizen's Health Condition Report:">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnReport" mnemonicParsing="false" onAction="#openReport" prefHeight="84.0" prefWidth="89.0" text="Print Report" />
+         </children>
+      </HBox>
    </children>
 </GridPane>

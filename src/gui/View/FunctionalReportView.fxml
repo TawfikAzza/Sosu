@@ -5,6 +5,7 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -23,11 +24,15 @@
             <VBox fx:id="vBoxContent" prefHeight="603.0" prefWidth="719.0" />
          </content>
       </ScrollPane>
-      <Label prefHeight="67.0" prefWidth="706.0" text="Functional Abilities Report" textAlignment="CENTER">
-         <font>
-            <Font name="System Bold" size="36.0" />
-         </font>
-      </Label>
-      <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#printResult" text="Button" />
+      <HBox>
+         <children>
+            <Label prefHeight="67.0" prefWidth="706.0" text="Functional Abilities Report" textAlignment="CENTER">
+               <font>
+                  <Font name="System Bold" size="36.0" />
+               </font>
+            </Label>
+            <Button fx:id="btnPrint" mnemonicParsing="false" onAction="#printResult" prefHeight="93.0" prefWidth="82.0" text="Print Report" />
+         </children>
+      </HBox>
    </children>
 </GridPane>
