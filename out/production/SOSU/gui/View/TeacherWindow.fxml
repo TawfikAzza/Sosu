@@ -79,7 +79,12 @@
             <TextField fx:id="filter" />
          </children>
       </HBox>
-      <Label text="Students" GridPane.columnIndex="1" />
+      <HBox GridPane.columnIndex="1">
+         <children>
+            <Label text="Students" />
+            <TextField fx:id="filterStudents" />
+         </children>
+      </HBox>
       <Label text="Assignments" GridPane.columnIndex="2" />
       <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="3">
          <children>

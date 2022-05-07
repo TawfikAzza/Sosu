@@ -11,6 +11,9 @@ import gui.Model.StudentModel;
 import gui.Model.TeacherModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -18,16 +21,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.SelectionMode;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class TeacherWindowController implements Initializable {
@@ -38,7 +39,13 @@ public class TeacherWindowController implements Initializable {
     private StudentCitizenRelationShipModel relationShipModel;
     private boolean isAdmin;
     private Teacher currentTeacher;
+    private ObservableList<Citizen> citizens;
+    private ObservableList<Student> students;
 
+    @FXML
+    private TextField filterStudents;
+    @FXML
+    private TextField filter;
     @FXML
     private TableView<Citizen> tableViewAssignments;
     @FXML
@@ -66,6 +73,9 @@ public class TeacherWindowController implements Initializable {
             this.model = new TeacherModel();
             this.userModel = new UserModel();
             this.relationShipModel = new StudentCitizenRelationShipModel();
+            this.citizens = FXCollections.observableArrayList();
+            createFilterListener();
+            createStudentFilterListener();
 
         } catch (IOException e) {
             DisplayMessage.displayError(e);
@@ -173,11 +183,11 @@ public class TeacherWindowController implements Initializable {
     public void loadData(){
 
         try { //You should only be able to get citizens from relevant school!
-        ObservableList<Citizen> cits = model.getTemplates(currentTeacher);
+        citizens = model.getTemplates(currentTeacher);
         //Y should only be able to get students from relevant school!
-        ObservableList<Student> studs = userModel.getStudents(currentTeacher);
-        this.tableViewTemplates.setItems(cits);
-        this.tableViewStudents.setItems(studs);
+        students = userModel.getStudents(currentTeacher);
+        this.tableViewTemplates.setItems(citizens);
+        this.tableViewStudents.setItems(students);
         this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         this.initTables();
@@ -185,5 +195,51 @@ public class TeacherWindowController implements Initializable {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }
+    }
+
+    private void createFilterListener()
+    {
+        filter.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                searchCitizen();
+            }
+        });
+    }
+
+    private void searchCitizen() {
+        ObservableList<Citizen> searchedCitizens = FXCollections.observableArrayList();
+
+        for (Citizen citizen:citizens) {
+            if(citizen.getFName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
+                    || citizen.getLName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
+                    || citizen.getCprNumber().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))) {
+                searchedCitizens.add(citizen);
+            }
+
+        }
+        tableViewTemplates.setItems(searchedCitizens);
+
+    }
+    private void createStudentFilterListener()
+    {
+        filterStudents.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
+                searchStudent();
+            }
+        });
+    }
+
+    private void searchStudent() {
+        ObservableList<Student> searchedStudents = FXCollections.observableArrayList();
+
+        for (Student student:students) {
+            if(student.getFirstName().toLowerCase(Locale.ROOT).contains(filterStudents.getText().toLowerCase(Locale.ROOT))
+                    || student.getLastName().toLowerCase(Locale.ROOT).contains(filterStudents.getText().toLowerCase(Locale.ROOT))) {
+                searchedStudents.add(student);
+            }
+        }
+        tableViewStudents.setItems(searchedStudents);
     }
 }
