@@ -30,6 +30,8 @@ public class ConditionReportViewController implements Initializable {
     private ToggleGroup status,expectedScore;
     @FXML
     private DatePicker visitDate;
+    @FXML
+    private Label lblCategory;
 
     private Citizen currentCitizen;
     private HealthCategory healthCategory;
@@ -80,10 +82,12 @@ public class ConditionReportViewController implements Initializable {
             Condition condition = categoryModel.getCondition(healthCategory,currentCitizen);
             if(condition==null) {
                 operationType="insert";
+                lblCategory.setText(healthCategory.getName());
                 btnConfirm.setText("Add Condition");
                 return;
             }
             operationType="update";
+            lblCategory.setText(healthCategory.getName());
             btnConfirm.setText("Update Condition");
             importantNote.setText(condition.getImportantNote());
             assessement.setText(condition.getAssessement());

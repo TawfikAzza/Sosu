@@ -8,15 +8,19 @@ import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
+import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -36,6 +40,7 @@ public class FunctionalSectionDisplayController implements Initializable {
     private Accordion functionalAbilityContainer;
 
     private CategoryModel categoryModel;
+    final int ROW_HEIGHT = 24;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
     }
@@ -59,6 +64,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //TitlePane of the Accordion Node of the View.
                 TitledPane titledPane = new TitledPane();
                 titledPane.setText(abilityCategory.getName());
+                VBox vBox=new VBox();
                 //As each gui.Main categories possess a different number/type of subcategories, we create a List
                 //of subcategories which we will use for each gui.Main categories, we reinitialize the ListView
                 //variable at each loop in order for it to contain only the subactegories of the gui.Main
@@ -81,14 +87,19 @@ public class FunctionalSectionDisplayController implements Initializable {
                     subCategoryList.getItems().add(subCategory);
                 }
                 //We add the bulk to the titledPane
-                titledPane.setContent(subCategoryList);
-                subCategoryList.maxHeight(200);
+                subCategoryList.setPrefHeight(subCategoryList.getItems().size() * 23.8);
+                vBox.getChildren().add(subCategoryList);
+                titledPane.setContent(vBox);
+                //subCategoryList.maxHeight(200);
+                titledPane.setMaxHeight(vBox.getHeight());
+                System.out.println("titlePane height: " + titledPane.getHeight()+" vBox height: " + vBox.getHeight());
 
                 //We add the TitledPane to the Accordion node.
                 functionalAbilityContainer.getPanes().add(titledPane);
 
 
             }
+            
         } catch (AbilityCategoryException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();

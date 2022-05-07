@@ -63,6 +63,8 @@ public class AbilityReportViewController implements Initializable {
 
     @FXML
     private ToggleGroup score,status,expectedScore,meaning,performance;
+    @FXML
+    private Label lblCategory;
 
     private Citizen currentCitizen;
     private AbilityCategory abilityCategory;
@@ -176,10 +178,12 @@ public class AbilityReportViewController implements Initializable {
             Ability ability = categoryModel.getAbility(abilityCategory,currentCitizen);
             if(ability==null) {
                 operationType="insert";
+                lblCategory.setText(abilityCategory.getName());
                 btnConfirm.setText("Add Ability");
                 return;
             }
             operationType="update";
+            lblCategory.setText(abilityCategory.getName());
             btnConfirm.setText("Update Ability");
             switch(ability.getScore()) {
                 case 0: radio0.setSelected(true);
