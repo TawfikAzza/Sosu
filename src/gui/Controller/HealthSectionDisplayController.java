@@ -7,6 +7,7 @@ import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -34,8 +35,10 @@ import java.util.ResourceBundle;
  * ****/
 public class HealthSectionDisplayController implements Initializable {
 
-    public Accordion healthContainer;
+    @FXML
+    private Accordion healthContainer;
 
+    private final double LISTVIEW_HEIGHT_VALUE = 23.75;
     private final CategoryModel categoryModel;
     private final Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
@@ -64,6 +67,7 @@ public class HealthSectionDisplayController implements Initializable {
 
                 TitledPane titledPane = new TitledPane();
                 titledPane.setText(healthCategory.getName());
+                VBox vBox = new VBox();
                 //As each gui.Main categories possess a different number/type of subcategories, we create a List
                 //of subcategories which we will use for each gui.Main categories, we reinitialize the ListView
                 //variable at each loop in order for it to contain only the subactegories of the gui.Main
@@ -83,9 +87,10 @@ public class HealthSectionDisplayController implements Initializable {
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }
-
+                subCategoryList.setPrefHeight(subCategoryList.getItems().size() * LISTVIEW_HEIGHT_VALUE);
+                vBox.getChildren().add(subCategoryList);
                 //We add the bulk to the titledPane
-                titledPane.setContent(subCategoryList);
+                titledPane.setContent(vBox);
 
                 //We add the TitledPane to the Accordion node.
                 healthContainer.getPanes().add(titledPane);

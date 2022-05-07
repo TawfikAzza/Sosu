@@ -13,13 +13,14 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane prefHeight="496.0" prefWidth="479.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
+<GridPane prefHeight="496.0" prefWidth="479.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ConditionReportViewController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.999951171875" minWidth="10.0" prefWidth="114.39999618530274" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="549.2000518798827" minWidth="10.0" prefWidth="344.40000381469724" />
    </columnConstraints>
    <rowConstraints>
-      <RowConstraints maxHeight="147.19998779296876" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="147.19998779296876" minHeight="45.60000610351563" prefHeight="45.60000610351563" vgrow="SOMETIMES" />
+      <RowConstraints maxHeight="147.19998779296876" minHeight="60.0" prefHeight="74.39999389648438" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
       <RowConstraints maxHeight="249.60001220703126" minHeight="60.0" prefHeight="62.0" vgrow="SOMETIMES" />
@@ -29,7 +30,7 @@
       <RowConstraints maxHeight="249.60001220703126" minHeight="10.0" prefHeight="56.800012207031244" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <VBox alignment="CENTER_RIGHT">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="1">
          <children>
             <Label text="Status" />
          </children>
@@ -37,7 +38,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="1">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="2">
          <children>
             <Label text="Important Note" />
          </children>
@@ -45,7 +46,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="2">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="3">
          <children>
             <Label text="Assessement" />
          </children>
@@ -53,7 +54,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="4">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="5">
          <children>
             <Label text="Mål" />
          </children>
@@ -61,7 +62,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="30.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
          <children>
             <RadioButton fx:id="statusIrrelevant" mnemonicParsing="false" stylesheets="@../CSS/MainCSS.css" text="Irrelevant">
                <toggleGroup>
@@ -75,7 +76,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <VBox GridPane.columnIndex="1" GridPane.rowIndex="1">
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
          <children>
             <TextArea fx:id="importantNote" prefHeight="200.0" prefWidth="200.0" wrapText="true" />
          </children>
@@ -83,7 +84,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox GridPane.columnIndex="1" GridPane.rowIndex="2">
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="3">
          <children>
             <TextArea fx:id="assessement" prefHeight="200.0" prefWidth="200.0" />
          </children>
@@ -91,7 +92,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox GridPane.columnIndex="1" GridPane.rowIndex="4">
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
          <children>
             <TextArea fx:id="goal" prefHeight="200.0" prefWidth="200.0" />
          </children>
@@ -99,7 +100,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="7">
+      <HBox alignment="CENTER_RIGHT" spacing="10.0" GridPane.columnIndex="1" GridPane.rowIndex="8">
          <children>
             <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
             <Button fx:id="btnConfirm" mnemonicParsing="false" onAction="#confirm" text="Confirm" />
@@ -108,7 +109,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" spacing="15.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
          <children>
             <RadioButton fx:id="radio0" mnemonicParsing="false" text="Mindskes">
                <toggleGroup>
@@ -122,7 +123,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </HBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="3">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="4">
          <children>
             <Label text="Expected score" />
          </children>
@@ -130,7 +131,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="5">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="6">
          <children>
             <Label text="Visit Date" />
          </children>
@@ -138,7 +139,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="6">
+      <VBox alignment="CENTER_RIGHT" GridPane.rowIndex="7">
          <children>
             <VBox alignment="CENTER_RIGHT">
                <children>
@@ -150,7 +151,7 @@
             <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
          </padding>
       </VBox>
-      <VBox GridPane.columnIndex="1" GridPane.rowIndex="6">
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="7">
          <children>
             <TextArea fx:id="observation" prefHeight="200.0" prefWidth="200.0" />
          </children>
@@ -158,7 +159,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <VBox GridPane.columnIndex="1" GridPane.rowIndex="5">
+      <VBox GridPane.columnIndex="1" GridPane.rowIndex="6">
          <children>
             <DatePicker fx:id="visitDate" />
          </children>
@@ -166,6 +167,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
+      <Label fx:id="lblCategory" text="Label" GridPane.columnIndex="1" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
