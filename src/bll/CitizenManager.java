@@ -37,4 +37,12 @@ public class CitizenManager {
             throw new CitizenException("Error while editing data",e);
         }
     }
+
+    public void deleteCitizen(Citizen selectedCitizen) throws CitizenException {
+        try {
+            citizenDAO.deleteCitizen(selectedCitizen);
+        } catch (SQLException e) {
+            throw new CitizenException("Error while deleting data",e);
+        }
+    }
 }

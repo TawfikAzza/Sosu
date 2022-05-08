@@ -3,6 +3,7 @@ package dal.db;
 import be.Citizen;
 
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -67,5 +68,15 @@ public class CitizenDAO {
         }
         return getCitizen(citizenToEdit.getId());
 
+    }
+
+    public void deleteCitizen(Citizen selectedCitizen) throws SQLException {
+        try(Connection connection = cm.getConnection()){
+            String sqlStatement = "DELETE FROM Citizen\n" +
+                                    "WHERE Citizen.id = ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
+            preparedStatement.setInt(1,selectedCitizen.getId());
+            preparedStatement.executeUpdate();
+        }
     }
 }

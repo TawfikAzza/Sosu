@@ -30,6 +30,7 @@ public class CitizenFacade {
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
             String cprNumber = citizen.getCprNumber();
+            int schoolID = citizen.getSchoolID();
 
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -38,8 +39,7 @@ public class CitizenFacade {
             ps.setInt(5, phoneNumber);
             ps.setBoolean(6, isTemplate);
 
-            ps.setInt(7,1);//The schoolID column, set to 1 by default for now
-            //TODO change
+            ps.setInt(7,schoolID);
 
             ps.setString(8,cprNumber);
 

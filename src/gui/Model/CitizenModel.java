@@ -20,4 +20,8 @@ public class CitizenModel {
     public Citizen editCitizen(Citizen citizenToEdit, Citizen newCitizen) throws CitizenException {
         return citizenManager.editCitizen(citizenToEdit,newCitizen);
     }
+
+    public void deleteCitizen(Citizen selectedCitizen) throws CitizenException {
+        citizenManager.deleteCitizen(selectedCitizen);
+    }
 }

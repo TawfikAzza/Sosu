@@ -6,10 +6,7 @@ import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
-import gui.Model.StudentCitizenRelationShipModel;
-import gui.Model.StudentModel;
-import gui.Model.TeacherModel;
-import gui.Model.UserModel;
+import gui.Model.*;
 import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -27,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -35,9 +33,9 @@ public class TeacherWindowController implements Initializable {
 
 
     private TeacherModel model;
+    private CitizenModel citizenModel;
     private UserModel userModel;
     private StudentCitizenRelationShipModel relationShipModel;
-    private boolean isAdmin;
     private Teacher currentTeacher;
     private ObservableList<Citizen> citizens;
     private ObservableList<Student> students;
@@ -73,11 +71,12 @@ public class TeacherWindowController implements Initializable {
             this.model = new TeacherModel();
             this.userModel = new UserModel();
             this.relationShipModel = new StudentCitizenRelationShipModel();
+            this.citizenModel = new CitizenModel();
             this.citizens = FXCollections.observableArrayList();
             createFilterListener();
             createStudentFilterListener();
 
-        } catch (IOException e) {
+        } catch (IOException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }
@@ -151,18 +150,55 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleDeleteCitizen(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (selectedCitizen==null)
+            return;
+        Thread deleteCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.deleteCitizen(selectedCitizen);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+                citizens.remove(selectedCitizen);
+            }
+        });
+        deleteCitizenThread.start();
     }
 
     @FXML
-    private void handleCreateStudent(ActionEvent actionEvent) {
+    private void handleCreateStudent(ActionEvent actionEvent) throws IOException {
+        //Implement some way, im not changing amine's work to adapt this window now
+        //TODO for Renars
     }
 
     @FXML
     private void handleEditStudent(ActionEvent actionEvent) {
+        //Implement some way
+        // TODO for Renars
     }
 
     @FXML
     private void handleDeleteStudent(ActionEvent actionEvent) {
+        Student selectedStudent = tableViewStudents.getSelectionModel().getSelectedItem();
+        if (selectedStudent==null)
+            return;
+
+        Thread deleteStudentThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    userModel.deleteStudent(selectedStudent);
+                } catch (SQLException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+                students.remove(selectedStudent);
+            }
+        });
+        deleteStudentThread.start();
     }
 
     public void handleLoadAssignments(ActionEvent actionEvent) {

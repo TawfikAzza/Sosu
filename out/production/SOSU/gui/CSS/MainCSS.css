@@ -309,93 +309,6 @@ For rounded text area if needed
     -fx-padding: 7;
 }
 
-.date-picker{
-    -fx-background-color: transparent;
-}
-
-.date-picker:hover{
-    -fx-background-color: transparent;
-    -fx-border-radius: 0 20 20 0 ;
-    -fx-background-radius: 0 20 20 0 ;
-    -fx-border-width: 2;
-    -fx-padding: 0;
-}
-
-
-.date-picker:editable .arrow-button{
-    -fx-background-color: -fx-base-controls;
-    -fx-border-color: -fx-root-base;
-
-    -fx-border-radius: 0 20 20 0;
-
-    -fx-border-width: 0;
-    -fx-padding: 5;
-}
-
-
-.date-picker .arrow-button .arrow{
-    -fx-background-radius:0px ;
-    -fx-background-color: -fx-base-controls-light;
-}
-
-.date-picker .arrow-button:hover .arrow{
-    -fx-background-radius:0px ;
-    -fx-background-color: -fx-base-controls-dark;
-}
-
-.date-picker-popup .month-year-pane {
-    -fx-background-color: -fx-base-controls;
-}
-
-
-.date-picker-popup .month-year-pane .label {
-    -fx-text-fill: white;
-}
-
-.date-picker-popup .week-number-cell {
-    -fx-text-fill: white;
-}
-
-.date-picker .cell {
-    -fx-background-color: -fx-base-controls;
-    -fx-border-color: -fx-selected-highlight;
-    -fx-pref-width:20px ;
-    -fx-pref-height:25px ;
-}
-
-.date-picker .cell:focused,
-.date-picker .cell:hover {
-    -fx-background-color: -fx-base-controls-dark;
-    -fx-pref-width:20px ;
-    -fx-pref-height:25px ;
-}
-
-.date-picker-popup  {
-    -fx-border-color: -fx-selected-highlight;
-    -fx-background-color: white;
-}
-
-.date-picker-popup .spinner .button .left-arrow,
-.date-picker-popup .spinner .button .right-arrow {
-    -fx-background-color: white;
-}
-
-.date-picker-popup .spinner .button{
-    -fx-background-color: white;
-    -fx-pref-width: 25px;
-    -fx-pref-height: 25px;
-    -fx-padding: 4;
-    -fx-background-radius:0;
-}
-
-.date-picker-popup .spinner .button.left-arrow{
-    -fx-background-color: black;
-    -fx-color-label-visible: black;
-    -fx-border-color: black;
-    -fx-progress-color: black;
-    -fx-fill: black;
-}
-
 
 
 
@@ -489,6 +402,74 @@ For rounded text area if needed
 .tab-pane:top .tab-header-area .headers-region{
     -fx-background-color: -fx-root-base;
 }
+
+
+.date-picker:hover{
+    -fx-background-color: transparent;
+    -fx-border-width: 2;
+
+}
+
+
+.date-picker:editable .arrow-button{
+    -fx-background-color: -fx-base-controls;
+    -fx-border-color: -fx-root-base;
+    -fx-padding: 10;
+}
+
+.date-picker:editable .arrow-button .arrow{
+    -fx-background-color: -fx-base-controls-light;
+}
+
+.date-picker:editable .arrow-button:hover .arrow{
+    -fx-background-color: -fx-base-controls-dark;
+}
+
+.date-picker-popup .month-year-pane {
+    -fx-background-color: -fx-base-controls;
+}
+
+
+.date-picker-popup .month-year-pane .label {
+    -fx-text-fill: white;
+}
+
+.date-picker-popup .week-number-cell {
+    -fx-text-fill: white;
+}
+
+.date-picker .cell {
+    -fx-background-color: -fx-base-controls;
+    -fx-border-color: -fx-selected-highlight;
+    -fx-pref-width:20px ;
+    -fx-pref-height:25px ;
+}
+
+.date-picker .cell:focused,
+.date-picker .cell:hover {
+    -fx-background-color: -fx-base-controls-dark;
+    -fx-pref-width:20px ;
+    -fx-pref-height:25px ;
+}
+
+.date-picker-popup  {
+    -fx-border-color: -fx-selected-highlight;
+    -fx-background-color: white;
+}
+
+.date-picker-popup .spinner .button .left-arrow,
+.date-picker-popup .spinner .button .right-arrow {
+    -fx-background-color: white;
+}
+
+.date-picker-popup .spinner .button{
+    -fx-background-color: white;
+    -fx-pref-width: 25px;
+    -fx-pref-height: 25px;
+    -fx-padding: 4;
+    -fx-background-radius:0;
+}
+
 
 
 

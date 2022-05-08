@@ -46,7 +46,6 @@ public class CitizenFormController implements Initializable {
     @FXML
     private TextField phoneField;
 
-
     private int schoolID;
 
     private CitizenModel citizenModel;
@@ -195,6 +194,7 @@ public class CitizenFormController implements Initializable {
         newCitizen.setCprNumber(cprNumber);
         newCitizen.setPhoneNumber(phoneNumber);
         newCitizen.setTemplate(true);
+        newCitizen.setSchoolID(GlobalVariables.getCurrentSchool().getId());
 
         if (citizenToEdit==null)
             createCitizen(newCitizen);
