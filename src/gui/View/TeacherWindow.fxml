@@ -12,7 +12,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="791.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TeacherWindowController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="791.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TeacherWindowController">
   <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.4000244140625" minWidth="10.0" prefWidth="270.4" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="422.4000244140625" minWidth="10.0" prefWidth="287.20000000000005" />
@@ -73,19 +73,23 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
       </VBox>
-      <HBox>
+      <HBox spacing="10.0">
          <children>
             <Label text="Templates" />
             <TextField fx:id="filter" />
          </children>
       </HBox>
-      <HBox GridPane.columnIndex="1">
+      <HBox spacing="10.0" GridPane.columnIndex="1">
          <children>
             <Label text="Students" />
             <TextField fx:id="filterStudents" />
          </children>
       </HBox>
-      <Label text="Assignments" GridPane.columnIndex="2" />
+      <HBox spacing="10.0" GridPane.columnIndex="2">
+         <children>
+            <Label text="Assignments" />
+         </children>
+      </HBox>
       <HBox alignment="CENTER_LEFT" spacing="10.0" GridPane.rowIndex="3">
          <children>
             <Button mnemonicParsing="false" onAction="#handleCreateCitizen" text="Create" />
