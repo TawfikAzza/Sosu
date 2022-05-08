@@ -98,7 +98,7 @@ public class MainController implements Initializable {
     }
 
 
-    public void openFAReportMgr(ActionEvent actionEvent) throws IOException {
+    /*public void openFAReportMgr(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/FunctionalReportView.fxml"));
         Parent root = loader.load();
@@ -114,7 +114,9 @@ public class MainController implements Initializable {
         stage.show();
     }
 
-    public void openHealthReportMgr(ActionEvent actionEvent) throws IOException {
+     */
+
+    /*public void openHealthReportMgr(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/HealthConditionReportView.fxml"));
         Parent root = loader.load();
@@ -129,6 +131,8 @@ public class MainController implements Initializable {
 
         stage.show();
     }
+
+     */
 
 
     public void setMainApp(Main main) {
