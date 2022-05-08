@@ -187,7 +187,7 @@ public class TeacherWindowController implements Initializable {
     }
 
     @FXML
-    private void handleEditStudent(ActionEvent actionEvent) throws IOException {
+    private void handleEditStudent(ActionEvent actionEvent) throws IOException, SQLException {
         if (tableViewStudents.getSelectionModel().getSelectedItem()!=null){
             Parent root;
             FXMLLoader loader = new FXMLLoader();
@@ -195,7 +195,7 @@ public class TeacherWindowController implements Initializable {
             root = loader.load();
 
             NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.editStudent(tableViewStudents.getSelectionModel().getSelectedItem());
+            newEditUserController.editStudent(model.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
             newEditUserController.setTeacherController(this);
             newEditUserController.setSchoolComboBox(currentTeacher);
 
@@ -307,5 +307,9 @@ public class TeacherWindowController implements Initializable {
 
     public ObservableList<Student> getStudents() {
         return students;
+    }
+
+    public TableView<Student> getStudentTV() {
+        return tableViewStudents;
     }
 }

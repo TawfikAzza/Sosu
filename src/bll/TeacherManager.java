@@ -6,10 +6,12 @@ import be.Teacher;
 import bll.exceptions.CitizenException;
 import dal.db.CitizenFacade;
 import dal.db.GetTemplatesFacade;
+import dal.db.StudentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,10 +19,12 @@ public class TeacherManager {
 
     GetTemplatesFacade templatesFacade;
     CitizenFacade citizenFacade;
+    StudentDAO studentDAO;
 
     public TeacherManager() throws IOException {
         this.templatesFacade = new GetTemplatesFacade();
         this.citizenFacade = new CitizenFacade();
+        this.studentDAO = new StudentDAO();
     }
 
     public ObservableList<Citizen> getTemplates(Teacher currentTeacher) throws CitizenException {
@@ -34,4 +38,7 @@ public class TeacherManager {
         citizenFacade.copyCitizenToDB(template, students);
     }
 
+    public Student getStudent(Student selectedItem) throws SQLException {
+        return studentDAO.getStudent(selectedItem);
+    }
 }

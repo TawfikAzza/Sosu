@@ -1,9 +1,6 @@
 package dal.db;
 
-import be.School;
-import be.Student;
-import be.Teacher;
-import be.User;
+import be.*;
 import bll.util.CheckInput;
 import bll.exceptions.UserException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
@@ -190,5 +187,21 @@ public class StudentDAO {
             throw new UserException("Could not connect to DB", throwables);
         }
         return students;
+    }
+
+    public Student getStudent(Student student)throws SQLException{
+        try (Connection connection = connectionManager.getConnection()){
+            String sql ="SELECT * FROM [user] WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,student.getId());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                student.setUserName(resultSet.getString("user_name"));
+                student.setPassWord(resultSet.getString("password"));
+                student.setEmail(resultSet.getString("e_mail"));
+                student.setPhoneNumber(resultSet.getInt("phone_number"));
+            }
+        }
+        return student;
     }
     }

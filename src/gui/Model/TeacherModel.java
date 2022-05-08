@@ -8,6 +8,7 @@ import bll.exceptions.CitizenException;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,5 +26,9 @@ public class TeacherModel {
 
     public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
         teacherManager.copyCitizenToDB(template, students);
+    }
+
+    public Student getStudentInformation(Student selectedItem) throws SQLException {
+        return teacherManager.getStudent(selectedItem);
     }
 }
