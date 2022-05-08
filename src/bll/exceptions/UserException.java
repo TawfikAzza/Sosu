@@ -51,7 +51,7 @@ public class UserException extends Throwable {
     }
 
     public void checkUserUN(String un) throws UserException {
-        if (un.isEmpty())
+        if (un==null||un.isEmpty())
             throw new UserException("Please find a username.", new Exception());
     }
 

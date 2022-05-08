@@ -58,7 +58,8 @@ public class NewEditUserController implements Initializable {
     private ObservableList<Student>allStudents=FXCollections.observableArrayList();
 
     private String init;
-    AdminViewController adminViewController;
+    private TeacherWindowController teacherWindowController;
+    private AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
         Stage stage;
@@ -100,10 +101,16 @@ public class NewEditUserController implements Initializable {
             try {
                 Student student = userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
-                adminViewController.addStudentLV(student);
+                if (adminViewController!=null){
+                    adminViewController.addStudentLV(student);
                 if (student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
                 {   allStudents.add(student);
-                    adminViewController.refreshTViewStudents(allStudents);}
+                    adminViewController.refreshTViewStudents(allStudents);
+                }
+                }
+                if (teacherWindowController!=null)
+                teacherWindowController.getStudents().add(student);
+
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
@@ -264,5 +271,23 @@ public class NewEditUserController implements Initializable {
     public void newStudent() {
         isTeacher=false;
         mainLabel.setText("New student");
+    }
+
+    public void setTeacherController(TeacherWindowController teacherWindowController) {
+        this.teacherWindowController=teacherWindowController;
+    }
+
+    public void setSchoolComboBox(Teacher currentTeacher){
+        School currentSchool=null;
+        for (School school : schoolComboBox.getItems()){
+            if (school.getId()==currentTeacher.getSchoolId())
+            {
+                currentSchool=school;
+                break;
+            }
+        }
+        int index = schoolComboBox.getItems().indexOf(currentSchool);
+        schoolComboBox.getSelectionModel().select(index);
+        schoolComboBox.setDisable(true);
     }
 }

@@ -170,14 +170,40 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleCreateStudent(ActionEvent actionEvent) throws IOException {
-        //Implement some way, im not changing amine's work to adapt this window now
-        //TODO for Renars
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.newStudent();
+        newEditUserController.setTeacherController(this);
+        newEditUserController.setSchoolComboBox(currentTeacher);
+
+        Stage stage = new Stage();
+        stage.setTitle("New Student");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     @FXML
-    private void handleEditStudent(ActionEvent actionEvent) {
-        //Implement some way
-        // TODO for Renars
+    private void handleEditStudent(ActionEvent actionEvent) throws IOException {
+        if (tableViewStudents.getSelectionModel().getSelectedItem()!=null){
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            NewEditUserController newEditUserController = loader.getController();
+            newEditUserController.editStudent(tableViewStudents.getSelectionModel().getSelectedItem());
+            newEditUserController.setTeacherController(this);
+            newEditUserController.setSchoolComboBox(currentTeacher);
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Student");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
     }
 
     @FXML
@@ -277,5 +303,9 @@ public class TeacherWindowController implements Initializable {
             }
         }
         tableViewStudents.setItems(searchedStudents);
+    }
+
+    public ObservableList<Student> getStudents() {
+        return students;
     }
 }
