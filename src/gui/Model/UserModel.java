@@ -95,4 +95,8 @@ public class UserModel {
         obsList.addAll(citizens);
         return obsList;
     }
+
+    public Student getStudentInformation(Student selectedItem) throws SQLException {
+        return userManager.getStudent(selectedItem);
+    }
 }

@@ -27,8 +27,4 @@ public class TeacherModel {
     public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
         teacherManager.copyCitizenToDB(template, students);
     }
-
-    public Student getStudentInformation(Student selectedItem) throws SQLException {
-        return teacherManager.getStudent(selectedItem);
-    }
 }

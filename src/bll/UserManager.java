@@ -78,6 +78,11 @@ public class UserManager implements UserInterface {
         return user;
     }
 
+    @Override
+    public Student getStudent(Student selectedItem) throws SQLException {
+        return studentDao.getStudent(selectedItem);
+    }
+
     private void setCurrentSchool(User user) {
         Thread setCurrentSchoolThread = new Thread(new Runnable() {
             @Override

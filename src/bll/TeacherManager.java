@@ -19,12 +19,10 @@ public class TeacherManager {
 
     GetTemplatesFacade templatesFacade;
     CitizenFacade citizenFacade;
-    StudentDAO studentDAO;
 
     public TeacherManager() throws IOException {
         this.templatesFacade = new GetTemplatesFacade();
         this.citizenFacade = new CitizenFacade();
-        this.studentDAO = new StudentDAO();
     }
 
     public ObservableList<Citizen> getTemplates(Teacher currentTeacher) throws CitizenException {
@@ -36,9 +34,5 @@ public class TeacherManager {
 
     public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
         citizenFacade.copyCitizenToDB(template, students);
-    }
-
-    public Student getStudent(Student selectedItem) throws SQLException {
-        return studentDAO.getStudent(selectedItem);
     }
 }

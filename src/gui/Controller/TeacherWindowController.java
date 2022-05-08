@@ -195,7 +195,7 @@ public class TeacherWindowController implements Initializable {
             root = loader.load();
 
             NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.editStudent(model.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
+            newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
             newEditUserController.setTeacherController(this);
             newEditUserController.setSchoolComboBox(currentTeacher);
 
