@@ -46,12 +46,11 @@ public class CitizenFormController implements Initializable {
     @FXML
     private TextField phoneField;
 
-    private int schoolID;
-
     private CitizenModel citizenModel;
     private SchoolModel schoolModel;
 
     private Citizen citizenToEdit;
+    private TeacherWindowController teacherWindowController;
 
     public CitizenFormController() {
         citizenToEdit = null;
@@ -187,19 +186,17 @@ public class CitizenFormController implements Initializable {
         if (!inputIsValid(fName,lName,address,birthDate,cprNumber,phoneNumber))
             return false;
 
-        Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
+        citizenToEdit.setFName(fName);
+        citizenToEdit.setLName(lName);
+        citizenToEdit.setAddress(address);
+        citizenToEdit.setBirthDate(birthDate);
+        citizenToEdit.setCprNumber(cprNumber);
+        citizenToEdit.setPhoneNumber(phoneNumber);
+        citizenToEdit.setTemplate(true);
+        citizenToEdit.setSchoolID(GlobalVariables.getCurrentSchool().getId());
 
-        newCitizen.setAddress(address);
-        newCitizen.setBirthDate(birthDate);
-        newCitizen.setCprNumber(cprNumber);
-        newCitizen.setPhoneNumber(phoneNumber);
-        newCitizen.setTemplate(true);
-        newCitizen.setSchoolID(GlobalVariables.getCurrentSchool().getId());
-
-        if (citizenToEdit==null)
-            createCitizen(newCitizen);
-        else
-            editCitizen(citizenToEdit,newCitizen);
+        editCitizen(citizenToEdit);
+        teacherWindowController.getTableViewTemplates().refresh();
 
         return true;
     }
@@ -246,13 +243,13 @@ public class CitizenFormController implements Initializable {
         createCitizenThread.start();
     }
 
-    private void editCitizen(Citizen citizenToEdit,Citizen newCitizen){
+    private void editCitizen(Citizen citizenToEdit){
         Thread createCitizenThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Citizen editedCitizen = null;
                 try {
-                    editedCitizen = citizenModel.editCitizen(citizenToEdit, newCitizen);
+                    editedCitizen = citizenModel.editCitizen(citizenToEdit);
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }
@@ -268,4 +265,8 @@ public class CitizenFormController implements Initializable {
             return change;
         return null;
     });
+
+    public void setController(TeacherWindowController teacherWindowController) {
+        this.teacherWindowController=teacherWindowController;
+    }
 }
