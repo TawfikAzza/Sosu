@@ -45,16 +45,23 @@
 }
 
 .radio-button .dot {
-    -fx-background-radius: 20px;
+    -fx-background-radius: 25px;
     -fx-padding: 8px;
 }
 
-.radio-button:selected{
+.radio-button:selected .radio .dot{
+    -fx-background-color: -fx-base-controls;
+    -fx-background-insets: 2;
+    -fx-padding: 10px;
+}
+
+.radio-button:selected {
     -fx-font-size: 14;
     -fx-font-weight: bold;
     -fx-mark-highlight-color: -fx-base-controls;
     -fx-mark-color: -fx-base-controls;
 }
+
 
 .radio-button{
     -fx-text-fill: black;
@@ -403,17 +410,17 @@ For rounded text area if needed
 }
 
 
-.date-picker:editable .arrow-button{
+.date-picker .arrow-button{
     -fx-background-color: -fx-base-controls;
     -fx-border-color: -fx-root-base;
     -fx-padding: 10;
 }
 
-.date-picker:editable .arrow-button .arrow{
+.date-picker .arrow-button .arrow{
     -fx-background-color: -fx-base-controls-light;
 }
 
-.date-picker:editable .arrow-button:hover .arrow{
+.date-picker .arrow-button:hover .arrow{
     -fx-background-color: -fx-base-controls-dark;
 }
 

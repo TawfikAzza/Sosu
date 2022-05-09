@@ -170,6 +170,17 @@ public class CitizenFormController implements Initializable {
 
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
+        datePickerMaxDate();
+    }
+
+    private void datePickerMaxDate() {
+        LocalDate maxDate = LocalDate.now();
+        birthDatePicker.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
     }
 
     private boolean saveCitizen(){
