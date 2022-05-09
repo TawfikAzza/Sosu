@@ -47,7 +47,6 @@ public class CitizenFacade {
 
             ResultSet generatedKeys = ps.getGeneratedKeys();
             if (generatedKeys.next()) {
-                if (isTemplate)
                 citizen.setId(generatedKeys.getInt(1));
             }
         } catch (SQLException e) {
