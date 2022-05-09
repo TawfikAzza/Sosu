@@ -141,6 +141,7 @@ public class TeacherWindowController implements Initializable {
 
         CitizenFormController formController = loader.getController();
         formController.setController(this);
+        formController.setCurrentSchoolId(currentTeacher);
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }

@@ -49,7 +49,6 @@ public class CitizenDAO {
                     "\t[address] = ?,\n" +
                     "\tbirthDate = ?,\n" +
                     "\tphoneNumber = ?,\n" +
-                    "\tisTemplate = ?,\n" +
                     "\tcprNumber = ?\n" +
                     "WHERE\n" +
                     "\tCitizen.id = ?";
@@ -60,14 +59,12 @@ public class CitizenDAO {
             preparedStatement.setString(3, citizenToEdit.getAddress());
             preparedStatement.setDate(4, Date.valueOf(citizenToEdit.getBirthDate()));
             preparedStatement.setInt(5,citizenToEdit.getPhoneNumber());
-            preparedStatement.setBoolean(6, citizenToEdit.isTemplate());
-            preparedStatement.setString(7,citizenToEdit.getCprNumber());
+            preparedStatement.setString(6,citizenToEdit.getCprNumber());
 
-            preparedStatement.setInt(8,citizenToEdit.getId());
+            preparedStatement.setInt(7,citizenToEdit.getId());
             preparedStatement.executeUpdate();
         }
         return citizenToEdit;
-
     }
 
     public void deleteCitizen(Citizen selectedCitizen) throws SQLException {
