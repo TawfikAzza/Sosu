@@ -62,6 +62,7 @@ public class CitizenFacade {
 
             List<Condition> conditions = citizen.getHealthConditions();
 
+            if (conditions!=null)
             for(Condition con: conditions)
             {
                 int catID = con.getCategoryID();
@@ -102,6 +103,7 @@ public class CitizenFacade {
 
             List<Ability> abilities = citizen.getFunctionalAbilities();
 
+            if (abilities!=null)
             for(Ability ability: abilities)
             {
                 int catID = ability.getCategoryID();
@@ -145,6 +147,7 @@ public class CitizenFacade {
 
             List<GeneralInfo> generalInfo = citizen.getGeneralInfo();
 
+            if (generalInfo!=null)
             for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();

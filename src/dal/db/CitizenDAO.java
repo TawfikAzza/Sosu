@@ -40,7 +40,7 @@ public class CitizenDAO {
     }
 
 
-    public Citizen editCitizen(Citizen citizenToEdit, Citizen newCitizen) throws SQLException {
+    public Citizen editCitizen(Citizen citizenToEdit) throws SQLException {
         try(Connection connection = cm.getConnection()){
             String sql = "UPDATE Citizen\n" +
                     "SET \n" +
@@ -49,26 +49,23 @@ public class CitizenDAO {
                     "\t[address] = ?,\n" +
                     "\tbirthDate = ?,\n" +
                     "\tphoneNumber = ?,\n" +
-                    "\tisTemplate = ?,\n" +
                     "\tcprNumber = ?\n" +
                     "WHERE\n" +
                     "\tCitizen.id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, newCitizen.getFName());
-            preparedStatement.setString(2,newCitizen.getLName());
-            preparedStatement.setString(3, newCitizen.getAddress());
-            preparedStatement.setDate(4, Date.valueOf(newCitizen.getBirthDate()));
-            preparedStatement.setInt(5,newCitizen.getPhoneNumber());
-            preparedStatement.setBoolean(6, newCitizen.isTemplate());
-            preparedStatement.setString(7,newCitizen.getCprNumber());
+            preparedStatement.setString(1, citizenToEdit.getFName());
+            preparedStatement.setString(2,citizenToEdit.getLName());
+            preparedStatement.setString(3, citizenToEdit.getAddress());
+            preparedStatement.setDate(4, Date.valueOf(citizenToEdit.getBirthDate()));
+            preparedStatement.setInt(5,citizenToEdit.getPhoneNumber());
+            preparedStatement.setString(6,citizenToEdit.getCprNumber());
 
-            preparedStatement.setInt(8,citizenToEdit.getId());
-            citizenToEdit.setLName(newCitizen.getLName());
+            preparedStatement.setInt(7,citizenToEdit.getId());
+
             preparedStatement.executeUpdate();
         }
-        return getCitizen(citizenToEdit.getId());
-
+        return citizenToEdit;
     }
 
     public void deleteCitizen(Citizen selectedCitizen) throws SQLException {

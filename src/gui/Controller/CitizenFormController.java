@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.Citizen;
 import be.School;
+import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
 import bll.util.GlobalVariables;
@@ -21,6 +22,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Date;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -46,12 +48,13 @@ public class CitizenFormController implements Initializable {
     @FXML
     private TextField phoneField;
 
-    private int schoolID;
-
     private CitizenModel citizenModel;
     private SchoolModel schoolModel;
 
     private Citizen citizenToEdit;
+    private boolean citizenCreation=true;
+    private TeacherWindowController teacherWindowController;
+    private int currentSchoolId;
 
     public CitizenFormController() {
         citizenToEdit = null;
@@ -79,6 +82,7 @@ public class CitizenFormController implements Initializable {
     public void setCitizenToEdit(Citizen citizenToEdit) {
         this.citizenToEdit = citizenToEdit;
         fillFields(citizenToEdit);
+        citizenCreation=false;
     }
 
     private void fillFields(Citizen citizenToEdit) {
@@ -171,6 +175,17 @@ public class CitizenFormController implements Initializable {
 
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
+        datePickerMaxDate();
+    }
+
+    private void datePickerMaxDate() {
+        LocalDate maxDate = LocalDate.now();
+        birthDatePicker.setDayCellFactory(d ->
+                new DateCell() {
+                    @Override public void updateItem(LocalDate item, boolean empty) {
+                        super.updateItem(item, empty);
+                        setDisable(item.isAfter(maxDate));
+                    }});
     }
 
     private boolean saveCitizen(){
@@ -187,19 +202,21 @@ public class CitizenFormController implements Initializable {
         if (!inputIsValid(fName,lName,address,birthDate,cprNumber,phoneNumber))
             return false;
 
-        Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber);
-
-        newCitizen.setAddress(address);
-        newCitizen.setBirthDate(birthDate);
-        newCitizen.setCprNumber(cprNumber);
-        newCitizen.setPhoneNumber(phoneNumber);
-        newCitizen.setTemplate(true);
-        newCitizen.setSchoolID(GlobalVariables.getCurrentSchool().getId());
-
-        if (citizenToEdit==null)
-            createCitizen(newCitizen);
-        else
-            editCitizen(citizenToEdit,newCitizen);
+        if (!citizenCreation)
+        {
+            citizenToEdit.setFName(fName);
+            citizenToEdit.setLName(lName);
+            citizenToEdit.setAddress(address);
+            citizenToEdit.setBirthDate(birthDate);
+            citizenToEdit.setCprNumber(cprNumber);
+            citizenToEdit.setPhoneNumber(phoneNumber);
+            citizenToEdit.setSchoolID(currentSchoolId);
+            editCitizen(citizenToEdit);
+            teacherWindowController.getTableViewTemplates().refresh();}
+        else {
+            Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
+            teacherWindowController.getTableViewTemplates().getItems().add(createCitizen(newCitizen));
+        }
 
         return true;
     }
@@ -230,29 +247,24 @@ public class CitizenFormController implements Initializable {
 
 
 
-    private void createCitizen(Citizen newCitizen) {
-        Thread createCitizenThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
+    private Citizen createCitizen(Citizen newCitizen) {
                 Citizen citizen = null;
                 try {
-                    citizen = citizenModel.createNewCitizen(newCitizen);
+                   citizen= citizenModel.createNewCitizen(newCitizen);
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(citizen);
-            }
-        });
-        createCitizenThread.start();
+                return citizen;
     }
 
-    private void editCitizen(Citizen citizenToEdit,Citizen newCitizen){
+    private void editCitizen(Citizen citizenToEdit){
         Thread createCitizenThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Citizen editedCitizen = null;
                 try {
-                    editedCitizen = citizenModel.editCitizen(citizenToEdit, newCitizen);
+                    editedCitizen = citizenModel.editCitizen(citizenToEdit);
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }
@@ -268,4 +280,12 @@ public class CitizenFormController implements Initializable {
             return change;
         return null;
     });
+
+    public void setController(TeacherWindowController teacherWindowController) {
+        this.teacherWindowController=teacherWindowController;
+    }
+
+    public void setCurrentSchoolId(Teacher currentTeacher) {
+        currentSchoolId=currentTeacher.getSchoolId();
+    }
 }

@@ -40,7 +40,7 @@ public class DAOTest {
         editedCitizen.setTemplate(true);
 
         CitizenDAO citizenDAO = new CitizenDAO();
-        citizenDAO.editCitizen(citizenToEdit,editedCitizen);
+        citizenDAO.editCitizen(citizenToEdit);
     }
 
     private static void insertOrUpdateInfoTest() throws IOException, SQLException {

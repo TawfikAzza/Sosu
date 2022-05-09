@@ -140,6 +140,8 @@ public class TeacherWindowController implements Initializable {
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
+        formController.setController(this);
+        formController.setCurrentSchoolId(currentTeacher);
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }
@@ -322,5 +324,9 @@ public class TeacherWindowController implements Initializable {
 
     public TableView<Student> getStudentTV() {
         return tableViewStudents;
+    }
+
+    public TableView<Citizen> getTableViewTemplates() {
+        return tableViewTemplates;
     }
 }
