@@ -62,6 +62,7 @@ public class CitizenDAO {
             preparedStatement.setString(6,citizenToEdit.getCprNumber());
 
             preparedStatement.setInt(7,citizenToEdit.getId());
+
             preparedStatement.executeUpdate();
         }
         return citizenToEdit;
