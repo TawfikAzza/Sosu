@@ -40,7 +40,7 @@ public class TeacherWindowController implements Initializable {
     private ObservableList<Citizen> citizens;
     private ObservableList<Student> students;
 
-    private Citizen template;
+    private Citizen templateCitizen;
 
     @FXML
     private TextField filterStudents;
@@ -102,10 +102,10 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleActionDuplicate(ActionEvent actionEvent) {
-        template = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (template!=null)
+        templateCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (templateCitizen !=null)
         try {
-            model.copyCitizenToDB(template);
+            model.copyCitizenToDB(templateCitizen);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -327,15 +327,28 @@ public class TeacherWindowController implements Initializable {
         return tableViewTemplates;
     }
 
-    public void handleAssignCitizen(ActionEvent actionEvent) {
+    public void handleAssignCitizen(ActionEvent actionEvent)  {
 
         ArrayList<Student> students = new ArrayList<>(tableViewStudents.getSelectionModel().getSelectedItems());
 
+        templateCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+
+
+        if (!templateCitizen.isTemplate())
         try {
-            model.assignCitizensToStudents(tableViewTemplates.getSelectionModel().getSelectedItem(),students);
+            model.assignCitizensToStudents(templateCitizen,students);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
+        }
+        else{
+            try {
+                model.copyCitizenToDB(templateCitizen);
+                model.assignCitizensToStudents(templateCitizen,students);
+            } catch (CitizenException e) {
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
+            }
         }
     }
 }
