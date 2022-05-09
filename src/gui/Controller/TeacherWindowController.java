@@ -22,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
+import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -75,6 +76,7 @@ public class TeacherWindowController implements Initializable {
             this.citizens = FXCollections.observableArrayList();
             createFilterListener();
             createStudentFilterListener();
+            createTableListener();
 
         } catch (IOException | CitizenException e) {
             DisplayMessage.displayError(e);
@@ -227,16 +229,25 @@ public class TeacherWindowController implements Initializable {
         deleteStudentThread.start();
     }
 
-    public void handleLoadAssignments(ActionEvent actionEvent) {
-        try {
-            Student selectedStudent = tableViewStudents.getSelectionModel().getSelectedItem();
-            ObservableList<Citizen> citizens = relationShipModel.getCitizensOfStudent(selectedStudent);
-            tableViewAssignments.setItems(citizens);
-        } catch (StudentException | CitizenException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
+    private void createTableListener()
+    {
+        tableViewStudents.setRowFactory( tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    try {
+                        Student selectedStudent = row.getItem();
+                        ObservableList<Citizen> citizens = relationShipModel.getCitizensOfStudent(selectedStudent);
+                        tableViewAssignments.setItems(citizens);
+                    } catch (StudentException | CitizenException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            return row ;
+        });
     }
+    
 
     public void setCurrentTeacher(Teacher currentTeacher) {
         this.currentTeacher = currentTeacher;
