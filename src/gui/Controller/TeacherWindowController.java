@@ -40,6 +40,8 @@ public class TeacherWindowController implements Initializable {
     private ObservableList<Citizen> citizens;
     private ObservableList<Student> students;
 
+    private Citizen template;
+
     @FXML
     private TextField filterStudents;
     @FXML
@@ -100,14 +102,10 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleActionDuplicate(ActionEvent actionEvent) {
-        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
-        Student student = tableViewStudents.getSelectionModel().getSelectedItem();
-        ArrayList<Student> students = new ArrayList<>();
-
-        students.add(student);
-
+        template = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (template!=null)
         try {
-            model.copyCitizenToDB(template, students);
+            model.copyCitizenToDB(template);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -327,5 +325,17 @@ public class TeacherWindowController implements Initializable {
 
     public TableView<Citizen> getTableViewTemplates() {
         return tableViewTemplates;
+    }
+
+    public void handleAssignCitizen(ActionEvent actionEvent) {
+
+        ArrayList<Student> students = new ArrayList<>(tableViewStudents.getSelectionModel().getSelectedItems());
+
+        try {
+            model.assignCitizensToStudents(tableViewTemplates.getSelectionModel().getSelectedItem(),students);
+        } catch (CitizenException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
     }
 }

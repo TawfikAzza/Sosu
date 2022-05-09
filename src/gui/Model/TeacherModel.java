@@ -24,7 +24,11 @@ public class TeacherModel {
         return teacherManager.getTemplates(currentTeacher);
     }
 
-    public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
-        teacherManager.copyCitizenToDB(template, students);
+    public void copyCitizenToDB(Citizen template) throws CitizenException {
+        teacherManager.copyCitizenToDB(template);
+    }
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        teacherManager.assignCitizensToStudents(template,students);
     }
 }
