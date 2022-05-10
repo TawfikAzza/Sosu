@@ -126,7 +126,7 @@
 
 
 
-.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:hover{
+.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:filled:hover{
     -fx-background-color: -fx-root-accent-light;
     -fx-table-cell-border-color: -fx-root-accent-light;
     -fx-text-background-color: white;
