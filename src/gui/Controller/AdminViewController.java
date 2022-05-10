@@ -39,6 +39,8 @@ import java.util.ResourceBundle;
 
 public class AdminViewController implements Initializable {
     @FXML
+    private TextField searchTeacher;
+    @FXML
     private AnchorPane teacherPane;
     @FXML
     private ListView<String> citizensSchoolLV;
@@ -275,19 +277,38 @@ public class AdminViewController implements Initializable {
 
         });
 
+
         FXMLLoader loaderTeacher = new FXMLLoader();
         loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
+        GridPane teacherDisplay = null;
         try {
-            GridPane teacherDisplay = loaderTeacher.load();
-            teacherPane.getChildren().add(teacherDisplay);
-            teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
-            teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
-            TeacherWindowController teacherWindowController = loaderTeacher.getController();
-            teacherWindowController.setAdminView();
-
+            teacherDisplay = loaderTeacher.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
+        TeacherWindowController teacherWindowController = loaderTeacher.getController();
+
+
+        searchTeacher.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)){
+                    try {
+                        teacherWindowController.setCurrentTeacher(userModel.getAllTeachers(searchTeacher.getText()).get(0));
+                        teacherWindowController.loadData();
+                    } catch (SQLException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
+            teacherWindowController.setAdminView();
+
+            teacherPane.getChildren().add(teacherDisplay);
+            assert teacherDisplay != null;
+            teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
+            teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
 
     }
 
