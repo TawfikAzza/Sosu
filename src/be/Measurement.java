@@ -60,4 +60,20 @@ public abstract class Measurement {
     public void setObservation_date(LocalDate observation_date) {
         this.observation_date = observation_date;
     }
+
+    public int getHeight() {
+        return height;
+    }
+
+    public void setHeight(int height) {
+        this.height = height;
+    }
+
+    public float getWeight() {
+        return weight;
+    }
+
+    public void setWeight(float weight) {
+        this.weight = weight;
+    }
 }
