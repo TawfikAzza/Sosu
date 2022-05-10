@@ -3,9 +3,11 @@ package gui.Controller;
 import be.InfoCategory;
 import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
+import bll.util.GlobalVariables;
 import gui.Model.GInfoModel;
 import gui.utils.DisplayMessage;
 import javafx.collections.FXCollections;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,6 +15,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -71,4 +74,26 @@ public class GeneralInfoReportController implements Initializable {
             e.printStackTrace();
         }
     }
+
+    public void openGeneralReport(ActionEvent actionEvent) {
+        if(GlobalVariables.getSelectedCitizen()==null)
+            return;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/DisplayGRIView.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }
