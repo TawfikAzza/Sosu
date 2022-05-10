@@ -4,9 +4,9 @@ import dal.ConnectionManager;
 
 import java.io.IOException;
 
-public class IBMDMeasurementAO {
+public class BMIMeasurementAO {
     ConnectionManager cm;
-    public IBMDMeasurementAO() throws IOException {
+    public BMIMeasurementAO() throws IOException {
         cm = new ConnectionManager();
     }
 }
