@@ -6,6 +6,8 @@
 
     -fx-base-border: #55738f;
 
+    -fx-control-disabled: gray;
+
     -fx-root-accent:#d59800;
     -fx-root-accent-dark:#9f6a00;
     -fx-root-accent-light:#ffc845;
@@ -431,24 +433,33 @@ For rounded text area if needed
 
 .date-picker-popup .month-year-pane .label {
     -fx-text-fill: white;
+    -fx-alignment: center;
 }
 
-.date-picker-popup .week-number-cell {
-    -fx-text-fill: white;
-}
 
-.date-picker .cell {
+.date-picker .date-cell {
     -fx-background-color: -fx-base-controls;
     -fx-border-color: -fx-selected-highlight;
     -fx-pref-width:20px ;
     -fx-pref-height:25px ;
+    -fx-alignment: center;
 }
 
-.date-picker .cell:focused,
-.date-picker .cell:hover {
+
+.date-picker .date-cell:focused,
+.date-picker .date-cell:hover {
     -fx-background-color: -fx-base-controls-dark;
-    -fx-pref-width:20px ;
-    -fx-pref-height:25px ;
+    -fx-pref-width:20px;
+    -fx-pref-height:25px;
+}
+
+.date-picker-popup > * > .day-name-cell,
+.date-picker-popup > * > .week-number-cell {
+    -fx-background-color:-fx-control-disabled;
+}
+
+.date-picker .cell:disabled{
+    -fx-background-color: -fx-control-disabled;
 }
 
 .date-picker-popup  {
@@ -462,11 +473,27 @@ For rounded text area if needed
 }
 
 .date-picker-popup .spinner .button{
-    -fx-background-color: white;
+    -fx-background-color: transparent;
     -fx-pref-width: 25px;
     -fx-pref-height: 25px;
     -fx-padding: 4;
     -fx-background-radius:0;
+}
+
+
+.date-picker-popup > * > .spinner > .button > .left-arrow,
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+    -fx-background-color: black, derive(white,-45%);
+    -fx-background-insets: 1 0 -1 0, 0;
+    -fx-padding: 0.333333em 0.166667em 0.333333em 0.166667em; /* 4 2 4 2 */
+}
+
+.date-picker-popup > * > .spinner > .button > .left-arrow {
+    -fx-shape: "M5.997,5.072L5.995,6.501l-2.998-4l2.998-4l0.002,1.43l-1.976,2.57L5.997,5.072z";
+}
+
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+    -fx-shape: "M2.998-0.07L3-1.499l2.998,4L3,6.501l-0.002-1.43l1.976-2.57L2.998-0.07z";
 }
 
 
