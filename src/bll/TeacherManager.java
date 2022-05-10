@@ -32,7 +32,11 @@ public class TeacherManager {
         return obsCitizens;
     }
 
-    public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
-        citizenFacade.copyCitizenToDB(template, students);
+    public void copyCitizenToDB(Citizen template) throws CitizenException {
+        citizenFacade.copyCitizenToDB(template);
+    }
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        citizenFacade.assignCitizensToStudents(template,students);
     }
 }

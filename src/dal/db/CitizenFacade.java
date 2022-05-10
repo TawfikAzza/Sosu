@@ -62,6 +62,7 @@ public class CitizenFacade {
 
             List<Condition> conditions = citizen.getHealthConditions();
 
+            if (conditions!=null)
             for(Condition con: conditions)
             {
                 int catID = con.getCategoryID();
@@ -102,6 +103,7 @@ public class CitizenFacade {
 
             List<Ability> abilities = citizen.getFunctionalAbilities();
 
+            if (abilities!=null)
             for(Ability ability: abilities)
             {
                 int catID = ability.getCategoryID();
@@ -145,6 +147,7 @@ public class CitizenFacade {
 
             List<GeneralInfo> generalInfo = citizen.getGeneralInfo();
 
+            if (generalInfo!=null)
             for(GeneralInfo info: generalInfo)
             {
                 int catID = info.getCategoryID();
@@ -196,12 +199,15 @@ public class CitizenFacade {
         return createdCitizen;
     }
 
-    public void copyCitizenToDB(Citizen template, ArrayList<Student> students) throws CitizenException {
+    public void copyCitizenToDB(Citizen template) throws CitizenException {
         Citizen added = addCitizenToDB(template, false);
-        for(Student stud : students)
-        {
-            addStudentCitizenRelation(added, stud);
-        }
+
     }
 
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        for(Student stud : students)
+        {
+            addStudentCitizenRelation(template, stud);
+        }
+    }
 }

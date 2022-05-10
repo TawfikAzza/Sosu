@@ -22,7 +22,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
-import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -40,6 +39,8 @@ public class TeacherWindowController implements Initializable {
     private Teacher currentTeacher;
     private ObservableList<Citizen> citizens;
     private ObservableList<Student> students;
+
+    private Citizen templateCitizen;
 
     @FXML
     private TextField filterStudents;
@@ -101,14 +102,10 @@ public class TeacherWindowController implements Initializable {
 
     @FXML
     private void handleActionDuplicate(ActionEvent actionEvent) {
-        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
-        Student student = tableViewStudents.getSelectionModel().getSelectedItem();
-        ArrayList<Student> students = new ArrayList<>();
-
-        students.add(student);
-
+        templateCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (templateCitizen !=null)
         try {
-            model.copyCitizenToDB(template, students);
+            model.copyCitizenToDB(templateCitizen);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -141,6 +138,7 @@ public class TeacherWindowController implements Initializable {
 
         CitizenFormController formController = loader.getController();
         formController.setController(this);
+        formController.setCurrentSchoolId(currentTeacher);
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }
@@ -327,5 +325,30 @@ public class TeacherWindowController implements Initializable {
 
     public TableView<Citizen> getTableViewTemplates() {
         return tableViewTemplates;
+    }
+
+    public void handleAssignCitizen(ActionEvent actionEvent)  {
+
+        ArrayList<Student> students = new ArrayList<>(tableViewStudents.getSelectionModel().getSelectedItems());
+
+        templateCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+
+
+        if (!templateCitizen.isTemplate())
+        try {
+            model.assignCitizensToStudents(templateCitizen,students);
+        } catch (CitizenException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+        else{
+            try {
+                model.copyCitizenToDB(templateCitizen);
+                model.assignCitizensToStudents(templateCitizen,students);
+            } catch (CitizenException e) {
+                DisplayMessage.displayError(e);
+                e.printStackTrace();
+            }
+        }
     }
 }

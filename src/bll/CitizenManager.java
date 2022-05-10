@@ -31,8 +31,9 @@ public class CitizenManager {
 
 
     public Citizen editCitizen(Citizen citizenToEdit) throws CitizenException {
+
         try {
-            return citizenDAO.editCitizen(citizenToEdit);
+             return citizenDAO.editCitizen(citizenToEdit);
         } catch (SQLException e) {
             throw new CitizenException("Error while editing data",e);
         }
