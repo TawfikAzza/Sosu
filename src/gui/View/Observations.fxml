@@ -1,14 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="gui.Controller.ObservationsController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="246.0" prefWidth="481.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ObservationsController">
+   <children>
+      <Label layoutX="35.0" layoutY="40.0" text="Blood pressure" />
+      <Label layoutX="35.0" layoutY="83.0" text="Blood sugar" />
+      <TextField layoutX="138.0" layoutY="36.0" promptText="new value" />
+      <JFXButton layoutX="325.0" layoutY="36.0" text="View stats" />
+      <TextField layoutX="138.0" layoutY="78.0" promptText="new value" />
+      <JFXButton layoutX="325.0" layoutY="78.0" text="View stats" />
+      <Label layoutX="53.0" layoutY="134.0" text="Weight" />
+      <Label layoutX="54.0" layoutY="171.0" text="Height" />
+      <TextField layoutX="138.0" layoutY="130.0" prefHeight="26.0" prefWidth="82.0" promptText="new value" />
+      <TextField layoutX="138.0" layoutY="167.0" prefHeight="26.0" prefWidth="82.0" promptText="new value" />
+      <Label layoutX="250.0" layoutY="135.0" text="IBM:" />
+      <Label layoutX="281.0" layoutY="135.0" text="Result" />
+      <JFXButton layoutX="347.0" layoutY="131.0" text="Update IBM" />
+      <Label layoutX="243.0" layoutY="171.0" text="Status:" />
+      <Label layoutX="291.0" layoutY="171.0" text="Result" />
+      <JFXButton layoutX="355.0" layoutY="167.0" text="Standars" />
+      <JFXButton layoutX="374.0" layoutY="206.0" text="Close window" />
+   </children>
 </AnchorPane>
