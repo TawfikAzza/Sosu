@@ -166,5 +166,24 @@ public class StudentMenuViewController {
 
 
     public void openObservation() {
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/Observations.fxml"));
+        Parent root = null;
+        try {
+            root = loader.load();
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
+        ObservationsController observationsController = loader.getController();
+        observationsController.setCitizen(citizenTableview.getSelectionModel().getSelectedItem());
+
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setScene(scene);
+        stage.show();
     }
 }
