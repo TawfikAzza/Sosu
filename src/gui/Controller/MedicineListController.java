@@ -43,8 +43,8 @@ public class MedicineListController implements Initializable {
     private String operationType;
 
     private MedicineListModel medicineListModel;
-    private Citizen currentCitizen;
-    private StudentMenuViewController studentMenuViewController;
+    //private Citizen currentCitizen;
+   // private StudentMenuViewController studentMenuViewController;
 
     public MedicineListController() {
 

@@ -74,12 +74,14 @@ public class Main extends Application {
         }
         if (layoutChosen.get().equals("teacher")) {
             FXMLLoader loaderTeacher = new FXMLLoader();
-            loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
+            loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherView.fxml"));
             GridPane teacherDisplay = loaderTeacher.load();
 
-            TeacherWindowController teacherWindowController = loaderTeacher.getController();
+            /*TeacherWindowController teacherWindowController = loaderTeacher.getController();
             teacherWindowController.setCurrentTeacher((Teacher) user);
             teacherWindowController.loadData();
+
+             */
 
             teacherDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             teacherDisplay.prefWidthProperty().bind(rootLayout.widthProperty());

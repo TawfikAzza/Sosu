@@ -2,9 +2,12 @@ package bll;
 
 import be.Citizen;
 import bll.exceptions.CitizenException;
+import bll.util.GlobalVariables;
 import dal.db.CitizenDAO;
 import dal.db.CitizenFacade;
 import dal.db.GetTemplatesFacade;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -45,5 +48,12 @@ public class CitizenManager {
         } catch (SQLException e) {
             throw new CitizenException("Error while deleting data",e);
         }
+    }
+
+    public ObservableList<Citizen> getCitizens() throws CitizenException {
+        List<Citizen> citizens = citizenDAO.getAllCitizens(GlobalVariables.getCurrentSchool().getId());
+        ObservableList<Citizen> obsCits = FXCollections.observableArrayList();
+        obsCits.addAll(citizens);
+        return obsCits;
     }
 }

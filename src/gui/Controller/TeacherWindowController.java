@@ -255,7 +255,7 @@ public class TeacherWindowController implements Initializable {
     public void loadData(){
 
         try { //You should only be able to get citizens from relevant school!
-        citizens = model.getTemplates(currentTeacher);
+        //citizens = model.getTemplates(currentTeacher);
         //Y should only be able to get students from relevant school!
         students = userModel.getStudents(currentTeacher);
         this.tableViewTemplates.setItems(citizens);
@@ -263,7 +263,7 @@ public class TeacherWindowController implements Initializable {
         this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         this.initTables();
-        } catch (CitizenException | UserException  e) {
+        } catch (UserException  e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }

@@ -3,12 +3,15 @@ package dal.db;
 import be.Citizen;
 
 
+import bll.exceptions.CitizenException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class CitizenDAO {
@@ -76,5 +79,38 @@ public class CitizenDAO {
             preparedStatement.setInt(1,selectedCitizen.getId());
             preparedStatement.executeUpdate();
         }
+    }
+
+    public List<Citizen> getAllCitizens(int currentSchoolID) throws CitizenException {
+        List<Citizen> citizens = new ArrayList<>();
+        try(Connection connection = cm.getConnection()){
+            String sql = "SELECT * FROM Citizen WHERE isTemplate = ? AND school_id=?";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            ps.setInt(1, 0);
+            ps.setInt(2, currentSchoolID);
+
+            ResultSet rs = ps.executeQuery();
+
+            while(rs.next())
+            {
+                int id = rs.getInt(1);
+                String fname = rs.getString(2);
+                String lname = rs.getString(3);
+                String address = rs.getString(4);
+                Date bday = rs.getDate(5);
+                LocalDate birthdayConverted = bday.toLocalDate();
+                int phoneNumber = rs.getInt(6);
+                int schoolID = rs.getInt(8);
+                String cpr = rs.getString(9);
+
+
+                Citizen citizen = new Citizen(id, fname, lname, cpr, address, phoneNumber, birthdayConverted, false, schoolID);
+                citizens.add(citizen);
+            }
+        } catch (SQLException throwables) {
+            throw new CitizenException("Could not retrieve citizens from DB", throwables);
+        }
+        return citizens;
     }
 }

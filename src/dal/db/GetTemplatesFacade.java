@@ -20,7 +20,7 @@ public class GetTemplatesFacade {
     }
 
 
-    private List<Citizen> getCitizens(Teacher currentTeacher) throws CitizenException {
+    private List<Citizen> getCitizens(int currentSchoolID) throws CitizenException {
         List<Citizen> citizens = new ArrayList<>();
 
         try (Connection connection = cm.getConnection()) {
@@ -28,7 +28,7 @@ public class GetTemplatesFacade {
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
 
             ps.setInt(1, 1);
-            ps.setInt(2,currentTeacher.getSchoolId());
+            ps.setInt(2, currentSchoolID);
 
             ResultSet rs = ps.executeQuery();
 
@@ -166,8 +166,8 @@ public class GetTemplatesFacade {
         }
     }
 
-    public List<Citizen> retrieveTemplates(Teacher currentTeacher) throws CitizenException {
-        List<Citizen> citizens = getCitizens(currentTeacher);
+    public List<Citizen> retrieveTemplates(int schoolID) throws CitizenException {
+        List<Citizen> citizens = getCitizens(schoolID);
         attachHealthConditions(citizens);
         attachFunctionalAbilities(citizens);
         attachGeneralInfo(citizens);
