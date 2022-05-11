@@ -186,6 +186,18 @@
     -fx-border-color: -fx-root-accent;
 }
 
+/*
+    Style for Functional,health and general category lists
+ */
+
+.category-list {
+    -fx-border-color: transparent;
+}
+
+.category-list .virtual-flow .clipped-container .sheet .list-cell:filled{
+    -fx-border-color: transparent;
+}
+
 
 /*
     Text fields/areas
