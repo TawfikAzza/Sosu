@@ -22,10 +22,10 @@
             </Label>
          </children>
       </HBox>
-      <GridPane hgap="10.0" layoutY="79.0" prefHeight="758.0" prefWidth="599.0" vgap="5.0" AnchorPane.bottomAnchor="102.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="40.0">
+      <GridPane hgap="10.0" layoutX="238.0" layoutY="79.0" prefHeight="685.0" prefWidth="401.0" vgap="5.0" AnchorPane.bottomAnchor="100.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="150.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="179.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="405.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,7 +42,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0" text="Category Name" textAlignment="CENTER">
+            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0" text="Category Name" textAlignment="CENTER">
                <font>
                   <Font name="System Bold" size="18.0" />
                </font>
@@ -52,61 +52,17 @@
                   <Font name="System Bold" size="18.0" />
                </font>
             </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="291.0" text="Mestring" textAlignment="CENTER" GridPane.rowIndex="1">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="290.0" text="Motivation" GridPane.rowIndex="2">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="291.0" text="Ressourcer" GridPane.rowIndex="3">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="295.0" text="Roller" GridPane.rowIndex="4">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="291.0" text="Vaner" GridPane.rowIndex="5">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="297.0" text="Uddannelse og Job" GridPane.rowIndex="6">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="295.0" text="LivHistorie" GridPane.rowIndex="7">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="292.0" text="Netværk" GridPane.rowIndex="8">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="297.0" text="Helbredsoplysninger" GridPane.rowIndex="9">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="297.0" text="Hjælpemidler" GridPane.rowIndex="10">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="329.0" text="Boligens indretning " GridPane.rowIndex="11">
-               <font>
-                  <Font size="14.0" />
-               </font>
-            </Label>
+            <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" prefHeight="50.0" prefWidth="223.0" text="Mestring" textAlignment="CENTER" GridPane.rowIndex="1" />
+            <Label alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="223.0" text="Motivation" GridPane.rowIndex="2" />
+            <Label alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="223.0" text="Ressourcer" GridPane.rowIndex="3" />
+            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Roller" GridPane.rowIndex="4" />
+            <Label alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="223.0" text="Vaner" GridPane.rowIndex="5" />
+            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Uddannelse og Job" GridPane.rowIndex="6" />
+            <Label alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="223.0" text="LivHistorie" GridPane.rowIndex="7" />
+            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Netværk" GridPane.rowIndex="8" />
+            <Label alignment="TOP_RIGHT" prefHeight="57.0" prefWidth="223.0" text="Helbredsoplysninger" GridPane.rowIndex="9" />
+            <Label alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="223.0" text="Hjælpemidler" GridPane.rowIndex="10" />
+            <Label alignment="TOP_RIGHT" prefHeight="52.0" prefWidth="223.0" text="Boligens indretning " GridPane.rowIndex="11" />
             <TextArea fx:id="textMestring" prefHeight="200.0" prefWidth="200.0" styleClass="text-area" stylesheets="@../CSS/MainCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextArea fx:id="textMotivation" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextArea fx:id="textRessourcer" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -128,7 +84,7 @@
       </GridPane>
       <HBox layoutY="798.0" prefHeight="100.0" prefWidth="706.0">
          <children>
-            <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="709.0">
+            <GridPane alignment="CENTER" prefHeight="100.0" prefWidth="653.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -138,12 +94,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" text="Print PDF">
+                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Print PDF" GridPane.columnIndex="1">
                      <GridPane.margin>
                         <Insets left="150.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" onAction="#CloseAction" text="Close" GridPane.columnIndex="1">
+                  <Button mnemonicParsing="false" onAction="#CloseAction" prefHeight="27.0" prefWidth="67.0" text="Close" GridPane.columnIndex="1" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="150.0" />
                      </GridPane.margin>
@@ -152,6 +108,101 @@
                <opaqueInsets>
                   <Insets left="25.0" />
                </opaqueInsets>
+            </GridPane>
+         </children>
+      </HBox>
+      <HBox layoutY="47.0" prefHeight="110.0" prefWidth="706.0">
+         <children>
+            <GridPane prefHeight="97.0" prefWidth="676.0">
+              <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                  <RowConstraints maxHeight="58.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="69.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+               <children>
+                  <Label prefHeight="27.0" prefWidth="67.0" text="First Name : ">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblFName" prefHeight="26.0" prefWidth="237.0">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Last Name :" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblLName" prefHeight="27.0" prefWidth="236.0" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label text="Address :" GridPane.columnIndex="1">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label text="Birth Date :" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label text="Phone Number :" GridPane.columnIndex="2">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label text="School :" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <font>
+                        <Font size="10.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lblAdress" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="lblPhone" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="2">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="90.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="lblBirthdate" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+                  <Label fx:id="lblSchool" prefHeight="26.0" prefWidth="237.0" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <opaqueInsets>
+                        <Insets />
+                     </opaqueInsets>
+                     <GridPane.margin>
+                        <Insets left="60.0" />
+                     </GridPane.margin>
+                  </Label>
+               </children>
+               <HBox.margin>
+                  <Insets left="15.0" right="15.0" />
+               </HBox.margin>
             </GridPane>
          </children>
       </HBox>
