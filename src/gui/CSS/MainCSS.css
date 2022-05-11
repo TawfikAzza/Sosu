@@ -315,7 +315,7 @@ For rounded text area if needed
 .button:hover{
     -fx-background-color: -fx-base-controls;
     -fx-text-fill: white;
-    -fx-padding: 7;
+    -fx-padding: 6;
 }
 
 /*
@@ -329,8 +329,23 @@ For rounded text area if needed
 /*
     Customer alerts
  */
-.myDialog{
-    -fx-background-color: #f9d900;
+
+
+.dialog-pane,
+.dialog-pane.content{
+    -fx-background-color: -fx-root-base;
+    -fx-padding: 0;
+}
+
+.dialog-pane:header *.header-panel {
+    -fx-background-color: -fx-base-controls-dark;
+    -fx-padding: 0.833em; /* 10px */
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.dialog-pane:header .header-panel .label {
+    -fx-font-size: 19;
+    -fx-text-fill: white;
 }
 
 /*
@@ -357,13 +372,13 @@ For rounded text area if needed
     -fx-background-color: -fx-root-base;
 }
 
-.titled-pane .content
+.titled-pane > .title > .arrow-button .arrow
 {
+    -fx-background-color: -fx-base-controls-dark;
 }
 
-.titled-pane .title .arrow-button .arrow{
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
+.titled-pane:expanded .content{
+    -fx-background-color: -fx-base-controls-light;
 }
 
 /*
@@ -371,8 +386,8 @@ For rounded text area if needed
  */
 
 .tab-pane:top .tab-header-area .headers-region .tab:top{
-    -fx-background-color: -fx-base-controls-light;
-    -fx-padding: 0 10 0 10 ;
+    -fx-background-color: -fx-base-controls;
+    -fx-padding: 0 10 0 10;
 }
 
 .tab-pane:top .tab-header-area .headers-region .tab:top .tab-container .tab-label{
@@ -381,18 +396,17 @@ For rounded text area if needed
 }
 
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top{
-    -fx-background-color:-fx-base-controls ;
-}
-
-.tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container{
-    -fx-border-color: -fx-base-controls -fx-base-controls -fx-root-base  -fx-base-controls ;
-    -fx-background-color: -fx-base-controls;
-
+    -fx-background-color:-fx-base-controls-dark;
 }
 
 .tab-pane:top .tab-header-area .tab-header-background{
     -fx-background-color: -fx-root-base;
 }
+.tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+}
+
 .tab-pane:top .tab-header-area .headers-region .tab:selected:top .tab-container .tab-label{
     -fx-border-color: transparent;
 }
@@ -401,7 +415,15 @@ For rounded text area if needed
     -fx-border-color: transparent;
 }
 .tab-pane:top .tab-header-area .headers-region{
-    -fx-background-color: -fx-root-base;
+    -fx-background-color: transparent;
+}
+
+.tab-pane:top > .tab-header-area > .tab-header-background {
+    -fx-background-color:-fx-base-controls-light;
+}
+
+.tab-pane:top > .tab-header-area{
+    -fx-padding: 4 4 0 4;
 }
 
 
@@ -496,6 +518,25 @@ For rounded text area if needed
     -fx-shape: "M2.998-0.07L3-1.499l2.998,4L3,6.501l-0.002-1.43l1.976-2.57L2.998-0.07z";
 }
 
+/*
+    Spinner
+ */
+
+
+.spinner .decrement-arrow-button,
+.spinner .increment-arrow-button{
+    -fx-background-color: -fx-base-controls;
+}
+
+.spinner .decrement-arrow-button .decrement-arrow,
+.spinner .increment-arrow-button .increment-arrow{
+    -fx-background-color: -fx-base-controls-light;
+}
+
+.spinner .decrement-arrow-button:hover .decrement-arrow,
+.spinner .increment-arrow-button:hover .increment-arrow{
+    -fx-background-color: -fx-base-controls-dark;
+}
 
 
 
