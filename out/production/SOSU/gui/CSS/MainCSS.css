@@ -315,7 +315,7 @@ For rounded text area if needed
 .button:hover{
     -fx-background-color: -fx-base-controls;
     -fx-text-fill: white;
-    -fx-padding: 6;
+    -fx-padding: 5;
 }
 
 /*
@@ -424,7 +424,6 @@ For rounded text area if needed
 
 .tab-pane:top > .tab-header-area{
     -fx-padding: 4 4 0 4;
-    -fx-spacing: 5;
 }
 
 
@@ -452,14 +451,10 @@ For rounded text area if needed
 .date-picker-popup .month-year-pane {
     -fx-background-color: -fx-base-controls;
 }
-
-
 .date-picker-popup .month-year-pane .label {
     -fx-text-fill: white;
     -fx-alignment: center;
 }
-
-
 .date-picker .date-cell {
     -fx-background-color: -fx-base-controls;
     -fx-border-color: -fx-selected-highlight;
@@ -527,11 +522,23 @@ For rounded text area if needed
 .spinner .decrement-arrow-button,
 .spinner .increment-arrow-button{
     -fx-background-color: -fx-base-controls;
+    -fx-padding: 5;
+    -fx-border-width: 0;
 }
 
 .spinner .decrement-arrow-button .decrement-arrow,
 .spinner .increment-arrow-button .increment-arrow{
     -fx-background-color: -fx-base-controls-light;
+}
+
+.spinner .decrement-arrow-button .decrement-arrow{
+    -fx-padding: 0.167em 0.333em 0.167em 0.333em;
+    -fx-shape: "M7.071,1L8.5,1.002L4.5,4l-4-2.998L1.93,1L4.5,2.976L7.071,1z";
+}
+
+.spinner .increment-arrow-button .increment-arrow{
+    -fx-padding: 0.167em 0.333em 0.167em 0.333em;
+    -fx-shape: "M1.929,4L0.5,3.998L4.5,1l4,2.998L7.07,4L4.5,2.024L1.929,4z";
 }
 
 .spinner .decrement-arrow-button:hover .decrement-arrow,
