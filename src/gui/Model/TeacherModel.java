@@ -14,14 +14,21 @@ import java.util.List;
 
 public class TeacherModel {
 
-    TeacherManager teacherManager;
+    private final TeacherManager teacherManager;
+    private ObservableList<Citizen> templates;
 
-    public TeacherModel() throws IOException {
+    public TeacherModel() throws IOException, CitizenException {
         this.teacherManager = new TeacherManager();
+        retrieveTemplates();
     }
 
-    public ObservableList<Citizen> getTemplates(Teacher currentTeacher) throws CitizenException {
-        return teacherManager.getTemplates(currentTeacher);
+    public ObservableList<Citizen> getTemplatesObs()
+    {
+        return templates;
+    }
+
+    private void retrieveTemplates() throws CitizenException {
+        this.templates = teacherManager.getTemplates();
     }
 
     public void copyCitizenToDB(Citizen template) throws CitizenException {

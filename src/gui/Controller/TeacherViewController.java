@@ -2,14 +2,26 @@ package gui.Controller;
 
 import be.Citizen;
 import be.Student;
+import bll.exceptions.CitizenException;
+import gui.Model.CitizenModel;
+import gui.Model.TeacherModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.fxml.Initializable;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-public class TeacherViewController {
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class TeacherViewController implements Initializable {
+
+    private TeacherModel teacherModel;
+    private CitizenModel citizenModel;
+
     @FXML
     private TableView<Citizen> tableViewTemplates;
     @FXML
@@ -46,6 +58,20 @@ public class TeacherViewController {
     private TableColumn<Citizen, String> tableColumnAssignedFirstName;
     @FXML
     private TableColumn<Citizen, String> tableColumnAssignedLastName;
+
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            this.teacherModel = new TeacherModel();
+            this.tableViewTemplates.setItems(teacherModel.getTemplatesObs());
+            this.citizenModel = new CitizenModel();
+            this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            initTables();
+        } catch (IOException | CitizenException e) {
+            DisplayMessage.displayError(e);
+        }
+    }
 
     private void initTables() {
         //Templates
@@ -113,4 +139,5 @@ public class TeacherViewController {
 
     public void handleAssignClick(ActionEvent actionEvent) {
     }
+
 }
