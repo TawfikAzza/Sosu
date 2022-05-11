@@ -276,7 +276,8 @@ public class CitizenFormController implements Initializable {
     }
 
     TextFormatter intFormatter = new TextFormatter<Object>(change -> {
-        if (change.getText().matches("[0-9]*") && change.getControlText().length()<9 || change.isDeleted()  )
+        if (change.getText().matches("[0-9]*") && change.getControlText().length()<8
+                || change.isDeleted() || change.getText().isEmpty())
             return change;
         return null;
     });
