@@ -75,8 +75,8 @@ public class TeacherViewController implements Initializable {
 
     private void initTables() {
         //Templates
-        this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
-        this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
+        this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fNameProperty"));
+        this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lNameProperty"));
 
         //Citizens on template page
         this.tableColumnCitizenID.setCellValueFactory(new PropertyValueFactory<>("id"));
