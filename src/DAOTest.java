@@ -1,10 +1,6 @@
 import be.*;
 import bll.exceptions.UserException;
 import dal.db.*;
-import dal.db.measurementDAO.BPMeasurementDAO;
-import dal.db.measurementDAO.BSMeasurementDAO;
-import dal.db.measurementDAO.OxMeasurementDAO;
-import dal.db.measurementDAO.TempMeasurementDAO;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -32,13 +28,6 @@ public class DAOTest {
         //checkIfInfoExists();
         //insertOrUpdateInfoTest();
         //editCitizenTest();
-        //getAllBloodPressureMeasurement();
-        //newBloodPressureMeasurement();
-        //getAllBloodPressureMeasurement();
-        //newOxygenMeasurement();
-        //getAllOxygenMeasurements();
-        //newTemperatureMeasurement();
-        getAllTemperatureMeasurements();
     }
 
 
@@ -182,42 +171,4 @@ public class DAOTest {
             }
         }
     }
-    private static void newBloodSugarMeasurement() throws IOException, SQLException {
-        BSMeasurementDAO bloodSugarDAO = new BSMeasurementDAO();
-        bloodSugarDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 12.3f);
-    }
-
-    private static void getAllBloodPressureMeasurement() throws IOException, SQLException {
-        BPMeasurementDAO bloodPressureDAO = new BPMeasurementDAO();
-        for (BPMeasurement bloodPressure : bloodPressureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
-            System.out.println(bloodPressure.getFloatMeasurement());
-    }
-
-    private static void newBloodPressureMeasurement() throws IOException, SQLException {
-        BPMeasurementDAO bloodPressureDAO = new BPMeasurementDAO();
-        bloodPressureDAO.newMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"), 12.3f);
-    }
-    private static void newOxygenMeasurement() throws IOException, SQLException {
-        OxMeasurementDAO oxygenDAO = new OxMeasurementDAO();
-        oxygenDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 40);
-    }
-
-    private static void getAllOxygenMeasurements() throws IOException, SQLException {
-        OxMeasurementDAO oxygenDAO = new OxMeasurementDAO();
-        for (OxMeasurement oxygen : oxygenDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
-            System.out.println(oxygen.getMeasurement());
-    }
-
-    private static void newTemperatureMeasurement() throws IOException, SQLException {
-        TempMeasurementDAO temperatureDAO = new TempMeasurementDAO();
-        temperatureDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 37.5F);
-    }
-
-    private static void getAllTemperatureMeasurements() throws IOException, SQLException {
-        TempMeasurementDAO temperatureDAO = new TempMeasurementDAO();
-        for (TempMeasurement temperature : temperatureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
-            System.out.println(temperature.getFloatMeasurement());
-    }
-
-
 }
