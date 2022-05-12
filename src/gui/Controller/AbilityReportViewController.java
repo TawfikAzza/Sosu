@@ -12,6 +12,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
@@ -56,8 +57,9 @@ public class AbilityReportViewController implements Initializable {
     @FXML
     private DatePicker visitDate;
     @FXML
-    private RadioButton radio0,radio1,radio2,radio3,radio4,radio9,statusAkute,statusIrrelevant,statusPotentiel,
-    /* expected level radio buttons */ radio01,radio11,radio21,radio31,radio41,radio91,
+    private RadioButton /* status radio buttons*/ statusAkute,statusIrrelevant,statusPotentiel,
+    /* functional level radio buttons*/ level0, level1, level2, level3, level4, level9,
+    /* expected level radio buttons */ level0_1, level1_1, level2_1, level3_1, level4_1, level9_1,
     /* performance radio buttons  */radio02,radio12,radio22,radio32,
     /* meaning radio buttons */radio03,radio13;
 
@@ -100,12 +102,31 @@ public class AbilityReportViewController implements Initializable {
     }
 
     private void setEventHandlers() {
-        functionalLevel_0.setOnMouseClicked(event -> {radio0.setSelected(true);});
-        functionalLevel_1.setOnMouseClicked(event -> {radio1.setSelected(true);});
-        functionalLevel_2.setOnMouseClicked(event -> {radio2.setSelected(true);});
-        functionalLevel_3.setOnMouseClicked(event -> {radio3.setSelected(true);});
-        functionalLevel_4.setOnMouseClicked(event -> {radio4.setSelected(true);});
-        functionalLevel_9.setOnMouseClicked(event -> {radio9.setSelected(true);});
+        functionalLevel_0.setOnMouseClicked(event -> {
+            level0.setSelected(true);});
+        functionalLevel_1.setOnMouseClicked(event -> {
+            level1.setSelected(true);});
+        functionalLevel_2.setOnMouseClicked(event -> {
+            level2.setSelected(true);});
+        functionalLevel_3.setOnMouseClicked(event -> {
+            level3.setSelected(true);});
+        functionalLevel_4.setOnMouseClicked(event -> {
+            level4.setSelected(true);});
+        functionalLevel_9.setOnMouseClicked(event -> {
+            level9.setSelected(true);});
+
+        functionalLevel_0_1.setOnMouseClicked(event -> {
+            level0_1.setSelected(true);});
+        functionalLevel_1_1.setOnMouseClicked(event -> {
+            level1_1.setSelected(true);});
+        functionalLevel_2_1.setOnMouseClicked(event -> {
+            level2_1.setSelected(true);});
+        functionalLevel_3_1.setOnMouseClicked(event -> {
+            level3_1.setSelected(true);});
+        functionalLevel_4_1.setOnMouseClicked(event -> {
+            level4_1.setSelected(true);});
+        functionalLevel_9_1.setOnMouseClicked(event -> {
+            level9_1.setSelected(true);});
     }
 
     private void setImages() {
@@ -134,20 +155,20 @@ public class AbilityReportViewController implements Initializable {
 
     private void setUserData() {
         /* Current level radio buttons */
-        radio0.setUserData(0);
-        radio1.setUserData(1);
-        radio2.setUserData(2);
-        radio3.setUserData(3);
-        radio4.setUserData(4);
-        radio9.setUserData(9);
+        level0.setUserData(0);
+        level1.setUserData(1);
+        level2.setUserData(2);
+        level3.setUserData(3);
+        level4.setUserData(4);
+        level9.setUserData(9);
 
         /* Expected level radio buttons */
-        radio01.setUserData(0);
-        radio11.setUserData(1);
-        radio21.setUserData(2);
-        radio31.setUserData(3);
-        radio41.setUserData(4);
-        radio91.setUserData(9);
+        level0_1.setUserData(0);
+        level1_1.setUserData(1);
+        level2_1.setUserData(2);
+        level3_1.setUserData(3);
+        level4_1.setUserData(4);
+        level9_1.setUserData(9);
 
         /* Performance radio buttons */
         radio02.setUserData(0);
@@ -187,17 +208,17 @@ public class AbilityReportViewController implements Initializable {
             lblCategory.setText(abilityCategory.getName());
             btnConfirm.setText("Update Ability");
             switch(ability.getScore()) {
-                case 0: radio0.setSelected(true);
+                case 0: level0.setSelected(true);
                     break;
-                case 1: radio1.setSelected(true);
+                case 1: level1.setSelected(true);
                     break;
-                case 2: radio2.setSelected(true);
+                case 2: level2.setSelected(true);
                     break;
-                case 3: radio3.setSelected(true);
+                case 3: level3.setSelected(true);
                     break;
-                case 4: radio4.setSelected(true);
+                case 4: level4.setSelected(true);
                     break;
-                case 9: radio9.setSelected(true);
+                case 9: level9.setSelected(true);
                     break;
                 default:
                     break;
@@ -215,17 +236,17 @@ public class AbilityReportViewController implements Initializable {
                     break;
             }
             switch(ability.getExpectedScore()) {
-                case 0: radio01.setSelected(true);
+                case 0: level0_1.setSelected(true);
                     break;
-                case 1: radio11.setSelected(true);
+                case 1: level1_1.setSelected(true);
                     break;
-                case 2: radio21.setSelected(true);
+                case 2: level2_1.setSelected(true);
                     break;
-                case 3: radio31.setSelected(true);
+                case 3: level3_1.setSelected(true);
                     break;
-                case 4: radio41.setSelected(true);
+                case 4: level4_1.setSelected(true);
                     break;
-                case 9: radio91.setSelected(true);
+                case 9: level9_1.setSelected(true);
                     break;
                 default:
                     break;

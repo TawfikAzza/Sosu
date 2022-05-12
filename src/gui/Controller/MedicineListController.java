@@ -25,8 +25,6 @@ public class MedicineListController implements Initializable {
 
 
     @FXML
-    private Label lblCPR;
-    @FXML
     private Button btnSave;
 
     @FXML
@@ -82,7 +80,6 @@ public class MedicineListController implements Initializable {
 
             lblfirstname.setText(GlobalVariables.getSelectedCitizen().getFName());
             lblLastname.setText(GlobalVariables.getSelectedCitizen().getLName());
-            lblCPR.setText(GlobalVariables.getSelectedCitizen().getCprNumber());
             textMedicineList.setText(medicineList.getMedicineList());
 
         } catch (MedicineListException e) {

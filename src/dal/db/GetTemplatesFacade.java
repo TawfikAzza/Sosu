@@ -42,10 +42,9 @@ public class GetTemplatesFacade {
                 LocalDate birthdayConverted = bday.toLocalDate();
                 int phoneNumber = rs.getInt(6);
                 int schoolID = rs.getInt(8);
-                String cpr = rs.getString(9);
 
 
-                Citizen citizen = new Citizen(id, fname, lname, cpr, address, phoneNumber, birthdayConverted, true, schoolID);
+                Citizen citizen = new Citizen(id, fname, lname, address, phoneNumber, birthdayConverted, true, schoolID);
                 citizens.add(citizen);
             }
         } catch (SQLException throwables) {

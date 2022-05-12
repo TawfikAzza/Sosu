@@ -1,5 +1,10 @@
 package be;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +13,6 @@ public class Citizen {
     private int id;
     private String fName;
     private String lName;
-    private String cprNumber;
     private String address;
     private int phoneNumber;
     private LocalDate birthDate;
@@ -18,27 +22,48 @@ public class Citizen {
     private List<GeneralInfo> generalInfo;
     private int schoolID;
 
-    public Citizen(int id, String fname, String lName, String cprNumber) {
+    private StringProperty fNameProperty;
+    private StringProperty lNameProperty;
+    private StringProperty addressProperty;
+    private IntegerProperty phoneNumberProperty;
+
+    public Citizen(int id, String fname, String lName) {
         this.id = id;
         this.fName = fname;
         this.lName = lName;
-        this.cprNumber = cprNumber;
+
+        fNameProperty = new SimpleStringProperty();
+        lNameProperty = new SimpleStringProperty();
+        addressProperty = new SimpleStringProperty();
+        phoneNumberProperty = new SimpleIntegerProperty();
+
+        fNameProperty.set(fname);
+        lNameProperty.set(lName);
 
         functionalAbilities = new ArrayList<>();
         healthConditions = new ArrayList<>();
         generalInfo = new ArrayList<>();
     }
 
-    public Citizen(int id, String fName, String lName, String cprNumber, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
+    public Citizen(int id, String fName, String lName, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
-        this.cprNumber = cprNumber;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
         this.isTemplate = isTemplate;
         this.schoolID = schoolID;
+
+        fNameProperty = new SimpleStringProperty();
+        lNameProperty = new SimpleStringProperty();
+        addressProperty = new SimpleStringProperty();
+        phoneNumberProperty = new SimpleIntegerProperty();
+
+        fNameProperty.set(fName);
+        lNameProperty.set(lName);
+        addressProperty.set(address);
+        phoneNumberProperty.set(phoneNumber);
     }
 
     public boolean isTemplate() {
@@ -63,6 +88,7 @@ public class Citizen {
 
     public void setFName(String fName) {
         this.fName = fName;
+        fNameProperty.set(fName);
     }
 
     public String getLName() {
@@ -71,15 +97,9 @@ public class Citizen {
 
     public void setLName(String lName) {
         this.lName = lName;
+        lNameProperty.set(lName);
     }
 
-    public String getCprNumber() {
-        return cprNumber;
-    }
-
-    public void setCprNumber(String cprNumber) {
-        this.cprNumber = cprNumber;
-    }
 
     public List<Condition> getHealthConditions() {
         return healthConditions;
@@ -111,6 +131,7 @@ public class Citizen {
 
     public void setAddress(String address) {
         this.address = address;
+        addressProperty.set(address);
     }
 
     public int getPhoneNumber() {
@@ -119,6 +140,7 @@ public class Citizen {
 
     public void setPhoneNumber(int phoneNumber) {
         this.phoneNumber = phoneNumber;
+        phoneNumberProperty.set(phoneNumber);
     }
 
     public LocalDate getBirthDate() {
@@ -141,4 +163,24 @@ public class Citizen {
     public String toString() {
         return fName + " "+lName;
     }
+
+
+    public StringProperty fNamePropertyProperty() {
+        return fNameProperty;
+    }
+
+    public StringProperty lNamePropertyProperty() {
+        return lNameProperty;
+    }
+
+
+    public StringProperty addressPropertyProperty() {
+        return addressProperty;
+    }
+
+
+    public IntegerProperty phoneNumberPropertyProperty() {
+        return phoneNumberProperty;
+    }
+
 }

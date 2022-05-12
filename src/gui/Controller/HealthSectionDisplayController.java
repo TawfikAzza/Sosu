@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -131,6 +132,8 @@ public class HealthSectionDisplayController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.getIcons().add(new Image("sosu.png"));
+        stage.setTitle(healthCategory.getName());
         stage.setScene(scene);
         stage.show();
     }

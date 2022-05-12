@@ -34,7 +34,7 @@ public class StudentMenuViewController {
     @FXML
     private TableColumn<Citizen, String> lnameColumn;
     @FXML
-    private Label lblAdress,lblCpr,lblFname,lblLname,lblPhone,lblSchool;
+    private Label lblAdress,lblFname,lblLname,lblPhone,lblSchool;
 
     private StudentModel studentModel;
 
@@ -72,7 +72,6 @@ public class StudentMenuViewController {
         GlobalVariables.setSelectedCitizen(currentCitizen);
         lblFname.setText(currentCitizen.getFName());
         lblLname.setText(currentCitizen.getLName());
-        lblCpr.setText(currentCitizen.getCprNumber());
         lblAdress.setText(currentCitizen.getAddress());
         lblPhone.setText(""+currentCitizen.getPhoneNumber());
     }
