@@ -28,6 +28,7 @@ public class DAOTest {
         //checkIfInfoExists();
         //insertOrUpdateInfoTest();
         //editCitizenTest();
+        getAllMeasurement();
     }
 
 
@@ -170,5 +171,16 @@ public class DAOTest {
                 System.out.println("SID : "+sid+" "+pair.getKey().getName()+" "+pair.getValue().getScore());
             }
         }
+    }
+
+    public static void addNewMeasurement() throws SQLException, IOException {
+        ObservationDao observationDao = new ObservationDao();
+        observationDao.newObservation(ObservationType.BPMeasurement,new Citizen(40,"aasba","zebi"), 12.5F);
+    }
+
+    public static void getAllMeasurement() throws IOException, SQLException {
+        ObservationDao observationDao = new ObservationDao();
+        for (Observation observation: observationDao.getAllObservations(ObservationType.BPMeasurement,new Citizen(40,"aasba","zebi"),LocalDate.of(2020,2,3),LocalDate.now()))
+            System.out.println(observation.getMeasurement());
     }
 }

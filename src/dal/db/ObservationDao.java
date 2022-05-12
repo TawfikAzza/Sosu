@@ -23,7 +23,7 @@ public class ObservationDao {
         try (Connection connection = connectionManager.getConnection()) {
             String sql = "SELECT * FROM ObservationType WHERE type=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, String.valueOf(observationType));
+            preparedStatement.setString(1, observationType.name());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int typeId = resultSet.getInt("id");
@@ -43,21 +43,20 @@ public class ObservationDao {
         return allObservations;
     }
 
-    public void newObservation(ObservationType observationType, Citizen citizen, float measurement, Date observationDate) throws SQLException {
+    public void newObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
         try (Connection connection = connectionManager.getConnection()) {
             String sql = "SELECT * FROM ObservationType WHERE type= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setString(1, String.valueOf(observationType));
+            preparedStatement.setString(1, observationType.name());
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int typeId = resultSet.getInt("id");
-                String sql1 = "INSERT INTO Observation VALUES(?,?,?,?)";
+                String sql1 = "INSERT INTO Observation VALUES(?,?,?,getDate())";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
                 preparedStatement1.setInt(1, citizen.getId());
                 preparedStatement1.setInt(2, typeId);
                 preparedStatement1.setFloat(3, measurement);
-                preparedStatement1.setDate(4, observationDate);
-                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                 preparedStatement1.executeQuery();
             }
         }
     }
