@@ -73,8 +73,7 @@ public class CitizenDAO {
 
     public void deleteCitizen(Citizen selectedCitizen) throws SQLException {
         try(Connection connection = cm.getConnection()){
-            String sqlStatement = "DELETE FROM Citizen\n" +
-                                    "WHERE Citizen.id = ?";
+            String sqlStatement = "DELETE FROM Citizen WHERE Citizen.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1,selectedCitizen.getId());
             preparedStatement.executeUpdate();

@@ -83,22 +83,13 @@ public class UserManager implements UserInterface {
         return studentDao.getStudent(selectedItem);
     }
 
-    private void setCurrentSchool(User user) {
-        Thread setCurrentSchoolThread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if (user!=null){
-                        GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
-                        System.out.println(GlobalVariables.getCurrentSchool().getName());}
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
-            }
-        });
-        setCurrentSchoolThread.start();
+    private void setCurrentSchool(User user) throws SQLException {
+        if (user != null) {
+            GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
+            System.out.println(GlobalVariables.getCurrentSchool().getName());
+        }
     }
+
 
     public int isUserNameTaken(String userName) throws SQLException {
         return usersDAO.userNameTaken(userName);

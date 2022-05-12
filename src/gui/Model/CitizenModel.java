@@ -53,19 +53,13 @@ public class CitizenModel {
     }
 
     public void copyTempToCit(Citizen template) throws CitizenException {
-        Citizen added = citizenManager.copyTempToCit(template);
-        if(added!=null)
-        {
-            obsCitizens.add(added);
-        }
+        citizenManager.copyTempToCit(template);
+        refreshTables();
     }
 
     public void copyCitToTemp(Citizen citizen) throws CitizenException {
-        Citizen added = citizenManager.copyCitToTemp(citizen);
-        if(added!=null)
-        {
-            templates.add(added);
-        }
+        citizenManager.copyCitToTemp(citizen);
+        refreshTables();
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
@@ -80,6 +74,11 @@ public class CitizenModel {
     public void refreshCitizens() throws CitizenException {
         this.obsCitizens.clear();
         this.obsCitizens.addAll(citizenManager.getCitizens());
+    }
+
+    public void refreshTables() throws CitizenException {
+        refreshTemplates();
+        refreshCitizens();
     }
 
     public static CitizenModel getInstance() throws CitizenException {

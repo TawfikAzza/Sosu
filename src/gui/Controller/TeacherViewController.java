@@ -157,7 +157,24 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (selectedCitizen != null) {
+            Thread deleteCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.deleteCitizen(selectedCitizen);
+                        citizenModel.getTemplatesObs().remove(selectedCitizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            deleteCitizenThread.start();
+        }
     }
+
 
     public void handleDuplicateTemplate(ActionEvent actionEvent) {
     }

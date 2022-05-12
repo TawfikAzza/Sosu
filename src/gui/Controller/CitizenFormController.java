@@ -210,7 +210,7 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
-            citizenModel.getTemplatesObs().add(createTemplate(newCitizen));
+            createTemplate(newCitizen);
         }
 
         return true;
@@ -246,6 +246,7 @@ public class CitizenFormController implements Initializable {
                 Citizen citizen = null;
                 try {
                    citizen= citizenModel.createNewCitizen(newCitizen);
+                   citizenModel.refreshTemplates();
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }

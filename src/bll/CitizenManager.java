@@ -17,9 +17,9 @@ import java.util.List;
 
 public class CitizenManager {
 
-    private CitizenFacade citizenFacade;
-    private CitizenDAO citizenDAO;
-    private GetTemplatesFacade templatesFacade;
+    private final CitizenFacade citizenFacade;
+    private final CitizenDAO citizenDAO;
+    private final GetTemplatesFacade templatesFacade;
 
 
 
@@ -69,12 +69,12 @@ public class CitizenManager {
         return obsCitizens;
     }
 
-    public Citizen copyTempToCit(Citizen template) throws CitizenException {
-        return citizenFacade.addCitizenToDB(template, false);
+    public void copyTempToCit(Citizen template) throws CitizenException {
+        citizenFacade.addCitizenToDB(template, false);
     }
 
-    public Citizen copyCitToTemp(Citizen citizen) throws CitizenException {
-        return citizenFacade.addCitizenToDB(citizen, true);
+    public void copyCitToTemp(Citizen citizen) throws CitizenException {
+        citizenFacade.addCitizenToDB(citizen, true);
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
