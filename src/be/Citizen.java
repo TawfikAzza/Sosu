@@ -13,7 +13,6 @@ public class Citizen {
     private int id;
     private String fName;
     private String lName;
-    private String cprNumber;
     private String address;
     private int phoneNumber;
     private LocalDate birthDate;
@@ -28,11 +27,10 @@ public class Citizen {
     private StringProperty addressProperty;
     private IntegerProperty phoneNumberProperty;
 
-    public Citizen(int id, String fname, String lName, String cprNumber) {
+    public Citizen(int id, String fname, String lName) {
         this.id = id;
         this.fName = fname;
         this.lName = lName;
-        this.cprNumber = cprNumber;
 
         fNameProperty = new SimpleStringProperty();
         lNameProperty = new SimpleStringProperty();
@@ -47,11 +45,10 @@ public class Citizen {
         generalInfo = new ArrayList<>();
     }
 
-    public Citizen(int id, String fName, String lName, String cprNumber, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
+    public Citizen(int id, String fName, String lName, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
         this.id = id;
         this.fName = fName;
         this.lName = lName;
-        this.cprNumber = cprNumber;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.birthDate = birthDate;
@@ -103,13 +100,6 @@ public class Citizen {
         lNameProperty.set(lName);
     }
 
-    public String getCprNumber() {
-        return cprNumber;
-    }
-
-    public void setCprNumber(String cprNumber) {
-        this.cprNumber = cprNumber;
-    }
 
     public List<Condition> getHealthConditions() {
         return healthConditions;

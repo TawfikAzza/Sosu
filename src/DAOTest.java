@@ -43,8 +43,8 @@ public class DAOTest {
 
 
     private static void editCitizenTest() throws IOException, SQLException {
-        Citizen citizenToEdit = new Citizen(48,"1","1","cpr");
-        Citizen editedCitizen = new Citizen(48,"edited","edited","edited");
+        Citizen citizenToEdit = new Citizen(48,"1","1");
+        Citizen editedCitizen = new Citizen(48,"edited","edited");
         editedCitizen.setPhoneNumber(1213);
         editedCitizen.setAddress("edited");
         editedCitizen.setBirthDate(LocalDate.now());
@@ -55,7 +55,7 @@ public class DAOTest {
     }
 
     private static void insertOrUpdateInfoTest() throws IOException, SQLException {
-        Citizen citizen = new Citizen(38,"Test","test","123");
+        Citizen citizen = new Citizen(38,"Test","test");
         InfoCategory infoCategory = new InfoCategory(4,"test","Example","Definition");
         String infoContent = "Some content";
         GInfoDAO gInfoDAO = new GInfoDAO();
@@ -63,7 +63,7 @@ public class DAOTest {
     }
 
     private static void checkIfInfoExists() throws IOException, SQLException {
-        Citizen citizen = new Citizen(38,"Test","test","123");
+        Citizen citizen = new Citizen(38,"Test","test");
         InfoCategory infoCategory = new InfoCategory(5,"test","Example","Definition");
         GInfoDAO gInfoDAO = new GInfoDAO();
         boolean result = gInfoDAO.checkIfInfoExists(citizen,infoCategory);
@@ -184,38 +184,38 @@ public class DAOTest {
     }
     private static void newBloodSugarMeasurement() throws IOException, SQLException {
         BSMeasurementDAO bloodSugarDAO = new BSMeasurementDAO();
-        bloodSugarDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi","7879787"), 12.3f);
+        bloodSugarDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 12.3f);
     }
 
     private static void getAllBloodPressureMeasurement() throws IOException, SQLException {
         BPMeasurementDAO bloodPressureDAO = new BPMeasurementDAO();
-        for (BPMeasurement bloodPressure : bloodPressureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi","7879787"),LocalDate.of(2020,6,6),LocalDate.now()))
+        for (BPMeasurement bloodPressure : bloodPressureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
             System.out.println(bloodPressure.getFloatMeasurement());
     }
 
     private static void newBloodPressureMeasurement() throws IOException, SQLException {
         BPMeasurementDAO bloodPressureDAO = new BPMeasurementDAO();
-        bloodPressureDAO.newMeasurements(new Citizen(40,"aasbaAaleirasek","zebi","7879787"), 12.3f);
+        bloodPressureDAO.newMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"), 12.3f);
     }
     private static void newOxygenMeasurement() throws IOException, SQLException {
         OxMeasurementDAO oxygenDAO = new OxMeasurementDAO();
-        oxygenDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi","7879787"), 40);
+        oxygenDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 40);
     }
 
     private static void getAllOxygenMeasurements() throws IOException, SQLException {
         OxMeasurementDAO oxygenDAO = new OxMeasurementDAO();
-        for (OxMeasurement oxygen : oxygenDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi","7879787"),LocalDate.of(2020,6,6),LocalDate.now()))
+        for (OxMeasurement oxygen : oxygenDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
             System.out.println(oxygen.getMeasurement());
     }
 
     private static void newTemperatureMeasurement() throws IOException, SQLException {
         TempMeasurementDAO temperatureDAO = new TempMeasurementDAO();
-        temperatureDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi","7879787"), 37.5F);
+        temperatureDAO.newMeasurement(new Citizen(40,"aasbaAaleirasek","zebi"), 37.5F);
     }
 
     private static void getAllTemperatureMeasurements() throws IOException, SQLException {
         TempMeasurementDAO temperatureDAO = new TempMeasurementDAO();
-        for (TempMeasurement temperature : temperatureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi","7879787"),LocalDate.of(2020,6,6),LocalDate.now()))
+        for (TempMeasurement temperature : temperatureDAO.getAllMeasurements(new Citizen(40,"aasbaAaleirasek","zebi"),LocalDate.of(2020,6,6),LocalDate.now()))
             System.out.println(temperature.getFloatMeasurement());
     }
 

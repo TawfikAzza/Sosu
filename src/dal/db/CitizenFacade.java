@@ -29,7 +29,6 @@ public class CitizenFacade {
             String address = citizen.getAddress();
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
-            String cprNumber = citizen.getCprNumber();
             int schoolID = citizen.getSchoolID();
 
             ps.setString(1, fname);
@@ -38,10 +37,8 @@ public class CitizenFacade {
             ps.setDate(4, Date.valueOf(birthdate));
             ps.setInt(5, phoneNumber);
             ps.setBoolean(6, isTemplate);
-
             ps.setInt(7,schoolID);
-
-            ps.setString(8,cprNumber);
+            ps.setInt(8,1);
 
             ps.execute();
 
