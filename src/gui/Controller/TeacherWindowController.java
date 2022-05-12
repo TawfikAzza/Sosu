@@ -6,6 +6,7 @@ import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import gui.Model.*;
 import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
@@ -138,7 +139,7 @@ public class TeacherWindowController implements Initializable {
 
         CitizenFormController formController = loader.getController();
         formController.setController(this);
-        formController.setCurrentSchoolId(currentTeacher);
+        formController.setCurrentSchoolId(GlobalVariables.getCurrentSchool());
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }
@@ -284,8 +285,7 @@ public class TeacherWindowController implements Initializable {
 
         for (Citizen citizen:citizens) {
             if(citizen.getFName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
-                    || citizen.getLName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
-                    || citizen.getCprNumber().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))) {
+                    || citizen.getLName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))){
                 searchedCitizens.add(citizen);
             }
 

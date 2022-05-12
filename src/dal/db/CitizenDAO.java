@@ -36,7 +36,7 @@ public class CitizenDAO {
                 int schoolID = rs.getInt("school_id");
                 String cprNumber = rs.getString("cprNumber");
 
-                citizen = new Citizen(id,fName,lName,cprNumber,address,phoneNumber,birthDate,isTemplate,schoolID);
+                citizen = new Citizen(id,fName,lName,address,phoneNumber,birthDate,isTemplate,schoolID);
             }
         }
         return citizen;
@@ -45,16 +45,14 @@ public class CitizenDAO {
 
     public Citizen editCitizen(Citizen citizenToEdit) throws SQLException {
         try(Connection connection = cm.getConnection()){
-            String sql = "UPDATE Citizen\n" +
-                    "SET \n" +
-                    "\tfname = ?,\n" +
-                    "\tlname = ?,\n" +
-                    "\t[address] = ?,\n" +
-                    "\tbirthDate = ?,\n" +
-                    "\tphoneNumber = ?,\n" +
-                    "\tcprNumber = ?\n" +
-                    "WHERE\n" +
-                    "\tCitizen.id = ?";
+            String sql = "UPDATE Citizen \n" +
+                    "Set \n" +
+                    "fname = ?,\n" +
+                    "lname = ?,\n" +
+                    "[address] = ?,\n" +
+                    "birthDate = ?,\n" +
+                    "phoneNumber = ?\n" +
+                    "WHERE Citizen.id = ?";
 
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, citizenToEdit.getFName());
@@ -62,9 +60,7 @@ public class CitizenDAO {
             preparedStatement.setString(3, citizenToEdit.getAddress());
             preparedStatement.setDate(4, Date.valueOf(citizenToEdit.getBirthDate()));
             preparedStatement.setInt(5,citizenToEdit.getPhoneNumber());
-            preparedStatement.setString(6,citizenToEdit.getCprNumber());
-
-            preparedStatement.setInt(7,citizenToEdit.getId());
+            preparedStatement.setInt(6,citizenToEdit.getId());
 
             preparedStatement.executeUpdate();
         }
@@ -102,10 +98,8 @@ public class CitizenDAO {
                 LocalDate birthdayConverted = bday.toLocalDate();
                 int phoneNumber = rs.getInt(6);
                 int schoolID = rs.getInt(8);
-                String cpr = rs.getString(9);
 
-
-                Citizen citizen = new Citizen(id, fname, lname, cpr, address, phoneNumber, birthdayConverted, false, schoolID);
+                Citizen citizen = new Citizen(id, fname, lname, address, phoneNumber, birthdayConverted, false, schoolID);
                 citizens.add(citizen);
             }
         } catch (SQLException throwables) {

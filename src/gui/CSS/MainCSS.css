@@ -111,14 +111,14 @@
     -fx-table-cell-border-color: WHITE;
 }
 
-.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected{
+.table-view:row-selection .virtual-flow .table-row-cell:selected{
     -fx-background-color: -fx-root-accent-light;
     -fx-font-weight: bold;
     -fx-text-background-color: white;
     -fx-text-fill: white;
 }
 
-.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:selected:focused{
+.table-view:row-selection .virtual-flow .table-row-cell:selected:focused{
     -fx-background-color: -fx-root-accent-light;
     -fx-font-weight: bold;
     -fx-text-background-color: white;
@@ -126,7 +126,7 @@
 
 
 
-.table-view:row-selection:constrained-resize .virtual-flow .table-row-cell:filled:hover{
+.table-view:row-selection .virtual-flow .table-row-cell:filled:hover{
     -fx-background-color: -fx-root-accent-light;
     -fx-table-cell-border-color: -fx-root-accent-light;
     -fx-text-background-color: white;
@@ -138,16 +138,16 @@
     -fx-background-color: transparent;
 }
 
-.table-view:row-selection:constrained-resize .virtual-flow .corner{
+.table-view:row-selection .virtual-flow .corner{
     -fx-background-color: transparent;
 }
 
-.table-view:row-selection:constrained-resize .virtual-flow .scroll-bar:vertical .thumb{
+.table-view:row-selection .virtual-flow .scroll-bar:vertical .thumb{
     -fx-background-radius: 0;
     -fx-background-color: -fx-root-accent;
 }
 
-.table-view:row-selection:constrained-resize .virtual-flow .corner{
+.table-view:row-selection .virtual-flow .corner{
     -fx-background-color: transparent;
 }
 
@@ -170,13 +170,8 @@
     -fx-background-color: transparent;
 }
 
-.list-cell:filled:hover {
-    -fx-background-color: -fx-root-accent-light;
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-}
-
-.list-cell:filled:selected {
+.list-cell:filled:hover,
+.list-cell:filled:selected{
     -fx-background-color: -fx-root-accent-light;
     -fx-text-fill: white;
     -fx-font-weight: bold;
@@ -184,6 +179,18 @@
 
 .list-view .virtual-flow .clipped-container .sheet .list-cell:filled{
     -fx-border-color: -fx-root-accent;
+}
+
+/*
+    Style for Functional,health and general category lists
+ */
+
+.category-list {
+    -fx-border-color: transparent;
+}
+
+.category-list .virtual-flow .clipped-container .sheet .list-cell:filled{
+    -fx-border-color: transparent;
 }
 
 

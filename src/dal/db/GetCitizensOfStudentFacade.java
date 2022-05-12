@@ -65,9 +65,8 @@ public class GetCitizensOfStudentFacade {
                         int phoneNumber = rs.getInt(6);
                         boolean isTemplate = rs.getBoolean(7);
                         int schoolID = rs.getInt(8);
-                        String cpr = rs.getString(9);
 
-                        citizens.add(new Citizen(id, firstName, lastName, cpr, address, phoneNumber, birthday, isTemplate, schoolID));
+                        citizens.add(new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID));
                     }
             }
         } catch (SQLException throwables) {

@@ -3,6 +3,7 @@ package dal.db;
 import be.Citizen;
 import be.GeneralInfo;
 import be.InfoCategory;
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -21,31 +22,31 @@ public class GIReportDAO {
     }
 
 
-
-    public GIReportDAO getGeneralInfoReport(Citizen citizen, InfoCategory infoCategory, GeneralInfo generalInfo) throws SQLException {
+    public GIReportDAO getGIReport(Citizen citizen, InfoCategory selectedInfoCategory) throws SQLException {
         GeneralInfo generalInfoSearched = null;
         int citizenID = citizen.getId();
-        int infoCategoryID = infoCategory.getId();
-        try (Connection connection = connectionManager.getConnection()) {
-            String sql = "SELECT * FROm CitizenInfo " +
-                    " WHERE citizenID = ? AND categoryID = ?";
-            PreparedStatement preparedStatement = connection.prepareStatement(sql);
-            preparedStatement.setInt(1, citizenID);
-            preparedStatement.setInt(2, infoCategoryID);
+        int infoCategoryID = selectedInfoCategory.getId();
+        try (Connection con = connectionManager.getConnection()){
+            String sql = "Select * from CitizenInfo where CitizenID = ? and CategoryID IN (Select ID from GeneralInfo)";
+            PreparedStatement prst = con.prepareStatement(sql);
+            prst.setInt(1, citizen.getId());
 
-            ResultSet resultSet = preparedStatement.executeQuery();
-            if (resultSet.next()) {
+            ResultSet resultSet = prst.executeQuery();
+            while (resultSet.next()){
                 generalInfoSearched = new GeneralInfo(resultSet.getInt("id"),
-                        resultSet.getInt("citizenID"),
-                        resultSet.getInt("categoryID"),
-                        resultSet.getString("infoContent"));
+                resultSet.getInt("citizenID"),
+                resultSet.getInt("categoryID"),
+                resultSet.getString("infoContent"));
             }
 
-
+            return null;
         }
-        return null;
+
+
     }
+
 }
+
 
 
 

@@ -20,6 +20,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -42,8 +43,10 @@ public class FunctionalSectionDisplayController implements Initializable {
     private final double LISTVIEW_HEIGHT_VALUE = 23.75;
     private CategoryModel categoryModel;
     final int ROW_HEIGHT = 24;
+    private final Citizen currentCitizen;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
+        currentCitizen  = GlobalVariables.getSelectedCitizen();
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user
@@ -72,6 +75,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //Category currently parsed for later display when we add the total of listView to the TitlePane
                 // Which in turn will be added to the root (Accordion in this case).
                 ListView<AbilityCategory> subCategoryList = new ListView<>();
+                subCategoryList.getStyleClass().add("category-list");
                 //As each ListView must possess the ability to display the condition/ability input page when it is clicked on,
                 // We add a method which will be called when the click does happen.
                 //for this purpose, we use the built-in method of most of the JavaFX nodes setOnMouseClicked and attribute it
@@ -81,7 +85,9 @@ public class FunctionalSectionDisplayController implements Initializable {
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
                 subCategoryList.setOnMouseClicked(e-> {
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(), GlobalVariables.getSelectedCitizen());
+                    if(subCategoryList.getSelectionModel().getSelectedIndex() == -1)
+                        return;
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
                 });
                 //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {
@@ -132,6 +138,8 @@ public class FunctionalSectionDisplayController implements Initializable {
         abilityReportViewController.setFields();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
+        stage.getIcons().add(new Image("sosu.png"));
+        stage.setTitle(abilityCategory.getName());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();

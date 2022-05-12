@@ -36,8 +36,6 @@ public class CitizenFormController implements Initializable {
     @FXML
     private VBox schoolBox1;
     @FXML
-    private TextField cprNumberField;
-    @FXML
     private TextField fNameField;
     @FXML
     private TextField lNAmeField;
@@ -90,7 +88,6 @@ public class CitizenFormController implements Initializable {
         lNAmeField.setText(citizenToEdit.getLName());
         addressField.setText(citizenToEdit.getAddress());
         birthDatePicker.setValue(citizenToEdit.getBirthDate());
-        cprNumberField.setText(citizenToEdit.getCprNumber());
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
     }
 
@@ -193,13 +190,12 @@ public class CitizenFormController implements Initializable {
         String lName = lNAmeField.getText();
         String address = addressField.getText();
         LocalDate birthDate = birthDatePicker.getValue();
-        String cprNumber = cprNumberField.getText();
         int phoneNumber = -1;
 
         if (!phoneField.getText().isEmpty())
             phoneNumber = Integer.parseInt(phoneField.getText());
 
-        if (!inputIsValid(fName,lName,address,birthDate,cprNumber,phoneNumber))
+        if (!inputIsValid(fName,lName,address,birthDate,phoneNumber))
             return false;
 
         if (!citizenCreation)
@@ -208,20 +204,19 @@ public class CitizenFormController implements Initializable {
             citizenToEdit.setLName(lName);
             citizenToEdit.setAddress(address);
             citizenToEdit.setBirthDate(birthDate);
-            citizenToEdit.setCprNumber(cprNumber);
             citizenToEdit.setPhoneNumber(phoneNumber);
             citizenToEdit.setSchoolID(currentSchoolId);
             editCitizen(citizenToEdit);
             teacherWindowController.getTableViewTemplates().refresh();}
         else {
-            Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
+            Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
             teacherWindowController.getTableViewTemplates().getItems().add(createCitizen(newCitizen));
         }
 
         return true;
     }
 
-    private boolean inputIsValid(String fName, String lName, String address, LocalDate birthDate, String cprNumber, int phoneNumber) {
+    private boolean inputIsValid(String fName, String lName, String address, LocalDate birthDate, int phoneNumber) {
         String popupMessage = "";
         if (fName.isBlank())
             popupMessage+="- Enter a first name \n";
@@ -231,8 +226,6 @@ public class CitizenFormController implements Initializable {
             popupMessage+="- Enter an address\n";
         if (birthDate==null)
             popupMessage+="- Select a birthdate\n";
-        if (cprNumber.isEmpty())
-            popupMessage+="- Enter a cpr number\n";
         if (phoneNumber==-1)
             popupMessage+="- Enter a phone number\n";
         if (String.valueOf(phoneNumber).length()<8)
@@ -266,6 +259,7 @@ public class CitizenFormController implements Initializable {
                 try {
                     editedCitizen = citizenModel.editCitizen(citizenToEdit);
                 } catch (CitizenException e) {
+                    e.printStackTrace();
                     DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(editedCitizen);
@@ -286,7 +280,7 @@ public class CitizenFormController implements Initializable {
         this.teacherWindowController=teacherWindowController;
     }
 
-    public void setCurrentSchoolId(Teacher currentTeacher) {
-        currentSchoolId=currentTeacher.getSchoolId();
+    public void setCurrentSchoolId(School currentSchool) {
+        currentSchoolId = currentSchool.getId();
     }
 }

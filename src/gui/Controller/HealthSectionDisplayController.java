@@ -15,6 +15,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -74,6 +75,7 @@ public class HealthSectionDisplayController implements Initializable {
                 //Category currently parsed for later display when we add the total of listView to the TitlePane
                 // Which in turn will be added to the root (Accordion in this case).
                 ListView<HealthCategory> subCategoryList = new ListView<>();
+                subCategoryList.getStyleClass().add("category-list");
                 //As each ListView must possess the ability to display the condition/ability input page when it is clicked on,
                 // We add a method which will be called when the click does happen.
                 //for this purpose, we use the built-in method of most of the JavaFX nodes setOnMouseClicked and attribute it
@@ -82,7 +84,11 @@ public class HealthSectionDisplayController implements Initializable {
                 //COndition/ability in the database.
                 //Note that it wouold not have been possible to do it this way if the relationship between the subcategories
                 //report were one to many, but as it one to one, we can do it this way.
-                subCategoryList.setOnMouseClicked(e-> openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen));
+                subCategoryList.setOnMouseClicked(e-> {
+                    if(subCategoryList.getSelectionModel().getSelectedIndex() == -1)
+                        return;
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
+                });
                 //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
@@ -126,6 +132,8 @@ public class HealthSectionDisplayController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
+        stage.getIcons().add(new Image("sosu.png"));
+        stage.setTitle(healthCategory.getName());
         stage.setScene(scene);
         stage.show();
     }
