@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.InfoCategory;
 import bll.GIReportManger;
+import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
@@ -14,6 +15,8 @@ import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
 import java.net.URL;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 
 public class DisplayGRIController implements Initializable {
@@ -38,34 +41,36 @@ public class DisplayGRIController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
+            giReportModel = new GIReportModel();
             giReportManger = new GIReportManger();
 
-        } catch (GeneralInfoException e) {
+        } catch (GeneralInfoException | CitizenException e) {
             e.printStackTrace();
         }
-        displayReport(citizen,selectedInfoCategory);
+        displayReport();
 
     }
 
 
-    public void displayReport(Citizen citizen, InfoCategory selectedInfoCategory){
-
-        this.citizen = citizen;
-        this.selectedInfoCategory = selectedInfoCategory;
-
-        String getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory);
+    public void displayReport(){
 
 
-        lblFName.setText(GlobalVariables.getSelectedCitizen().getFName());
+        System.out.println("Selected:"+GlobalVariables.getSelectedCitizen());
+        HashMap<String,String> getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
+
+
+            /*lblFName.setText(GlobalVariables.getSelectedCitizen().getFName());
             lblLName.setText(GlobalVariables.getSelectedCitizen().getLName());
-            lblAdress.setText(GlobalVariables.getSelectedCitizen().getAddress());
+            lblAdress.setText(GlobalVariables.getSelectedCitizen().getAddress());*/
             //lblBirthdate.setText(GlobalVariables.getSelectedCitizen().getBirthDate());
             //lblPhone.setText(GlobalVariables.getSelectedCitizen().getPhoneNumber());
             //lblSchool.setText(GlobalVariables.getSelectedCitizen().getSchoolID());
 
         //textMestring.setText( giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory));
 
-
+            for (Map.Entry entry : getGIR.entrySet()) {
+                System.out.println(" key: "+entry.getKey()+" value: "+entry.getValue());
+            }
 
 
         }

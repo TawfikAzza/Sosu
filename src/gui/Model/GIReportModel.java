@@ -6,6 +6,8 @@ import bll.GIReportManger;
 import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
 
+import java.util.HashMap;
+
 
 public class GIReportModel {
 
@@ -17,9 +19,9 @@ public class GIReportModel {
     }
 
 
-    public String getGiReportManger(Citizen citizen, InfoCategory selectedInfoCategory) {
-        giReportManger.getGIReport(citizen, selectedInfoCategory);
-        return null;
+    public HashMap<String, String> getGiReportManger(Citizen citizen) {
+        return giReportManger.getGIReport(citizen);
+
     }
 }
 
