@@ -20,12 +20,6 @@ public class DisplayMessage {
     public static void displayMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,message, ButtonType.OK);
         alert.setTitle("You are missing data");
-
-
-        DialogPane alertDialog = alert.getDialogPane();
-        alertDialog.getStylesheets().add("gui/CSS/MainCSS.css");
-
-
         alert.showAndWait();
     }
 }
