@@ -3,15 +3,21 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -60,7 +66,7 @@ public class TeacherViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.citizenModel = new CitizenModel();
+            this.citizenModel = CitizenModel.getInstance();
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             initTables();
@@ -131,6 +137,11 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleCreateTemplate(ActionEvent actionEvent) {
+        try {
+            openCitizenForm(false,null);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 
     public void handleEditTemplate(ActionEvent actionEvent) {
@@ -164,6 +175,22 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleAssignClick(ActionEvent actionEvent) {
+    }
+
+    private void openCitizenForm(boolean isEditing, Citizen citizen) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
+        Parent root = loader.load();
+
+        CitizenFormController formController = loader.getController();
+        formController.setCurrentSchoolId();
+        if (isEditing) {
+            formController.setCitizenToEdit(citizen);
+        }
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

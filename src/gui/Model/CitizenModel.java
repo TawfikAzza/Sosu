@@ -13,8 +13,9 @@ public class CitizenModel {
     private final CitizenManager citizenManager;
     private final ObservableList<Citizen> obsCitizens;
     private ObservableList<Citizen> templates;
+    private static CitizenModel instance;
 
-    public CitizenModel() throws CitizenException {
+    private CitizenModel() throws CitizenException {
         this.citizenManager = new CitizenManager();
         this.obsCitizens = getCitizens();
         setTemplates();
@@ -74,5 +75,13 @@ public class CitizenModel {
     public void refreshTemplates() throws CitizenException {
         templates.clear();
         setTemplates();
+    }
+
+    public static CitizenModel getInstance() throws CitizenException {
+        if(instance==null)
+        {
+            instance = new CitizenModel();
+        }
+        return instance;
     }
 }

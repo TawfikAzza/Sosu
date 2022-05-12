@@ -53,13 +53,12 @@ public class CitizenFormController implements Initializable {
 
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
-    private TeacherWindowController teacherWindowController;
     private int currentSchoolId;
 
     public CitizenFormController() {
         citizenToEdit = null;
         try {
-            citizenModel = new CitizenModel();
+            citizenModel = CitizenModel.getInstance();
             schoolModel = new SchoolModel();
         } catch (CitizenException | SchoolException e) {
             DisplayMessage.displayError(e);
@@ -72,7 +71,6 @@ public class CitizenFormController implements Initializable {
         bindSizes();
         enableDisableSchoolChoice();//disabled but could be nice if the admin wanted to create templates for different schools
         loadSchools();
-
     }
 
     public Citizen getCitizenToEdit() {
@@ -204,6 +202,7 @@ public class CitizenFormController implements Initializable {
 
         if (!citizenCreation)
         {
+            try {
             citizenToEdit.setFName(fName);
             citizenToEdit.setLName(lName);
             citizenToEdit.setAddress(address);
@@ -212,10 +211,14 @@ public class CitizenFormController implements Initializable {
             citizenToEdit.setPhoneNumber(phoneNumber);
             citizenToEdit.setSchoolID(currentSchoolId);
             editCitizen(citizenToEdit);
-            teacherWindowController.getTableViewTemplates().refresh();}
+            citizenModel.refreshTemplates();
+            } catch (CitizenException e) {
+                e.printStackTrace();
+            }
+        }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
-            teacherWindowController.getTableViewTemplates().getItems().add(createCitizen(newCitizen));
+            citizenModel.getObsListCitizens().add(createCitizen(newCitizen));
         }
 
         return true;
@@ -282,11 +285,7 @@ public class CitizenFormController implements Initializable {
         return null;
     });
 
-    public void setController(TeacherWindowController teacherWindowController) {
-        this.teacherWindowController=teacherWindowController;
-    }
-
-    public void setCurrentSchoolId(Teacher currentTeacher) {
-        currentSchoolId=currentTeacher.getSchoolId();
+    public void setCurrentSchoolId() {
+        currentSchoolId= GlobalVariables.getCurrentSchool().getId();
     }
 }
