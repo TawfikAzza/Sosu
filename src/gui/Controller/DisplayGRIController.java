@@ -1,13 +1,11 @@
 package gui.Controller;
 
 import be.Citizen;
-import be.GeneralInfo;
 import be.InfoCategory;
 import bll.GIReportManger;
 import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -15,7 +13,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -56,14 +53,19 @@ public class DisplayGRIController implements Initializable {
         this.citizen = citizen;
         this.selectedInfoCategory = selectedInfoCategory;
 
-            lblFName.setText(GlobalVariables.getSelectedCitizen().getFName());
+        String getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory);
+
+
+        lblFName.setText(GlobalVariables.getSelectedCitizen().getFName());
             lblLName.setText(GlobalVariables.getSelectedCitizen().getLName());
             lblAdress.setText(GlobalVariables.getSelectedCitizen().getAddress());
             //lblBirthdate.setText(GlobalVariables.getSelectedCitizen().getBirthDate());
             //lblPhone.setText(GlobalVariables.getSelectedCitizen().getPhoneNumber());
             //lblSchool.setText(GlobalVariables.getSelectedCitizen().getSchoolID());
 
-        //textMestring.setText(giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory));
+        //textMestring.setText( giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory));
+
+
 
 
         }
