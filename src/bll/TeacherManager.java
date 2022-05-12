@@ -34,7 +34,7 @@ public class TeacherManager {
     }
 
     public void copyCitizenToDB(Citizen template) throws CitizenException {
-        citizenFacade.copyCitizenToDB(template);
+        //citizenFacade.copyCitizenToDB(template);
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {

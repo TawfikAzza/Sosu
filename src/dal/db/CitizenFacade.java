@@ -199,11 +199,6 @@ public class CitizenFacade {
         return createdCitizen;
     }
 
-    public void copyCitizenToDB(Citizen template) throws CitizenException {
-        Citizen added = addCitizenToDB(template, false);
-
-    }
-
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
         for(Student stud : students)
         {

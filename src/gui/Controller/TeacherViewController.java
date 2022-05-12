@@ -4,7 +4,6 @@ import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
 import gui.Model.CitizenModel;
-import gui.Model.TeacherModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -13,13 +12,11 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
-    private TeacherModel teacherModel;
     private CitizenModel citizenModel;
 
     @FXML
@@ -63,12 +60,11 @@ public class TeacherViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.teacherModel = new TeacherModel();
-            this.tableViewTemplates.setItems(teacherModel.getTemplatesObs());
             this.citizenModel = new CitizenModel();
+            this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             initTables();
-        } catch (IOException | CitizenException e) {
+        } catch (CitizenException e) {
             DisplayMessage.displayError(e);
         }
     }
@@ -98,6 +94,42 @@ public class TeacherViewController implements Initializable {
         this.tableColumnAssignedLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
     }
 
+    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
+        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (template !=null)
+        {
+            Thread copyTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyTempToCit(template);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyTemplateThread.start();
+        }
+    }
+
+    public void handleCreateTempFromCit(ActionEvent actionEvent) {
+        Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (citizen !=null)
+        {
+            Thread copyCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyCitToTemp(citizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyCitizenThread.start();
+        }
+    }
+
     public void handleCreateTemplate(ActionEvent actionEvent) {
     }
 
@@ -120,12 +152,6 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleRemoveCitClick(ActionEvent actionEvent) {
-    }
-
-    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
-    }
-
-    public void handleCreateTempFromCit(ActionEvent actionEvent) {
     }
 
     public void handleCreateStudent(ActionEvent actionEvent) {
