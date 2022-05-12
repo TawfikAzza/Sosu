@@ -63,6 +63,7 @@ public class DisplayGRIController implements Initializable {
             //lblPhone.setText(GlobalVariables.getSelectedCitizen().getPhoneNumber());
             //lblSchool.setText(GlobalVariables.getSelectedCitizen().getSchoolID());
 
+        //textMestring.setText(giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory));
 
 
         }

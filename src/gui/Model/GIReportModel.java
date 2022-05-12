@@ -17,8 +17,9 @@ public class GIReportModel {
     }
 
 
-    public void getGiReportManger(Citizen citizen, InfoCategory selectedInfoCategory) {
+    public String getGiReportManger(Citizen citizen, InfoCategory selectedInfoCategory) {
         giReportManger.getGIReport(citizen, selectedInfoCategory);
+        return null;
     }
 }
 
