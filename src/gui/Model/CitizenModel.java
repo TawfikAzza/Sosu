@@ -12,13 +12,13 @@ public class CitizenModel {
 
     private final CitizenManager citizenManager;
     private final ObservableList<Citizen> obsCitizens;
-    private ObservableList<Citizen> templates;
+    private final ObservableList<Citizen> templates;
     private static CitizenModel instance;
 
     private CitizenModel() throws CitizenException {
         this.citizenManager = new CitizenManager();
         this.obsCitizens = getCitizens();
-        setTemplates();
+        this.templates = getTemplates();
     }
 
 
@@ -38,6 +38,10 @@ public class CitizenModel {
         return citizenManager.getCitizens();
     }
 
+    private ObservableList<Citizen> getTemplates() throws CitizenException {
+        return citizenManager.getTemplates();
+    }
+
     public ObservableList<Citizen> getObsListCitizens()
     {
         return obsCitizens;
@@ -46,10 +50,6 @@ public class CitizenModel {
     public ObservableList<Citizen> getTemplatesObs()
     {
         return templates;
-    }
-
-    private void setTemplates() throws CitizenException {
-        this.templates = citizenManager.getTemplates();
     }
 
     public void copyTempToCit(Citizen template) throws CitizenException {
@@ -73,8 +73,13 @@ public class CitizenModel {
     }
 
     public void refreshTemplates() throws CitizenException {
-        templates.clear();
-        setTemplates();
+        this.templates.clear();
+        this.templates.addAll(citizenManager.getTemplates());
+    }
+
+    public void refreshCitizens() throws CitizenException {
+        this.obsCitizens.clear();
+        this.obsCitizens.addAll(citizenManager.getCitizens());
     }
 
     public static CitizenModel getInstance() throws CitizenException {

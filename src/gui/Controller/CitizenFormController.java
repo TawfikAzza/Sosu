@@ -2,7 +2,6 @@ package gui.Controller;
 
 import be.Citizen;
 import be.School;
-import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
 import bll.util.GlobalVariables;
@@ -22,8 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -202,7 +199,6 @@ public class CitizenFormController implements Initializable {
 
         if (!citizenCreation)
         {
-            try {
             citizenToEdit.setFName(fName);
             citizenToEdit.setLName(lName);
             citizenToEdit.setAddress(address);
@@ -210,15 +206,11 @@ public class CitizenFormController implements Initializable {
             citizenToEdit.setCprNumber(cprNumber);
             citizenToEdit.setPhoneNumber(phoneNumber);
             citizenToEdit.setSchoolID(currentSchoolId);
-            editCitizen(citizenToEdit);
-            citizenModel.refreshTemplates();
-            } catch (CitizenException e) {
-                e.printStackTrace();
-            }
+            editTemplate(citizenToEdit);
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
-            citizenModel.getTemplatesObs().add(createCitizen(newCitizen));
+            citizenModel.getTemplatesObs().add(createTemplate(newCitizen));
         }
 
         return true;
@@ -250,7 +242,7 @@ public class CitizenFormController implements Initializable {
 
 
 
-    private Citizen createCitizen(Citizen newCitizen) {
+    private Citizen createTemplate(Citizen newCitizen) {
                 Citizen citizen = null;
                 try {
                    citizen= citizenModel.createNewCitizen(newCitizen);
@@ -261,20 +253,21 @@ public class CitizenFormController implements Initializable {
                 return citizen;
     }
 
-    private void editCitizen(Citizen citizenToEdit){
-        Thread createCitizenThread = new Thread(new Runnable() {
+    private void editTemplate(Citizen citizenToEdit){
+        Thread editTemplateThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Citizen editedCitizen = null;
                 try {
                     editedCitizen = citizenModel.editCitizen(citizenToEdit);
+                    citizenModel.refreshTemplates();
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(editedCitizen);
             }
         });
-        createCitizenThread.start();
+        editTemplateThread.start();
 
     }
 

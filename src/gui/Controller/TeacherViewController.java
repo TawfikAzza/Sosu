@@ -145,6 +145,15 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleEditTemplate(ActionEvent actionEvent) {
+        Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (citizen != null)
+        {
+            try {
+                openCitizenForm(true,citizen);
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
     }
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
