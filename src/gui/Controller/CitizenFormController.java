@@ -259,6 +259,7 @@ public class CitizenFormController implements Initializable {
                 try {
                     editedCitizen = citizenModel.editCitizen(citizenToEdit);
                 } catch (CitizenException e) {
+                    e.printStackTrace();
                     DisplayMessage.displayError(e);
                 }
                 GlobalVariables.setSelectedCitizen(editedCitizen);

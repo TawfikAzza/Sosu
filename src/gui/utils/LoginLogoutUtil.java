@@ -5,11 +5,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
 public class LoginLogoutUtil {
+
+    private static Image appIcon;
 
     public enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
@@ -17,6 +20,10 @@ public class LoginLogoutUtil {
         UserType(int userType) {
             this.userType = userType;
         }
+    }
+
+    public LoginLogoutUtil() {
+        appIcon = new Image("sosu.png");
     }
 
     public static void logout(ActionEvent actionEvent) throws IOException {
@@ -57,6 +64,7 @@ public class LoginLogoutUtil {
         Scene scene = new Scene(root);
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
+        teacherWindow.getIcons().add(appIcon);
         teacherWindow.show();
     }
 
