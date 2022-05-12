@@ -6,6 +6,7 @@ import bll.exceptions.CitizenException;
 import gui.Model.CitizenModel;
 import gui.Model.TeacherModel;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -140,4 +141,9 @@ public class TeacherViewController implements Initializable {
     public void handleAssignClick(ActionEvent actionEvent) {
     }
 
+    @FXML
+    private void handleLogout(ActionEvent actionEvent) throws IOException {
+        System.out.println("here");
+        LoginLogoutUtil.logout(actionEvent);
+    }
 }
