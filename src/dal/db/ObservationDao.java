@@ -56,7 +56,7 @@ public class ObservationDao {
                 preparedStatement1.setInt(1, citizen.getId());
                 preparedStatement1.setInt(2, typeId);
                 preparedStatement1.setFloat(3, measurement);
-                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                 preparedStatement1.executeQuery();
             }
         }
     }
