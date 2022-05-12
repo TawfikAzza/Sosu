@@ -218,7 +218,7 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,cprNumber,address,phoneNumber,birthDate,true,currentSchoolId);
-            citizenModel.getObsListCitizens().add(createCitizen(newCitizen));
+            citizenModel.getTemplatesObs().add(createCitizen(newCitizen));
         }
 
         return true;
