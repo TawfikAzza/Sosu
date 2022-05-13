@@ -13,6 +13,7 @@ import javafx.collections.ObservableList;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class UserModel {
 
@@ -22,6 +23,12 @@ public class UserModel {
     ObservableList<Teacher> allTeachers;
     ObservableList<Student> allStudents;
     ObservableList<String> allCitizensStudent;
+
+    private UserModel() throws IOException, UserException {
+        this.userManager = new UserManager();
+        this.studentCitizenRelationshipManager=new StudentCitizenRelationshipManager();
+        initObsLists();
+    }
 
 
     public ObservableList<Teacher> getAllTeachers(String init) throws SQLException{
@@ -64,24 +71,25 @@ public class UserModel {
         userManager.editTeacher(teacher,school);
     }
 
-    public static UserModel getInstance() throws IOException {
+    public static UserModel getInstance() throws IOException, UserException {
         if (single_instance == null)
             single_instance = new UserModel();
 
         return single_instance;
     }
 
-    public UserModel() throws IOException {
-        this.userManager = new UserManager();
-        this.studentCitizenRelationshipManager=new StudentCitizenRelationshipManager();
-    }
-
     public User submitLogin (String username , String password) throws Exception {
         return this.userManager.submitLogin(username,password);
     }
 
-    public ObservableList<Student> getStudents(Teacher currentTeacher) throws UserException {
-        return userManager.getStudents(currentTeacher);
+    public ObservableList<Student> getObsListStudents() throws UserException {
+        return allStudents;
+    }
+
+    private void initObsLists() throws UserException {
+        ObservableList<Student> students = FXCollections.observableArrayList();
+        students.addAll(userManager.getStudents());
+        this.allStudents = students;
     }
 
     public int userNameTaken(String userName) throws SQLException {

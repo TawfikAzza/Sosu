@@ -177,8 +177,8 @@ public class NewEditUserController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            userModel = new UserModel();
-        } catch (IOException e) {
+            userModel = UserModel.getInstance();
+        } catch (IOException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }

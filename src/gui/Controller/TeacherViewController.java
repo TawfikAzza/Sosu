@@ -3,19 +3,22 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
+import bll.exceptions.StudentException;
+import bll.exceptions.UserException;
 import gui.Model.CitizenModel;
+import gui.Model.StudentCitizenRelationShipModel;
+import gui.Model.StudentModel;
+import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
@@ -27,6 +30,8 @@ public class TeacherViewController implements Initializable {
 
 
     private CitizenModel citizenModel;
+    private UserModel studentModel;
+    private StudentCitizenRelationShipModel relationShipModel;
 
     @FXML
     private TableView<Citizen> tableViewTemplates;
@@ -74,11 +79,18 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.citizenModel = CitizenModel.getInstance();
+            this.studentModel = UserModel.getInstance();
+            this.relationShipModel = new StudentCitizenRelationShipModel();
+            ObservableList<Citizen> citizens = citizenModel.getObsListCitizens();
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
-            this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewCitizen.setItems(citizens);
+            this.tableViewStudent.setItems(studentModel.getObsListStudents());
+            this.tableViewFictiveCitizen.setItems(citizens);
+            this.tableViewAssignedCit.setItems(relationShipModel.getObsListCit());
             initTables();
             initSpinners();
-        } catch (CitizenException e) {
+            createTableListener();
+        } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
     }
@@ -276,6 +288,31 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleAssignClick(ActionEvent actionEvent) {
+    }
+
+    private void createTableListener()
+    {
+        tableViewStudent.setRowFactory( tv -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
+                    Thread loadCitizensThread = new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Student selectedStudent = row.getItem();
+                                relationShipModel.setCitizensOfStudentObs(selectedStudent);
+                            } catch (CitizenException | StudentException e) {
+                                DisplayMessage.displayError(e);
+                                e.printStackTrace();
+                            }
+                        }
+                    });
+                    loadCitizensThread.start();
+                }
+            });
+            return row ;
+        });
     }
 
     @FXML

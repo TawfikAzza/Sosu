@@ -64,11 +64,8 @@ public class UserManager implements UserInterface {
         teacherDao.editTeacher(teacher,school);
     }
 
-    public ObservableList<Student> getStudents(Teacher currentTeacher) throws UserException {
-        ArrayList<Student> students = studentDao.getAllStudentsFromDB(currentTeacher);
-        ObservableList<Student> obsStuds = FXCollections.observableArrayList();
-        obsStuds.addAll(students);
-        return obsStuds;
+    public List<Student> getStudents() throws UserException {
+        return studentDao.getAllStudentsFromDB(GlobalVariables.getCurrentSchool().getId());
     }
 
     @Override
