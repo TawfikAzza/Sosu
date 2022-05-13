@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StudentManager {
@@ -24,5 +25,13 @@ public class StudentManager {
 
     public ObservableList<Student> getAllStudents() throws UserException {
         return FXCollections.observableArrayList(studentDAO.getAllStudentsFromDB(GlobalVariables.getCurrentSchool()));
+    }
+
+    public void deleteStudent(Student selectedStudent) throws StudentException {
+        try {
+            studentDAO.deleteStudent(selectedStudent);
+        } catch (SQLException e) {
+            throw new StudentException("Error while deleting student",e);
+        }
     }
 }

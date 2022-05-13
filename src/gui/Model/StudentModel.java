@@ -40,4 +40,9 @@ public class StudentModel {
     public ObservableList<Student> getObsStudents() {
         return studentObservableList;
     }
+
+    public void deleteStudent(Student selectedStudent) throws StudentException {
+        studentManager.deleteStudent(selectedStudent);
+        studentObservableList.remove(selectedStudent);
+    }
 }

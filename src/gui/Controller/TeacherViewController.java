@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
+import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
@@ -243,7 +244,6 @@ public class TeacherViewController implements Initializable {
                 public void run() {
                     try {
                         citizenModel.deleteCitizen(selectedCitizen);
-                        citizenModel.getObsListCitizens().remove(selectedCitizen);
                     } catch (CitizenException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
@@ -277,6 +277,19 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleCreateStudent(ActionEvent actionEvent) throws IOException {
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.newStudent();
+        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
+
+        Stage stage = new Stage();
+        stage.setTitle("New Student");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void handleEditStudent(ActionEvent actionEvent) throws IOException {
@@ -300,6 +313,15 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent) {
+        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+        if (selectedStudent==null)
+            return;
+        try {
+            studentModel.deleteStudent(selectedStudent);
+        } catch (StudentException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
     }
 
     public void handleAssignClick(ActionEvent actionEvent) {
