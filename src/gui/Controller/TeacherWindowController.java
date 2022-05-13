@@ -74,7 +74,7 @@ public class TeacherWindowController implements Initializable {
             this.model = new TeacherModel();
             this.userModel = new UserModel();
             this.relationShipModel = new StudentCitizenRelationShipModel();
-            this.citizenModel = new CitizenModel();
+            this.citizenModel = CitizenModel.getInstance();
             this.citizens = FXCollections.observableArrayList();
             createFilterListener();
             createStudentFilterListener();
@@ -138,8 +138,7 @@ public class TeacherWindowController implements Initializable {
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
-        formController.setController(this);
-        formController.setCurrentSchoolId(GlobalVariables.getCurrentSchool());
+        formController.setCurrentSchoolId();
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }

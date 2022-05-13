@@ -1,22 +1,21 @@
 package bll;
 
 import be.Citizen;
+import be.Student;
 import bll.exceptions.CitizenException;
 import bll.util.GlobalVariables;
 import dal.db.CitizenDAO;
 import dal.db.CitizenFacade;
-import dal.db.GetTemplatesFacade;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CitizenManager {
 
-    CitizenFacade citizenFacade;
-    CitizenDAO citizenDAO;
+    private final CitizenFacade citizenFacade;
+    private final CitizenDAO citizenDAO;
+
 
 
     public CitizenManager() throws CitizenException {
@@ -29,7 +28,7 @@ public class CitizenManager {
     }
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
-        return citizenFacade.addCitizenToDB(newCitizen, true);
+        return citizenFacade.copyCitizenToDb(newCitizen, true);
     }
 
 
@@ -50,10 +49,23 @@ public class CitizenManager {
         }
     }
 
-    public ObservableList<Citizen> getCitizens() throws CitizenException {
-        List<Citizen> citizens = citizenDAO.getAllCitizens(GlobalVariables.getCurrentSchool().getId());
-        ObservableList<Citizen> obsCits = FXCollections.observableArrayList();
-        obsCits.addAll(citizens);
-        return obsCits;
+    public List<Citizen> getCitizens() throws CitizenException {
+        return citizenDAO.getCitizens(GlobalVariables.getCurrentSchool().getId(), false);
+    }
+
+    public List<Citizen> getTemplates() throws CitizenException {
+        return citizenDAO.getCitizens(GlobalVariables.getCurrentSchool().getId(), true);
+    }
+
+    public Citizen copyTempToCit(Citizen template) throws CitizenException {
+        return citizenFacade.copyCitizenToDb(template, false);
+    }
+
+    public Citizen copyCitToTemp(Citizen citizen) throws CitizenException {
+        return citizenFacade.copyCitizenToDb(citizen, true);
+    }
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        citizenFacade.assignCitizensToStudents(template,students);
     }
 }

@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.*;
 import bll.UserManager;
+import bll.util.GlobalVariables;
 import gui.Main;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;

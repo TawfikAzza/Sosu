@@ -1,8 +1,11 @@
 package dal.db;
 
+import be.Ability;
 import be.Citizen;
 
 
+import be.Condition;
+import be.GeneralInfo;
 import bll.exceptions.CitizenException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
@@ -69,21 +72,20 @@ public class CitizenDAO {
 
     public void deleteCitizen(Citizen selectedCitizen) throws SQLException {
         try(Connection connection = cm.getConnection()){
-            String sqlStatement = "DELETE FROM Citizen\n" +
-                                    "WHERE Citizen.id = ?";
+            String sqlStatement = "DELETE FROM Citizen WHERE Citizen.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1,selectedCitizen.getId());
             preparedStatement.executeUpdate();
         }
     }
 
-    public List<Citizen> getAllCitizens(int currentSchoolID) throws CitizenException {
+    public List<Citizen> getCitizens(int currentSchoolID, boolean isTemplate) throws CitizenException {
         List<Citizen> citizens = new ArrayList<>();
         try(Connection connection = cm.getConnection()){
             String sql = "SELECT * FROM Citizen WHERE isTemplate = ? AND school_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, 0);
+            ps.setBoolean(1, isTemplate);
             ps.setInt(2, currentSchoolID);
 
             ResultSet rs = ps.executeQuery();
@@ -107,4 +109,5 @@ public class CitizenDAO {
         }
         return citizens;
     }
+
 }
