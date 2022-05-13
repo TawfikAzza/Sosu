@@ -22,11 +22,9 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
+import javax.swing.*;
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class DisplayGRIController implements Initializable {
 
@@ -56,17 +54,14 @@ public class DisplayGRIController implements Initializable {
         } catch (GeneralInfoException | CitizenException e) {
             e.printStackTrace();
         }
+        displayCitiziInfo();
         displayReport();
 
     }
 
 
-    public void displayReport() {
 
-
-        System.out.println("Selected:" + GlobalVariables.getSelectedCitizen());
-        HashMap<String, String> getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
-
+    public void displayCitiziInfo(){
 
         lblFName.setText(GlobalVariables.getSelectedCitizen().getFName());
         lblLName.setText(GlobalVariables.getSelectedCitizen().getLName());
@@ -75,10 +70,16 @@ public class DisplayGRIController implements Initializable {
         //lblPhone.setText(GlobalVariables.getSelectedCitizen().getPhoneNumber());
         //lblSchool.setText(GlobalVariables.getSelectedCitizen().getSchoolID());
 
-        //textMestring.setText( giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen(),selectedInfoCategory));
+    }
+    public void displayReport() {
+
+
+        System.out.println("Selected:" + GlobalVariables.getSelectedCitizen());
+        HashMap<String, String> getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
 
         for (Map.Entry entry : getGIR.entrySet()) {
             System.out.println(" key: " + entry.getKey() + " value: " + entry.getValue());
+
 
             lblCategory.setText((String) entry.getKey());
             textFieldContent.setText((String) entry.getValue());
@@ -95,3 +96,15 @@ public class DisplayGRIController implements Initializable {
 
 
 }
+
+/*
+Iterator iterator = labels.entrySet().iterator();
+    while (iterator.hasNext()) {
+        Map.Entry pairs = (Map.Entry)iterator.next();
+        entries.add(new JLabel(pairs.getKey() + ": £" + pairs.getValue()));
+        for(JLabel entry : entries) {
+            mainPanel.add(entry);
+            for(int i = 0; i < entries.size() - 1; i+=2) {
+                JLabel labelOne = entries.get(i);
+                JLabel labelTwo = entries.get(i+1);
+ */
