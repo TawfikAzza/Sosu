@@ -86,7 +86,7 @@ public class ObservationDao {
 
     public void checkMeasurementValue(ObservationType observationType, float measurement) throws ObservationException {
         switch (observationType){
-            case BPMeasurement, WeightMeasurement -> ObservationException.isValidMeasurement(measurement,0,300);
+            case BPMeasurement, WeightMeasurement, HeartBeatMeasurement -> ObservationException.isValidMeasurement(measurement,0,300);
             case BSMeasurement -> ObservationException.isValidMeasurement(measurement,0,7);
             case TempMeasurement -> ObservationException.isValidMeasurement(measurement,32,45);
             case OxyMeasurement -> ObservationException.isValidMeasurement(measurement,0,100);

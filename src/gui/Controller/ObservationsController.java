@@ -30,7 +30,7 @@ public class ObservationsController implements Initializable {
 
     private Citizen selectedCitizen;
     @FXML
-    private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF;
+    private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF;
     ObservationModel observationModel;
 
     public void handleVSBP(ActionEvent actionEvent) throws IOException {
@@ -44,8 +44,17 @@ public class ObservationsController implements Initializable {
     public void handleVSTemp(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.TempMeasurement);
     }
+
     public void handleVSWeight(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.WeightMeasurement);
+    }
+
+    public void handleVSHB(ActionEvent actionEvent) throws IOException {
+        openChartWindow(ObservationType.HeartBeatMeasurement);
+    }
+
+    public void handleVSBS(ActionEvent actionEvent) throws IOException {
+        openChartWindow(ObservationType.BSMeasurement);
     }
 
     @Override
@@ -55,7 +64,7 @@ public class ObservationsController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        ArrayList<TextField> textFields = new ArrayList<>(Arrays. asList(bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF));
+        ArrayList<TextField> textFields = new ArrayList<>(Arrays. asList(bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF));
         for (TextField textField : textFields){
             textField.setOnKeyPressed(new EventHandler<KeyEvent>() {
                 @Override
@@ -76,7 +85,7 @@ public class ObservationsController implements Initializable {
                 }
             });
         }
-        ArrayList<TextField> digits3TextFields = new ArrayList<>(Arrays. asList(bloodPressureTF,oxygenTF,wightTF,oxygenTF));
+        ArrayList<TextField> digits3TextFields = new ArrayList<>(Arrays. asList(bloodPressureTF,oxygenTF,wightTF,oxygenTF,heartBeatTF));
         for (TextField textField : digits3TextFields)
              limitDigitsTF(textField,3);
         limitDigitsTF(temperatureTF,2);
@@ -98,7 +107,9 @@ public class ObservationsController implements Initializable {
             observationType=ObservationType.OxyMeasurement;
         else if (textField.equals(temperatureTF))
             observationType=ObservationType.TempMeasurement;
-        else observationType=ObservationType.WeightMeasurement;
+        else if (textField.equals(wightTF))
+            observationType=ObservationType.WeightMeasurement;
+        else observationType= ObservationType.HeartBeatMeasurement;
 
         observationModel.addObservation(observationType,citizen,measurement);
 
@@ -136,6 +147,9 @@ public class ObservationsController implements Initializable {
         });
     }
 
-    public void handleVSHB(ActionEvent actionEvent) {
+    public void handleBackButton(ActionEvent actionEvent) {
+    }
+
+    public void handleLogOutButton(ActionEvent actionEvent) {
     }
 }

@@ -42,17 +42,18 @@
       <JFXButton onAction="#handleVSBP" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="1" />
       <JFXButton onAction="#handleVSHB" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <JFXButton onAction="#handleVSOxygen" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXButton onAction="#handleVSTemp" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="4" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <JFXButton onAction="#handleVSWeight" text="View stats" />
+            <JFXButton onAction="#handleVSTemp" text="View stats" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
          <children>
-            <JFXButton text="Close window" />
+            <JFXButton onAction="#handleBackButton" text="Back" />
+            <JFXButton onAction="#handleLogOutButton" text="Log out" />
          </children>
       </HBox>
-      <JFXButton text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <JFXButton onAction="#handleVSWeight" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <JFXButton onAction="#handleVSBS" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>
