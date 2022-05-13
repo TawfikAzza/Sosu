@@ -40,11 +40,6 @@ public class EditAdditionalInfoController implements Initializable {
         Button actionSource = ((Button) event.getSource());
         Scene currentScene = actionSource.getScene();
         Stage currentStage = ((Stage) currentScene.getWindow());
-        try {
-            citizenModel.refreshTables();
-        } catch (CitizenException e) {
-            DisplayMessage.displayError(e);
-        }
         currentStage.close();
     }
 

@@ -239,7 +239,6 @@ public class CitizenFormController implements Initializable {
                 Citizen citizen = null;
                 try {
                    citizen= citizenModel.createNewCitizen(newCitizen);
-                   citizenModel.refreshTemplates();
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                 }
@@ -254,7 +253,6 @@ public class CitizenFormController implements Initializable {
                 Citizen editedCitizen = null;
                 try {
                     editedCitizen = citizenModel.editCitizen(citizenToEdit);
-                    citizenModel.refreshTemplates();
                 } catch (CitizenException e) {
                     e.printStackTrace();
                     DisplayMessage.displayError(e);

@@ -86,7 +86,7 @@ public class CitizenModel {
         return instance;
     }
 
-    public void refreshTemplates() throws CitizenException {
+    /*public void refreshTemplates() throws CitizenException {
         this.templates.clear();
         this.templates.addAll(citizenManager.getTemplates());
     }
@@ -100,4 +100,6 @@ public class CitizenModel {
         refreshTemplates();
         refreshCitizens();
     }
+
+     */
 }
