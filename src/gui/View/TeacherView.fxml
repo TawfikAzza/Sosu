@@ -134,8 +134,8 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#handleCreateCitFromTemp" text="-&gt;" />
-                                    <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="&lt;-" />
+                                    <Button mnemonicParsing="false" onAction="#handleCreateCitFromTemp" text="🢂" />
+                                    <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="🢀" />
                                  </children>
                               </VBox>
                            </children>

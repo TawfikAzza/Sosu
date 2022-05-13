@@ -27,12 +27,6 @@ import java.util.ResourceBundle;
 public class CitizenFormController implements Initializable {
 
     @FXML
-    private JFXComboBox<School> schoolChoiceBox;
-    @FXML
-    private VBox schoolBox2;
-    @FXML
-    private VBox schoolBox1;
-    @FXML
     private TextField fNameField;
     @FXML
     private TextField lNAmeField;
@@ -44,7 +38,6 @@ public class CitizenFormController implements Initializable {
     private TextField phoneField;
 
     private CitizenModel citizenModel;
-    private SchoolModel schoolModel;
 
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
@@ -54,9 +47,9 @@ public class CitizenFormController implements Initializable {
         citizenToEdit = null;
         try {
             citizenModel = CitizenModel.getInstance();
-            schoolModel = new SchoolModel();
-        } catch (CitizenException | SchoolException e) {
+        } catch (CitizenException e) {
             DisplayMessage.displayError(e);
+            e.printStackTrace();
         }
     }
 
@@ -64,12 +57,6 @@ public class CitizenFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
         bindSizes();
-        enableDisableSchoolChoice();//disabled but could be nice if the admin wanted to create templates for different schools
-        loadSchools();
-    }
-
-    public Citizen getCitizenToEdit() {
-        return citizenToEdit;
     }
 
     public void setCitizenToEdit(Citizen citizenToEdit) {
@@ -86,53 +73,17 @@ public class CitizenFormController implements Initializable {
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
     }
 
-    private void loadSchools() {
-        if (adminModeDisabled())
-            return;
-        try {
-            schoolChoiceBox.setItems(schoolModel.getAllSchools());
-        }
-        catch (SchoolException e) {
-            DisplayMessage.displayError(e);
-        }
-
-    }
-
-    private boolean adminModeDisabled() {
-        if (schoolBox1.isDisabled())
-            return false;
-        return true;
-    }
-
-
-    public void enableDisableSchoolChoice() {
-        if (schoolBox1.isDisabled()){
-
-            schoolBox1.setDisable(false);
-            schoolBox1.setOpacity(100);
-
-            schoolBox2.setDisable(false);
-            schoolBox2.setOpacity(100);
-        }
-        else{
-
-            schoolBox1.setDisable(true);
-            schoolBox1.setOpacity(0);
-
-            schoolBox2.setDisable(true);
-            schoolBox2.setOpacity(0);
-        }
-    }
-
     private void bindSizes() {
-        VBox choiceBoxParent = ((VBox) schoolChoiceBox.getParent());
-        schoolChoiceBox.prefWidthProperty().bind(choiceBoxParent.widthProperty());
         VBox datePickerParent = ((VBox) birthDatePicker.getParent());
         birthDatePicker.prefWidthProperty().bind(datePickerParent.widthProperty());
     }
 
     @FXML
     private void handleCancel(ActionEvent actionEvent) {
+        Button actionSource = ((Button) actionEvent.getSource());
+        Scene currentScene = actionSource.getScene();
+        Stage currentStage = ((Stage) currentScene.getWindow());
+        currentStage.close();
     }
 
     @FXML
