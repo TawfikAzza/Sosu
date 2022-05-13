@@ -4,15 +4,20 @@ import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
 import gui.Model.CitizenModel;
-import gui.Model.TeacherModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
@@ -20,7 +25,7 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
-    private TeacherModel teacherModel;
+
     private CitizenModel citizenModel;
 
     @FXML
@@ -59,25 +64,29 @@ public class TeacherViewController implements Initializable {
     private TableColumn<Citizen, String> tableColumnAssignedFirstName;
     @FXML
     private TableColumn<Citizen, String> tableColumnAssignedLastName;
+    @FXML
+    private Spinner<Integer> spinnerTemplateDuplicate;
+    @FXML
+    private Spinner<Integer> spinnerCitizenDuplicate;
 
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.teacherModel = new TeacherModel();
-            this.tableViewTemplates.setItems(teacherModel.getTemplatesObs());
-            this.citizenModel = new CitizenModel();
+            this.citizenModel = CitizenModel.getInstance();
+            this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             initTables();
-        } catch (IOException | CitizenException e) {
+            initSpinners();
+        } catch (CitizenException e) {
             DisplayMessage.displayError(e);
         }
     }
 
     private void initTables() {
         //Templates
-        this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fNameProperty"));
-        this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lNameProperty"));
+        this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
+        this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
         //Citizens on template page
         this.tableColumnCitizenID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -99,19 +108,121 @@ public class TeacherViewController implements Initializable {
         this.tableColumnAssignedLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
     }
 
+    private void initSpinners()
+    {
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
+        valueFactory.setValue(1);
+        spinnerCitizenDuplicate.setValueFactory(valueFactory);
+        spinnerTemplateDuplicate.setValueFactory(valueFactory);
+    }
+
+    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
+        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (template !=null)
+        {
+            Thread copyTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyTempToCit(template);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyTemplateThread.start();
+        }
+    }
+
+    public void handleCreateTempFromCit(ActionEvent actionEvent) {
+        Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (citizen !=null)
+        {
+            Thread copyCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyCitToTemp(citizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyCitizenThread.start();
+        }
+    }
+
     public void handleCreateTemplate(ActionEvent actionEvent) {
+        try {
+            openCitizenForm(false,null);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 
     public void handleEditTemplate(ActionEvent actionEvent) {
+        Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (citizen != null)
+        {
+            try {
+                openCitizenForm(true,citizen);
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
     }
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (selectedCitizen != null) {
+            Thread deleteCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.deleteCitizen(selectedCitizen);
+                        citizenModel.getTemplatesObs().remove(selectedCitizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            deleteCitizenThread.start();
+        }
     }
 
+
     public void handleDuplicateTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        int amount = spinnerTemplateDuplicate.getValue();
+        if (selectedCitizen != null) {
+            Thread duplicateTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.duplicateTemplates(selectedCitizen, amount);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            duplicateTemplateThread.start();
+        }
     }
 
     public void handleEditCitizen(ActionEvent actionEvent) {
+        Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (citizen != null)
+        {
+            try {
+                openCitizenForm(true,citizen);
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
     }
 
     public void handleDeleteCitizen(ActionEvent actionEvent) {
@@ -121,12 +232,6 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleRemoveCitClick(ActionEvent actionEvent) {
-    }
-
-    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
-    }
-
-    public void handleCreateTempFromCit(ActionEvent actionEvent) {
     }
 
     public void handleCreateStudent(ActionEvent actionEvent) {
@@ -146,4 +251,21 @@ public class TeacherViewController implements Initializable {
         System.out.println("here");
         LoginLogoutUtil.logout(actionEvent);
     }
+
+    private void openCitizenForm(boolean isEditing, Citizen citizen) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
+        Parent root = loader.load();
+
+        CitizenFormController formController = loader.getController();
+        formController.setCurrentSchoolId();
+        if (isEditing) {
+            formController.setCitizenToEdit(citizen);
+        }
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+
 }

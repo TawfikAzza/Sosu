@@ -83,15 +83,14 @@ public class UserManager implements UserInterface {
         return studentDao.getStudent(selectedItem);
     }
 
-    private void setCurrentSchool(User user) {
-        if (user!=null){
-            try {
-                GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+
+    private void setCurrentSchool(User user) throws SQLException {
+        if (user != null) {
+            GlobalVariables.setCurrentSchool(schoolDAO.getSchoolByUserID(user.getId()));//Setting the school of currently logged in user for use in operations
+            System.out.println(GlobalVariables.getCurrentSchool().getName());
         }
     }
+
 
     public int isUserNameTaken(String userName) throws SQLException {
         return usersDAO.userNameTaken(userName);

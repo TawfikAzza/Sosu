@@ -2,6 +2,7 @@ package gui;
 import be.Student;
 import be.Teacher;
 import be.User;
+import bll.util.GlobalVariables;
 import gui.Controller.*;
 
 import javafx.application.Application;

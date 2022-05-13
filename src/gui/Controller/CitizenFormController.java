@@ -2,7 +2,6 @@ package gui.Controller;
 
 import be.Citizen;
 import be.School;
-import be.Teacher;
 import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
 import bll.util.GlobalVariables;
@@ -22,8 +21,6 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.Date;
-import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
 
@@ -51,13 +48,12 @@ public class CitizenFormController implements Initializable {
 
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
-    private TeacherWindowController teacherWindowController;
     private int currentSchoolId;
 
     public CitizenFormController() {
         citizenToEdit = null;
         try {
-            citizenModel = new CitizenModel();
+            citizenModel = CitizenModel.getInstance();
             schoolModel = new SchoolModel();
         } catch (CitizenException | SchoolException e) {
             DisplayMessage.displayError(e);
@@ -70,7 +66,6 @@ public class CitizenFormController implements Initializable {
         bindSizes();
         enableDisableSchoolChoice();//disabled but could be nice if the admin wanted to create templates for different schools
         loadSchools();
-
     }
 
     public Citizen getCitizenToEdit() {
@@ -206,11 +201,11 @@ public class CitizenFormController implements Initializable {
             citizenToEdit.setBirthDate(birthDate);
             citizenToEdit.setPhoneNumber(phoneNumber);
             citizenToEdit.setSchoolID(currentSchoolId);
-            editCitizen(citizenToEdit);
-            teacherWindowController.getTableViewTemplates().refresh();}
+            editTemplate(citizenToEdit);
+        }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
-            teacherWindowController.getTableViewTemplates().getItems().add(createCitizen(newCitizen));
+            createTemplate(newCitizen);
         }
 
         return true;
@@ -240,7 +235,7 @@ public class CitizenFormController implements Initializable {
 
 
 
-    private Citizen createCitizen(Citizen newCitizen) {
+    private Citizen createTemplate(Citizen newCitizen) {
                 Citizen citizen = null;
                 try {
                    citizen= citizenModel.createNewCitizen(newCitizen);
@@ -251,8 +246,8 @@ public class CitizenFormController implements Initializable {
                 return citizen;
     }
 
-    private void editCitizen(Citizen citizenToEdit){
-        Thread createCitizenThread = new Thread(new Runnable() {
+    private void editTemplate(Citizen citizenToEdit){
+        Thread editTemplateThread = new Thread(new Runnable() {
             @Override
             public void run() {
                 Citizen editedCitizen = null;
@@ -265,7 +260,7 @@ public class CitizenFormController implements Initializable {
                 GlobalVariables.setSelectedCitizen(editedCitizen);
             }
         });
-        createCitizenThread.start();
+        editTemplateThread.start();
 
     }
 
@@ -276,11 +271,7 @@ public class CitizenFormController implements Initializable {
         return null;
     });
 
-    public void setController(TeacherWindowController teacherWindowController) {
-        this.teacherWindowController=teacherWindowController;
-    }
-
-    public void setCurrentSchoolId(School currentSchool) {
-        currentSchoolId = currentSchool.getId();
+    public void setCurrentSchoolId() {
+        currentSchoolId= GlobalVariables.getCurrentSchool().getId();
     }
 }
