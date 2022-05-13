@@ -41,4 +41,9 @@ public class StudentCitizenRelationShipModel {
         citizensOfStudent.clear();
         citizensOfStudent.addAll(citizens);
     }
+
+    public ObservableList<Citizen> getCitizensOfStudent(Student currentStudent) throws StudentException, CitizenException {
+        setCitizensOfStudentObs(currentStudent);
+        return citizensOfStudent;
+    }
 }
