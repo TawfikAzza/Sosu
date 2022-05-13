@@ -61,6 +61,10 @@ public class CitizenModel {
         templates.add(citizenManager.copyCitToTemp(citizen));
     }
 
+    public void duplicateTemplates(Citizen citizen, int amount) throws CitizenException {
+        templates.addAll(citizenManager.duplicateTemplates(citizen, amount));
+    }
+
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
         citizenManager.assignCitizensToStudents(template,students);
     }

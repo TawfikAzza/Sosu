@@ -65,6 +65,10 @@ public class CitizenManager {
         return citizenFacade.copyCitizenToDb(citizen, true);
     }
 
+    public List<Citizen> duplicateTemplates(Citizen citizen, int amount) throws CitizenException {
+        return citizenFacade.duplicateTemplates(citizen, amount);
+    }
+
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
         citizenFacade.assignCitizensToStudents(template,students);
     }

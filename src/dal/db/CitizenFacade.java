@@ -41,8 +41,6 @@ public class CitizenFacade {
             ps.setInt(7,schoolID);
             ps.setInt(8,1);
 
-
-
             ps.execute();
 
             ResultSet generatedKeys = ps.getGeneratedKeys();
@@ -286,6 +284,15 @@ public class CitizenFacade {
         copyGeneralInfo(citizen, createdCitizen);
 
         return createdCitizen;
+    }
+
+    public List<Citizen> duplicateTemplates(Citizen citizen, int amount) throws CitizenException {
+        ArrayList<Citizen> duplicates = new ArrayList<>();
+        for(int i=0; i<amount; i++)
+        {
+            duplicates.add(copyCitizenToDb(citizen, true));
+        }
+        return duplicates;
     }
 
     private void addStudentCitizenRelation(Citizen citizen, Student student) throws CitizenException {

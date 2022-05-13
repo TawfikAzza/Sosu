@@ -12,6 +12,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -62,6 +64,10 @@ public class TeacherViewController implements Initializable {
     private TableColumn<Citizen, String> tableColumnAssignedFirstName;
     @FXML
     private TableColumn<Citizen, String> tableColumnAssignedLastName;
+    @FXML
+    private Spinner<Integer> spinnerTemplateDuplicate;
+    @FXML
+    private Spinner<Integer> spinnerCitizenDuplicate;
 
 
     @Override
@@ -71,6 +77,7 @@ public class TeacherViewController implements Initializable {
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             initTables();
+            initSpinners();
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
         }
@@ -99,6 +106,16 @@ public class TeacherViewController implements Initializable {
         this.tableColumnAssignedID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.tableColumnAssignedFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
         this.tableColumnAssignedLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
+    }
+
+    private void initSpinners()
+    {
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
+        valueFactory.setValue(1);
+        spinnerCitizenDuplicate.setValueFactory(valueFactory);
+        spinnerTemplateDuplicate.setValueFactory(valueFactory);
     }
 
     public void handleCreateCitFromTemp(ActionEvent actionEvent) {
@@ -178,6 +195,22 @@ public class TeacherViewController implements Initializable {
 
 
     public void handleDuplicateTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        int amount = spinnerTemplateDuplicate.getValue();
+        if (selectedCitizen != null) {
+            Thread duplicateTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.duplicateTemplates(selectedCitizen, amount);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            duplicateTemplateThread.start();
+        }
     }
 
     public void handleEditCitizen(ActionEvent actionEvent) {
