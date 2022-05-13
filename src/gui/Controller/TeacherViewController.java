@@ -3,7 +3,10 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
+import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
+import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
@@ -27,6 +30,7 @@ public class TeacherViewController implements Initializable {
 
 
     private CitizenModel citizenModel;
+    private StudentModel studentModel;
 
     @FXML
     private TableView<Citizen> tableViewTemplates;
@@ -74,11 +78,14 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.citizenModel = CitizenModel.getInstance();
+            this.studentModel = StudentModel.getInstance();
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewStudent.setItems(studentModel.getObsStudents());
+
             initTables();
             initSpinners();
-        } catch (CitizenException e) {
+        } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
     }
@@ -99,8 +106,8 @@ public class TeacherViewController implements Initializable {
         this.tableColumnFictiveCitizenLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
         //Students
-        this.tableColumnStudentFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        this.tableColumnStudentLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        this.tableColumnStudentFirstName.setCellValueFactory(new PropertyValueFactory<>("fNameProperty"));
+        this.tableColumnStudentLastName.setCellValueFactory(new PropertyValueFactory<>("lNameProperty"));
 
         //Assigned Fictive Citizens
         this.tableColumnAssignedID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -113,9 +120,12 @@ public class TeacherViewController implements Initializable {
         SpinnerValueFactory<Integer> valueFactory =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
 
+        SpinnerValueFactory<Integer> valueFactory2 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
         valueFactory.setValue(1);
         spinnerCitizenDuplicate.setValueFactory(valueFactory);
-        spinnerTemplateDuplicate.setValueFactory(valueFactory);
+        spinnerTemplateDuplicate.setValueFactory(valueFactory2);
     }
 
     public void handleCreateCitFromTemp(ActionEvent actionEvent) {
@@ -266,10 +276,27 @@ public class TeacherViewController implements Initializable {
     public void handleRemoveCitClick(ActionEvent actionEvent) {
     }
 
-    public void handleCreateStudent(ActionEvent actionEvent) {
+    public void handleCreateStudent(ActionEvent actionEvent) throws IOException {
     }
 
-    public void handleEditStudent(ActionEvent actionEvent) {
+    public void handleEditStudent(ActionEvent actionEvent) throws IOException {
+        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+        if (selectedStudent==null)
+            return;
+
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.editStudent(selectedStudent);
+        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit Student");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent) {
@@ -280,7 +307,6 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void handleLogout(ActionEvent actionEvent) throws IOException {
-        System.out.println("here");
         LoginLogoutUtil.logout(actionEvent);
     }
 

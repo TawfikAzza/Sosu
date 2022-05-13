@@ -16,7 +16,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TeacherViewController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="525.0" prefWidth="920.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TeacherViewController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -77,7 +77,7 @@
                                     <Button mnemonicParsing="false" onAction="#handleDeleteTemplate" text="Delete" />
                                     <HBox spacing="5.0">
                                        <children>
-                                          <Spinner fx:id="spinnerTemplateDuplicate" editable="true" prefHeight="26.0" prefWidth="81.0" />
+                                          <Spinner fx:id="spinnerTemplateDuplicate" prefHeight="26.0" prefWidth="81.0" />
                                           <Button mnemonicParsing="false" onAction="#handleDuplicateTemplate" text="Duplicate" />
                                        </children>
                                        <padding>
@@ -120,7 +120,7 @@
                                     <Button mnemonicParsing="false" onAction="#handleDeleteCitizen" text="Delete" />
                                     <HBox spacing="5.0">
                                        <children>
-                                          <Spinner fx:id="spinnerCitizenDuplicate" editable="true" prefHeight="26.0" prefWidth="81.0" />
+                                          <Spinner fx:id="spinnerCitizenDuplicate" prefHeight="26.0" prefWidth="81.0" />
                                           <Button mnemonicParsing="false" onAction="#handleDuplicateCitizen" text="Duplicate" />
                                        </children>
                                        <padding>

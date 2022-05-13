@@ -179,7 +179,7 @@ public class TeacherWindowController implements Initializable {
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.newStudent();
         newEditUserController.setTeacherController(this);
-        newEditUserController.setSchoolComboBox(currentTeacher);
+        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
 
         Stage stage = new Stage();
         stage.setTitle("New Student");
@@ -198,7 +198,7 @@ public class TeacherWindowController implements Initializable {
             NewEditUserController newEditUserController = loader.getController();
             newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
             newEditUserController.setTeacherController(this);
-            newEditUserController.setSchoolComboBox(currentTeacher);
+            newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
 
             Stage stage = new Stage();
             stage.setTitle("Edit Student");

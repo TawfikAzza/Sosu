@@ -886,7 +886,7 @@ public class AdminViewController implements Initializable {
         stage.setTitle("Edit Student");
         stage.setScene(new Scene(root));
         stage.show();
-    }
+        }
     }
     public void refreshTView(ObservableList<Teacher>allTeacherFiltered){
         teachersTableView.setItems(allTeacherFiltered);

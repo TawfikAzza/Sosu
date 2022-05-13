@@ -65,7 +65,7 @@ public class UserManager implements UserInterface {
     }
 
     public ObservableList<Student> getStudents(Teacher currentTeacher) throws UserException {
-        ArrayList<Student> students = studentDao.getAllStudentsFromDB(currentTeacher);
+        ArrayList<Student> students = studentDao.getAllStudentsFromDB(GlobalVariables.getCurrentSchool());
         ObservableList<Student> obsStuds = FXCollections.observableArrayList();
         obsStuds.addAll(students);
         return obsStuds;

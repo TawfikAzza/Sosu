@@ -5,6 +5,7 @@ import be.Student;
 import bll.StudentManager;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
+import bll.exceptions.UserException;
 import gui.utils.DisplayMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,18 +17,27 @@ public class StudentModel {
 
     private StudentManager studentManager;
 
-    public StudentModel() {
-        try {
-            this.studentManager = new StudentManager();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-        }
+    private static StudentModel instance;
+
+    private ObservableList<Student> studentObservableList;
+
+    private StudentModel() throws UserException, IOException {
+        this.studentManager = new StudentManager();
+        initObsLists();
     }
 
-    public ObservableList<Citizen> getCitizensOfStudent(Student student) throws StudentException, CitizenException {
-        ObservableList<Citizen> obsList = FXCollections.observableArrayList();
-        ArrayList<Citizen> citizens = studentManager.getCitizensOfStudent(student);
-        obsList.addAll(citizens);
-        return obsList;
+    private void initObsLists() throws UserException {
+        studentObservableList = FXCollections.observableArrayList();
+        studentObservableList.setAll(studentManager.getAllStudents());
+    }
+
+    public static StudentModel getInstance() throws UserException, IOException {
+        if (instance==null)
+            instance = new StudentModel();
+        return instance;
+    }
+
+    public ObservableList<Student> getObsStudents() {
+        return studentObservableList;
     }
 }

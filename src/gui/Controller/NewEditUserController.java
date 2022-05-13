@@ -280,10 +280,9 @@ public class NewEditUserController implements Initializable {
         this.teacherWindowController=teacherWindowController;
     }
 
-    public void setSchoolComboBox(Teacher currentTeacher){
-        School currentSchool=null;
+    public void setSchoolComboBox(School currentSchool){
         for (School school : schoolComboBox.getItems()){
-            if (school.getId()==currentTeacher.getSchoolId())
+            if (school.getId()==currentSchool.getId())
             {
                 currentSchool=school;
                 break;

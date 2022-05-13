@@ -4,7 +4,10 @@ import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
+import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import dal.db.GetCitizensOfStudentFacade;
+import dal.db.StudentDAO;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,13 +16,13 @@ import java.util.ArrayList;
 
 public class StudentManager {
 
-    private GetCitizensOfStudentFacade getCitizensFacade;
+    private StudentDAO studentDAO;
 
     public StudentManager() throws IOException {
-        this.getCitizensFacade = new GetCitizensOfStudentFacade();
+        studentDAO = new StudentDAO();
     }
 
-    public ArrayList<Citizen> getCitizensOfStudent(Student student) throws StudentException, CitizenException {
-        return getCitizensFacade.getCitizensOfStudent(student);
+    public ObservableList<Student> getAllStudents() throws UserException {
+        return FXCollections.observableArrayList(studentDAO.getAllStudentsFromDB(GlobalVariables.getCurrentSchool()));
     }
 }

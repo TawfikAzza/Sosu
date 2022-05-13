@@ -2,15 +2,14 @@ package gui.Controller;
 
 import be.Citizen;
 import be.Student;
-import be.User;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.util.GlobalVariables;
+import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -21,10 +20,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 
-import java.awt.event.ActionEvent;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class StudentMenuViewController {
     @FXML
@@ -36,7 +32,7 @@ public class StudentMenuViewController {
     @FXML
     private Label lblAdress,lblFname,lblLname,lblPhone,lblSchool;
 
-    private StudentModel studentModel;
+    private StudentCitizenRelationShipModel studentCitizenRelationShipModel;
 
     public void setCurrentStudent(Student currentStudent) {
         this.currentStudent = currentStudent;
@@ -45,7 +41,11 @@ public class StudentMenuViewController {
     private Student currentStudent;
     private Citizen currentCitizen;
     public StudentMenuViewController() {
-        studentModel = new StudentModel();
+        try {
+            studentCitizenRelationShipModel = new StudentCitizenRelationShipModel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         //currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
@@ -54,7 +54,7 @@ public class StudentMenuViewController {
         lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
         try {
-            citizenTableview.getItems().addAll(studentModel.getCitizensOfStudent(currentStudent));
+            citizenTableview.getItems().addAll(studentCitizenRelationShipModel.getCitizensOfStudent(currentStudent));
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
