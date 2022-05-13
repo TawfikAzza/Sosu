@@ -3,7 +3,7 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -22,66 +22,6 @@
             </Label>
          </children>
       </HBox>
-      <GridPane hgap="10.0" layoutX="238.0" layoutY="79.0" prefHeight="587.0" prefWidth="614.0" vgap="5.0" AnchorPane.bottomAnchor="163.0" AnchorPane.leftAnchor="25.0" AnchorPane.rightAnchor="67.0" AnchorPane.topAnchor="150.0">
-        <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="287.0" minWidth="10.0" prefWidth="179.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="414.0" minWidth="10.0" prefWidth="405.0" />
-        </columnConstraints>
-        <rowConstraints>
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-            <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-        </rowConstraints>
-         <children>
-            <Label alignment="TOP_RIGHT" contentDisplay="CENTER" prefHeight="18.0" prefWidth="304.0" text="Category Name" textAlignment="CENTER">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="CENTER" prefHeight="18.0" prefWidth="302.0" text="Content" GridPane.columnIndex="1">
-               <font>
-                  <Font name="System Bold" size="18.0" />
-               </font>
-            </Label>
-            <Label alignment="TOP_RIGHT" contentDisplay="BOTTOM" prefHeight="50.0" prefWidth="223.0" text="Mestring" textAlignment="CENTER" GridPane.rowIndex="1" />
-            <Label alignment="TOP_RIGHT" prefHeight="49.0" prefWidth="223.0" text="Motivation" GridPane.rowIndex="2" />
-            <Label alignment="TOP_RIGHT" prefHeight="50.0" prefWidth="223.0" text="Ressourcer" GridPane.rowIndex="3" />
-            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Roller" GridPane.rowIndex="4" />
-            <Label alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="223.0" text="Vaner" GridPane.rowIndex="5" />
-            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Uddannelse og Job" GridPane.rowIndex="6" />
-            <Label alignment="TOP_RIGHT" prefHeight="55.0" prefWidth="223.0" text="LivHistorie" GridPane.rowIndex="7" />
-            <Label alignment="TOP_RIGHT" prefHeight="53.0" prefWidth="223.0" text="Netværk" GridPane.rowIndex="8" />
-            <Label alignment="TOP_RIGHT" prefHeight="57.0" prefWidth="223.0" text="Helbredsoplysninger" GridPane.rowIndex="9" />
-            <Label alignment="TOP_RIGHT" prefHeight="48.0" prefWidth="223.0" text="Hjælpemidler" GridPane.rowIndex="10" />
-            <Label alignment="TOP_RIGHT" prefHeight="52.0" prefWidth="223.0" text="Boligens indretning " GridPane.rowIndex="11" />
-            <TextArea fx:id="textMestring" prefHeight="200.0" prefWidth="200.0" styleClass="text-area" stylesheets="@../CSS/MainCSS.css" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextArea fx:id="textMotivation" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextArea fx:id="textRessourcer" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextArea fx:id="textRoller" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextArea fx:id="textVaner" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextArea fx:id="textUddannelse" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextArea fx:id="textLivhistorie" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextArea fx:id="textNetværk" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextArea fx:id="textHelbred" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextArea fx:id="textHjælpe" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextArea fx:id="textBoligens" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
-         </children>
-         <padding>
-            <Insets left="20.0" />
-         </padding>
-         <opaqueInsets>
-            <Insets bottom="10.0" />
-         </opaqueInsets>
-      </GridPane>
       <HBox layoutY="735.0" prefHeight="100.0" prefWidth="706.0">
          <children>
             <GridPane alignment="CENTER" prefHeight="42.0" prefWidth="653.0">
@@ -205,5 +145,7 @@
             </GridPane>
          </children>
       </HBox>
+      <Label fx:id="lblCategory" layoutX="77.0" layoutY="225.0" prefHeight="48.0" prefWidth="135.0" />
+      <TextField fx:id="textFieldContent" layoutX="240.0" layoutY="225.0" prefHeight="120.0" prefWidth="388.0" />
    </children>
 </AnchorPane>
