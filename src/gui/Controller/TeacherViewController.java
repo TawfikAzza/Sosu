@@ -3,7 +3,6 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import bll.exceptions.CitizenException;
-import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -23,10 +22,13 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
+
     private CitizenModel citizenModel;
 
     @FXML
     private TableView<Citizen> tableViewTemplates;
+    @FXML
+    private TableColumn<Citizen, Integer> tableColumnTemplateID;
     @FXML
     private TableColumn<Citizen, String> tableColumnTemplatesFirstName;
     @FXML
@@ -77,6 +79,7 @@ public class TeacherViewController implements Initializable {
 
     private void initTables() {
         //Templates
+        this.tableColumnTemplateID.setCellValueFactory(new PropertyValueFactory<>("id"));
         this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
         this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
 

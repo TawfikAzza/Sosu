@@ -4,21 +4,22 @@ import be.Citizen;
 import be.Student;
 import bll.CitizenManager;
 import bll.exceptions.CitizenException;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class CitizenModel {
 
     private final CitizenManager citizenManager;
-    private final ObservableList<Citizen> obsCitizens;
-    private final ObservableList<Citizen> templates;
+    private ObservableList<Citizen> obsCitizens;
+    private  ObservableList<Citizen> templates;
     private static CitizenModel instance;
 
     private CitizenModel() throws CitizenException {
         this.citizenManager = new CitizenManager();
-        this.obsCitizens = getCitizens();
-        this.templates = getTemplates();
+        initObsLists();
     }
 
 
@@ -34,11 +35,11 @@ public class CitizenModel {
         citizenManager.deleteCitizen(selectedCitizen);
     }
 
-    private ObservableList<Citizen> getCitizens() throws CitizenException {
+    private List<Citizen> getCitizens() throws CitizenException {
         return citizenManager.getCitizens();
     }
 
-    private ObservableList<Citizen> getTemplates() throws CitizenException {
+    private List<Citizen> getTemplates() throws CitizenException {
         return citizenManager.getTemplates();
     }
 
@@ -53,17 +54,32 @@ public class CitizenModel {
     }
 
     public void copyTempToCit(Citizen template) throws CitizenException {
-        citizenManager.copyTempToCit(template);
-        refreshTables();
+        obsCitizens.add(citizenManager.copyTempToCit(template));
     }
 
     public void copyCitToTemp(Citizen citizen) throws CitizenException {
-        citizenManager.copyCitToTemp(citizen);
-        refreshTables();
+        templates.add(citizenManager.copyCitToTemp(citizen));
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
         citizenManager.assignCitizensToStudents(template,students);
+    }
+
+    private void initObsLists() throws CitizenException {
+        ObservableList<Citizen> citizens = FXCollections.observableArrayList();
+        ObservableList<Citizen> templates = FXCollections.observableArrayList();
+        citizens.addAll(getCitizens());
+        templates.addAll(getTemplates());
+        this.obsCitizens = citizens;
+        this.templates = templates;
+    }
+
+    public static CitizenModel getInstance() throws CitizenException {
+        if(instance==null)
+        {
+            instance = new CitizenModel();
+        }
+        return instance;
     }
 
     public void refreshTemplates() throws CitizenException {
@@ -79,13 +95,5 @@ public class CitizenModel {
     public void refreshTables() throws CitizenException {
         refreshTemplates();
         refreshCitizens();
-    }
-
-    public static CitizenModel getInstance() throws CitizenException {
-        if(instance==null)
-        {
-            instance = new CitizenModel();
-        }
-        return instance;
     }
 }

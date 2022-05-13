@@ -139,6 +139,6 @@ public class Citizen {
 
     @Override
     public String toString() {
-        return fName + " "+lName;
+        return id + " " +fName + " "+lName;
     }
 }

@@ -58,6 +58,7 @@
                                  <children>
                                     <TableView fx:id="tableViewTemplates" prefHeight="228.0" prefWidth="401.0">
                                       <columns>
+                                          <TableColumn fx:id="tableColumnTemplateID" prefWidth="75.0" text="ID" />
                                         <TableColumn fx:id="tableColumnTemplatesFirstName" prefWidth="75.0" text="First Name" />
                                         <TableColumn fx:id="tableColumnTemplatesLastName" prefWidth="75.0" text="Last Name" />
                                       </columns>

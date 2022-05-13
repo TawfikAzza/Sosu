@@ -1,8 +1,11 @@
 package dal.db;
 
+import be.Ability;
 import be.Citizen;
 
 
+import be.Condition;
+import be.GeneralInfo;
 import bll.exceptions.CitizenException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
@@ -80,13 +83,13 @@ public class CitizenDAO {
         }
     }
 
-    public List<Citizen> getAllCitizens(int currentSchoolID) throws CitizenException {
+    public List<Citizen> getCitizens(int currentSchoolID, boolean isTemplate) throws CitizenException {
         List<Citizen> citizens = new ArrayList<>();
         try(Connection connection = cm.getConnection()){
             String sql = "SELECT * FROM Citizen WHERE isTemplate = ? AND school_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
-            ps.setInt(1, 0);
+            ps.setBoolean(1, isTemplate);
             ps.setInt(2, currentSchoolID);
 
             ResultSet rs = ps.executeQuery();
@@ -112,4 +115,5 @@ public class CitizenDAO {
         }
         return citizens;
     }
+
 }

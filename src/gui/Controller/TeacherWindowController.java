@@ -283,8 +283,7 @@ public class TeacherWindowController implements Initializable {
 
         for (Citizen citizen:citizens) {
             if(citizen.getFName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
-                    || citizen.getLName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))
-                    || citizen.getCprNumber().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))) {
+                    || citizen.getLName().toLowerCase(Locale.ROOT).contains(filter.getText().toLowerCase(Locale.ROOT))) {
                 searchedCitizens.add(citizen);
             }
 
