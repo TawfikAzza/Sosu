@@ -4,6 +4,8 @@ import be.Citizen;
 import be.ObservationType;
 import bll.exceptions.ObservationException;
 import gui.Model.ObservationModel;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -68,17 +70,29 @@ public class ObservationsController implements Initializable {
                         textField.setText("");
                     } catch (SQLException e) {
                         e.printStackTrace();
-                    }}
+                    }catch (ObservationException oe){
+                            Alert alert = new Alert(Alert.AlertType.ERROR);
+                            alert.setTitle("Alert");
+                            alert.setHeaderText(oe.getExceptionMessage());
+                            alert.setContentText(oe.getInstructions());
+                            alert.showAndWait();
+                        }}
                 }
             });
         }
+        ArrayList<TextField> digits3TextFields = new ArrayList<>(Arrays. asList(bloodPressureTF,oxygenTF,wightTF,oxygenTF));
+        for (TextField textField : digits3TextFields)
+             limitDigitsTF(textField,3);
+        limitDigitsTF(temperatureTF,2);
+        limitDigitsTF(bloodSugarTF,1);
+
     }
 
     public void setCitizen(Citizen selectedItem) {
         selectedCitizen=selectedItem;
     }
 
-    public void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException {
+    public void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
         ObservationType observationType;
         if (textField.equals(bloodPressureTF))
             observationType = ObservationType.BPMeasurement;
@@ -90,15 +104,8 @@ public class ObservationsController implements Initializable {
             observationType=ObservationType.TempMeasurement;
         else observationType=ObservationType.WeightMeasurement;
 
-        try {
-            observationModel.addObservation(observationType,citizen,measurement);
-        }catch (ObservationException oe){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Alert");
-            alert.setHeaderText(oe.getExceptionMessage());
-            alert.setContentText(oe.getInstructions());
-            alert.showAndWait();
-        }
+        observationModel.addObservation(observationType,citizen,measurement);
+
     }
 
     public void openChartWindow(ObservationType observationType) throws IOException {
@@ -117,6 +124,20 @@ public class ObservationsController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
     }
-
+    private void limitDigitsTF (TextField textField, int digits){
+        textField.textProperty().addListener(new ChangeListener<String>() {
+            @Override
+            public void changed(ObservableValue<? extends String> observable, String oldValue,
+                                String newValue) {
+                if (!newValue.matches("\\d*")) {
+                    textField.setText(newValue.replaceAll("[^\\d]", ""));
+                }
+                if (textField.getText().length() > digits) {
+                    String s = textField.getText().substring(0, digits);
+                    textField.setText(s);
+                }
+            }
+        });
+    }
 
 }
