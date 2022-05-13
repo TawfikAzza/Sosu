@@ -4,6 +4,7 @@ import be.Citizen;
 import be.Observation;
 import be.ObservationType;
 import bll.ObservationManager;
+import bll.exceptions.ObservationException;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
@@ -23,7 +24,7 @@ public class ObservationModel {
         observationManager= new ObservationManager();
     }
 
-    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
+    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException, ObservationException {
         observationManager.addObservation(observationType,citizen,measurement);
     }
 

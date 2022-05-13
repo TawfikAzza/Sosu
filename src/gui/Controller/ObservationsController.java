@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.Citizen;
 import be.ObservationType;
+import bll.exceptions.ObservationException;
 import gui.Model.ObservationModel;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -10,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -88,7 +90,15 @@ public class ObservationsController implements Initializable {
             observationType=ObservationType.TempMeasurement;
         else observationType=ObservationType.WeightMeasurement;
 
-        observationModel.addObservation(observationType,citizen,measurement);
+        try {
+            observationModel.addObservation(observationType,citizen,measurement);
+        }catch (ObservationException oe){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Alert");
+            alert.setHeaderText(oe.getExceptionMessage());
+            alert.setContentText(oe.getInstructions());
+            alert.showAndWait();
+        }
     }
 
     public void openChartWindow(ObservationType observationType) throws IOException {
