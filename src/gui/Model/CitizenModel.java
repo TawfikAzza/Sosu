@@ -24,11 +24,13 @@ public class CitizenModel {
 
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
-        return citizenManager.createNewCitizen(newCitizen);
+        Citizen citizen = citizenManager.createNewCitizen(newCitizen);
+        templates.add(citizen);
+        return citizen;
     }
 
     public Citizen editCitizen(Citizen citizenToEdit) throws CitizenException {
-         return citizenManager.editCitizen(citizenToEdit);
+        return citizenManager.editCitizen(citizenToEdit);
     }
 
     public void deleteCitizen(Citizen selectedCitizen) throws CitizenException {
@@ -61,8 +63,14 @@ public class CitizenModel {
         templates.add(citizenManager.copyCitToTemp(citizen));
     }
 
-    public void duplicateTemplates(Citizen citizen, int amount) throws CitizenException {
-        templates.addAll(citizenManager.duplicateTemplates(citizen, amount));
+    public void duplicateCitizen(Citizen citizen, int amount, boolean isTemplate) throws CitizenException {
+        if(isTemplate) {
+            templates.addAll(citizenManager.duplicateCitizen(citizen, amount, true));
+        }
+        if(!isTemplate)
+        {
+            obsCitizens.addAll(citizenManager.duplicateCitizen(citizen, amount, false));
+        }
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {

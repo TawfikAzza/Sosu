@@ -202,7 +202,7 @@ public class TeacherViewController implements Initializable {
                 @Override
                 public void run() {
                     try {
-                        citizenModel.duplicateTemplates(selectedCitizen, amount);
+                        citizenModel.duplicateCitizen(selectedCitizen, amount, true);
                     } catch (CitizenException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
@@ -226,9 +226,41 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleDeleteCitizen(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (selectedCitizen != null) {
+            Thread deleteCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.deleteCitizen(selectedCitizen);
+                        citizenModel.getObsListCitizens().remove(selectedCitizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            deleteCitizenThread.start();
+        }
     }
 
     public void handleDuplicateCitizen(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        int amount = spinnerCitizenDuplicate.getValue();
+        if (selectedCitizen != null) {
+            Thread duplicateCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.duplicateCitizen(selectedCitizen, amount, false);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            duplicateCitizenThread.start();
+        }
     }
 
     public void handleRemoveCitClick(ActionEvent actionEvent) {
