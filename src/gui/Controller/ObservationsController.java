@@ -30,15 +30,11 @@ public class ObservationsController implements Initializable {
 
     private Citizen selectedCitizen;
     @FXML
-    private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heightTF;
+    private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF;
     ObservationModel observationModel;
 
     public void handleVSBP(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BPMeasurement);
-    }
-
-    public void handleVSBS(ActionEvent actionEvent) throws IOException {
-        openChartWindow(ObservationType.BSMeasurement);
     }
 
     public void handleVSOxygen(ActionEvent actionEvent) throws IOException {
@@ -140,4 +136,6 @@ public class ObservationsController implements Initializable {
         });
     }
 
+    public void handleVSHB(ActionEvent actionEvent) {
+    }
 }
