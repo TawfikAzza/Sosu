@@ -94,12 +94,13 @@ public class ObservationsController implements Initializable {
     public void openChartWindow(ObservationType observationType) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/ChartView.fxml.fxml"));
+        loader.setLocation(getClass().getResource("/gui/View/ChartView.fxml"));
         root = loader.load();
 
         ChartController chartController = loader.getController();
         chartController.setObservationType(observationType);
         chartController.setCitizen(selectedCitizen);
+        chartController.setLimitsDatePicker(chartController.getFirstObservationDate(observationModel));
 
         Stage stage = new Stage();
         stage.setTitle(observationType.name()+ "chart");

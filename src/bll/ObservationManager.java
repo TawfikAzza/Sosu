@@ -24,4 +24,8 @@ public class ObservationManager {
     public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
          observationDao.newObservation(observationType,citizen,measurement);
     }
+
+    public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException {
+        return observationDao.getFirstObservationDate(observationType,currentCitizen);
+    }
 }

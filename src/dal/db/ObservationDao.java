@@ -60,4 +60,24 @@ public class ObservationDao {
             }
         }
     }
+
+    public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException{
+        try (Connection connection = connectionManager.getConnection()){
+            String sql= "SELECT * FROM ObservationType WHERE type= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(1,observationType.name());
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                int typeId= resultSet.getInt("id");
+                String sql1= "SELECT * FROM Observation WHERE type_id= ? AND citizen_id= ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+                preparedStatement1.setInt(1,typeId);
+                preparedStatement1.setInt(2,currentCitizen.getId());
+                ResultSet resultSet1 = preparedStatement1.executeQuery();
+                if (resultSet1.next())
+                    return resultSet1.getDate("date").toLocalDate();
+                }
+            }
+        return null;
+    }
 }

@@ -3,13 +3,15 @@ package gui.Model;
 import be.Citizen;
 import be.Observation;
 import be.ObservationType;
-import be.School;
 import bll.ObservationManager;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 public class ObservationModel {
@@ -29,4 +31,7 @@ public class ObservationModel {
         return observationManager.getAllObservations(observationType,citizen,fDay,lDay);
     }
 
+    public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException {
+        return observationManager.getFirstObservationDate(observationType,currentCitizen);
+    }
 }
