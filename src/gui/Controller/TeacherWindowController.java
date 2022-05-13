@@ -3,10 +3,10 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import be.Teacher;
+import be.User;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
-import bll.util.GlobalVariables;
 import gui.Model.*;
 import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
@@ -72,7 +72,7 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.model = new TeacherModel();
-            this.userModel = new UserModel();
+            this.userModel = UserModel.getInstance();
             this.relationShipModel = new StudentCitizenRelationShipModel();
             this.citizenModel = CitizenModel.getInstance();
             this.citizens = FXCollections.observableArrayList();
@@ -80,7 +80,7 @@ public class TeacherWindowController implements Initializable {
             createStudentFilterListener();
             createTableListener();
 
-        } catch (IOException | CitizenException e) {
+        } catch (IOException | CitizenException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }
@@ -236,8 +236,7 @@ public class TeacherWindowController implements Initializable {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                     try {
                         Student selectedStudent = row.getItem();
-                        ObservableList<Citizen> citizens = relationShipModel.getCitizensOfStudent(selectedStudent);
-                        tableViewAssignments.setItems(citizens);
+                        relationShipModel.setCitizensOfStudentObs(selectedStudent);
                     } catch (StudentException | CitizenException e) {
                         e.printStackTrace();
                     }
@@ -257,7 +256,7 @@ public class TeacherWindowController implements Initializable {
         try { //You should only be able to get citizens from relevant school!
         //citizens = model.getTemplates(currentTeacher);
         //Y should only be able to get students from relevant school!
-        students = userModel.getStudents(currentTeacher);
+        students = userModel.getObsListStudents();
         this.tableViewTemplates.setItems(citizens);
         this.tableViewStudents.setItems(students);
         this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

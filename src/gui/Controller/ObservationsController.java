@@ -81,7 +81,7 @@ public class ObservationsController implements Initializable {
         if (textField.equals(bloodPressureTF))
             observationType = ObservationType.BPMeasurement;
         else if (textField.equals(bloodSugarTF))
-            observationType=ObservationType.BPMeasurement;
+            observationType=ObservationType.BSMeasurement;
         else if (textField.equals(oxygenTF))
             observationType=ObservationType.OxyMeasurement;
         else if (textField.equals(temperatureTF))
