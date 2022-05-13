@@ -286,11 +286,11 @@ public class CitizenFacade {
         return createdCitizen;
     }
 
-    public List<Citizen> duplicateTemplates(Citizen citizen, int amount) throws CitizenException {
+    public List<Citizen> duplicateCitizen(Citizen citizen, int amount, boolean isTemplate) throws CitizenException {
         ArrayList<Citizen> duplicates = new ArrayList<>();
         for(int i=0; i<amount; i++)
         {
-            duplicates.add(copyCitizenToDb(citizen, true));
+            duplicates.add(copyCitizenToDb(citizen, isTemplate));
         }
         return duplicates;
     }
