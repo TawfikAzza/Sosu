@@ -1,11 +1,15 @@
 package gui.Controller;
 
 import be.Citizen;
+import be.Observation;
 import be.ObservationType;
 import gui.Model.ObservationModel;
+import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.chart.AreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.util.Callback;
@@ -14,9 +18,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ChartController implements Initializable {
     @FXML
@@ -43,12 +45,48 @@ public class ChartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        try {
-            observationModel= new ObservationModel();
-        } catch (IOException e) {
-            e.printStackTrace();
+        fromDP.setEditable(false);
+        toDP.setEditable(false);
+
+        fromDP.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    drawChart();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }catch (NullPointerException ignored){}
+            }
+        });
+
+        toDP.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                try {
+                    drawChart();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }catch (NullPointerException ignored){}
+            }
+        });
+    }
+
+    public void drawChart() throws SQLException {
+        LocalDate fromDpValue= fromDP.getValue();
+        LocalDate toDpValue=toDP.getValue();
+
+        if (fromDpValue.compareTo(toDpValue) > 0) {
+            LocalDate intermediateValue = fromDpValue;
+            fromDpValue = toDpValue;
+            toDpValue = intermediateValue;
         }
 
+        List<Observation> allObservations = observationModel.getAllObservations(observationType, currentCitizen, fromDpValue, toDpValue);
+
+        XYChart.Series series = new XYChart.Series();
+        for (Observation observation : allObservations)
+            series.getData().add(new XYChart.Data<>(observation.getObservation_date().toString(),observation.getMeasurement()));
+            areaChart.getData().add(series);
     }
 
     public void setLimitsDatePicker(LocalDate firstDate) {
