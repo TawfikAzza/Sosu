@@ -3,6 +3,8 @@ package dal.db;
 import be.Citizen;
 import be.Observation;
 import be.ObservationType;
+import bll.exceptions.ObservationException;
+import bll.util.CheckInput;
 import dal.ConnectionManager;
 
 import java.io.IOException;
@@ -43,7 +45,8 @@ public class ObservationDao {
         return allObservations;
     }
 
-    public void newObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
+    public void newObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException, ObservationException {
+            checkMeasurementValue(observationType,measurement);
         try (Connection connection = connectionManager.getConnection()) {
             String sql = "SELECT * FROM ObservationType WHERE type= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -79,5 +82,14 @@ public class ObservationDao {
                 }
             }
         return null;
+    }
+
+    public void checkMeasurementValue(ObservationType observationType, float measurement) throws ObservationException {
+        switch (observationType){
+            case BPMeasurement, WeightMeasurement, HeartBeatMeasurement -> ObservationException.isValidMeasurement(measurement,0,300);
+            case BSMeasurement -> ObservationException.isValidMeasurement(measurement,0,7);
+            case TempMeasurement -> ObservationException.isValidMeasurement(measurement,32,45);
+            case OxyMeasurement -> ObservationException.isValidMeasurement(measurement,0,100);
+        }
     }
 }

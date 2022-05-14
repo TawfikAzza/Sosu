@@ -5,5 +5,6 @@ public enum ObservationType {
         BSMeasurement,
         OxyMeasurement,
         TempMeasurement,
-        WeightMeasurement
+        WeightMeasurement,
+        HeartBeatMeasurement
 }
