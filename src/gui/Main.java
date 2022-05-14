@@ -88,8 +88,8 @@ public class Main extends Application {
             teacherDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
             rootLayout.getChildren().add(teacherDisplay);
             primaryStage.setTitle("Teacher window");
-            primaryStage.setHeight(400);
-            primaryStage.setWidth(791);
+            primaryStage.setHeight(480);
+            primaryStage.setWidth(880);
         }
 
         if (layoutChosen.get().equals("student")) {
