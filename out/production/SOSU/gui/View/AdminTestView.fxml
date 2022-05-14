@@ -83,7 +83,7 @@
                         </ImageView>
                         <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@images/user.png" />
+                                <Image url="@images/delete.png" />
                             </image>
                         </ImageView>
                         <ImageView fitHeight="46.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
