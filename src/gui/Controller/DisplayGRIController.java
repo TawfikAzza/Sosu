@@ -38,7 +38,34 @@ public class DisplayGRIController implements Initializable {
     @FXML
     private Label lblCategory;
     @FXML
-    private TextField textFieldContent;
+    private TextField textFieldContent, textBoligens, textHelb;
+
+    @FXML
+    private TextField textHjælp;
+
+    @FXML
+    private TextField textLiv;
+
+    @FXML
+    private TextField textMestring;
+
+    @FXML
+    private TextField textMotivation;
+
+    @FXML
+    private TextField textNetværk;
+
+    @FXML
+    private TextField textRessourcer;
+
+    @FXML
+    private TextField textRoller;
+
+    @FXML
+    private TextField textUddannelse;
+
+    @FXML
+    private TextField textVaner;
 
 
     private GIReportManger giReportManger;
@@ -58,7 +85,7 @@ public class DisplayGRIController implements Initializable {
         }
         displayCitiziInfo();
         //displayReport();
-        display();
+        displayplay();
 
     }
 
@@ -69,11 +96,12 @@ public class DisplayGRIController implements Initializable {
 
         lblLName.setText(GlobalVariables.getSelectedCitizen().getLName());
         lblAdress.setText(GlobalVariables.getSelectedCitizen().getAddress());
-        //lblBirthdate.setText(GlobalVariables.getSelectedCitizen().getBirthDate());
-        //lblPhone.setText(GlobalVariables.getSelectedCitizen().getPhoneNumber());
-        //lblSchool.setText(GlobalVariables.getSelectedCitizen().getSchoolID());
+        lblBirthdate.setText("" +GlobalVariables.getSelectedCitizen().getBirthDate());
+        lblPhone.setText("" +GlobalVariables.getSelectedCitizen().getPhoneNumber());
+        lblSchool.setText("" +GlobalVariables.getSelectedCitizen().getSchoolID());
 
     }
+
 
     public void displayReport() {
 
@@ -84,8 +112,7 @@ public class DisplayGRIController implements Initializable {
         for (Map.Entry entry : getGIR.entrySet()) {
             System.out.println(" key: " + entry.getKey() + " value: " + entry.getValue());
 
-            //lblCategory.setText((String) entry.getKey());
-            textFieldContent.setText((String) entry.getKey() + (String) entry.getValue());
+
         }
 
 
@@ -97,83 +124,47 @@ public class DisplayGRIController implements Initializable {
     }
 
 
-    public void display() {
+    public void displayplay() {
         HashMap<String, String> getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
-        int i = 1;
-        GridPane mainPane = new GridPane();
-        mainPane.setHgap(0);
-        mainPane.setVgap(0);
-        mainPane.setAlignment(Pos.CENTER);
 
-
-        Label headerMestring = new Label("Mestring");
-        headerMestring.setStyle("-fx-font-size: 16px;");
-        headerMestring.setStyle("-fx-font-weight: bold;");
-
-        Label headerMotivation = new Label("Motivation");
-        headerMotivation.setStyle("-fx-font-size: 16px;");
-        headerMotivation.setStyle("-fx-font-weight: bold;");
-
-        Label headerRessourcer = new Label("Ressourcer");
-        headerRessourcer.setStyle("-fx-font-size: 16px;");
-        headerRessourcer.setStyle("-fx-font-weight: bold;");
-
-        Label headerRoller = new Label("Roller");
-        headerRoller.setStyle("-fx-font-size: 16px;");
-        headerRoller.setStyle("-fx-font-weight: bold;");
-
-        Label headerVaner = new Label("Vaner");
-        headerVaner.setStyle("-fx-font-size: 16px;");
-        headerVaner.setStyle("-fx-font-weight: bold;");
-
-        Label headerUddannelseogjob = new Label("Uddannelse og job");
-        headerUddannelseogjob.setStyle("-fx-font-size: 16px;");
-        headerUddannelseogjob.setStyle("-fx-font-weight: bold;");
-
-        Label headerLivshistorie = new Label("Livshistorie");
-        headerLivshistorie.setStyle("-fx-font-size: 16px;");
-        headerLivshistorie.setStyle("-fx-font-weight: bold;");
-
-        Label headerNetværk = new Label("Netværk");
-        headerNetværk.setStyle("-fx-font-size: 16px;");
-        headerNetværk.setStyle("-fx-font-weight: bold;");
-
-        Label headerHelbredsoplysninger = new Label("Helbredsoplysninger");
-        headerHelbredsoplysninger.setStyle("-fx-font-size: 16px;");
-        headerHelbredsoplysninger.setStyle("-fx-font-weight: bold;");
-
-        Label headerHjælpemidler = new Label("Hjælpemidler");
-        headerHjælpemidler.setStyle("-fx-font-size: 16px;");
-        headerHjælpemidler.setStyle("-fx-font-weight: bold;");
-
-        Label headerBoligensindretning = new Label("Boligens indretning");
-        headerBoligensindretning.setStyle("-fx-font-size: 16px;");
-        headerBoligensindretning.setStyle("-fx-font-weight: bold;");
-
-        mainPane.add(headerMestring, 0, i);
-        mainPane.add(headerMotivation, 1, i);
-        mainPane.add(headerRessourcer, 2, i);
-        mainPane.add(headerRoller, 3, i);
-        mainPane.add(headerVaner, 4, i);
-        mainPane.add(headerUddannelseogjob, 5, i);
-        mainPane.add(headerLivshistorie, 6, i);
-        mainPane.add(headerNetværk, 7, i);
-        mainPane.add(headerHelbredsoplysninger, 8, i);
-        mainPane.add(headerHjælpemidler, 9, i);
-        mainPane.add(headerBoligensindretning, 10, i);
-        i++;
-
-
-
-
-            System.out.println(i);
-            mainPane.setAlignment(Pos.CENTER);
-
-
-
+        if (getGIR.containsKey("Mestring")) {
+            textMestring.setText(getGIR.get("Mestring"));
+        }
+        if (getGIR.containsKey("Motivation")) {
+            textMotivation.setText(getGIR.get("Motivation"));
+        }
+        if (getGIR.containsKey("Ressourcer")) {
+            textRessourcer.setText(getGIR.get("Ressourcer"));
+        }
+        if (getGIR.containsKey("Roller")) {
+            textRoller.setText(getGIR.get("Roller"));
+        }
+        if (getGIR.containsKey("Vaner")) {
+            textVaner.setText(getGIR.get("Vaner"));
+        }
+        if (getGIR.containsKey("Uddannelse og job")) {
+            textUddannelse.setText(getGIR.get("Uddannelse og job"));
+        }
+        if (getGIR.containsKey("Livshistorie")) {
+            textLiv.setText(getGIR.get("Livshistorie"));
+        }
+        if (getGIR.containsKey("Netværk")) {
+            textNetværk.setText(getGIR.get("Netværk"));
+        }
+        if (getGIR.containsKey("Helbredsoplysninger")) {
+            textHelb.setText(getGIR.get("Helbredsoplysninger"));
+        }
+        if (getGIR.containsKey("Hjælpemidler")) {
+            textHjælp.setText(getGIR.get("Hjælpemidler"));
+        }
+        if (getGIR.containsKey("Boligens indretning")) {
+            textBoligens.setText(getGIR.get("Boligens indretning"));
         }
 
 
+
+
+    }
 }
 
 /*
