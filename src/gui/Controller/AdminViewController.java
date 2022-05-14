@@ -174,7 +174,7 @@ public class AdminViewController implements Initializable {
             userModel=UserModel.getInstance();
             schoolModel = new SchoolModel();
 
-        } catch (IOException | SchoolException e) {
+        } catch (IOException | SchoolException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
@@ -886,7 +886,7 @@ public class AdminViewController implements Initializable {
         stage.setTitle("Edit Student");
         stage.setScene(new Scene(root));
         stage.show();
-    }
+        }
     }
     public void refreshTView(ObservableList<Teacher>allTeacherFiltered){
         teachersTableView.setItems(allTeacherFiltered);

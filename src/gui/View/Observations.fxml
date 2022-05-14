@@ -8,13 +8,13 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="369.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ObservationsController">
+<GridPane prefHeight="369.0" prefWidth="454.0" style="-fx-background-color: green;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ObservationsController">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="108.0" minWidth="10.0" prefWidth="15.0" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="117.0" minWidth="10.0" prefWidth="117.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="8.0" prefWidth="196.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="166.0" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="8.0" prefWidth="8.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="197.0" minWidth="8.0" prefWidth="178.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="270.0" minWidth="10.0" prefWidth="159.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="246.0" minWidth="0.0" prefWidth="0.0" />
    </columnConstraints>
    <rowConstraints>
       <RowConstraints maxHeight="32.0" minHeight="8.0" prefHeight="8.0" vgrow="SOMETIMES" />
@@ -28,39 +28,32 @@
    </rowConstraints>
    <children>
       <Label text="Blood pressure" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-      <Label text="Blood sugar" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+      <Label text="Blood sugar" GridPane.columnIndex="1" GridPane.rowIndex="4" />
       <Label text="Oxygen %" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-      <Label text="Temperature " GridPane.columnIndex="1" GridPane.rowIndex="4" />
-      <Label text="Weight" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-      <Label text="Height" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label text="Temperature " GridPane.columnIndex="1" GridPane.rowIndex="5" />
+      <Label text="Weight" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+      <Label text="Heartbeat" GridPane.columnIndex="1" GridPane.rowIndex="2" />
       <TextField fx:id="bloodPressureTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-      <TextField fx:id="bloodSugarTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <TextField fx:id="bloodSugarTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="4" />
       <TextField fx:id="oxygenTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="3" />
-      <TextField fx:id="temperatureTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="4" />
-      <TextField fx:id="wightTF" prefHeight="26.0" prefWidth="82.0" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-      <TextField fx:id="heightTF" prefHeight="26.0" prefWidth="82.0" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="6" />
-      <JFXButton onAction="#handleVSBloodPressure" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="1" />
-      <JFXButton onAction="#handleVSBloodSugar" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <TextField fx:id="temperatureTF" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+      <TextField fx:id="wightTF" prefHeight="26.0" prefWidth="82.0" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+      <TextField fx:id="heartBeatTF" prefHeight="26.0" prefWidth="82.0" promptText="new value" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+      <JFXButton onAction="#handleVSBP" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="1" />
+      <JFXButton onAction="#handleVSHB" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="2" />
       <JFXButton onAction="#handleVSOxygen" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="3" />
-      <JFXButton onAction="#handleVSTemperature" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="4" />
       <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <JFXButton text="Update IBM" />
-            <JFXButton text="Standars" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="6">
-         <children>
-            <Label prefHeight="17.0" prefWidth="36.0" text="   IBM:" />
-            <Label prefHeight="17.0" prefWidth="22.0" text="3" />
-            <Label prefHeight="17.0" prefWidth="42.0" text="Status:" />
-            <Label prefHeight="17.0" prefWidth="45.0" text="Obese" />
+            <JFXButton onAction="#handleVSTemp" text="View stats" />
          </children>
       </HBox>
       <HBox alignment="CENTER_RIGHT" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="7">
          <children>
-            <JFXButton text="Close window" />
+            <JFXButton onAction="#handleBackButton" text="Back" />
+            <JFXButton onAction="#handleLogOutButton" text="Log out" />
          </children>
       </HBox>
+      <JFXButton onAction="#handleVSWeight" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="6" />
+      <JFXButton onAction="#handleVSBS" text="View stats" GridPane.columnIndex="3" GridPane.rowIndex="4" />
    </children>
 </GridPane>

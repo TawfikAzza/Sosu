@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.Student;
 import be.Teacher;
+import be.User;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
@@ -72,15 +73,15 @@ public class TeacherWindowController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             this.model = new TeacherModel();
-            this.userModel = new UserModel();
+            this.userModel = UserModel.getInstance();
             this.relationShipModel = new StudentCitizenRelationShipModel();
-            this.citizenModel = new CitizenModel();
+            this.citizenModel = CitizenModel.getInstance();
             this.citizens = FXCollections.observableArrayList();
             createFilterListener();
             createStudentFilterListener();
             createTableListener();
 
-        } catch (IOException | CitizenException e) {
+        } catch (IOException | CitizenException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
         }
@@ -138,8 +139,7 @@ public class TeacherWindowController implements Initializable {
         Parent root = loader.load();
 
         CitizenFormController formController = loader.getController();
-        formController.setController(this);
-        formController.setCurrentSchoolId(GlobalVariables.getCurrentSchool());
+        formController.setCurrentSchoolId();
         if (isEditing) {
             formController.setCitizenToEdit(citizen);
         }
@@ -180,7 +180,7 @@ public class TeacherWindowController implements Initializable {
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.newStudent();
         newEditUserController.setTeacherController(this);
-        newEditUserController.setSchoolComboBox(currentTeacher);
+        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
 
         Stage stage = new Stage();
         stage.setTitle("New Student");
@@ -199,7 +199,7 @@ public class TeacherWindowController implements Initializable {
             NewEditUserController newEditUserController = loader.getController();
             newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
             newEditUserController.setTeacherController(this);
-            newEditUserController.setSchoolComboBox(currentTeacher);
+            newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
 
             Stage stage = new Stage();
             stage.setTitle("Edit Student");
@@ -237,8 +237,7 @@ public class TeacherWindowController implements Initializable {
                 if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
                     try {
                         Student selectedStudent = row.getItem();
-                        ObservableList<Citizen> citizens = relationShipModel.getCitizensOfStudent(selectedStudent);
-                        tableViewAssignments.setItems(citizens);
+                        relationShipModel.setCitizensOfStudentObs(selectedStudent);
                     } catch (StudentException | CitizenException e) {
                         e.printStackTrace();
                     }
@@ -258,7 +257,7 @@ public class TeacherWindowController implements Initializable {
         try { //You should only be able to get citizens from relevant school!
         //citizens = model.getTemplates(currentTeacher);
         //Y should only be able to get students from relevant school!
-        students = userModel.getStudents(currentTeacher);
+        students = userModel.getObsListStudents();
         this.tableViewTemplates.setItems(citizens);
         this.tableViewStudents.setItems(students);
         this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);

@@ -3,6 +3,7 @@ package bll;
 import be.Citizen;
 import be.Observation;
 import be.ObservationType;
+import bll.exceptions.ObservationException;
 import dal.db.ObservationDao;
 
 import java.io.IOException;
@@ -21,7 +22,11 @@ public class ObservationManager {
         return observationDao.getAllObservations(observationType,citizen,fDay,lDay);
     }
 
-    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
+    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException, ObservationException {
          observationDao.newObservation(observationType,citizen,measurement);
+    }
+
+    public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException {
+        return observationDao.getFirstObservationDate(observationType,currentCitizen);
     }
 }

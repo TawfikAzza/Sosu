@@ -77,7 +77,7 @@
                                     <Button mnemonicParsing="false" onAction="#handleDeleteTemplate" text="Delete" />
                                     <HBox spacing="5.0">
                                        <children>
-                                          <Spinner editable="true" prefHeight="26.0" prefWidth="81.0" />
+                                          <Spinner fx:id="spinnerTemplateDuplicate" prefHeight="26.0" prefWidth="81.0" />
                                           <Button mnemonicParsing="false" onAction="#handleDuplicateTemplate" text="Duplicate" />
                                        </children>
                                        <padding>
@@ -120,7 +120,7 @@
                                     <Button mnemonicParsing="false" onAction="#handleDeleteCitizen" text="Delete" />
                                     <HBox spacing="5.0">
                                        <children>
-                                          <Spinner editable="true" prefHeight="26.0" prefWidth="81.0" />
+                                          <Spinner fx:id="spinnerCitizenDuplicate" prefHeight="26.0" prefWidth="81.0" />
                                           <Button mnemonicParsing="false" onAction="#handleDuplicateCitizen" text="Duplicate" />
                                        </children>
                                        <padding>
@@ -134,8 +134,8 @@
                                     <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                  </padding>
                                  <children>
-                                    <Button mnemonicParsing="false" onAction="#handleCreateCitFromTemp" text="-&gt;" />
-                                    <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="&lt;-" />
+                                    <Button mnemonicParsing="false" onAction="#handleCreateCitFromTemp" text="🢂" />
+                                    <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="🢀" />
                                  </children>
                               </VBox>
                            </children>

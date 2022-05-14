@@ -3,13 +3,16 @@ package gui.Model;
 import be.Citizen;
 import be.Observation;
 import be.ObservationType;
-import be.School;
 import bll.ObservationManager;
+import bll.exceptions.ObservationException;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.Date;
 import java.sql.SQLException;
+import java.time.Instant;
 import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.List;
 
 public class ObservationModel {
@@ -21,7 +24,7 @@ public class ObservationModel {
         observationManager= new ObservationManager();
     }
 
-    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException {
+    public void addObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException, ObservationException {
         observationManager.addObservation(observationType,citizen,measurement);
     }
 
@@ -29,4 +32,7 @@ public class ObservationModel {
         return observationManager.getAllObservations(observationType,citizen,fDay,lDay);
     }
 
+    public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException {
+        return observationManager.getFirstObservationDate(observationType,currentCitizen);
+    }
 }

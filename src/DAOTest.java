@@ -1,4 +1,5 @@
 import be.*;
+import bll.exceptions.ObservationException;
 import bll.exceptions.UserException;
 import dal.db.*;
 import javafx.util.Pair;
@@ -173,7 +174,7 @@ public class DAOTest {
         }
     }
 
-    public static void addNewMeasurement() throws SQLException, IOException {
+    public static void addNewMeasurement() throws SQLException, IOException, ObservationException {
         ObservationDao observationDao = new ObservationDao();
         observationDao.newObservation(ObservationType.BPMeasurement,new Citizen(40,"aasba","zebi"), 12.5F);
     }
