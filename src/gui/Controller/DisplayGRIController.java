@@ -11,6 +11,7 @@ import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
 import gui.utils.DisplayMessage;
+import gui.utils.GeneratePdf;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
@@ -21,10 +22,12 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Pair;
 
 import javax.swing.*;
+import java.io.File;
 import java.net.URL;
 import java.util.*;
 
@@ -34,38 +37,14 @@ public class DisplayGRIController implements Initializable {
     @FXML
     private Label lblAdress, lblBirthdate, lblFName, lblLName, lblPhone, lblSchool;
     @FXML
-    private Button btnClose;
+    private Button btnClose, btnPrint;
     @FXML
     private Label lblCategory;
     @FXML
-    private TextField textFieldContent, textBoligens, textHelb;
+    private TextField textFieldContent, textBoligens, textHelb, textHjælp, textLiv,textMestring,textMotivation, textNetværk;
 
     @FXML
-    private TextField textHjælp;
-
-    @FXML
-    private TextField textLiv;
-
-    @FXML
-    private TextField textMestring;
-
-    @FXML
-    private TextField textMotivation;
-
-    @FXML
-    private TextField textNetværk;
-
-    @FXML
-    private TextField textRessourcer;
-
-    @FXML
-    private TextField textRoller;
-
-    @FXML
-    private TextField textUddannelse;
-
-    @FXML
-    private TextField textVaner;
+    private TextField textRessourcer, textRoller, textUddannelse, textVaner;
 
 
     private GIReportManger giReportManger;
@@ -161,12 +140,23 @@ public class DisplayGRIController implements Initializable {
             textBoligens.setText(getGIR.get("Boligens indretning"));
         }
 
-
-
-
     }
+
+    public void printResult() {
+        HashMap<String, String> getGIR = null;
+        try {
+            getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
+        } catch (Exception exception) {
+            exception.printStackTrace();
+        }
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(btnPrint.getScene().getWindow());
+        //GeneratePdf.
+    }
+
+
 }
 
-/*
-
- */

@@ -33,7 +33,7 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="27.0" prefWidth="73.0" text="Print PDF">
+                  <Button fx:id="btnPrint" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#printResult" prefHeight="27.0" prefWidth="73.0" text="Print PDF">
                      <GridPane.margin>
                         <Insets left="150.0" />
                      </GridPane.margin>
