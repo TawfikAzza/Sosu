@@ -9,4 +9,8 @@ public class Student extends User{
     public Student(int id, int schoolId, String firstName, String lastName) {
         super(id, schoolId, firstName, lastName);
     }
+
+    public Student(int id, String firstName, String lastName) {
+        super(id, firstName, lastName);
+    }
 }

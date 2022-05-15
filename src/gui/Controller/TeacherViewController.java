@@ -25,6 +25,7 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -77,6 +78,9 @@ public class TeacherViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initTables();
+        initSpinners();
+
         try {
             this.citizenModel = CitizenModel.getInstance();
             this.studentModel = StudentModel.getInstance();
@@ -84,8 +88,7 @@ public class TeacherViewController implements Initializable {
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
 
-            initTables();
-            initSpinners();
+
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
@@ -292,7 +295,7 @@ public class TeacherViewController implements Initializable {
         stage.show();
     }
 
-    public void handleEditStudent(ActionEvent actionEvent) throws IOException {
+    public void handleEditStudent(ActionEvent actionEvent) throws IOException, SQLException {
         Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
         if (selectedStudent==null)
             return;
@@ -303,7 +306,7 @@ public class TeacherViewController implements Initializable {
         root = loader.load();
 
         NewEditUserController newEditUserController = loader.getController();
-        newEditUserController.editStudent(selectedStudent);
+        newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
         newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
 
         Stage stage = new Stage();
