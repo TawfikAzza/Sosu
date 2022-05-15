@@ -17,7 +17,7 @@
          <children>
             <ImageView fitHeight="237.0" fitWidth="246.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@/applogo.png" />
+                  <Image url="@/gui/View/images/applogo.png" />
                </image></ImageView>
             <Label fx:id="loginLabel" alignment="CENTER" prefHeight="27.0" prefWidth="271.0" text="Login">
                <font>

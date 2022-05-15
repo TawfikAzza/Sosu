@@ -3,6 +3,8 @@ package gui.utils;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /***
  * Class which will hold and manage the displaying of error message
@@ -15,11 +17,17 @@ public class DisplayMessage {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Something went wrong...");
         alert.setHeaderText(t.getMessage());
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStyleClass().add("error-dialog");
+        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("error_icon.png"));
         alert.showAndWait();
     }
     public static void displayMessage(String message) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION,message, ButtonType.OK);
         alert.setTitle("You are missing data");
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStyleClass().add("info-dialog");
+        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("info_icon.png"));
         alert.showAndWait();
     }
 }

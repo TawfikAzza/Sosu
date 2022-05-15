@@ -338,26 +338,54 @@ For rounded text area if needed
  */
 
 
-.dialog-pane,
-.dialog-pane.content{
+.info-dialog,
+.info-dialog.content{
     -fx-background-color: -fx-root-base;
-    -fx-padding: 0;
+    -fx-padding:0 10 10 10;
 }
 
-.dialog-pane:header *.header-panel {
+.info-dialog:header *.header-panel {
     -fx-background-color: -fx-base-controls-dark;
     -fx-padding: 0.833em; /* 10px */
     -fx-background-insets: 0, 0 0 1 0;
 }
 
-.dialog-pane:header .header-panel .label {
+.info-dialog:header .header-panel .label{
     -fx-font-size: 19;
     -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
+.info-dialog > .button-bar > .container > .button {
+    -fx-background-color: -fx-base-controls-dark;
 }
 
-/*
-    Accordions
- */
+
+.error-dialog,
+.error-dialog.content{
+    -fx-background-color: -fx-root-base;
+    -fx-padding:0 10 10 10;
+}
+
+.error-dialog:header *.header-panel {
+    -fx-background-color: red;
+    -fx-padding: 0.833em; /* 10px */
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.error-dialog:header .header-panel .label{
+    -fx-font-size: 19;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
+
+.error-dialog > .button-bar > .container > .button {
+    -fx-background-color: red;
+    -fx-font-weight: bold;
+}
+
+    /*
+        Accordions
+     */
 
 .titled-pane:collapsed .title{
     -fx-background-color: -fx-base-controls-light;

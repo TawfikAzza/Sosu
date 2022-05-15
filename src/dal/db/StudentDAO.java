@@ -175,17 +175,11 @@ public class StudentDAO {
             while(rs.next())
             {
                 int id = rs.getInt("id");
-                int schoolID = rs.getInt("school_id");
                 String firstName = rs.getString("first_name");
                 String lastName = rs.getString("last_name");
-                String userName = rs.getString("user_name");
-                String password = rs.getString("password");
-                String email = rs.getString("e_mail");
-                int phoneNumber = rs.getInt("phone_number");
 
 
-                Student student = new Student(id, firstName, lastName,userName,password,email,phoneNumber);
-                student.setSchoolId(schoolID);
+                Student student = new Student(id, firstName, lastName);
                 students.add(student);
 
             }

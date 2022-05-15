@@ -11,6 +11,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class StudentModel {
@@ -44,5 +45,9 @@ public class StudentModel {
     public void deleteStudent(Student selectedStudent) throws StudentException {
         studentManager.deleteStudent(selectedStudent);
         studentObservableList.remove(selectedStudent);
+    }
+
+    public Student getStudentInformation(Student selectedItem) throws SQLException {
+        return studentManager.getStudent(selectedItem);
     }
 }
