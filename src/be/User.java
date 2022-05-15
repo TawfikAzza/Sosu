@@ -43,6 +43,7 @@ public abstract class User {
     public User(int id, int roleID) {
         this.id = id;
         this.roleID = roleID;
+
     }
 
     public User(int id, int schoolId, String firstName, String lastName) {
@@ -64,6 +65,15 @@ public abstract class User {
         this.email= email;
         this.phoneNumber= phoneNumber;
         this.schoolId=schoolId;
+
+        fNameProperty.set(firstName);
+        lNameProperty.setValue(lastName);
+    }
+
+    public User(int id, String firstName, String lastName) {
+        this.id=id;
+        this.firstName = firstName;
+        this.lastName = lastName;
 
         fNameProperty.set(firstName);
         lNameProperty.setValue(lastName);

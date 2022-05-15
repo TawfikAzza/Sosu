@@ -34,4 +34,8 @@ public class StudentManager {
             throw new StudentException("Error while deleting student",e);
         }
     }
+
+    public Student getStudent(Student selectedItem) throws SQLException {
+        return studentDAO.getStudent(selectedItem);
+    }
 }
