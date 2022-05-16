@@ -179,22 +179,15 @@ public class NewEditUserController implements Initializable {
         try {
             userModel = UserModel.getInstance();
             studentModel = StudentModel.getInstance();
-        } catch (IOException | UserException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-        try {
             schoolModel = new SchoolModel();
-        } catch (SchoolException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-        try {
+
             schoolComboBox.setItems(schoolModel.getAllSchools());
-        } catch (SchoolException e) {
+        } catch (IOException | UserException | SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
+
+        setAdminMode();
 
         phoneNumberField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -219,6 +212,17 @@ public class NewEditUserController implements Initializable {
                     handleCancel(new ActionEvent());}
             }
         });
+    }
+
+    //check if admin has logged in, otherwise disable choice of school
+    private void setAdminMode() {
+        if (GlobalVariables.getCurrentAdmin()==null)
+            disableSchoolChoice();
+    }
+
+    private void disableSchoolChoice() {
+        schoolComboBox.setDisable(true);
+        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
     }
 
     public void editTeacher(Teacher selectedItem) {
@@ -276,12 +280,5 @@ public class NewEditUserController implements Initializable {
         isTeacher=false;
         mainLabel.setText("New student");
     }
-
-    /*public void setSchoolComboBox(){
-        //int index = schoolComboBox.getItems().indexOf();
-        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
-        //schoolComboBox.setDisable(true);
-    }
-     */
 
 }

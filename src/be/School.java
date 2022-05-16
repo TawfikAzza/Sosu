@@ -2,7 +2,7 @@ package be;
 
 import java.util.List;
 
-public class School {
+public class School{
     List<Student>allStudents;
     List<Teacher>allTeachers;
     int id;
@@ -31,5 +31,21 @@ public class School {
     @Override
     public String toString() {
         return name;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        School school = (School) o;
+
+        return id == school.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return id;
     }
 }

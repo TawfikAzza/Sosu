@@ -41,6 +41,7 @@ public class UsersDAO {
                             "admin",rs.getString("user_name"),
                             rs.getString("password"),
                             rs.getString("e_mail"),25478963);
+                    GlobalVariables.setCurrentAdmin((Admin)user);
                 }
                 if(roleID==2){
                     user = new Teacher(id,"Teacher",
@@ -49,6 +50,7 @@ public class UsersDAO {
                             rs.getString("e_mail"),
                             25478963,
                              rs.getInt("school_id"));
+                    GlobalVariables.setCurrentTeacher((Teacher)user);
                 }
                 if(roleID==3){
                     user = new Student(id,"Student",
