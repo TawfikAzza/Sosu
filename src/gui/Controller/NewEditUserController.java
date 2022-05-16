@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -37,6 +39,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class NewEditUserController implements Initializable {
+    @FXML
+    private RowConstraints schoolChoiceRow;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -221,8 +225,13 @@ public class NewEditUserController implements Initializable {
     }
 
     private void disableSchoolChoice() {
-        schoolComboBox.setDisable(true);
+        //If we want to keep it but remove the choice of selection
+        /*schoolComboBox.setDisable(true);
         schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
+         */
+        gridPane.getRowConstraints().remove(schoolChoiceRow);
+        gridPane.getChildren().remove(schoolComboBox);
+
     }
 
     public void editTeacher(Teacher selectedItem) {
