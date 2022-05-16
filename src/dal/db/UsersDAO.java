@@ -21,9 +21,7 @@ public class UsersDAO {
     }
 
     public User compareLogins(String userName, String passWord){
-
         User user=null;
-
         try (Connection con = cm.getConnection()){
             String sql = "SELECT [user_name],[password],[e_mail], [roleID], [id],[school_id] FROM [user] WHERE [user_name] =? AND [password] =?";
 
@@ -37,7 +35,7 @@ public class UsersDAO {
                 int id = rs.getInt("id");
                 int roleID = rs.getInt("roleID");
                 System.out.println("RoleID "+roleID);
-             //   user = new User(id, roleID);
+
                 if(roleID==1){
                     user = new Admin(id,"Admin",
                             "admin",rs.getString("user_name"),
@@ -57,13 +55,11 @@ public class UsersDAO {
                             "student",rs.getString("user_name"),
                             rs.getString("password"),
                             rs.getString("e_mail"),25478963);
-
+                    GlobalVariables.setCurrentStudent((Student) user);
                 }
                 assert user != null;
                 user.setRoleID(roleID);
             }
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
