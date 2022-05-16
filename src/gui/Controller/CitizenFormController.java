@@ -119,6 +119,7 @@ public class CitizenFormController implements Initializable {
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
         datePickerMaxDate();
+        birthDatePicker.getEditor().setDisable(true);
     }
 
     private void datePickerMaxDate() {

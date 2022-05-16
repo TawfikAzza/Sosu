@@ -115,7 +115,7 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);
                 }
                 }
-                userModel.getObsListStudents().add(student);
+                studentModel.getObsStudents().add(student);
 
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
@@ -226,12 +226,9 @@ public class NewEditUserController implements Initializable {
 
     private void disableSchoolChoice() {
         //If we want to keep it but remove the choice of selection
-        /*schoolComboBox.setDisable(true);
+        schoolComboBox.setDisable(true);
         schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
-         */
-        gridPane.getRowConstraints().remove(schoolChoiceRow);
-        gridPane.getChildren().remove(schoolComboBox);
-
+        schoolComboBox.setOpacity(0);
     }
 
     public void editTeacher(Teacher selectedItem) {

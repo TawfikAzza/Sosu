@@ -1,6 +1,7 @@
 package gui.utils;
 
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.image.Image;
@@ -29,5 +30,15 @@ public class DisplayMessage {
         dialogPane.getStyleClass().add("info-dialog");
         ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/info_icon.png"));
         alert.showAndWait();
+    }
+
+    public static ButtonType displayConfirmation(String title,String header){
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION,header,ButtonType.OK,ButtonType.CANCEL);
+        alert.setTitle(title);
+        alert.setHeaderText(title);
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStyleClass().add("confirmation-dialog");
+        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/confirmation_icon.png"));
+        return alert.showAndWait().get();
     }
 }

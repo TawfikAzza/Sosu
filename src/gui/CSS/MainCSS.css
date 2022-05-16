@@ -337,6 +337,24 @@ For rounded text area if needed
     Customer alerts
  */
 
+.confirmation-dialog,
+.confirmation-dialog .content{
+    fx-background-color: -fx-root-base;
+    -fx-padding:0 10 10 10;
+}
+
+.confirmation-dialog:header *.header-panel {
+    -fx-background-color: -fx-base-controls-dark;
+    -fx-padding: 0.833em; /* 10px */
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.confirmation-dialog:header .header-panel .label{
+    -fx-font-size: 19;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
+
 
 .info-dialog,
 .info-dialog.content{

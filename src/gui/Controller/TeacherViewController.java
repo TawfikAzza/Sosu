@@ -11,6 +11,7 @@ import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -225,21 +226,28 @@ public class TeacherViewController implements Initializable {
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (selectedCitizen != null) {
-            Thread deleteCitizenThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        citizenModel.deleteCitizen(selectedCitizen);
-                        citizenModel.getTemplatesObs().remove(selectedCitizen);
-                    } catch (CitizenException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this template");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.deleteCitizen(selectedCitizen);
+                    citizenModel.getTemplatesObs().remove(selectedCitizen);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
                 }
-            });
-            deleteCitizenThread.start();
-        }
+            }
+        });
+        deleteCitizenThread.start();
+
     }
 
 
@@ -276,7 +284,14 @@ public class TeacherViewController implements Initializable {
 
     public void handleDeleteCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
-        if (selectedCitizen != null) {
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this Citizen");
+
+        if (response!=ButtonType.OK)
+            return;
+
             Thread deleteCitizenThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -289,7 +304,7 @@ public class TeacherViewController implements Initializable {
                 }
             });
             deleteCitizenThread.start();
-        }
+
     }
 
     public void handleDuplicateCitizen(ActionEvent actionEvent) {
@@ -392,22 +407,28 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent){
-            Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-            if (selectedStudent != null) {
-                Thread deleteStudentThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            studentModel.deleteStudent(selectedStudent);
-                            studentModel.getObsStudents().remove(selectedStudent);
-                        } catch (StudentException e) {
-                            DisplayMessage.displayError(e);
-                        }
-                    }
-                });
-                deleteStudentThread.start();
+        ObservableList<Student> selectedStudents = tableViewStudent.getSelectionModel().getSelectedItems();
+        Student selectedStudent = selectedStudents.get(0);
+        if (selectedStudents.size()>1 || selectedStudents.get(0) == null)
+            return;
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this student");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteStudentThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    studentModel.deleteStudent(selectedStudent);
+                    studentModel.getObsStudents().remove(selectedStudent);
+                } catch (StudentException e) {
+                    DisplayMessage.displayError(e);
+                }
             }
-        }
+        });
+        deleteStudentThread.start();
+    }
 
     @FXML
     private void handleLogout(ActionEvent actionEvent) throws IOException {
