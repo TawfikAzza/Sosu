@@ -96,12 +96,12 @@ public class DAOTest {
         }
     }
 
-    private static void createStudent() throws IOException, SQLException {
+    /*private static void createStudent() throws IOException, SQLException {
         StudentDAO studentDao = new StudentDAO();
         for (Student student : studentDao.getAllStudents("sid")){
             System.out.println(student.getFirstName()+" "+student.getLastName()+"   school:"+student.getSchoolName());
         }
-    }
+    }*/
 
     private static void deleteStudent(Student student) throws IOException, SQLException {
         StudentDAO studentDao = new StudentDAO();
@@ -119,11 +119,11 @@ public class DAOTest {
         teacherDao.newTeacher(school,firstName,lastName,userName,password,email,phoneNumber);
     }
 
-    private static void getAllTeachers(String initials) throws IOException, SQLException {
+    /*private static void getAllTeachers(String initials) throws IOException, SQLException {
         TeacherDAO teacherDao = new TeacherDAO();
         for (Teacher teacher : teacherDao.getAllTeachers(initials))
             System.out.println(teacher.getFirstName()+" "+teacher.getLastName()+"   School: "+teacher.getSchoolName());
-    }
+    }*/
 
     private static void deleteTeacher(Teacher teacher) throws IOException, SQLException {
         TeacherDAO teacherDao = new TeacherDAO();
