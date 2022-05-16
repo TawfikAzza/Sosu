@@ -27,9 +27,9 @@
    <children>
       <TabPane prefHeight="200.0" prefWidth="200.0" tabClosingPolicy="UNAVAILABLE">
         <tabs>
-          <Tab text="Templates/Citizen">
+          <Tab fx:id="duplicateCitizenTab" text="Templates/Citizen">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+              <AnchorPane fx:id="duplicateAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
                         <GridPane layoutX="210.0" layoutY="121.0" prefHeight="315.2" prefWidth="579.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                           <columnConstraints>
@@ -144,9 +144,9 @@
                   </AnchorPane>
             </content>
           </Tab>
-          <Tab text="Students/Assigning">
+          <Tab fx:id="assignCitizenStudentTab" text="Students/Assigning">
             <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="643.0">
+              <AnchorPane fx:id="assigningAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="278.0" prefWidth="643.0">
                      <children>
                         <GridPane prefHeight="426.0" prefWidth="919.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <columnConstraints>
