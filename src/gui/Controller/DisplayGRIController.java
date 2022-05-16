@@ -7,6 +7,7 @@ import be.InfoCategory;
 import bll.GIReportManger;
 import bll.exceptions.CitizenException;
 import bll.exceptions.CitizenReportException;
+import bll.exceptions.GIReportException;
 import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
@@ -59,7 +60,7 @@ public class DisplayGRIController implements Initializable {
             giReportModel = new GIReportModel();
             giReportManger = new GIReportManger();
 
-        } catch (GeneralInfoException | CitizenException e) {
+        } catch (CitizenException | GIReportException e) {
             e.printStackTrace();
         }
         displayCitiziInfo();
