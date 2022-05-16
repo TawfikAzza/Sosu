@@ -5,6 +5,7 @@ import be.Teacher;
 import bll.exceptions.UserException;
 import gui.Controller.MainController;
 import gui.Controller.NewEditUserController;
+import gui.Controller.TeacherViewController;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import javafx.animation.FadeTransition;
@@ -17,6 +18,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -36,13 +38,22 @@ import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AdminTestViewController implements Initializable {
-    public TableView<Teacher> teachersTV;
-    public TableColumn<Teacher,String> firstNameTTC,lastNameTTC,userNameTTC,passWordTTC,emailTTC;
-    public TableColumn<Teacher,Integer> phoneNumberTTC;
+    public TabPane mainTabPane;
+    @FXML
+    private TableView<Teacher> teachersTV;
+    @FXML
+    private TableColumn<Teacher,String> firstNameTTC,lastNameTTC,userNameTTC,passWordTTC,emailTTC;
+    @FXML
+    private TableColumn<Teacher,Integer> phoneNumberTTC;
 
-    public TableView<Student> studentsTV;
-    public TableColumn<Student,String> firstNaneSTC,lastNameSTC,userNameSTC,passWordSTC,emailSTC;
-    public TableColumn<Student,Integer> phoneNumberSTC;
+    @FXML
+    private TableView<Student> studentsTV;
+    @FXML
+    private TableColumn<Student,String> firstNaneSTC,lastNameSTC,userNameSTC,passWordSTC,emailSTC;
+    @FXML
+    private TableColumn<Student,Integer> phoneNumberSTC;
+    @FXML
+    private AnchorPane mainAnchorPane;
 
     @FXML
     private TextField searchStudentsFilter,searchCitizensFilter,searchTeachersFilter;
@@ -174,22 +185,37 @@ public class AdminTestViewController implements Initializable {
     public void handleManageCitizensTab(Event event) {
     }
 
-    public void handleLogOutBtn(ActionEvent actionEvent) {
+    public void handleLogOutBtn(Event event) {
     }
 
-    public void handleDuplicateCitizenBtn(ActionEvent actionEvent) {
+    public void handleDuplicateCitizenBtn(Event event) throws IOException {
+        FXMLLoader loaderTeacher = new FXMLLoader();
+        loaderTeacher.setLocation(getClass().getResource("/gui/View/TestViewTeacher.fxml"));
+
+        loaderTeacher.load();
+
+        TeacherViewController teacherViewController = loaderTeacher.getController();
+
+        mainTabPane.setVisible(false);
+        AnchorPane anchorPane = teacherViewController.getDuplicateAnchorPane();
+        anchorPane.setPrefHeight(mainAnchorPane.getHeight());
+        anchorPane.setPrefWidth(mainAnchorPane.getWidth());
+
+        mainAnchorPane.getChildren().add(anchorPane);
+
+
     }
 
-    public void handleAssignCitizenBtn(ActionEvent actionEvent) {
+    public void handleAssignCitizenBtn(Event event) {
     }
 
-    public void handleDeleteUserBtn(ActionEvent actionEvent) {
+    public void handleDeleteUserBtn(Event event) {
     }
 
-    public void handleEditUserBtn(ActionEvent actionEvent) {
+    public void handleEditUserBtn(Event event) {
     }
 
-    public void handleAddUserBtn(ActionEvent actionEvent) throws IOException {
+    public void handleAddUserBtn(Event event) throws IOException {
 
         stage.setScene(new Scene(root));
         stage.show();

@@ -5,7 +5,6 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
-import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
@@ -20,6 +19,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -31,6 +31,9 @@ import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
+
+    public AnchorPane duplicateAnchorPane;
+    public AnchorPane assigningAnchorPane;
 
     private CitizenModel citizenModel;
     private StudentModel studentModel;
@@ -82,7 +85,7 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initTableEvents();
-        initSpinners();
+        //initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();
@@ -449,5 +452,13 @@ public class TeacherViewController implements Initializable {
         Stage stage = new Stage();
         stage.setScene(scene);
         stage.show();
+    }
+
+    public AnchorPane getDuplicateAnchorPane() {
+        return duplicateAnchorPane;
+    }
+
+    public AnchorPane getAssigningAnchorPane() {
+        return assigningAnchorPane;
     }
 }
