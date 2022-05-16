@@ -29,10 +29,6 @@ public class StudentCitizenRelationShipModel {
         return citizensOfStudent;
     }
 
-    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
-        studentCitizenRelationshipManager.assignCitizensToStudents(template,students);
-    }
-
 
     public ObservableList<Student> getStudentsOfCitizen(Citizen citizen) throws CitizenStudentRelationException, CitizenException {
         ObservableList<Student> obsList = FXCollections.observableArrayList();
@@ -44,5 +40,14 @@ public class StudentCitizenRelationShipModel {
         ArrayList<Citizen> citizens = studentCitizenRelationshipManager.getCitizensOfStudent(student);
         citizensOfStudent.clear();
         citizensOfStudent.addAll(citizens);
+    }
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        studentCitizenRelationshipManager.assignCitizensToStudents(template,students);
+    }
+
+    public void removeRelation(Student student, Citizen toRemove) throws CitizenException {
+        studentCitizenRelationshipManager.removeRelation(student, toRemove);
+        citizensOfStudent.remove(toRemove);
     }
 }

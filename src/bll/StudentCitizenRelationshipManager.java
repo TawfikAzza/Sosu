@@ -35,4 +35,8 @@ public class StudentCitizenRelationshipManager {
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
         citizenDAO.assignCitizensToStudents(template,students);
     }
+
+    public void removeRelation(Student student, Citizen toRemove) throws CitizenException {
+        citizenDAO.removeRelation(student, toRemove);
+    }
 }

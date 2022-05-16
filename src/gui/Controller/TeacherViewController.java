@@ -285,15 +285,38 @@ public class TeacherViewController implements Initializable {
 
         if (templateCitizen!=null)
         {
-            try {
-                relationShipModel.assignCitizensToStudents(templateCitizen, students);
-            } catch (CitizenException e) {
-                DisplayMessage.displayError(e);
-            }
+            Thread assignCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        relationShipModel.assignCitizensToStudents(templateCitizen, students);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            assignCitizenThread.start();
         }
     }
 
     public void handleRemoveCitClick(ActionEvent actionEvent) {
+        Student student = tableViewStudent.getSelectionModel().getSelectedItem();
+        Citizen toRemove = tableViewAssignedCit.getSelectionModel().getSelectedItem();
+
+        if (student!=null && toRemove!=null)
+        {
+            Thread removeRelationThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        relationShipModel.removeRelation(student, toRemove);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            removeRelationThread.start();
+        }
     }
 
     public void handleCreateStudent(ActionEvent actionEvent) {
