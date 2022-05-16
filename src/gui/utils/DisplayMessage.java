@@ -19,7 +19,7 @@ public class DisplayMessage {
         alert.setHeaderText(t.getMessage());
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStyleClass().add("error-dialog");
-        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("error_icon.png"));
+        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
         alert.showAndWait();
     }
     public static void displayMessage(String message) {
@@ -27,7 +27,7 @@ public class DisplayMessage {
         alert.setTitle("You are missing data");
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStyleClass().add("info-dialog");
-        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("info_icon.png"));
+        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/info_icon.png"));
         alert.showAndWait();
     }
 }

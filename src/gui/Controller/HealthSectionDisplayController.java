@@ -6,7 +6,6 @@ import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -41,10 +40,8 @@ public class HealthSectionDisplayController implements Initializable {
 
     private final double LISTVIEW_HEIGHT_VALUE = 23.75;
     private final CategoryModel categoryModel;
-    private final Citizen currentCitizen;
     public HealthSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen = GlobalVariables.getSelectedCitizen();
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user
@@ -87,7 +84,7 @@ public class HealthSectionDisplayController implements Initializable {
                 subCategoryList.setOnMouseClicked(e-> {
                     if(subCategoryList.getSelectionModel().getSelectedIndex() == -1)
                         return;
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),GlobalVariables.getSelectedCitizen());
                 });
                 //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
@@ -132,7 +129,7 @@ public class HealthSectionDisplayController implements Initializable {
         Scene scene = new Scene(root);
         Stage stage = new Stage();
         stage.initModality(Modality.APPLICATION_MODAL);
-        stage.getIcons().add(new Image("sosu.png"));
+        stage.getIcons().add(new Image("Images/sosu.png"));
         stage.setTitle(healthCategory.getName());
         stage.setScene(scene);
         stage.show();

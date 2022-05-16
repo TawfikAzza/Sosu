@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class LoginLogoutUtil {
 
-    private static Image appIcon = new Image("sosu.png");
+    private static Image appIcon = new Image("Images/sosu.png");
 
     private enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);

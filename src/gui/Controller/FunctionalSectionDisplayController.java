@@ -8,13 +8,10 @@ import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
-import javafx.application.Platform;
-import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
@@ -43,10 +40,8 @@ public class FunctionalSectionDisplayController implements Initializable {
     private final double LISTVIEW_HEIGHT_VALUE = 23.75;
     private CategoryModel categoryModel;
     final int ROW_HEIGHT = 24;
-    private final Citizen currentCitizen;
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
-        currentCitizen  = GlobalVariables.getSelectedCitizen();
     }
     /**
      * The Initialize method is kind of important as it sets the different actions the user
@@ -87,7 +82,7 @@ public class FunctionalSectionDisplayController implements Initializable {
                 subCategoryList.setOnMouseClicked(e-> {
                     if(subCategoryList.getSelectionModel().getSelectedIndex() == -1)
                         return;
-                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),currentCitizen);
+                    openConditionReport(subCategoryList.getSelectionModel().getSelectedItem(),GlobalVariables.getSelectedCitizen());
                 });
                 //We then fill the ListView with the subcategories of the currently parsed gui.Main category.
                 for (AbilityCategory subCategory : abilityCategory.getSubCategories()) {
@@ -138,7 +133,7 @@ public class FunctionalSectionDisplayController implements Initializable {
         abilityReportViewController.setFields();
         Scene scene = new Scene(root);
         Stage stage = new Stage();
-        stage.getIcons().add(new Image("sosu.png"));
+        stage.getIcons().add(new Image("Images/sosu.png"));
         stage.setTitle(abilityCategory.getName());
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);

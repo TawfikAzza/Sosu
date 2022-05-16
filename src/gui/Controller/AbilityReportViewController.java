@@ -4,6 +4,7 @@ import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import bll.util.DateUtil;
+import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -12,8 +13,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -130,17 +129,17 @@ public class AbilityReportViewController implements Initializable {
     }
 
     private void setImages() {
-        functionalLevel_0.setImage(new Image("functional_level_0.png"));
-        functionalLevel_1.setImage(new Image("functional_level_1.png"));
-        functionalLevel_2.setImage(new Image("functional_level_2.png"));
-        functionalLevel_3.setImage(new Image("functional_level_3.png"));
-        functionalLevel_4.setImage(new Image("functional_level_4.png"));
+        functionalLevel_0.setImage(new Image("Images/functional_level_0.png"));
+        functionalLevel_1.setImage(new Image("Images/functional_level_1.png"));
+        functionalLevel_2.setImage(new Image("Images/functional_level_2.png"));
+        functionalLevel_3.setImage(new Image("Images/functional_level_3.png"));
+        functionalLevel_4.setImage(new Image("Images/functional_level_4.png"));
 
-        functionalLevel_0_1.setImage(new Image("functional_level_0.png"));
-        functionalLevel_1_1.setImage(new Image("functional_level_1.png"));
-        functionalLevel_2_1.setImage(new Image("functional_level_2.png"));
-        functionalLevel_3_1.setImage(new Image("functional_level_3.png"));
-        functionalLevel_4_1.setImage(new Image("functional_level_4.png"));
+        functionalLevel_0_1.setImage(new Image("Images/functional_level_0.png"));
+        functionalLevel_1_1.setImage(new Image("Images/functional_level_1.png"));
+        functionalLevel_2_1.setImage(new Image("Images/functional_level_2.png"));
+        functionalLevel_3_1.setImage(new Image("Images/functional_level_3.png"));
+        functionalLevel_4_1.setImage(new Image("Images/functional_level_4.png"));
     }
 
     private void bindSizes() {
