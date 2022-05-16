@@ -30,7 +30,9 @@ public class TeacherManager {
         //citizenFacade.copyCitizenToDB(template);
     }
 
-    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
-        citizenFacade.assignCitizensToStudents(template,students);
+    /*public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        .assignCitizensToStudents(template,students);
     }
+
+     */
 }

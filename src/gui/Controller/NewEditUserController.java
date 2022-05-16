@@ -5,6 +5,7 @@ import be.Student;
 import be.Teacher;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.SchoolModel;
@@ -59,7 +60,6 @@ public class NewEditUserController implements Initializable {
     private ObservableList<Student>allStudents=FXCollections.observableArrayList();
 
     private String init;
-    private TeacherWindowController teacherWindowController;
     private AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
@@ -109,8 +109,7 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);
                 }
                 }
-                if (teacherWindowController!=null)
-                teacherWindowController.getStudents().add(student);
+                userModel.getObsListStudents().add(student);
 
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
@@ -158,7 +157,6 @@ public class NewEditUserController implements Initializable {
                     if (!(student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
                 {   allStudents.remove(student);
                     adminViewController.refreshTViewStudents(allStudents);}}
-                else teacherWindowController.getStudentTV().refresh();
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
@@ -189,7 +187,7 @@ public class NewEditUserController implements Initializable {
             e.printStackTrace();
         }
         try {
-            schoolComboBox.getItems().setAll(schoolModel.getAllSchools());
+            schoolComboBox.setItems(schoolModel.getAllSchools());
         } catch (SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -276,21 +274,12 @@ public class NewEditUserController implements Initializable {
         mainLabel.setText("New student");
     }
 
-    public void setTeacherController(TeacherWindowController teacherWindowController) {
-        this.teacherWindowController=teacherWindowController;
+    /*public void setSchoolComboBox(){
+        //int index = schoolComboBox.getItems().indexOf();
+        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
+        //schoolComboBox.setDisable(true);
     }
 
-    public void setSchoolComboBox(Teacher currentTeacher){
-        School currentSchool=null;
-        for (School school : schoolComboBox.getItems()){
-            if (school.getId()==currentTeacher.getSchoolId())
-            {
-                currentSchool=school;
-                break;
-            }
-        }
-        int index = schoolComboBox.getItems().indexOf(currentSchool);
-        schoolComboBox.getSelectionModel().select(index);
-        schoolComboBox.setDisable(true);
-    }
+     */
+
 }

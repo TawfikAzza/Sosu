@@ -1,11 +1,8 @@
 package dal.db;
 
-import be.Ability;
-import be.Citizen;
+import be.*;
 
 
-import be.Condition;
-import be.GeneralInfo;
 import bll.exceptions.CitizenException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
@@ -108,6 +105,32 @@ public class CitizenDAO {
             throw new CitizenException("Could not retrieve citizens from DB", throwables);
         }
         return citizens;
+    }
+
+    private void addStudentCitizenRelation(Citizen citizen, Student student) throws CitizenException {
+        try (Connection connection = cm.getConnection()) {
+
+            String sql = "INSERT INTO CitizenStudentRelation VALUES(?, ?)";
+            PreparedStatement ps = connection.prepareStatement(sql);
+
+            int citizenID = citizen.getId();
+            int studentID = student.getId();
+
+            ps.setInt(1, citizenID);
+            ps.setInt(2, studentID);
+
+            ps.execute();
+
+        } catch (SQLException throwables) {
+            throw new CitizenException("Error connecting to DB", throwables);
+        }
+    }
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        for(Student stud : students)
+        {
+            addStudentCitizenRelation(template, stud);
+        }
     }
 
 }

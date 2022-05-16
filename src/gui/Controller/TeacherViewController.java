@@ -7,7 +7,6 @@ import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
-import gui.Model.StudentModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
@@ -24,6 +23,8 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -96,6 +97,9 @@ public class TeacherViewController implements Initializable {
     }
 
     private void initTables() {
+        //Select multiple students from TV
+        this.tableViewStudent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         //Templates
         this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
         this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
@@ -275,19 +279,80 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    public void handleAssignClick(ActionEvent actionEvent) {
+        ArrayList<Student> students = new ArrayList<>(tableViewStudent.getSelectionModel().getSelectedItems());
+        Citizen templateCitizen = tableViewFictiveCitizen.getSelectionModel().getSelectedItem();
+
+        if (templateCitizen!=null)
+        {
+            try {
+                relationShipModel.assignCitizensToStudents(templateCitizen, students);
+            } catch (CitizenException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+    }
+
     public void handleRemoveCitClick(ActionEvent actionEvent) {
     }
 
     public void handleCreateStudent(ActionEvent actionEvent) {
+        try {
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            NewEditUserController newEditUserController = loader.getController();
+            newEditUserController.newStudent();
+
+            Stage stage = new Stage();
+            stage.setTitle("New Student");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+         catch(IOException e){
+             DisplayMessage.displayError(e);
+            }
     }
 
     public void handleEditStudent(ActionEvent actionEvent) {
+        try {
+
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            NewEditUserController newEditUserController = loader.getController();
+            newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Student");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | SQLException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent) {
-    }
-
-    public void handleAssignClick(ActionEvent actionEvent) {
+        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+        if (selectedStudent!=null)
+        {
+            Thread deleteStudentThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        studentModel.deleteStudent(selectedStudent);
+                        studentModel.getObsListStudents().remove(selectedStudent);
+                    } catch (SQLException | UserException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            deleteStudentThread.start();
+        }
     }
 
     private void createTableListener()

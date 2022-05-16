@@ -29,6 +29,10 @@ public class StudentCitizenRelationShipModel {
         return citizensOfStudent;
     }
 
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        studentCitizenRelationshipManager.assignCitizensToStudents(template,students);
+    }
+
 
     public ObservableList<Student> getStudentsOfCitizen(Citizen citizen) throws CitizenStudentRelationException, CitizenException {
         ObservableList<Student> obsList = FXCollections.observableArrayList();

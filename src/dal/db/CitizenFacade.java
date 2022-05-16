@@ -295,29 +295,4 @@ public class CitizenFacade {
         return duplicates;
     }
 
-    private void addStudentCitizenRelation(Citizen citizen, Student student) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
-
-            String sql = "INSERT INTO CitizenStudentRelation VALUES(?, ?)";
-            PreparedStatement ps = connection.prepareStatement(sql);
-
-            int citizenID = citizen.getId();
-            int studentID = student.getId();
-
-            ps.setInt(1, citizenID);
-            ps.setInt(2, studentID);
-
-            ps.execute();
-
-        } catch (SQLException throwables) {
-            throw new CitizenException("Error connecting to DB", throwables);
-        }
-    }
-
-    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
-        for(Student stud : students)
-        {
-            addStudentCitizenRelation(template, stud);
-        }
-    }
 }

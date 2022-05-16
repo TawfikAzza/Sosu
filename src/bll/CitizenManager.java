@@ -70,6 +70,6 @@ public class CitizenManager {
     }
 
     public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
-        citizenFacade.assignCitizensToStudents(template,students);
+        citizenDAO.assignCitizensToStudents(template,students);
     }
 }
