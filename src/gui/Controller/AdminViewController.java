@@ -5,10 +5,10 @@ import bll.exceptions.CitizenException;
 import bll.exceptions.SchoolException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
-import gui.Main;
 import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -90,8 +90,6 @@ public class AdminViewController implements Initializable {
     private Integer test = 1;
 
     private final UserException ue = new UserException();
-    private Main main;
-
 
     public void deleteTeacher(ActionEvent actionEvent) throws SQLException {
         if (teachersTableView.getSelectionModel().getSelectedItem()!=null){
@@ -118,8 +116,9 @@ public class AdminViewController implements Initializable {
         stage.show();
     }
 
-    public void logOut(ActionEvent actionEvent) throws Exception {
-        main.initLogin();
+    @FXML
+    private void logOut(ActionEvent actionEvent) throws Exception {
+        LoginLogoutUtil.logout(actionEvent);
     }
 
     public void deleteStudent(ActionEvent actionEvent) throws SQLException {
@@ -911,7 +910,5 @@ public class AdminViewController implements Initializable {
             if (allSchoolsLV.getSelectionModel().getSelectedItem().getName().equals(teacher.getSchoolName()))
                 allTeachersSchool.getItems().add(teacher.getFirstName()+" "+teacher.getLastName());
     }
-    public void setMain(Main main){
-        this.main=main;
-    }
+
 }

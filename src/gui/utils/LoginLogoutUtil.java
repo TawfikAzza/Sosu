@@ -1,38 +1,53 @@
 package gui.utils;
 
-import javafx.event.ActionEvent;
+import bll.util.GlobalVariables;
+import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class LoginLogoutUtil {
 
-    private static Image appIcon;
+    private static Image appIcon = new Image("sosu.png");
 
-    public enum UserType{
+    private enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
         private int userType;
+
         UserType(int userType) {
             this.userType = userType;
         }
-    }
 
-    public LoginLogoutUtil() {
-        appIcon = new Image("sosu.png");
-    }
+        public int getUserType() {
+            return userType;
+        }
 
-    public static void logout(ActionEvent actionEvent) throws IOException {
+        private static final Map<Integer,UserType> valuesMap = Arrays.stream(UserType.values()).
+                collect(Collectors.toMap(UserType::getUserType, Function.identity()));
+
+        public static UserType fromRole(int userRole){
+            return valuesMap.get(userRole);
+        }
+    }
+    public static void logout(Event actionEvent) throws IOException {
         closeCurrentWindow(actionEvent);
+        GlobalVariables.resetVariables();
         openLoginWindow();
+
     }
 
-    public static void login(UserType userType) throws IOException {
-        //closeCurrentWindow(actionEvent);
+    public static void login(Event actionEvent, int userRole) throws IOException {
+        closeCurrentWindow(actionEvent);
+        UserType userType = UserType.fromRole(userRole);
         switch (userType){
             case ADMIN -> loginAdmin();
             case STUDENT -> loginStudent();
@@ -41,9 +56,8 @@ public class LoginLogoutUtil {
     }
 
 
-    private static void closeCurrentWindow(ActionEvent actionEvent) {
-        Button actionSource = ((Button) actionEvent.getSource());
-        ((Stage) actionSource.getParent().getScene().getWindow()).close();
+    private static void closeCurrentWindow(Event actionEvent) {
+         ((Stage) ((Node) actionEvent.getSource()).getScene().getWindow()).close();
     }
 
     private static void openLoginWindow() throws IOException {
@@ -65,6 +79,9 @@ public class LoginLogoutUtil {
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
         teacherWindow.getIcons().add(appIcon);
+        teacherWindow.setTitle("Teacher window");
+        teacherWindow.setHeight(480);
+        teacherWindow.setWidth(880);
         teacherWindow.show();
     }
 
@@ -73,6 +90,9 @@ public class LoginLogoutUtil {
         Scene scene = new Scene(root);
         Stage adminWindow = new Stage();
         adminWindow.setScene(scene);
+        adminWindow.setTitle("Admin window");
+        adminWindow.setHeight(398);
+        adminWindow.setWidth(755);
         adminWindow.show();
     }
 
@@ -81,6 +101,9 @@ public class LoginLogoutUtil {
         Scene scene = new Scene(root);
         Stage studentWindow = new Stage();
         studentWindow.setScene(scene);
+        studentWindow.setTitle("Student window window");
+        studentWindow.setHeight(431.5);
+        studentWindow.setWidth(700);
         studentWindow.show();
     }
 }

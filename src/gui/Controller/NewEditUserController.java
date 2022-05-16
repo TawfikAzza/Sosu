@@ -5,6 +5,7 @@ import be.Student;
 import be.Teacher;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.SchoolModel;
@@ -61,7 +62,6 @@ public class NewEditUserController implements Initializable {
     private ObservableList<Student>allStudents=FXCollections.observableArrayList();
 
     private String init;
-    private TeacherWindowController teacherWindowController;
     private AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
@@ -111,9 +111,7 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);
                 }
                 }
-                if (teacherWindowController!=null)
-                teacherWindowController.getStudents().add(student);
-                studentModel.getObsStudents().add(student);
+                userModel.getObsListStudents().add(student);
 
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
@@ -192,7 +190,7 @@ public class NewEditUserController implements Initializable {
             e.printStackTrace();
         }
         try {
-            schoolComboBox.getItems().setAll(schoolModel.getAllSchools());
+            schoolComboBox.setItems(schoolModel.getAllSchools());
         } catch (SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -279,20 +277,11 @@ public class NewEditUserController implements Initializable {
         mainLabel.setText("New student");
     }
 
-    public void setTeacherController(TeacherWindowController teacherWindowController) {
-        this.teacherWindowController=teacherWindowController;
+    /*public void setSchoolComboBox(){
+        //int index = schoolComboBox.getItems().indexOf();
+        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
+        //schoolComboBox.setDisable(true);
     }
+     */
 
-    public void setSchoolComboBox(School currentSchool){
-        for (School school : schoolComboBox.getItems()){
-            if (school.getId()==currentSchool.getId())
-            {
-                currentSchool=school;
-                break;
-            }
-        }
-        int index = schoolComboBox.getItems().indexOf(currentSchool);
-        schoolComboBox.getSelectionModel().select(index);
-        schoolComboBox.setDisable(true);
-    }
 }

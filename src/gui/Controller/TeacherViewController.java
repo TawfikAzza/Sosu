@@ -7,6 +7,7 @@ import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
+import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
@@ -16,16 +17,15 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -33,6 +33,7 @@ public class TeacherViewController implements Initializable {
 
     private CitizenModel citizenModel;
     private StudentModel studentModel;
+    private StudentCitizenRelationShipModel relationShipModel;
 
     @FXML
     private TableView<Citizen> tableViewTemplates;
@@ -79,13 +80,17 @@ public class TeacherViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
+        initTableEvents();
         initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();
             this.studentModel = StudentModel.getInstance();
+            relationShipModel = new StudentCitizenRelationShipModel();
+
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
 
 
@@ -94,7 +99,37 @@ public class TeacherViewController implements Initializable {
         }
     }
 
+    private void initTableEvents() {
+        tableViewStudent.setRowFactory(param -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> Optional.ofNullable(row.getItem()).ifPresent(rowData-> {
+                if(event.getClickCount() == 2 && rowData.equals(tableViewStudent.getSelectionModel().getSelectedItem())){
+                    showAssignedCitizens(row);
+                }
+            }));
+            return row;
+        });
+    }
+
+
+    /*
+        Method called after double clicking a row in student table
+     */
+    private void showAssignedCitizens(TableRow<Student> row) {
+        Student selectedStudent = row.getItem();
+        try {
+            tableViewAssignedCit.setItems(relationShipModel.getCitizensOfStudent(selectedStudent));
+        } catch (StudentException | CitizenException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
+    }
+
     private void initTables() {
+        //Select multiple students from TV
+        this.tableViewStudent.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
         //Templates
         this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
         this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
@@ -276,59 +311,103 @@ public class TeacherViewController implements Initializable {
         }
     }
 
-    public void handleRemoveCitClick(ActionEvent actionEvent) {
-    }
+    public void handleAssignClick(ActionEvent actionEvent) {
+        ArrayList<Student> students = new ArrayList<>(tableViewStudent.getSelectionModel().getSelectedItems());
+        Citizen templateCitizen = tableViewFictiveCitizen.getSelectionModel().getSelectedItem();
 
-    public void handleCreateStudent(ActionEvent actionEvent) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-        root = loader.load();
-
-        NewEditUserController newEditUserController = loader.getController();
-        newEditUserController.newStudent();
-        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
-
-        Stage stage = new Stage();
-        stage.setTitle("New Student");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
-    public void handleEditStudent(ActionEvent actionEvent) throws IOException, SQLException {
-        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-        if (selectedStudent==null)
-            return;
-
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-        root = loader.load();
-
-        NewEditUserController newEditUserController = loader.getController();
-        newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
-        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
-
-        Stage stage = new Stage();
-        stage.setTitle("Edit Student");
-        stage.setScene(new Scene(root));
-        stage.show();
-    }
-
-    public void handleDeleteStudent(ActionEvent actionEvent) {
-        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-        if (selectedStudent==null)
-            return;
-        try {
-            studentModel.deleteStudent(selectedStudent);
-        } catch (StudentException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
+        if (templateCitizen!=null)
+        {
+            Thread assignCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        relationShipModel.assignCitizensToStudents(templateCitizen, students);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            assignCitizenThread.start();
         }
     }
 
-    public void handleAssignClick(ActionEvent actionEvent) {
+    public void handleRemoveCitClick(ActionEvent actionEvent) {
+        Student student = tableViewStudent.getSelectionModel().getSelectedItem();
+        Citizen toRemove = tableViewAssignedCit.getSelectionModel().getSelectedItem();
+
+        if (student!=null && toRemove!=null)
+        {
+            Thread removeRelationThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        relationShipModel.removeRelation(student, toRemove);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            removeRelationThread.start();
+        }
     }
+
+    public void handleCreateStudent(ActionEvent actionEvent) {
+        try {
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            NewEditUserController newEditUserController = loader.getController();
+            newEditUserController.newStudent();
+
+            Stage stage = new Stage();
+            stage.setTitle("New Student");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }
+         catch(IOException e){
+             DisplayMessage.displayError(e);
+            }
+    }
+
+    public void handleEditStudent(ActionEvent actionEvent) {
+        try {
+
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            NewEditUserController newEditUserController = loader.getController();
+            newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
+
+            Stage stage = new Stage();
+            stage.setTitle("Edit Student");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException | SQLException e) {
+            DisplayMessage.displayError(e);
+        }
+    }
+
+    public void handleDeleteStudent(ActionEvent actionEvent){
+            Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+            if (selectedStudent != null) {
+                Thread deleteStudentThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            studentModel.deleteStudent(selectedStudent);
+                            studentModel.getObsStudents().remove(selectedStudent);
+                        } catch (StudentException e) {
+                            DisplayMessage.displayError(e);
+                        }
+                    }
+                });
+                deleteStudentThread.start();
+            }
+        }
 
     @FXML
     private void handleLogout(ActionEvent actionEvent) throws IOException {
@@ -350,5 +429,4 @@ public class TeacherViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 }

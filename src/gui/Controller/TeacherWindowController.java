@@ -179,8 +179,7 @@ public class TeacherWindowController implements Initializable {
 
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.newStudent();
-        newEditUserController.setTeacherController(this);
-        newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
+        //newEditUserController.setSchoolComboBox();
 
         Stage stage = new Stage();
         stage.setTitle("New Student");
@@ -198,8 +197,8 @@ public class TeacherWindowController implements Initializable {
 
             NewEditUserController newEditUserController = loader.getController();
             newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
-            newEditUserController.setTeacherController(this);
-            newEditUserController.setSchoolComboBox(GlobalVariables.getCurrentSchool());
+
+            //newEditUserController.setSchoolComboBox();
 
             Stage stage = new Stage();
             stage.setTitle("Edit Student");
@@ -246,7 +245,7 @@ public class TeacherWindowController implements Initializable {
             return row ;
         });
     }
-    
+
 
     public void setCurrentTeacher(Teacher currentTeacher) {
         this.currentTeacher = currentTeacher;
@@ -326,14 +325,14 @@ public class TeacherWindowController implements Initializable {
         return tableViewTemplates;
     }
 
-    public void handleAssignCitizen(ActionEvent actionEvent)  {
-
+   /* public void handleAssignCitizen(ActionEvent actionEvent)  {
         ArrayList<Student> students = new ArrayList<>(tableViewStudents.getSelectionModel().getSelectedItems());
-
         templateCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
 
+        if (templateCitizen!=null)
+        {
 
-        if (!templateCitizen.isTemplate())
+        }
         try {
             model.assignCitizensToStudents(templateCitizen,students);
         } catch (CitizenException e) {
@@ -350,4 +349,6 @@ public class TeacherWindowController implements Initializable {
             }
         }
     }
+
+    */
 }

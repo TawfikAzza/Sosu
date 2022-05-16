@@ -42,6 +42,16 @@ public class StudentCitizenRelationShipModel {
         citizensOfStudent.addAll(citizens);
     }
 
+
+    public void assignCitizensToStudents(Citizen template, ArrayList<Student> students) throws CitizenException {
+        studentCitizenRelationshipManager.assignCitizensToStudents(template,students);
+    }
+
+    public void removeRelation(Student student, Citizen toRemove) throws CitizenException {
+        studentCitizenRelationshipManager.removeRelation(student, toRemove);
+        citizensOfStudent.remove(toRemove);
+    }
+
     public ObservableList<Citizen> getCitizensOfStudent(Student currentStudent) throws StudentException, CitizenException {
         setCitizensOfStudentObs(currentStudent);
         return citizensOfStudent;

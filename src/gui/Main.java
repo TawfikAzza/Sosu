@@ -34,6 +34,10 @@ public class Main extends Application {
         initLogin();
     }
 
+    public static void main(String[] args) {
+        Application.launch();
+    }
+
     public void initLogin() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/MainWindow.fxml"));
@@ -42,7 +46,7 @@ public class Main extends Application {
         primaryStage.getIcons().add(new Image("sosu.png"));
 
         MainController mainController =loader.getController();
-        mainController.setMainApp(this);
+        //mainController.setMainApp(this);
         Scene scene = new Scene(root);
 
         primaryStage.setScene(scene);
@@ -52,6 +56,7 @@ public class Main extends Application {
         primaryStage.show();
     }
 
+    /*
     public void initRootLayout() throws Exception {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(Main.class
@@ -82,7 +87,7 @@ public class Main extends Application {
             teacherWindowController.setCurrentTeacher((Teacher) user);
             teacherWindowController.loadData();
 
-             */
+
 
             teacherDisplay.prefHeightProperty().bind(rootLayout.heightProperty());
             teacherDisplay.prefWidthProperty().bind(rootLayout.widthProperty());
@@ -118,15 +123,18 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
-        Application.launch();
-    }
 
-    public void setLayoutChosen(String layoutChosen) {
+     */
+
+    /*public void setLayoutChosen(String layoutChosen) {
         this.layoutChosen.set(layoutChosen);
     }
 
-    public void setUser(User user) {
+     */
+
+    /*public void setUser(User user) {
         this.user = user;
     }
+
+     */
 }
