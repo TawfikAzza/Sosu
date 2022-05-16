@@ -6,7 +6,7 @@ import be.Student;
 
 public class GlobalVariables {
 
-    private static Citizen selectedCitizen;
+    private static Citizen currentCitizen;
     private static School currentSchool;
     private static Student currentStudent;
 
@@ -19,10 +19,24 @@ public class GlobalVariables {
     }
 
     public static Citizen getSelectedCitizen() {
-        return selectedCitizen;
+        return currentCitizen;
     }
 
     public static void setSelectedCitizen(Citizen selectedCitizen) {
-        GlobalVariables.selectedCitizen = selectedCitizen;
+        GlobalVariables.currentCitizen = selectedCitizen;
+    }
+
+    public static Student getCurrentStudent() {
+        return currentStudent;
+    }
+
+    public static void setCurrentStudent(Student currentStudent) {
+        GlobalVariables.currentStudent = currentStudent;
+    }
+
+    public static void resetVariables() {
+        currentCitizen = null;
+        currentStudent = null;
+        currentSchool = null;
     }
 }

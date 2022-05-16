@@ -1,6 +1,8 @@
 package bll.util;
 
 
+import be.ObservationType;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -40,5 +42,18 @@ public class CheckInput {
         Pattern p = Pattern.compile("[^A-Za-z0-9]");
         Matcher m = p.matcher(s);
         return !m.find();
+    }
+
+    public static boolean isValidMeasurement(ObservationType observationType, float measurement){
+        boolean isValid=true;
+        switch (observationType)
+        {
+            case BPMeasurement -> isValid= measurement>=0 && measurement<=300;
+            case BSMeasurement -> isValid= measurement>=0 && measurement<=7;
+            case TempMeasurement -> isValid= measurement>=32 && measurement<=45;
+            case WeightMeasurement -> isValid= measurement>=10 && measurement<=300;
+            case OxyMeasurement -> isValid= measurement>=0 && measurement<=100;
+        }
+        return isValid;
     }
 }

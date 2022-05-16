@@ -2,6 +2,7 @@ package bll;
 
 import be.Citizen;
 import be.InfoCategory;
+import bll.exceptions.GIReportException;
 import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import dal.db.CitizenDAO;
@@ -16,11 +17,11 @@ public class GIReportManger {
 
 
 
-    public GIReportManger() throws GeneralInfoException {
+    public GIReportManger() throws GIReportException {
         try {
             giReportDAO = new GIReportDAO();
         } catch (Exception e) {
-            throw new GeneralInfoException("Error while connecting to the database", e);
+            throw new GIReportException("Error while connecting to the database", e);
         }
     }
 

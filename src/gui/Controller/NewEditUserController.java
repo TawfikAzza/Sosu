@@ -9,6 +9,7 @@ import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import gui.Model.SchoolModel;
+import gui.Model.StudentModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
@@ -52,6 +53,7 @@ public class NewEditUserController implements Initializable {
 
     private SchoolModel schoolModel;
     private UserModel userModel;
+    private StudentModel studentModel;
 
     private Teacher teacher;
     private Student student;
@@ -176,6 +178,7 @@ public class NewEditUserController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             userModel = UserModel.getInstance();
+            studentModel = StudentModel.getInstance();
         } catch (IOException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -279,7 +282,6 @@ public class NewEditUserController implements Initializable {
         schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
         //schoolComboBox.setDisable(true);
     }
-
      */
 
 }

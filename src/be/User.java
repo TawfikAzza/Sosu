@@ -1,5 +1,8 @@
 package be;
 
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+
 public abstract class User {
     private int id;
     private int schoolId;
@@ -12,6 +15,9 @@ public abstract class User {
     private int phoneNumber;
     private int roleID;
 
+    private StringProperty fNameProperty = new SimpleStringProperty();
+    private StringProperty lNameProperty = new SimpleStringProperty();
+
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber){
         this.id=id;
         this.firstName = firstName;
@@ -20,6 +26,9 @@ public abstract class User {
         this.passWord = passWord;
         this.email= email;
         this.phoneNumber= phoneNumber;
+
+        fNameProperty.set(firstName);
+        lNameProperty.setValue(lastName);
     }
 
     public User(int id, String userName, String passWord, String email, int roleID) {
@@ -28,11 +37,13 @@ public abstract class User {
         this.passWord = passWord;
         this.email = email;
         this.roleID = roleID;
+
     }
 
     public User(int id, int roleID) {
         this.id = id;
         this.roleID = roleID;
+
     }
 
     public User(int id, int schoolId, String firstName, String lastName) {
@@ -40,6 +51,9 @@ public abstract class User {
         this.schoolId = schoolId;
         this.firstName = firstName;
         this.lastName = lastName;
+
+        fNameProperty.set(firstName);
+        lNameProperty.setValue(lastName);
     }
 
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber,int schoolId){
@@ -51,6 +65,18 @@ public abstract class User {
         this.email= email;
         this.phoneNumber= phoneNumber;
         this.schoolId=schoolId;
+
+        fNameProperty.set(firstName);
+        lNameProperty.setValue(lastName);
+    }
+
+    public User(int id, String firstName, String lastName) {
+        this.id=id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+
+        fNameProperty.set(firstName);
+        lNameProperty.setValue(lastName);
     }
 
     public int getId() {
@@ -67,6 +93,7 @@ public abstract class User {
 
     public void setFirstName(String firstName) {
         this.firstName = firstName;
+        fNameProperty.set(firstName);
     }
 
     public String getLastName() {
@@ -75,6 +102,7 @@ public abstract class User {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
+        lNameProperty.setValue(lastName);
     }
 
     public String getUserName() {
@@ -131,5 +159,14 @@ public abstract class User {
 
     public void setRoleID(int roleID) {
         this.roleID = roleID;
+    }
+
+
+    public StringProperty fNamePropertyProperty() {
+        return fNameProperty;
+    }
+
+    public StringProperty lNamePropertyProperty() {
+        return lNameProperty;
     }
 }

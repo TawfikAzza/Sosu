@@ -160,7 +160,7 @@ public class StudentDAO {
 
 
 
-    public ArrayList<Student> getAllStudentsFromDB(int schoolID) throws UserException {
+    public ArrayList<Student> getAllStudentsFromDB(School currentSchool) throws UserException {
         ArrayList<Student> students = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()) {
 
@@ -168,17 +168,18 @@ public class StudentDAO {
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setInt(1, 3);
-            ps.setInt(2, schoolID);
+            ps.setInt(2,currentSchool.getId());
 
             ResultSet rs = ps.executeQuery();
 
             while(rs.next())
             {
-                int id = rs.getInt(1);
-                String firstName = rs.getString(3);
-                String lastName = rs.getString(4);
+                int id = rs.getInt("id");
+                String firstName = rs.getString("first_name");
+                String lastName = rs.getString("last_name");
 
-                Student student = new Student(id, schoolID, firstName, lastName);
+
+                Student student = new Student(id, firstName, lastName);
                 students.add(student);
 
             }

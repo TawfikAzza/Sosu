@@ -45,6 +45,13 @@ public class ChartController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        try {
+            observationModel = new ObservationModel();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         fromDP.setEditable(false);
         toDP.setEditable(false);
 
@@ -99,7 +106,12 @@ public class ChartController implements Initializable {
                     @Override
                     public void updateItem(LocalDate item, boolean empty) {
                         super.updateItem(item, empty);
-                        setDisable(empty || item.compareTo(firstDate) < 0 || item.compareTo(LocalDate.now()) > 0);
+                        try {
+                            setDisable(empty || item.compareTo(firstDate) < 0 || item.compareTo(LocalDate.now()) > 0);
+                        }catch (NullPointerException npe){
+                            setDisable(empty || item.compareTo(LocalDate.now()) < 0 || item.compareTo(LocalDate.now()) > 0);
+
+                        }
                     }
                 };
             }

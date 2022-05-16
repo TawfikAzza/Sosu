@@ -7,6 +7,7 @@ import be.User;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import gui.Model.*;
 import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
@@ -196,6 +197,7 @@ public class TeacherWindowController implements Initializable {
 
             NewEditUserController newEditUserController = loader.getController();
             newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
+
             //newEditUserController.setSchoolComboBox();
 
             Stage stage = new Stage();

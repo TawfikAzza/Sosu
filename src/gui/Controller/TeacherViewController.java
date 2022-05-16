@@ -5,12 +5,12 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
-import gui.Model.UserModel;
+import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,13 +25,14 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
 
 
     private CitizenModel citizenModel;
-    private UserModel studentModel;
+    private StudentModel studentModel;
     private StudentCitizenRelationShipModel relationShipModel;
 
     @FXML
@@ -78,22 +79,51 @@ public class TeacherViewController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initTables();
+        initTableEvents();
+        initSpinners();
+
         try {
             this.citizenModel = CitizenModel.getInstance();
-            this.studentModel = UserModel.getInstance();
-            this.relationShipModel = new StudentCitizenRelationShipModel();
-            ObservableList<Citizen> citizens = citizenModel.getObsListCitizens();
+            this.studentModel = StudentModel.getInstance();
+            relationShipModel = new StudentCitizenRelationShipModel();
+
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
-            this.tableViewCitizen.setItems(citizens);
-            this.tableViewStudent.setItems(studentModel.getObsListStudents());
-            this.tableViewFictiveCitizen.setItems(citizens);
-            this.tableViewAssignedCit.setItems(relationShipModel.getObsListCit());
-            initTables();
-            initSpinners();
-            createTableListener();
+            this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewStudent.setItems(studentModel.getObsStudents());
+
+
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
+    }
+
+    private void initTableEvents() {
+        tableViewStudent.setRowFactory(param -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> Optional.ofNullable(row.getItem()).ifPresent(rowData-> {
+                if(event.getClickCount() == 2 && rowData.equals(tableViewStudent.getSelectionModel().getSelectedItem())){
+                    showAssignedCitizens(row);
+                }
+            }));
+            return row;
+        });
+    }
+
+
+    /*
+        Method called after double clicking a row in student table
+     */
+    private void showAssignedCitizens(TableRow<Student> row) {
+        Student selectedStudent = row.getItem();
+        try {
+            tableViewAssignedCit.setItems(relationShipModel.getCitizensOfStudent(selectedStudent));
+        } catch (StudentException | CitizenException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
     }
 
     private void initTables() {
@@ -115,8 +145,8 @@ public class TeacherViewController implements Initializable {
         this.tableColumnFictiveCitizenLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
         //Students
-        this.tableColumnStudentFirstName.setCellValueFactory(new PropertyValueFactory<>("firstName"));
-        this.tableColumnStudentLastName.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        this.tableColumnStudentFirstName.setCellValueFactory(new PropertyValueFactory<>("fNameProperty"));
+        this.tableColumnStudentLastName.setCellValueFactory(new PropertyValueFactory<>("lNameProperty"));
 
         //Assigned Fictive Citizens
         this.tableColumnAssignedID.setCellValueFactory(new PropertyValueFactory<>("id"));
@@ -129,9 +159,12 @@ public class TeacherViewController implements Initializable {
         SpinnerValueFactory<Integer> valueFactory =
                 new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
 
+        SpinnerValueFactory<Integer> valueFactory2 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
         valueFactory.setValue(1);
         spinnerCitizenDuplicate.setValueFactory(valueFactory);
-        spinnerTemplateDuplicate.setValueFactory(valueFactory);
+        spinnerTemplateDuplicate.setValueFactory(valueFactory2);
     }
 
     public void handleCreateCitFromTemp(ActionEvent actionEvent) {
@@ -249,7 +282,6 @@ public class TeacherViewController implements Initializable {
                 public void run() {
                     try {
                         citizenModel.deleteCitizen(selectedCitizen);
-                        citizenModel.getObsListCitizens().remove(selectedCitizen);
                     } catch (CitizenException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
@@ -359,53 +391,26 @@ public class TeacherViewController implements Initializable {
         }
     }
 
-    public void handleDeleteStudent(ActionEvent actionEvent) {
-        Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-        if (selectedStudent!=null)
-        {
-            Thread deleteStudentThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        studentModel.deleteStudent(selectedStudent);
-                        studentModel.getObsListStudents().remove(selectedStudent);
-                    } catch (SQLException | UserException e) {
-                        DisplayMessage.displayError(e);
-                    }
-                }
-            });
-            deleteStudentThread.start();
-        }
-    }
-
-    private void createTableListener()
-    {
-        tableViewStudent.setRowFactory( tv -> {
-            TableRow<Student> row = new TableRow<>();
-            row.setOnMouseClicked(event -> {
-                if (event.getClickCount() == 2 && (!row.isEmpty()) ) {
-                    Thread loadCitizensThread = new Thread(new Runnable() {
-                        @Override
-                        public void run() {
-                            try {
-                                Student selectedStudent = row.getItem();
-                                relationShipModel.setCitizensOfStudentObs(selectedStudent);
-                            } catch (CitizenException | StudentException e) {
-                                DisplayMessage.displayError(e);
-                                e.printStackTrace();
-                            }
+    public void handleDeleteStudent(ActionEvent actionEvent){
+            Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
+            if (selectedStudent != null) {
+                Thread deleteStudentThread = new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            studentModel.deleteStudent(selectedStudent);
+                            studentModel.getObsStudents().remove(selectedStudent);
+                        } catch (StudentException e) {
+                            DisplayMessage.displayError(e);
                         }
-                    });
-                    loadCitizensThread.start();
-                }
-            });
-            return row ;
-        });
-    }
+                    }
+                });
+                deleteStudentThread.start();
+            }
+        }
 
     @FXML
     private void handleLogout(ActionEvent actionEvent) throws IOException {
-        System.out.println("here");
         LoginLogoutUtil.logout(actionEvent);
     }
 
@@ -424,5 +429,4 @@ public class TeacherViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
 }

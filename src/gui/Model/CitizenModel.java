@@ -35,6 +35,7 @@ public class CitizenModel {
 
     public void deleteCitizen(Citizen selectedCitizen) throws CitizenException {
         citizenManager.deleteCitizen(selectedCitizen);
+        obsCitizens.remove(selectedCitizen);
     }
 
     private List<Citizen> getCitizens() throws CitizenException {

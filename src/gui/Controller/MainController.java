@@ -5,7 +5,9 @@ import bll.UserManager;
 import bll.util.GlobalVariables;
 import gui.Main;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -42,8 +44,6 @@ public class MainController implements Initializable {
     @FXML
     private TextField userField;
 
-    private Main main;
-
     public UserManager userManager = new UserManager();
 
     public MainController() throws IOException {
@@ -56,88 +56,17 @@ public class MainController implements Initializable {
     }
 
 
-    public void submitLogin(ActionEvent actionEvent) throws Exception {
+    public void submitLogin(Event actionEvent) throws Exception {
 
         User user = userManager.submitLogin(userField.getText(), passwordField.getText());
-        main.setUser(user);
+
+        //main.setUser(user);
         //System.out.println(user.getRoleID());
 
-        if (user != null){
-            if (user.getRoleID()==1){
-                main.setLayoutChosen("admin");
-                try {
-                    main.initRootLayout();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                WrongLoginLabel.setVisible(false);
-
-            }
-            if (user.getRoleID()==2){
-                main.setLayoutChosen("teacher");
-                try {
-                    main.initRootLayout();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                WrongLoginLabel.setVisible(false);
-            }
-            if (user.getRoleID()==3){
-                main.setLayoutChosen("student");
-                try {
-                    main.initRootLayout();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-                WrongLoginLabel.setVisible(false);
-            }
-        }
+        if (user != null)
+            LoginLogoutUtil.login(actionEvent,user.getRoleID());
         else
-        {
             WrongLoginLabel.setVisible(true);
-        }
-    }
-
-
-    /*public void openFAReportMgr(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/FunctionalReportView.fxml"));
-        Parent root = loader.load();
-        FunctionalReportViewController functionalReportViewController = loader.getController();
-        Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
-        functionalReportViewController.setCurrentCitizen(citizen);
-        // functionalReportViewController.displayCitizenReport();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-     */
-
-    /*public void openHealthReportMgr(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/HealthConditionReportView.fxml"));
-        Parent root = loader.load();
-        HealthConditionReportViewController healthConditionReportViewController = loader.getController();
-        Citizen citizen = new Citizen(138,"Jeppe", "moritz","1254789636587");
-        healthConditionReportViewController.setCurrentCitizen(citizen);
-        // functionalReportViewController.displayCitizenReport();
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-
-        stage.show();
-    }
-
-     */
-
-
-    public void setMainApp(Main main) {
-        this.main= main;
     }
 
     @Override
@@ -147,7 +76,7 @@ public class MainController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        submitLogin(new ActionEvent());
+                        submitLogin(event);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
