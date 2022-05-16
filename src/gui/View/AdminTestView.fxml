@@ -69,7 +69,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-          <Tab text="Manage students">
+          <Tab onSelectionChanged="#handleManageStudentsTab" text="Manage students">
             <content>
               <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -114,7 +114,7 @@
                      </children></AnchorPane>
             </content>
           </Tab>
-            <Tab text="Manage citizens">
+            <Tab onSelectionChanged="#handleManageCitizensTab" text="Manage citizens">
               <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                      <children>
@@ -185,32 +185,32 @@
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="10.0" prefHeight="38.0" prefWidth="179.0" text="Add New user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#handleAddUserBtn" prefHeight="38.0" prefWidth="179.0" text="Add New user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="58.0" prefHeight="38.0" prefWidth="179.0" text="Edit user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="58.0" onAction="#handleEditUserBtn" prefHeight="38.0" prefWidth="179.0" text="Edit user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="106.0" prefHeight="38.0" prefWidth="179.0" text="Delete user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="106.0" onAction="#handleDeleteUserBtn" prefHeight="38.0" prefWidth="179.0" text="Delete user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Log out">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleLogOutBtn" prefHeight="38.0" prefWidth="179.0" text="Log out">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Duplicate citizen">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleDuplicateCitizenBtn" prefHeight="38.0" prefWidth="179.0" text="Duplicate citizen">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Assign citizen">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleAssignCitizenBtn" prefHeight="38.0" prefWidth="179.0" text="Assign citizen">
                      <font>
                         <Font size="16.0" />
                      </font>
@@ -234,32 +234,32 @@
                                 <Image url="@images/home.png" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="33.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="33.0" fitWidth="42.0" onMouseClicked="#handleAddUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/add.jpeg" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="34.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="34.0" fitWidth="41.0" onMouseClicked="#handleEditUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/edit.jpeg" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleDeleteUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/delete.png" />
                             </image>
                         </ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleLogOutBtn" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/logout.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleDuplicateCitizenBtn" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/duplicate-outline_1.png" />
                      </image>
                   </ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleAssignCitizenBtn" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/assign.png" />
                      </image>

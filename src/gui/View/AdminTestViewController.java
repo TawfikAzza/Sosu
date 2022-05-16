@@ -3,29 +3,36 @@ package gui.View;
 import be.Student;
 import be.Teacher;
 import bll.exceptions.UserException;
-import gui.Model.TeacherModel;
+import gui.Controller.MainController;
+import gui.Controller.NewEditUserController;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import javafx.animation.FadeTransition;
 import javafx.animation.TranslateTransition;
+import javafx.event.ActionEvent;
+import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 
 public class AdminTestViewController implements Initializable {
@@ -48,8 +55,23 @@ public class AdminTestViewController implements Initializable {
 
     private UserModel userModel;
 
+    //private String tabName;
+
+    private FXMLLoader newUserWindowLoader = new FXMLLoader();
+    private Parent root;
+    private final Stage stage = new Stage();
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+
+        newUserWindowLoader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        try {
+            root = newUserWindowLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
         initStudentsTV();
 
         try {
@@ -143,6 +165,63 @@ public class AdminTestViewController implements Initializable {
         phoneNumberSTC.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
 
     }
+
+    public void handleManageStudentsTab(Event event) {
+        NewEditUserController newEditUserController = newUserWindowLoader.getController();
+        newEditUserController.newStudent();
     }
+
+    public void handleManageCitizensTab(Event event) {
+    }
+
+    public void handleLogOutBtn(ActionEvent actionEvent) {
+    }
+
+    public void handleDuplicateCitizenBtn(ActionEvent actionEvent) {
+    }
+
+    public void handleAssignCitizenBtn(ActionEvent actionEvent) {
+    }
+
+    public void handleDeleteUserBtn(ActionEvent actionEvent) {
+    }
+
+    public void handleEditUserBtn(ActionEvent actionEvent) {
+    }
+
+    public void handleAddUserBtn(ActionEvent actionEvent) throws IOException {
+
+        stage.setScene(new Scene(root));
+        stage.show();
+
+
+        /*if (tabName.equals("student")){
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        root = loader.load();
+
+        NewEditUserController newEditUserController = loader.getController();
+        newEditUserController.newStudent();
+
+        Stage stage = new Stage();
+        stage.setTitle("New Student");
+        stage.setScene(new Scene(root));
+        stage.show();
+        }
+        else
+        {
+            Parent root;
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            root = loader.load();
+
+            Stage stage = new Stage();
+            stage.setTitle("New Teacher");
+            stage.setScene(new Scene(root));
+            stage.show();
+        }*/
+    }
+}
 
 
