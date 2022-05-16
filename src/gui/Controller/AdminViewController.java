@@ -278,17 +278,17 @@ public class AdminViewController implements Initializable {
 
 
         FXMLLoader loaderTeacher = new FXMLLoader();
-        loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherWindow.fxml"));
+        loaderTeacher.setLocation(getClass().getResource("/gui/View/TeacherView.fxml"));
         GridPane teacherDisplay = null;
         try {
             teacherDisplay = loaderTeacher.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        TeacherWindowController teacherWindowController = loaderTeacher.getController();
+        TeacherViewController teacherViewController = loaderTeacher.getController();
 
 
-        searchTeacher.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        /*searchTeacher.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
@@ -302,12 +302,11 @@ public class AdminViewController implements Initializable {
                 }
             }
         });
-            teacherWindowController.setAdminView();
-
-            teacherPane.getChildren().add(teacherDisplay);
-            assert teacherDisplay != null;
-            teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
-            teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
+        */
+        teacherPane.getChildren().add(teacherDisplay);
+        assert teacherDisplay != null;
+        teacherDisplay.prefHeightProperty().bind(teacherPane.heightProperty());
+        teacherDisplay.prefWidthProperty().bind(teacherPane.widthProperty());
 
     }
 

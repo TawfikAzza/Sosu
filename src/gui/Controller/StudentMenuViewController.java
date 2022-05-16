@@ -10,6 +10,7 @@ import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -21,8 +22,11 @@ import javafx.stage.Stage;
 
 
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-public class StudentMenuViewController {
+public class StudentMenuViewController implements Initializable {
+
     @FXML
     private TableView<Citizen> citizenTableview;
     @FXML
@@ -34,13 +38,13 @@ public class StudentMenuViewController {
 
     private StudentCitizenRelationShipModel studentCitizenRelationShipModel;
 
-    public void setCurrentStudent(Student currentStudent) {
-        this.currentStudent = currentStudent;
-    }
 
     private Student currentStudent;
     private Citizen currentCitizen;
+
     public StudentMenuViewController() {
+        currentStudent = GlobalVariables.getCurrentStudent();
+        System.out.println(currentStudent);
         try {
             studentCitizenRelationShipModel = new StudentCitizenRelationShipModel();
         } catch (IOException e) {
@@ -49,7 +53,7 @@ public class StudentMenuViewController {
         //currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
-    public void upadateTableCitizen() {
+    private void updateTableCitizen() {
         fnameColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
@@ -59,9 +63,6 @@ public class StudentMenuViewController {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
-
-
-
     }
 
     public void displayCitizen() {
@@ -184,5 +185,10 @@ public class StudentMenuViewController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        updateTableCitizen();
     }
 }
