@@ -7,6 +7,7 @@ import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
+import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
@@ -16,16 +17,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TeacherViewController implements Initializable {
@@ -33,6 +32,7 @@ public class TeacherViewController implements Initializable {
 
     private CitizenModel citizenModel;
     private StudentModel studentModel;
+    private StudentCitizenRelationShipModel relationShipModel;
 
     @FXML
     private TableView<Citizen> tableViewTemplates;
@@ -79,19 +79,50 @@ public class TeacherViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
+        initTableEvents();
         initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();
             this.studentModel = StudentModel.getInstance();
+            relationShipModel = new StudentCitizenRelationShipModel();
+
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
 
 
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
+    }
+
+    private void initTableEvents() {
+        tableViewStudent.setRowFactory(param -> {
+            TableRow<Student> row = new TableRow<>();
+            row.setOnMouseClicked(event -> Optional.ofNullable(row.getItem()).ifPresent(rowData-> {
+                if(event.getClickCount() == 2 && rowData.equals(tableViewStudent.getSelectionModel().getSelectedItem())){
+                    showAssignedCitizens(row);
+                }
+            }));
+            return row;
+        });
+    }
+
+
+    /*
+        Method called after double clicking a row in student table
+     */
+    private void showAssignedCitizens(TableRow<Student> row) {
+        Student selectedStudent = row.getItem();
+        try {
+            tableViewAssignedCit.setItems(relationShipModel.getCitizensOfStudent(selectedStudent));
+        } catch (StudentException | CitizenException e) {
+            DisplayMessage.displayError(e);
+            e.printStackTrace();
+        }
+
     }
 
     private void initTables() {
@@ -350,5 +381,7 @@ public class TeacherViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+
 
 }
