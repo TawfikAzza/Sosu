@@ -165,8 +165,18 @@
                         <Font size="16.0" />
                      </font>
                   </JFXButton>
-                  <HBox prefHeight="29.0" prefWidth="178.0" />
-                  <ImageView fitHeight="173.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Duplicate citizen">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Assign citizen">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <HBox prefHeight="20.0" prefWidth="178.0" />
+                  <ImageView fitHeight="109.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@images/applogo.png" />
                         </image>
@@ -202,6 +212,16 @@
                   <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/logout.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/duplicate-outline_1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/assign.png" />
                      </image>
                   </ImageView>
 
