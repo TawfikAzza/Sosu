@@ -1,5 +1,6 @@
 package gui.utils;
 
+import bll.util.GlobalVariables;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -9,30 +10,44 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.Map;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 public class LoginLogoutUtil {
 
-    private static Image appIcon;
+    private static Image appIcon = new Image("sosu.png");
 
-    public enum UserType{
+    private enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
         private int userType;
+
         UserType(int userType) {
             this.userType = userType;
         }
-    }
 
-    public LoginLogoutUtil() {
-        appIcon = new Image("sosu.png");
-    }
+        public int getUserType() {
+            return userType;
+        }
 
+        private static final Map<Integer,UserType> valuesMap = Arrays.stream(UserType.values()).
+                collect(Collectors.toMap(UserType::getUserType, Function.identity()));
+
+        public static UserType fromRole(int userRole){
+            return valuesMap.get(userRole);
+        }
+    }
     public static void logout(ActionEvent actionEvent) throws IOException {
         closeCurrentWindow(actionEvent);
+        GlobalVariables.resetVariables();
         openLoginWindow();
+
     }
 
-    public static void login(UserType userType) throws IOException {
+    public static void login(int userRole) throws IOException {
         //closeCurrentWindow(actionEvent);
+        UserType userType = UserType.fromRole(userRole);
         switch (userType){
             case ADMIN -> loginAdmin();
             case STUDENT -> loginStudent();
