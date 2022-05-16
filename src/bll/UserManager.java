@@ -40,12 +40,12 @@ public class UserManager implements UserInterface {
         return studentDao.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
-    public List<Student>getAllStudents(String initials,School school)throws SQLException{
-        return studentDao.getAllStudents(initials,school);
+    public List<Student>getAllStudents(String initials)throws SQLException{
+        return studentDao.getAllStudents(initials,GlobalVariables.getCurrentSchool().getId());
     }
 
-    public List<Teacher>getAllTeachers(String initials,School school) throws SQLException{
-        return teacherDao.getAllTeachers(initials,school);
+    public List<Teacher>getAllTeachers(String initials) throws SQLException{
+        return teacherDao.getAllTeachers(initials,GlobalVariables.getCurrentSchool().getId());
     }
 
     public void deleteTeacher(Teacher teacher)throws SQLException{
