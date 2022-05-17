@@ -138,6 +138,7 @@ public class CitizenFormController implements Initializable {
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
         datePickerMaxDate();
+        birthDatePicker.getEditor().setTextFormatter(dateFormatter);
     }
 
     private void datePickerMaxDate() {
@@ -246,6 +247,12 @@ public class CitizenFormController implements Initializable {
     TextFormatter intFormatter = new TextFormatter<Object>(change -> {
         if (change.getText().matches("[0-9]*") && change.getControlText().length()<8
                 || change.isDeleted() || change.getText().isEmpty())
+            return change;
+        return null;
+    });
+
+    TextFormatter dateFormatter = new TextFormatter<Object>(change -> {
+        if (change.getText().matches("[/0-9]*"))
             return change;
         return null;
     });
