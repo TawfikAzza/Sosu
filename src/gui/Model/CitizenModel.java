@@ -94,21 +94,4 @@ public class CitizenModel {
         }
         return instance;
     }
-
-    /*public void refreshTemplates() throws CitizenException {
-        this.templates.clear();
-        this.templates.addAll(citizenManager.getTemplates());
-    }
-
-    public void refreshCitizens() throws CitizenException {
-        this.obsCitizens.clear();
-        this.obsCitizens.addAll(citizenManager.getCitizens());
-    }
-
-    public void refreshTables() throws CitizenException {
-        refreshTemplates();
-        refreshCitizens();
-    }
-
-     */
 }

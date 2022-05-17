@@ -64,7 +64,7 @@ public class CitizenDAO {
             preparedStatement.setString(3, citizenToEdit.getAddress());
             preparedStatement.setDate(4, Date.valueOf(citizenToEdit.getBirthDate()));
             preparedStatement.setInt(5, citizenToEdit.getPhoneNumber());
-            preparedStatement.setInt(6, citizenToEdit.getId());
+            preparedStatement.setInt(6, citizenToEdit.getCaseID());
 
             preparedStatement.executeUpdate();
         }
