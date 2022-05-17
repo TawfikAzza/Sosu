@@ -11,6 +11,7 @@ import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -92,7 +94,7 @@ public class TeacherViewController implements Initializable {
             this.studentModel = StudentModel.getInstance();
             relationShipModel = new StudentCitizenRelationShipModel();
 
-            this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
+            this.tableViewTemplates.setItems(new FilteredList<>(citizenModel.getTemplatesObs()));
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
@@ -454,6 +456,27 @@ public class TeacherViewController implements Initializable {
         stage.show();
     }
 
+    @FXML
+    private void handleSearchTemplate(KeyEvent keyEvent) {
+    }
+
+    @FXML
+    private void handleSearchCitizen(KeyEvent keyEvent) {
+    }
+
+    @FXML
+    private void handleSearchStudent(KeyEvent keyEvent) {
+    }
+
+    @FXML
+    private void handleSearchFictiveCitizen(KeyEvent keyEvent) {
+
+    }
+
+    @FXML
+    private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
+    }
+
     public AnchorPane getDuplicateAnchorPane() {
         return duplicateAnchorPane;
     }
@@ -461,4 +484,5 @@ public class TeacherViewController implements Initializable {
     public AnchorPane getAssigningAnchorPane() {
         return assigningAnchorPane;
     }
+
 }

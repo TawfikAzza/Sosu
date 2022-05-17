@@ -355,6 +355,10 @@ For rounded text area if needed
     -fx-padding: 0 0 0 0;
 }
 
+.confirmation-dialog> .button-bar > .container > .button {
+    -fx-background-color: -fx-base-controls-dark;
+}
+
 
 .info-dialog,
 .info-dialog.content{
