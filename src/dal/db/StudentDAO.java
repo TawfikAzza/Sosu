@@ -20,17 +20,26 @@ public class StudentDAO {
         connectionManager = new ConnectionManager();
     }
 
-    public List<Student> getAllStudents(String initials) throws SQLException {
+    public List<Student> getAllStudents(String initials,int schoolId) throws SQLException {
         List<Student> allStudents = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()) {
-            String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
+            String sql0 = "SELECT * FROM UserRoles WHERE roleName=? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql0);
             preparedStatement.setString(1, "Student");
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1 = "SELECT * FROM [user] WHERE (first_name LIKE ? OR last_name LIKE ? OR user_name LIKE ? OR [password] LIKE ? OR e_mail LIKE ? OR phone_number LIKE ?) AND roleID=?";
-                PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+                String sql1;
+                PreparedStatement preparedStatement1;
+                if (initials.equals("*")){
+                     sql1= "SELECT * FROM [user] WHERE roleID=? AND school_id= ?";
+                     preparedStatement1 = connection.prepareStatement(sql1);
+                     preparedStatement1.setInt(1,id);
+                     preparedStatement1.setInt(2,schoolId);
+                }
+                else{
+                 sql1 = "SELECT * FROM [user] WHERE (first_name LIKE ? OR last_name LIKE ? OR user_name LIKE ? OR [password] LIKE ? OR e_mail LIKE ? OR phone_number LIKE ?) AND roleID=? AND school_id= ?";
+                    preparedStatement1 = connection.prepareStatement(sql1);
                 for (int i = 1; i <= 5; i++)
                     preparedStatement1.setString(i, "%"+initials+"%");
                 try {
@@ -39,6 +48,8 @@ public class StudentDAO {
                     preparedStatement1.setInt(6, 0);
                 }
                 preparedStatement1.setInt(7, id);
+                preparedStatement1.setInt(8,schoolId);
+                }
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()) {
                     Student student = new Student(resultSet1.getInt("id"),
@@ -164,7 +175,7 @@ public class StudentDAO {
         ArrayList<Student> students = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()) {
 
-            String sql = "SELECT * FROM [user] WHERE roleID = ? AND school_id=? ";
+            String sql = "SELECT [id],[first_name],[last_name] FROM [user] WHERE roleID = ? AND school_id=? ";
             PreparedStatement ps = connection.prepareStatement(sql);
 
             ps.setInt(1, 3);
@@ -174,9 +185,9 @@ public class StudentDAO {
 
             while(rs.next())
             {
-                int id = rs.getInt("id");
-                String firstName = rs.getString("first_name");
-                String lastName = rs.getString("last_name");
+                int id = rs.getInt(1);
+                String firstName = rs.getString(2);
+                String lastName = rs.getString(3);
 
 
                 Student student = new Student(id, firstName, lastName);

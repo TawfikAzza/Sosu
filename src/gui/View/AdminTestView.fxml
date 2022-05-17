@@ -18,109 +18,156 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: White;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.View.AdminTestViewController">
+<AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.View.AdminTestViewController">
     <children>
       <ListView layoutY="120.0" prefHeight="342.0" prefWidth="169.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List of users" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="90.0" />
-      <TabPane layoutY="42.0" prefHeight="460.0" prefWidth="581.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="42.0">
-        <tabs>
-          <Tab text="Manage teachers">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <GridPane layoutY="3.0" prefHeight="422.5" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                          <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
-                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
-                          </columnConstraints>
-                          <rowConstraints>
-                            <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="343.0" vgrow="SOMETIMES" />
-                            <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                          </rowConstraints>
+      <AnchorPane fx:id="mainAnchorPane" layoutY="42.0" prefHeight="460.0" prefWidth="581.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="42.0">
+         <children>
+            <TabPane fx:id="mainTabPane" prefHeight="460.0" prefWidth="581.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab text="Manage teachers">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                <columns>
-                                  <TableColumn prefWidth="85.0" text="First name" />
-                                  <TableColumn prefWidth="85.0" text="Last name" />
-                                    <TableColumn prefWidth="85.0" text="Username" />
-                                    <TableColumn prefWidth="85.0" text="Password" />
-                                    <TableColumn prefWidth="85.0" text="Email" />
-                                    <TableColumn prefWidth="86.0" text="Phone number" />
-                                </columns>
-                              </TableView>
-                              <GridPane GridPane.columnIndex="1">
+                              <GridPane layoutY="3.0" prefHeight="422.5" prefWidth="581.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="78.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="178.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="325.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="343.0" vgrow="SOMETIMES" />
+                                  <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                    <TextField GridPane.columnIndex="1" />
+                                    <TableView fx:id="teachersTV" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                      <columns>
+                                        <TableColumn fx:id="firstNameTTC" prefWidth="85.0" text="First name" />
+                                        <TableColumn fx:id="lastNameTTC" prefWidth="85.0" text="Last name" />
+                                          <TableColumn fx:id="userNameTTC" prefWidth="85.0" text="Username" />
+                                          <TableColumn fx:id="passWordTTC" prefWidth="85.0" text="Password" />
+                                          <TableColumn fx:id="emailTTC" prefWidth="85.0" text="Email" />
+                                          <TableColumn fx:id="phoneNumberTTC" prefWidth="86.0" text="Phone number" />
+                                      </columns>
+                                    </TableView>
+                                    <GridPane GridPane.columnIndex="1">
+                                      <columnConstraints>
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="78.0" />
+                                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="178.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="325.0" />
+                                      </columnConstraints>
+                                      <rowConstraints>
+                                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                      </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                          <TextField fx:id="searchTeachersFilter" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>
-                        </GridPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-          <Tab text="Manage students">
-            <content>
-              <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-                     <children>
-                        <GridPane prefHeight="422.5" prefWidth="581.0">
-                           <columnConstraints>
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                              <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
-                           </columnConstraints>
-                           <rowConstraints>
-                              <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="343.0" vgrow="SOMETIMES" />
-                              <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
-                           </rowConstraints>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab onSelectionChanged="#handleManageStudentsTab" text="Manage students">
+                  <content>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <TableView maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
-                                 <columns>
-                                    <TableColumn prefWidth="85.0" text="First name" />
-                                    <TableColumn prefWidth="85.0" text="Last name" />
-                                    <TableColumn prefWidth="85.0" text="Username" />
-                                    <TableColumn prefWidth="85.0" text="Password" />
-                                    <TableColumn prefWidth="85.0" text="Email" />
-                                    <TableColumn prefWidth="86.0" text="Phone number" />
-                                 </columns>
-                              </TableView>
-                              <GridPane GridPane.columnIndex="1">
+                              <GridPane prefHeight="422.5" prefWidth="581.0">
                                  <columnConstraints>
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="78.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="178.0" />
-                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="325.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
                                  </columnConstraints>
                                  <rowConstraints>
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="343.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
                                  </rowConstraints>
                                  <children>
-                                    <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
-                                    <TextField GridPane.columnIndex="1" />
+                                    <TableView fx:id="studentsTV" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <columns>
+                                          <TableColumn fx:id="firstNaneSTC" prefWidth="85.0" text="First name" />
+                                          <TableColumn fx:id="lastNameSTC" prefWidth="85.0" text="Last name" />
+                                          <TableColumn fx:id="userNameSTC" prefWidth="85.0" text="Username" />
+                                          <TableColumn fx:id="passWordSTC" prefWidth="85.0" text="Password" />
+                                          <TableColumn fx:id="emailSTC" prefWidth="85.0" text="Email" />
+                                          <TableColumn fx:id="phoneNumberSTC" prefWidth="86.0" text="Phone number" />
+                                       </columns>
+                                    </TableView>
+                                    <GridPane GridPane.columnIndex="1">
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="78.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="178.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="325.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                          <TextField fx:id="searchStudentsFilter" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
                                  </children>
                               </GridPane>
                            </children>
-                        </GridPane>
-                     </children></AnchorPane>
-            </content>
-          </Tab>
-            <Tab text="Manage citizens">
-              <content>
-                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-              </content>
-            </Tab>
-        </tabs>
-      </TabPane>
+                        </AnchorPane>
+                  </content>
+                </Tab>
+                  <Tab onSelectionChanged="#handleManageCitizensTab" text="Manage citizens">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane prefHeight="422.5" prefWidth="581.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" prefWidth="34.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints maxHeight="134.0" minHeight="0.0" prefHeight="40.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="356.0" minHeight="10.0" prefHeight="343.0" vgrow="SOMETIMES" />
+                                    <RowConstraints maxHeight="81.0" minHeight="10.0" prefHeight="36.0" vgrow="SOMETIMES" />
+                                 </rowConstraints>
+                                 <children>
+                                    <TableView fx:id="citizensTV" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="600.0" prefWidth="700.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                                       <columns>
+                                          <TableColumn prefWidth="85.0" text="First name" />
+                                          <TableColumn prefWidth="85.0" text="Last name" />
+                                          <TableColumn prefWidth="85.0" text="Username" />
+                                          <TableColumn prefWidth="85.0" text="Password" />
+                                          <TableColumn prefWidth="85.0" text="Email" />
+                                          <TableColumn prefWidth="86.0" text="Phone number" />
+                                       </columns>
+                                    </TableView>
+                                    <GridPane>
+                                       <columnConstraints>
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="250.0" minWidth="10.0" prefWidth="78.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="178.0" />
+                                          <ColumnConstraints hgrow="SOMETIMES" maxWidth="441.0" minWidth="10.0" prefWidth="325.0" />
+                                       </columnConstraints>
+                                       <rowConstraints>
+                                          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                       </rowConstraints>
+                                       <children>
+                                          <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Search" />
+                                          <TextField fx:id="searchCitizensFilter" GridPane.columnIndex="1" />
+                                       </children>
+                                    </GridPane>
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </Tab>
+              </tabs>
+            </TabPane>
+         </children>
+      </AnchorPane>
         <AnchorPane prefHeight="46.0" prefWidth="800.0" style="-fx-background-color: #002d40;">
             <children>
                 <ImageView fx:id="menu" fitHeight="46.0" fitWidth="32.0" layoutX="5" layoutY="7" pickOnBounds="true" preserveRatio="true">
@@ -135,7 +182,7 @@
                 </ImageView>
             </children>
         </AnchorPane>
-        <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: #000;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+        <AnchorPane fx:id="pane1" prefHeight="200.0" prefWidth="200.0" style="-fx-background-color: black;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
         <AnchorPane fx:id="pane2" prefHeight="454.0" prefWidth="178.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="40.0">
             <children>
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
@@ -145,28 +192,38 @@
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="10.0" prefHeight="38.0" prefWidth="179.0" text="Add New user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="10.0" onAction="#handleAddUserBtn" prefHeight="38.0" prefWidth="179.0" text="Add New user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="58.0" prefHeight="38.0" prefWidth="179.0" text="Edit user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="58.0" onAction="#handleEditUserBtn" prefHeight="38.0" prefWidth="179.0" text="Edit user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="106.0" prefHeight="38.0" prefWidth="179.0" text="Delete user">
+                        <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" layoutX="10.0" layoutY="106.0" onAction="#handleDeleteUserBtn" prefHeight="38.0" prefWidth="179.0" text="Delete user">
                             <font>
                                 <Font size="16.0" />
                             </font>
                         </JFXButton>
-                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" prefHeight="38.0" prefWidth="179.0" text="Log out">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleLogOutBtn" prefHeight="38.0" prefWidth="179.0" text="Log out">
                      <font>
                         <Font size="16.0" />
                      </font>
                   </JFXButton>
-                  <HBox prefHeight="29.0" prefWidth="178.0" />
-                  <ImageView fitHeight="173.0" fitWidth="166.0" pickOnBounds="true" preserveRatio="true">
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleDuplicateCitizenBtn" prefHeight="38.0" prefWidth="179.0" text="Duplicate citizen">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <JFXButton alignment="BASELINE_LEFT" buttonType="RAISED" onAction="#handleAssignCitizenBtn" prefHeight="38.0" prefWidth="179.0" text="Assign citizen">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </JFXButton>
+                  <HBox prefHeight="20.0" prefWidth="178.0" />
+                  <ImageView fitHeight="109.0" fitWidth="135.0" pickOnBounds="true" preserveRatio="true">
                         <image>
                             <Image url="@images/applogo.png" />
                         </image>
@@ -184,24 +241,34 @@
                                 <Image url="@images/home.png" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="33.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="33.0" fitWidth="42.0" onMouseClicked="#handleAddUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/add.jpeg" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="34.0" fitWidth="41.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="34.0" fitWidth="41.0" onMouseClicked="#handleEditUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/edit.jpeg" />
                             </image>
                         </ImageView>
-                        <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleDeleteUserBtn" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@images/delete.png" />
                             </image>
                         </ImageView>
-                  <ImageView fitHeight="36.0" fitWidth="42.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleLogOutBtn" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@images/logout.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleDuplicateCitizenBtn" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/duplicate-outline_1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fitHeight="36.0" fitWidth="42.0" onMouseClicked="#handleAssignCitizenBtn" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@images/assign.png" />
                      </image>
                   </ImageView>
 

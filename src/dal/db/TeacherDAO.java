@@ -21,7 +21,7 @@ public class TeacherDAO {
         usersDAO = new UsersDAO();
     }
 
-    public List<Teacher> getAllTeachers(String initials) throws SQLException {
+    public List<Teacher> getAllTeachers(String initials,int schoolId) throws SQLException {
         List<Teacher> allTeachers = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()) {
             String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
@@ -30,8 +30,17 @@ public class TeacherDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=?";
-                PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+                String sql1;
+                PreparedStatement preparedStatement1;
+                if (initials .equals("*")){
+                    sql1 = "SELECT * FROM [user] WHERE roleID=? AND school_id= ? ";
+                    preparedStatement1 = connection.prepareStatement(sql1);
+                    preparedStatement1.setInt(1,id);
+                    preparedStatement1.setInt(2,schoolId);
+                }
+                else {
+                 sql1 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=? AND school_id= ?";
+                     preparedStatement1 = connection.prepareStatement(sql1);
                 for (int i = 1; i <= 5; i++)
                     preparedStatement1.setString(i, initials);
                 try {
@@ -40,6 +49,8 @@ public class TeacherDAO {
                     preparedStatement1.setInt(6, 0);
                 }
                 preparedStatement1.setInt(7, id);
+                preparedStatement1.setInt(8,schoolId);
+                }
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()) {
                     Teacher teacher = new Teacher(resultSet1.getInt("id"),

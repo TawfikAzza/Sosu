@@ -37,8 +37,10 @@ public class CitizenDAO {
                 boolean isTemplate = rs.getBoolean("isTemplate");
                 int schoolID = rs.getInt("school_id");
                 String cprNumber = rs.getString("cprNumber");
+                int caseID = rs.getInt("caseID");
 
                 citizen = new Citizen(id, fName, lName, address, phoneNumber, birthDate, isTemplate, schoolID);
+                citizen.setCaseID(caseID);
             }
         }
         return citizen;
@@ -62,7 +64,7 @@ public class CitizenDAO {
             preparedStatement.setString(3, citizenToEdit.getAddress());
             preparedStatement.setDate(4, Date.valueOf(citizenToEdit.getBirthDate()));
             preparedStatement.setInt(5, citizenToEdit.getPhoneNumber());
-            preparedStatement.setInt(6, citizenToEdit.getId());
+            preparedStatement.setInt(6, citizenToEdit.getCaseID());
 
             preparedStatement.executeUpdate();
         }
@@ -98,8 +100,10 @@ public class CitizenDAO {
                 LocalDate birthdayConverted = bday.toLocalDate();
                 int phoneNumber = rs.getInt(6);
                 int schoolID = rs.getInt(8);
+                int caseID = rs.getInt(10);
 
                 Citizen citizen = new Citizen(id, fname, lname, address, phoneNumber, birthdayConverted, false, schoolID);
+                citizen.setCaseID(caseID);
                 citizens.add(citizen);
             }
         } catch (SQLException throwables) {

@@ -41,11 +41,11 @@ public class UserManager implements UserInterface {
     }
 
     public List<Student>getAllStudents(String initials)throws SQLException{
-        return studentDao.getAllStudents(initials);
+        return studentDao.getAllStudents(initials,GlobalVariables.getCurrentSchool().getId());
     }
 
     public List<Teacher>getAllTeachers(String initials) throws SQLException{
-        return teacherDao.getAllTeachers(initials);
+        return teacherDao.getAllTeachers(initials,GlobalVariables.getCurrentSchool().getId());
     }
 
     public void deleteTeacher(Teacher teacher)throws SQLException{

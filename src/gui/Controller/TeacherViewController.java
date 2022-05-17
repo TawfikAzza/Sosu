@@ -5,12 +5,13 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
-import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -19,17 +20,24 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class TeacherViewController implements Initializable {
 
+
+    public AnchorPane duplicateAnchorPane;
+    public AnchorPane assigningAnchorPane;
 
     private CitizenModel citizenModel;
     private StudentModel studentModel;
@@ -81,7 +89,7 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initTableEvents();
-        initSpinners();
+        //initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();
@@ -225,21 +233,29 @@ public class TeacherViewController implements Initializable {
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (selectedCitizen != null) {
-            Thread deleteCitizenThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        citizenModel.deleteCitizen(selectedCitizen);
-                        citizenModel.getTemplatesObs().remove(selectedCitizen);
-                    } catch (CitizenException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this template");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.deleteCitizen(selectedCitizen);
+                    ObservableList<Citizen> underlyingList = ((ObservableList<Citizen>) citizenModel.getTemplatesObs().getSource());
+                    underlyingList.remove(selectedCitizen);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
                 }
-            });
-            deleteCitizenThread.start();
-        }
+            }
+        });
+        deleteCitizenThread.start();
+
     }
 
 
@@ -276,7 +292,14 @@ public class TeacherViewController implements Initializable {
 
     public void handleDeleteCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
-        if (selectedCitizen != null) {
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this Citizen");
+
+        if (response!=ButtonType.OK)
+            return;
+
             Thread deleteCitizenThread = new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -289,7 +312,7 @@ public class TeacherViewController implements Initializable {
                 }
             });
             deleteCitizenThread.start();
-        }
+
     }
 
     public void handleDuplicateCitizen(ActionEvent actionEvent) {
@@ -392,22 +415,28 @@ public class TeacherViewController implements Initializable {
     }
 
     public void handleDeleteStudent(ActionEvent actionEvent){
-            Student selectedStudent = tableViewStudent.getSelectionModel().getSelectedItem();
-            if (selectedStudent != null) {
-                Thread deleteStudentThread = new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            studentModel.deleteStudent(selectedStudent);
-                            studentModel.getObsStudents().remove(selectedStudent);
-                        } catch (StudentException e) {
-                            DisplayMessage.displayError(e);
-                        }
-                    }
-                });
-                deleteStudentThread.start();
+        ObservableList<Student> selectedStudents = tableViewStudent.getSelectionModel().getSelectedItems();
+        Student selectedStudent = selectedStudents.get(0);
+        if (selectedStudents.size()>1 || selectedStudents.get(0) == null)
+            return;
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this student");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteStudentThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    studentModel.deleteStudent(selectedStudent);
+                    studentModel.getObsStudents().remove(selectedStudent);
+                } catch (StudentException e) {
+                    DisplayMessage.displayError(e);
+                }
             }
-        }
+        });
+        deleteStudentThread.start();
+    }
 
     @FXML
     private void handleLogout(ActionEvent actionEvent) throws IOException {
@@ -429,4 +458,51 @@ public class TeacherViewController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+
+    @FXML
+    private void handleSearchTemplate(KeyEvent keyEvent) {
+        //Get search query and ignore case by setting to lowercase
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        //set predicate for each citizen in the list
+        citizenModel.getTemplatesObs().setPredicate(citizen -> {
+            //If the search query is empty then show citizen
+            if (query.isEmpty() || query.isBlank())
+                return true;
+
+            //If to string contains query then show citizen
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            //If no case was true then dont show citizen
+            return false;
+        });
+    }
+
+
+
+
+    @FXML
+    private void handleSearchCitizen(KeyEvent keyEvent) {
+    }
+
+    @FXML
+    private void handleSearchStudent(KeyEvent keyEvent) {
+    }
+
+    @FXML
+    private void handleSearchFictiveCitizen(KeyEvent keyEvent) {
+
+    }
+
+    @FXML
+    private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
+    }
+
+    public AnchorPane getDuplicateAnchorPane() {
+        return duplicateAnchorPane;
+    }
+
+    public AnchorPane getAssigningAnchorPane() {
+        return assigningAnchorPane;
+    }
+
 }

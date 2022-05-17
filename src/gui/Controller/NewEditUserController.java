@@ -20,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -27,6 +28,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -37,6 +39,8 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class NewEditUserController implements Initializable {
+    @FXML
+    private RowConstraints schoolChoiceRow;
     @FXML
     private GridPane gridPane;
     @FXML
@@ -111,7 +115,7 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);
                 }
                 }
-                userModel.getObsListStudents().add(student);
+                studentModel.getObsStudents().add(student);
 
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
@@ -179,22 +183,15 @@ public class NewEditUserController implements Initializable {
         try {
             userModel = UserModel.getInstance();
             studentModel = StudentModel.getInstance();
-        } catch (IOException | UserException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-        try {
             schoolModel = new SchoolModel();
-        } catch (SchoolException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-        try {
+
             schoolComboBox.setItems(schoolModel.getAllSchools());
-        } catch (SchoolException e) {
+        } catch (IOException | UserException | SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
+
+        setAdminMode();
 
         phoneNumberField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -219,6 +216,19 @@ public class NewEditUserController implements Initializable {
                     handleCancel(new ActionEvent());}
             }
         });
+    }
+
+    //check if admin has logged in, otherwise disable choice of school
+    private void setAdminMode() {
+        if (GlobalVariables.getCurrentAdmin()==null)
+            disableSchoolChoice();
+    }
+
+    private void disableSchoolChoice() {
+        //If we want to keep it but remove the choice of selection
+        schoolComboBox.setDisable(true);
+        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
+        schoolComboBox.setOpacity(0);
     }
 
     public void editTeacher(Teacher selectedItem) {
@@ -276,12 +286,5 @@ public class NewEditUserController implements Initializable {
         isTeacher=false;
         mainLabel.setText("New student");
     }
-
-    /*public void setSchoolComboBox(){
-        //int index = schoolComboBox.getItems().indexOf();
-        schoolComboBox.getSelectionModel().select(GlobalVariables.getCurrentSchool());
-        //schoolComboBox.setDisable(true);
-    }
-     */
 
 }

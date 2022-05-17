@@ -1,7 +1,6 @@
 package gui.Controller;
 
 import be.InfoCategory;
-import bll.exceptions.CitizenException;
 import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GInfoModel;
@@ -58,7 +57,7 @@ public class GeneralInfoReportController implements Initializable {
         Stage newWindow = new Stage();
         newWindow.setScene(new Scene(root));
         newWindow.setTitle(selectedInfoCategory.getName());
-        newWindow.getIcons().add(new Image("sosu.png"));
+        newWindow.getIcons().add(new Image("Images/sosu.png"));
         newWindow.show();
 
     }

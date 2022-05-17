@@ -337,6 +337,28 @@ For rounded text area if needed
     Customer alerts
  */
 
+.confirmation-dialog,
+.confirmation-dialog .content{
+    fx-background-color: -fx-root-base;
+    -fx-padding:0 10 10 10;
+}
+
+.confirmation-dialog:header *.header-panel {
+    -fx-background-color: -fx-base-controls-dark;
+    -fx-padding: 0.833em; /* 10px */
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.confirmation-dialog:header .header-panel .label{
+    -fx-font-size: 19;
+    -fx-text-fill: white;
+    -fx-padding: 0 0 0 0;
+}
+
+.confirmation-dialog> .button-bar > .container > .button {
+    -fx-background-color: -fx-base-controls-dark;
+}
+
 
 .info-dialog,
 .info-dialog.content{
@@ -585,5 +607,14 @@ For rounded text area if needed
     -fx-background-color: -fx-base-controls-dark;
 }
 
+/*
+    ComboBox
+ */
+
+.combo-box-popup > .list-view {
+    -fx-background-color:-fx-root-base;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( gaussian , rgba(0,0,0,0.2) , 12, 0.0 , 0 , 8 );
+}
 
 

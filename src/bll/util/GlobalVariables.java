@@ -1,14 +1,14 @@
 package bll.util;
 
-import be.Citizen;
-import be.School;
-import be.Student;
+import be.*;
 
 public class GlobalVariables {
 
     private static Citizen currentCitizen;
     private static School currentSchool;
     private static Student currentStudent;
+    private static Admin currentAdmin;
+    private static Teacher currentTeacher;
 
     public static School getCurrentSchool() {
         return currentSchool;
@@ -34,9 +34,29 @@ public class GlobalVariables {
         GlobalVariables.currentStudent = currentStudent;
     }
 
+    public static Admin getCurrentAdmin() {
+        return currentAdmin;
+    }
+
+    public static void setCurrentAdmin(Admin currentAdmin) {
+        GlobalVariables.currentAdmin = currentAdmin;
+    }
+
+    public static Teacher getCurrentTeacher() {
+        return currentTeacher;
+    }
+
+    public static void setCurrentTeacher(Teacher currentTeacher) {
+        GlobalVariables.currentTeacher = currentTeacher;
+    }
+
     public static void resetVariables() {
         currentCitizen = null;
         currentStudent = null;
         currentSchool = null;
+        currentAdmin = null;
+        currentTeacher = null;
     }
+
+
 }

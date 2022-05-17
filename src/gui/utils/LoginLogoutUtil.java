@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class LoginLogoutUtil {
 
-    private static Image appIcon = new Image("sosu.png");
+    private static Image appIcon = new Image("Images/sosu.png");
 
     private enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
@@ -86,13 +86,14 @@ public class LoginLogoutUtil {
     }
 
     private static void loginAdmin() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/AdminView.fxml"));
+        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/AdminTestView.fxml"));
         Scene scene = new Scene(root);
         Stage adminWindow = new Stage();
         adminWindow.setScene(scene);
         adminWindow.setTitle("Admin window");
-        adminWindow.setHeight(398);
-        adminWindow.setWidth(755);
+        adminWindow.setHeight(528);
+        adminWindow.setWidth(800);
+        adminWindow.resizableProperty().set(false);
         adminWindow.show();
     }
 
