@@ -19,11 +19,15 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
+import javax.swing.text.html.ImageView;
+import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -503,6 +507,11 @@ public class TeacherViewController implements Initializable {
 
     public AnchorPane getAssigningAnchorPane() {
         return assigningAnchorPane;
+    }
+
+    public void addIcons(VBox vBox, javafx.scene.image.ImageView iv){
+        vBox.getChildren().add(iv);
+
     }
 
 }

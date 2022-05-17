@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -25,9 +26,14 @@ public class MainWindowController implements Initializable {
     public AnchorPane pane2;
     public ImageView exit;
     public ImageView menu;
+    public AnchorPane mainAnchorPane;
+    public VBox iconsVBox;
+    public VBox vBoxBtn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        vBoxBtn.setSpacing(28);
+
 
         exit.setOnMouseClicked(event -> {
             System.exit(0);
@@ -62,21 +68,35 @@ public class MainWindowController implements Initializable {
         });
 
         pane1.setOnMouseClicked(event -> {
+            translate();
+        });
+    }
 
-            FadeTransition fadeTransition1=new FadeTransition(Duration.seconds(0.5),pane1);
-            fadeTransition1.setFromValue(0.15);
-            fadeTransition1.setToValue(0);
-            fadeTransition1.play();
+    public AnchorPane getMainAnchorPane() {
+        return mainAnchorPane;
+    }
 
-            fadeTransition1.setOnFinished(event1 -> {
-                pane1.setVisible(false);
-            });
+    public VBox getIconsVBox() {
+        return iconsVBox;
+    }
 
+    public VBox getvBoxBtn() {
+        return vBoxBtn;
+    }
 
-            TranslateTransition translateTransition1=new TranslateTransition(Duration.seconds(0.5),pane2);
-            translateTransition1.setByX(-600);
-            translateTransition1.play();
+    public void translate(){
+        FadeTransition fadeTransition1=new FadeTransition(Duration.seconds(0.5),pane1);
+        fadeTransition1.setFromValue(0.15);
+        fadeTransition1.setToValue(0);
+        fadeTransition1.play();
+
+        fadeTransition1.setOnFinished(event1 -> {
+            pane1.setVisible(false);
         });
 
+
+        TranslateTransition translateTransition1=new TranslateTransition(Duration.seconds(0.5),pane2);
+        translateTransition1.setByX(-600);
+        translateTransition1.play();
     }
 }
