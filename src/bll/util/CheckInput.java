@@ -3,6 +3,7 @@ package bll.util;
 
 import be.ObservationType;
 
+import java.time.LocalDate;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -42,6 +43,14 @@ public class CheckInput {
         Pattern p = Pattern.compile("[^A-Za-z0-9]");
         Matcher m = p.matcher(s);
         return !m.find();
+    }
+
+    public static boolean isDateBeforeToday(String dateString){
+        LocalDate date = DateUtil.parseDate_GUI(dateString);
+        if (LocalDate.now().isAfter(date))
+            return true;
+        return false;
+
     }
 
     public static boolean isValidMeasurement(ObservationType observationType, float measurement){
