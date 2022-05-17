@@ -17,10 +17,8 @@ public class Citizen {
     private int phoneNumber;
     private LocalDate birthDate;
     private boolean isTemplate;
-    private List<Condition> healthConditions;
-    private List<Ability> functionalAbilities;
-    private List<GeneralInfo> generalInfo;
     private int schoolID;
+    private int caseID;
 
     private StringProperty fNameProperty;
     private StringProperty lNameProperty;
@@ -39,10 +37,6 @@ public class Citizen {
 
         fNameProperty.set(fname);
         lNameProperty.set(lName);
-
-        functionalAbilities = new ArrayList<>();
-        healthConditions = new ArrayList<>();
-        generalInfo = new ArrayList<>();
     }
 
     public Citizen(int id, String fName, String lName, String address, int phoneNumber, LocalDate birthDate, boolean isTemplate, int schoolID) {
@@ -101,30 +95,6 @@ public class Citizen {
     }
 
 
-    public List<Condition> getHealthConditions() {
-        return healthConditions;
-    }
-
-    public void setHealthConditions(List<Condition> healthConditions) {
-        this.healthConditions = healthConditions;
-    }
-
-    public List<Ability> getFunctionalAbilities() {
-        return functionalAbilities;
-    }
-
-    public void setFunctionalAbilities(List<Ability> functionalAbilities) {
-        this.functionalAbilities = functionalAbilities;
-    }
-
-    public List<GeneralInfo> getGeneralInfo() {
-        return generalInfo;
-    }
-
-    public void setGeneralInfo(List<GeneralInfo> generalInfo) {
-        this.generalInfo = generalInfo;
-    }
-
     public String getAddress() {
         return address;
     }
@@ -157,6 +127,14 @@ public class Citizen {
 
     public void setSchoolID(int schoolID) {
         this.schoolID = schoolID;
+    }
+
+    public int getCaseID() {
+        return caseID;
+    }
+
+    public void setCaseID(int caseID) {
+        this.caseID = caseID;
     }
 
     @Override

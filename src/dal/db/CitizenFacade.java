@@ -21,7 +21,7 @@ public class CitizenFacade {
 
     private Citizen addCitizen(Citizen citizen, boolean isTemplate) throws CitizenException {
         try (Connection connection = cm.getConnection()) {
-            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?,?,?)";
+            String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
             int id = -1;
@@ -31,6 +31,7 @@ public class CitizenFacade {
             LocalDate birthdate = citizen.getBirthDate();
             int phoneNumber = citizen.getPhoneNumber();
             int schoolID = citizen.getSchoolID();
+            int caseID = citizen.getCaseID();
 
             ps.setString(1, fname);
             ps.setString(2, lname);
@@ -40,6 +41,7 @@ public class CitizenFacade {
             ps.setBoolean(6, isTemplate);
             ps.setInt(7,schoolID);
             ps.setInt(8,1);
+            ps.setInt(9, caseID);
 
             ps.execute();
 
