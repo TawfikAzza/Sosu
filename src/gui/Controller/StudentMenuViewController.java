@@ -75,6 +75,7 @@ public class StudentMenuViewController implements Initializable {
         lblLname.setText(currentCitizen.getLName());
         lblAdress.setText(currentCitizen.getAddress());
         lblPhone.setText(""+currentCitizen.getPhoneNumber());
+        lblSchool.setText(""+currentCitizen.getSchoolName());
     }
 
     public void openAbilities() {

@@ -1,9 +1,6 @@
 package gui.Controller;
 
-import be.Ability;
-import be.AbilityCategory;
-import be.Citizen;
-import be.InfoCategory;
+import be.*;
 import bll.GIReportManger;
 import bll.exceptions.CitizenException;
 import bll.exceptions.CitizenReportException;
@@ -13,24 +10,25 @@ import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
 import gui.utils.DisplayMessage;
 import gui.utils.GeneratePdf;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextFlow;
+
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
-import javafx.util.Pair;
-
-import javax.swing.*;
 import java.io.File;
+
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.*;
+
+
 
 public class DisplayGRIController implements Initializable {
 
@@ -42,7 +40,7 @@ public class DisplayGRIController implements Initializable {
     @FXML
     private Label lblCategory;
     @FXML
-    private TextField textFieldContent, textBoligens, textHelb, textHjælp, textLiv,textMestring,textMotivation, textNetværk;
+    private TextField textFieldContent, textBoligens, textHelb, textHjælp, textLiv, textMestring, textMotivation, textNetværk;
 
     @FXML
     private TextField textRessourcer, textRoller, textUddannelse, textVaner;
@@ -52,6 +50,7 @@ public class DisplayGRIController implements Initializable {
     private GIReportModel giReportModel;
     private InfoCategory selectedInfoCategory;
     private Citizen citizen;
+    private School school;
 
 
     @Override
@@ -76,14 +75,20 @@ public class DisplayGRIController implements Initializable {
 
         lblLName.setText(GlobalVariables.getSelectedCitizen().getLName());
         lblAdress.setText(GlobalVariables.getSelectedCitizen().getAddress());
-        lblBirthdate.setText("" +GlobalVariables.getSelectedCitizen().getBirthDate());
-        lblPhone.setText("" +GlobalVariables.getSelectedCitizen().getPhoneNumber());
-        lblSchool.setText("" +GlobalVariables.getSelectedCitizen().getSchoolID());
+        lblBirthdate.setText("" + GlobalVariables.getSelectedCitizen().getBirthDate());
+        lblPhone.setText("" + GlobalVariables.getSelectedCitizen().getPhoneNumber());
+
+        lblSchool.setText("" + GlobalVariables.getSelectedCitizen().getSchoolName());
+        
+
 
     }
 
 
-    public void displayReport() {
+
+
+
+        public void displayReport() {
 
 
         System.out.println("Selected:" + GlobalVariables.getSelectedCitizen());
@@ -158,6 +163,4 @@ public class DisplayGRIController implements Initializable {
         //GeneratePdf.
     }
 
-
 }
-

@@ -1,11 +1,7 @@
 package bll;
 
 import be.Citizen;
-import be.InfoCategory;
 import bll.exceptions.GIReportException;
-import bll.exceptions.GeneralInfoException;
-import bll.util.GlobalVariables;
-import dal.db.CitizenDAO;
 import dal.db.GIReportDAO;
 
 import java.sql.SQLException;
@@ -14,6 +10,7 @@ import java.util.HashMap;
 public class GIReportManger {
 
     GIReportDAO giReportDAO;
+
 
 
 
@@ -37,4 +34,6 @@ public class GIReportManger {
 
 
     }
+
+
 }

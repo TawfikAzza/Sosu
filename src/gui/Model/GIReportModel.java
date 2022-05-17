@@ -1,12 +1,11 @@
 package gui.Model;
 
 import be.Citizen;
-import be.InfoCategory;
 import bll.GIReportManger;
 import bll.exceptions.CitizenException;
 import bll.exceptions.GIReportException;
-import bll.exceptions.GeneralInfoException;
 
+import java.sql.SQLException;
 import java.util.HashMap;
 
 
@@ -24,6 +23,9 @@ public class GIReportModel {
         return giReportManger.getGIReport(citizen);
 
     }
+
+
+
 }
 
 

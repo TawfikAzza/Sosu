@@ -49,7 +49,8 @@ public class GetCitizensOfStudentFacade {
     private ArrayList<Citizen> getCitizensFromID(ArrayList<Integer> IDs) throws CitizenException {
         ArrayList<Citizen> citizens = new ArrayList<>();
         try (Connection connection = cm.getConnection()) {
-            String sqlSelect = "SELECT * FROM Citizen WHERE id = ?";
+            //String sqlSelect = "SELECT * FROM Citizen WHERE id = ?";
+            String sqlSelect = "SELECT * , school.name as schoolName FROM Citizen Inner Join school ON Citizen.school_id = school.id WHERE Citizen.id = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
             for(Integer id: IDs)
             {
@@ -66,7 +67,11 @@ public class GetCitizensOfStudentFacade {
                         boolean isTemplate = rs.getBoolean(7);
                         int schoolID = rs.getInt(8);
 
-                        citizens.add(new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID));
+                        //citizens.add(new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID));
+                        Citizen newCitizen = new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID) ;
+                        newCitizen.setSchoolName( rs.getString("schoolName"));
+                        citizens.add(newCitizen);
+
                     }
             }
         } catch (SQLException throwables) {

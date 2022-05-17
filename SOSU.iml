@@ -14,5 +14,6 @@
     <orderEntry type="library" name="jfoenix" level="project" />
     <orderEntry type="library" name="itextpdf.kernel" level="project" />
     <orderEntry type="library" name="itextpdf" level="project" />
+    <orderEntry type="library" name="apache.pdfbox.fontbox" level="project" />
   </component>
 </module>

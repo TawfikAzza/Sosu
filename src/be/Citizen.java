@@ -19,6 +19,15 @@ public class Citizen {
     private boolean isTemplate;
     private int schoolID;
     private int caseID;
+    private String schoolName;
+
+    public String getSchoolName() {
+        return schoolName;
+    }
+
+    public void setSchoolName(String schoolName) {
+        this.schoolName = schoolName;
+    }
 
     private StringProperty fNameProperty;
     private StringProperty lNameProperty;
