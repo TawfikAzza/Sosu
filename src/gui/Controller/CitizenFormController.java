@@ -156,7 +156,7 @@ public class CitizenFormController implements Initializable {
         String address = addressField.getText();
         String dateString  = birthDatePicker.getEditor().getText();
         int phoneNumber = -1;
-        int caseID = -1;
+        int caseID = 2;
 
         if(choiceBoxCases.getSelectionModel().getSelectedItem()!=null) {
             caseID = choiceBoxCases.getSelectionModel().getSelectedItem().getId();
@@ -215,14 +215,14 @@ public class CitizenFormController implements Initializable {
 
 
     private Citizen createTemplate(Citizen newCitizen) {
-                Citizen citizen = null;
-                try {
-                   citizen= citizenModel.createNewCitizen(newCitizen);
-                } catch (CitizenException e) {
-                    DisplayMessage.displayError(e);
-                }
-                GlobalVariables.setSelectedCitizen(citizen);
-                return citizen;
+        Citizen citizen = null;
+        try {
+           citizen= citizenModel.createNewCitizen(newCitizen);
+        } catch (CitizenException e) {
+            DisplayMessage.displayError(e);
+        }
+        GlobalVariables.setSelectedCitizen(citizen);
+        return citizen;
     }
 
     private void editTemplate(Citizen citizenToEdit){

@@ -28,8 +28,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Optional;
 import java.util.ResourceBundle;
+import java.util.function.Predicate;
 
 public class TeacherViewController implements Initializable {
 
@@ -94,7 +96,7 @@ public class TeacherViewController implements Initializable {
             this.studentModel = StudentModel.getInstance();
             relationShipModel = new StudentCitizenRelationShipModel();
 
-            this.tableViewTemplates.setItems(new FilteredList<>(citizenModel.getTemplatesObs()));
+            this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
@@ -244,7 +246,8 @@ public class TeacherViewController implements Initializable {
             public void run() {
                 try {
                     citizenModel.deleteCitizen(selectedCitizen);
-                    citizenModel.getTemplatesObs().remove(selectedCitizen);
+                    ObservableList<Citizen> underlyingList = ((ObservableList<Citizen>) citizenModel.getTemplatesObs().getSource());
+                    underlyingList.remove(selectedCitizen);
                 } catch (CitizenException e) {
                     DisplayMessage.displayError(e);
                     e.printStackTrace();
@@ -458,7 +461,24 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void handleSearchTemplate(KeyEvent keyEvent) {
+        //Get search query and ignore case by setting to lowercase
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        //set predicate for each citizen in the list
+        citizenModel.getTemplatesObs().setPredicate(citizen -> {
+            //If the search query is empty then show citizen
+            if (query.isEmpty() || query.isBlank())
+                return true;
+
+            //If to string contains query then show citizen
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            //If no case was true then dont show citizen
+            return false;
+        });
     }
+
+
+
 
     @FXML
     private void handleSearchCitizen(KeyEvent keyEvent) {

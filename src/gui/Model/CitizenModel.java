@@ -6,6 +6,7 @@ import bll.CitizenManager;
 import bll.exceptions.CitizenException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,7 @@ public class CitizenModel {
 
     private final CitizenManager citizenManager;
     private ObservableList<Citizen> obsCitizens;
-    private  ObservableList<Citizen> templates;
+    private FilteredList<Citizen> templates;
     private static CitizenModel instance;
 
     private CitizenModel() throws CitizenException {
@@ -25,7 +26,11 @@ public class CitizenModel {
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
         Citizen citizen = citizenManager.createNewCitizen(newCitizen);
-        templates.add(citizen);
+        //You cant add directly to the filtered list, that would defeat the purpose of it being filtered
+        //rather you have to add to the underlying unfiltered list, which you can't really do because the compiler
+        //infer's the type of the list to be of wildcard capture so you have to cast it
+        ObservableList<Citizen> underlyingList = ((ObservableList<Citizen>) templates.getSource());
+        underlyingList.add(citizen);
         return citizen;
     }
 
@@ -51,7 +56,7 @@ public class CitizenModel {
         return obsCitizens;
     }
 
-    public ObservableList<Citizen> getTemplatesObs()
+    public FilteredList<Citizen> getTemplatesObs()
     {
         return templates;
     }
@@ -84,7 +89,10 @@ public class CitizenModel {
         citizens.addAll(getCitizens());
         templates.addAll(getTemplates());
         this.obsCitizens = citizens;
-        this.templates = templates;
+
+        //Filtered list extends observable list so you wrap the observable list inside it and if you want
+        //the items to be showed by default you set the predicate to true by default for all citizens
+        this.templates = new FilteredList<>(templates, citizen -> true);
     }
 
     public static CitizenModel getInstance() throws CitizenException {
