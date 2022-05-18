@@ -106,7 +106,7 @@
                                     </VBox>
                                     <VBox prefHeight="29.0" prefWidth="271.0">
                                        <children>
-                                          <TextField onKeyPressed="#handleSearchCitizen" prefHeight="26.0" prefWidth="226.0" />
+                                          <TextField fx:id="citizenSearchField" onKeyPressed="#handleSearchCitizen" prefHeight="26.0" prefWidth="226.0" />
                                        </children>
                                     </VBox>
                                  </children>
@@ -247,7 +247,7 @@
                                     </VBox>
                                     <VBox prefHeight="29.0" prefWidth="162.0">
                                        <children>
-                                          <TextField onKeyReleased="#handleSearchFictiveCitizen" />
+                                          <TextField fx:id="fCitizenSearchField" onKeyReleased="#handleSearchFictiveCitizen" />
                                        </children>
                                     </VBox>
                                  </children>

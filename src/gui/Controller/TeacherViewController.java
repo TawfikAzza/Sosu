@@ -36,8 +36,14 @@ import java.util.function.Predicate;
 public class TeacherViewController implements Initializable {
 
 
-    public AnchorPane duplicateAnchorPane;
-    public AnchorPane assigningAnchorPane;
+    @FXML
+    private TextField fCitizenSearchField;
+    @FXML
+    private TextField citizenSearchField;
+    @FXML
+    private AnchorPane duplicateAnchorPane;
+    @FXML
+    private AnchorPane assigningAnchorPane;
 
     private CitizenModel citizenModel;
     private StudentModel studentModel;
@@ -89,6 +95,7 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initTableEvents();
+        initBinders();
         //initSpinners();
 
         try {
@@ -105,6 +112,10 @@ public class TeacherViewController implements Initializable {
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
+    }
+
+    private void initBinders() {
+        fCitizenSearchField.textProperty().bindBidirectional(citizenSearchField.textProperty());
     }
 
     private void initTableEvents() {
@@ -429,7 +440,6 @@ public class TeacherViewController implements Initializable {
             public void run() {
                 try {
                     studentModel.deleteStudent(selectedStudent);
-                    studentModel.getObsStudents().remove(selectedStudent);
                 } catch (StudentException e) {
                     DisplayMessage.displayError(e);
                 }
@@ -482,19 +492,46 @@ public class TeacherViewController implements Initializable {
 
     @FXML
     private void handleSearchCitizen(KeyEvent keyEvent) {
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        citizenModel.getObsListCitizens().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
     }
 
     @FXML
     private void handleSearchStudent(KeyEvent keyEvent) {
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        studentModel.getObsStudents().setPredicate(student -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (student.getFirstName().toLowerCase().contains(query) || student.getLastName().toLowerCase().contains(query)
+                || String.valueOf(student.getPhoneNumber()).contains(query))
+                return true;
+            return false;
+        });
     }
 
     @FXML
     private void handleSearchFictiveCitizen(KeyEvent keyEvent) {
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        citizenModel.getObsListCitizens().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
 
     }
 
     @FXML
     private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        relationShipModel.getObsListCit()
     }
 
     public AnchorPane getDuplicateAnchorPane() {
