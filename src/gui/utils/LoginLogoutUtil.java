@@ -1,6 +1,7 @@
 package gui.utils;
 
 import bll.util.GlobalVariables;
+import gui.Controller.RootController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -19,7 +20,7 @@ public class LoginLogoutUtil {
 
     private static Image appIcon = new Image("Images/sosu.png");
 
-    private enum UserType{
+    public enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
         private int userType;
 
@@ -74,14 +75,17 @@ public class LoginLogoutUtil {
     }
 
     private static void loginTeacher() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/TeacherRoot.fxml"));
+        RootController controller = new RootController(UserType.TEACHER);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
         teacherWindow.getIcons().add(appIcon);
         teacherWindow.setTitle("Teacher window");
         teacherWindow.setHeight(530);
-        teacherWindow.setWidth(1000);
+        teacherWindow.setWidth(1050);
         teacherWindow.show();
     }
 
@@ -98,13 +102,16 @@ public class LoginLogoutUtil {
     }
 
     private static void loginStudent() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/StudentMenuView.fxml"));
+        RootController controller = new RootController(UserType.STUDENT);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage studentWindow = new Stage();
         studentWindow.setScene(scene);
         studentWindow.setTitle("Student window window");
-        studentWindow.setHeight(431.5);
-        studentWindow.setWidth(700);
+        studentWindow.setHeight(530);
+        studentWindow.setWidth(1000);
         studentWindow.show();
     }
 }
