@@ -8,6 +8,7 @@ import gui.utils.LoginLogoutUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -46,6 +47,8 @@ public class RootController implements Initializable {
     @FXML
     private JFXDrawer drawer;
 
+    private int index=0;
+
     private LoginLogoutUtil.UserType userType;
 
     public RootController(LoginLogoutUtil.UserType userType)
@@ -63,14 +66,26 @@ public class RootController implements Initializable {
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(mainGPane);
                 stackPane.getChildren().add(gridPane);
+                if (index>1)
+                    stackPane.getChildren().remove(0);
                 drawer.close();
+                index++;
+
             }
             else {
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(drawerGPane);
                 stackPane.getChildren().add(gridPane);
+                if (index>0)
+                    stackPane.getChildren().remove(0);
                 drawer.open();
+                index++;
             }
+            /*int counter = 0;
+            for (Node node : stackPane.getChildren()){
+                counter++;
+                System.out.println(node+" -----"+counter);
+            }*/
         });
 
         List<ImageView>allExitIV= List.of(exitDGP,exitMGP);
