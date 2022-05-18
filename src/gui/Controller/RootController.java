@@ -1,5 +1,6 @@
 package gui.Controller;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
@@ -8,6 +9,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TabPane;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -22,11 +24,20 @@ import java.util.ResourceBundle;
 public class RootController implements Initializable {
 
 
-    public GridPane mainGPane;
-    public JFXHamburger iconHamburgerMGP;
-    public GridPane drawerGPane;
-    public JFXHamburger iconHamburgerDGP;
-    public StackPane stackPane;
+    @FXML
+    private GridPane mainGPane;
+    @FXML
+    private JFXHamburger iconHamburgerMGP;
+    @FXML
+    private GridPane drawerGPane;
+    @FXML
+    private JFXHamburger iconHamburgerDGP;
+    @FXML
+    private StackPane stackPane;
+    @FXML
+    private ImageView exitDGP;
+    @FXML
+    private ImageView exitMGP;
     @FXML
     private VBox iconsBox;
     @FXML
@@ -61,6 +72,13 @@ public class RootController implements Initializable {
                 drawer.open();
             }
         });
+
+        List<ImageView>allExitIV= List.of(exitDGP,exitMGP);
+        for (ImageView imageView :allExitIV){
+            imageView.setOnMouseClicked(e->{
+                System.exit(1);
+            });
+        }
     }
 
     private void initUser()

@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -78,7 +79,7 @@ public class LoginLogoutUtil {
         Scene scene = new Scene(root);
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
-        teacherWindow.getIcons().add(appIcon);
+        teacherWindow.initStyle(StageStyle.UNDECORATED);
         teacherWindow.setTitle(userType.name() + " WINDOW");
         teacherWindow.setHeight(525);
         teacherWindow.setWidth(920);
