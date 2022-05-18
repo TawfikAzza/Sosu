@@ -1,14 +1,11 @@
 package gui.Controller;
 
-import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
-import com.jfoenix.transitions.hamburger.HamburgerBackArrowBasicTransition;
 import gui.utils.LoginLogoutUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -26,19 +23,15 @@ public class RootController implements Initializable {
 
 
     @FXML
-    private GridPane mainGPane;
+    private GridPane mainGPane,drawerGPane;
+
     @FXML
-    private JFXHamburger iconHamburgerMGP;
-    @FXML
-    private GridPane drawerGPane;
-    @FXML
-    private JFXHamburger iconHamburgerDGP;
+    private JFXHamburger iconHamburgerDGP,iconHamburgerMGP;
     @FXML
     private StackPane stackPane;
     @FXML
-    private ImageView exitDGP;
-    @FXML
-    private ImageView exitMGP;
+    private ImageView exitDGP,exitMGP;
+
     @FXML
     private VBox iconsBox;
     @FXML
@@ -56,6 +49,15 @@ public class RootController implements Initializable {
         this.userType = userType;
     }
 
+    /**
+     * Stack pane allows us to use panes on top of each others.
+     * If you already have a pane on a stack pane, and you add another one, then the first one will serve as a background to the second one.
+     * We use this property for our side menu bar and apply it to our root layout.
+     * In this way, we can have our main grid  pane as in the background when the user is using the menu grid pane, and we can also hide the menu grid pane while the user is using the main pane.
+     * @param location
+     * @param resources
+     */
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initUser();
@@ -63,15 +65,26 @@ public class RootController implements Initializable {
         for (JFXHamburger iconHamburger : allHamBurgers)
         iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             if(drawer.isOpened()) {
+                /**
+                 * This part is the most important as it illustrates how we are going to use the stack pane.
+                 * When the drawer is open, it means our menu should be on top of the stack pane and the main pane is in the background.
+                 * When a user decides to close it, we need them to switch positions.To achieve this, we create an intermediate grid pane.
+                 */
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(mainGPane);
                 stackPane.getChildren().add(gridPane);
-                if (index>1)
+                if (index > 1)
                     stackPane.getChildren().remove(0);
                 drawer.close();
                 index++;
-
             }
+                /**
+                 * Important:
+                 * When we first load the fxml file associated to this controller, we have the main grid pane on top of the stack pane and the menu is hidden,
+                 * If the user decides to use the side menu bar, then we will need to take out the menu grid pane from the bottom and put it on top,
+                 * all we have to do is create a copy of that pane add it to the list of children nodes of the stack pane and delete the old grid pane menu
+                 * in order to clean that list, so we always have only  2 items.
+                 */
             else {
                 GridPane gridPane = new GridPane();
                 gridPane.getChildren().add(drawerGPane);
