@@ -115,7 +115,8 @@ public class NewEditUserController implements Initializable {
                     adminViewController.refreshTViewStudents(allStudents);
                 }
                 }
-                studentModel.getObsStudents().add(student);
+                ObservableList<Student> underlyingList = (ObservableList<Student>) studentModel.getObsStudents().getSource();
+                underlyingList.add(student);
 
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();

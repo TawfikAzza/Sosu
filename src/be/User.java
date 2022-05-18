@@ -180,4 +180,6 @@ public abstract class User {
     public StringProperty lNamePropertyProperty() {
         return lNameProperty;
     }
+
+
 }

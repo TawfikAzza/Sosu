@@ -9,6 +9,7 @@ import bll.exceptions.UserException;
 import gui.utils.DisplayMessage;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -20,7 +21,7 @@ public class StudentModel {
 
     private static StudentModel instance;
 
-    private ObservableList<Student> studentObservableList;
+    private FilteredList<Student> studentObservableList;
 
     private StudentModel() throws UserException, IOException {
         this.studentManager = new StudentManager();
@@ -28,8 +29,9 @@ public class StudentModel {
     }
 
     private void initObsLists() throws UserException {
-        studentObservableList = FXCollections.observableArrayList();
-        studentObservableList.setAll(studentManager.getAllStudents());
+        ObservableList<Student> studentList = FXCollections.observableArrayList();
+        studentList.setAll(studentManager.getAllStudents());
+        studentObservableList = new FilteredList<>(studentList,student -> true);
     }
 
     public static StudentModel getInstance() throws UserException, IOException {
@@ -38,13 +40,14 @@ public class StudentModel {
         return instance;
     }
 
-    public ObservableList<Student> getObsStudents() {
+    public FilteredList<Student> getObsStudents() {
         return studentObservableList;
     }
 
     public void deleteStudent(Student selectedStudent) throws StudentException {
         studentManager.deleteStudent(selectedStudent);
-        studentObservableList.remove(selectedStudent);
+        ObservableList<Student> underlyingList = (ObservableList<Student>) getObsStudents().getSource();
+        underlyingList.remove(selectedStudent);
     }
 
     public Student getStudentInformation(Student selectedItem) throws SQLException {

@@ -14,7 +14,7 @@ import java.util.List;
 public class CitizenModel {
 
     private final CitizenManager citizenManager;
-    private ObservableList<Citizen> obsCitizens;
+    private FilteredList<Citizen> obsCitizens;
     private FilteredList<Citizen> templates;
     private static CitizenModel instance;
 
@@ -40,7 +40,8 @@ public class CitizenModel {
 
     public void deleteCitizen(Citizen selectedCitizen) throws CitizenException {
         citizenManager.deleteCitizen(selectedCitizen);
-        obsCitizens.remove(selectedCitizen);
+        ObservableList<Citizen> underlyingList = (ObservableList<Citizen>) obsCitizens.getSource();
+        underlyingList.remove(selectedCitizen);
     }
 
     private List<Citizen> getCitizens() throws CitizenException {
@@ -51,7 +52,7 @@ public class CitizenModel {
         return citizenManager.getTemplates();
     }
 
-    public ObservableList<Citizen> getObsListCitizens()
+    public FilteredList<Citizen> getObsListCitizens()
     {
         return obsCitizens;
     }
@@ -62,7 +63,8 @@ public class CitizenModel {
     }
 
     public void copyTempToCit(Citizen template) throws CitizenException {
-        obsCitizens.add(citizenManager.copyTempToCit(template));
+        ObservableList<Citizen> underlyingList = (ObservableList<Citizen>) obsCitizens.getSource();
+        underlyingList.add(citizenManager.copyTempToCit(template));
     }
 
     public void copyCitToTemp(Citizen citizen) throws CitizenException {
@@ -88,8 +90,8 @@ public class CitizenModel {
         ObservableList<Citizen> templates = FXCollections.observableArrayList();
         citizens.addAll(getCitizens());
         templates.addAll(getTemplates());
-        this.obsCitizens = citizens;
 
+        this.obsCitizens = new FilteredList<>(citizens,citizen -> true);
         //Filtered list extends observable list so you wrap the observable list inside it and if you want
         //the items to be showed by default you set the predicate to true by default for all citizens
         this.templates = new FilteredList<>(templates, citizen -> true);
