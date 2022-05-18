@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TableColumn?>
@@ -20,8 +19,6 @@
 
 <AnchorPane prefHeight="500.0" prefWidth="800.0" style="-fx-background-color: white;" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.View.AdminTestViewController">
     <children>
-      <ListView layoutY="120.0" prefHeight="342.0" prefWidth="169.0" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0" />
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="List of users" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="90.0" />
       <AnchorPane fx:id="mainAnchorPane" layoutY="42.0" prefHeight="460.0" prefWidth="581.0" AnchorPane.leftAnchor="220.0" AnchorPane.topAnchor="42.0">
          <children>
             <TabPane fx:id="mainTabPane" prefHeight="460.0" prefWidth="581.0" tabClosingPolicy="UNAVAILABLE">

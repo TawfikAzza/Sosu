@@ -1,16 +1,28 @@
 package gui.utils;
 
 import bll.util.GlobalVariables;
+import com.jfoenix.controls.JFXButton;
+import gui.Controller.TeacherViewController;
+import gui.View.images.MainWindowController;
+import javafx.event.ActionEvent;
 import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -18,6 +30,15 @@ import java.util.stream.Collectors;
 public class LoginLogoutUtil {
 
     private static Image appIcon = new Image("Images/sosu.png");
+    static double x=0;
+    static double y = 0;
+    static JFXButton duplicateCitizen = new JFXButton("Duplicate citizen");
+    static JFXButton assignCitizen = new JFXButton("Assign citizen");
+    static JFXButton logOut = new JFXButton("Log out");
+
+
+
+
 
     private enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
@@ -74,19 +95,89 @@ public class LoginLogoutUtil {
     }
 
     private static void loginTeacher() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/TeacherView.fxml"));
-        Scene scene = new Scene(root);
-        Stage teacherWindow = new Stage();
-        teacherWindow.setScene(scene);
-        teacherWindow.getIcons().add(appIcon);
-        teacherWindow.setTitle("Teacher window");
-        teacherWindow.setHeight(480);
-        teacherWindow.setWidth(880);
-        teacherWindow.show();
+        FXMLLoader teacherWindowLoader = new FXMLLoader();
+        Parent root;
+        teacherWindowLoader.setLocation(LoginLogoutUtil.class.getResource("/gui/View/TestViewTeacher.fxml"));
+        teacherWindowLoader.load();
+
+        FXMLLoader mainWindowLoader = new FXMLLoader();
+        mainWindowLoader.setLocation(LoginLogoutUtil.class.getResource("/gui/View/images/MainWindow.fxml"));
+        root = mainWindowLoader.load();
+
+        TeacherViewController teacherViewController = teacherWindowLoader.getController();
+        MainWindowController mainWindowController = mainWindowLoader.getController();
+        final boolean[] isDuplicatePaneOn = {true};
+        final int[] counter = {0};
+
+        List<String>allFiles = List.of("src/gui/View/images/duplicate-outline_1.png", "src/gui/View/images/assign.png","src/gui/View/images/logout.png");
+        for (String s : allFiles){
+            ImageView icon = icon(s);
+            mainWindowController.getIconsVBox().getChildren().add(icon);
+        }
+
+
+        AnchorPane duplicatePane = teacherViewController.getDuplicateAnchorPane();
+        AnchorPane assignPane = teacherViewController.getAssigningAnchorPane();
+        List<AnchorPane>panes = List.of(duplicatePane,assignPane);
+        for (AnchorPane anchorPane :panes){
+            anchorPane.setPrefHeight(460);
+            anchorPane.setPrefWidth(756);
+            anchorPane.setLayoutX(15);
+        }
+
+        mainWindowController.getMainAnchorPane().getChildren().add(duplicatePane);
+        List<JFXButton>allBtns = List.of(duplicateCitizen,assignCitizen,logOut);
+        for (JFXButton jfxButton : allBtns){
+            mainWindowController.getvBoxBtn().getChildren().add(jfxButton);
+            btnShape(jfxButton);
+        }
+
+
+        assignCitizen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                duplicatePane.setVisible(false);
+                if (counter[0]==0){
+                mainWindowController.getMainAnchorPane().getChildren().add(teacherViewController.getAssigningAnchorPane());
+                counter[0]++;}
+                else    assignPane.setVisible(true);
+                isDuplicatePaneOn[0] = false;
+                mainWindowController.translate();
+            }
+        });
+
+        duplicateCitizen.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                if (!isDuplicatePaneOn[0]){
+                    duplicatePane.setVisible(true);
+                    assignPane.setVisible(false);
+                    isDuplicatePaneOn[0]=true;
+                    mainWindowController.translate();
+                }
+            }
+        });
+
+
+        Stage primaryStage = new Stage();
+        primaryStage.initStyle(StageStyle.UNDECORATED);
+
+        root.setOnMousePressed(event -> {
+            x = event.getSceneX();
+            y = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            primaryStage.setX(event.getScreenX() - x);
+            primaryStage.setY(event.getScreenY() - y);
+        });
+
+        primaryStage.setScene(new Scene(root, 800, 500));
+        primaryStage.show();
     }
 
     private static void loginAdmin() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/AdminTestView.fxml"));
+        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/images/MainWindow.fxml"));
         Scene scene = new Scene(root);
         Stage adminWindow = new Stage();
         adminWindow.setScene(scene);
@@ -98,7 +189,7 @@ public class LoginLogoutUtil {
     }
 
     private static void loginStudent() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/StudentMenuView.fxml"));
+        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/images/MainWindow.fxml"));
         Scene scene = new Scene(root);
         Stage studentWindow = new Stage();
         studentWindow.setScene(scene);
@@ -107,4 +198,19 @@ public class LoginLogoutUtil {
         studentWindow.setWidth(700);
         studentWindow.show();
     }
-}
+
+    public static ImageView icon(String filePath){
+            File file = new File(filePath);
+            Image image = new Image(file.toURI().toString());
+            ImageView imageView = new ImageView(image);
+            imageView.setFitHeight(46);
+            imageView.setFitWidth(32);
+            return imageView;
+        }
+
+        public static void btnShape(JFXButton jfxButton){
+            jfxButton.setButtonType(JFXButton.ButtonType.RAISED);
+            jfxButton.setStyle("-fx-text-fill: black; -fx-font-size: 16px;");
+        }
+    }
+

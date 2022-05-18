@@ -11,7 +11,7 @@ public class TestAdmin extends Application {
     double x,y = 0;
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getResource("AdminTestView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("images/MainWindow.fxml"));
         primaryStage.initStyle(StageStyle.UNDECORATED);
 
         root.setOnMousePressed(event -> {
