@@ -3,13 +3,13 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <AnchorPane prefHeight="650.0" prefWidth="650.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.DisplayGRIController">
    <children>
@@ -145,10 +145,10 @@
             </GridPane>
          </children>
       </HBox>
-      <GridPane layoutX="92.0" layoutY="184.0" prefHeight="426.0" prefWidth="437.0">
+      <GridPane layoutX="92.0" layoutY="184.0" prefHeight="551.0" prefWidth="523.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="138.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="317.0" minWidth="10.0" prefWidth="299.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="214.0" minWidth="10.0" prefWidth="147.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="399.0" minWidth="10.0" prefWidth="376.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -176,17 +176,6 @@
             <Label text="Helbredsoplysninger" GridPane.rowIndex="9" />
             <Label text="Hjælpemidler" GridPane.rowIndex="10" />
             <Label text="Boligens indretning" GridPane.rowIndex="11" />
-            <TextField fx:id="textMestring" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-            <TextField fx:id="textMotivation" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-            <TextField fx:id="textRessourcer" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <TextField fx:id="textRoller" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <TextField fx:id="textVaner" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <TextField fx:id="textUddannelse" GridPane.columnIndex="1" GridPane.rowIndex="6" />
-            <TextField fx:id="textLiv" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-            <TextField fx:id="textNetværk" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-            <TextField fx:id="textHelb" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <TextField fx:id="textHjælp" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <TextField fx:id="textBoligens" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Label text="Category Name">
                <font>
                   <Font name="System Bold" size="14.0" />
@@ -197,6 +186,17 @@
                   <Font size="14.0" />
                </font>
             </Label>
+            <TextFlow fx:id="textMestring" prefHeight="46.0" prefWidth="345.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <TextFlow fx:id="textMotivation" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <TextFlow fx:id="textRessourcer" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <TextFlow fx:id="textRoller" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <TextFlow fx:id="textVaner" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+            <TextFlow fx:id="textUddannelse" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+            <TextFlow fx:id="textLiv" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+            <TextFlow fx:id="textNetværk" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+            <TextFlow fx:id="textHelb" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+            <TextFlow fx:id="textHjælp" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <TextFlow fx:id="textBoligens" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="11" />
          </children>
       </GridPane>
    </children>
