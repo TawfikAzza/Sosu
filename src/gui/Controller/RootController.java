@@ -21,6 +21,8 @@ public class RootController implements Initializable {
 
 
     @FXML
+    private VBox iconsBox;
+    @FXML
     private AnchorPane mainPane;
     @FXML
     private JFXHamburger iconHamburger;
@@ -66,8 +68,13 @@ public class RootController implements Initializable {
     private void initTeacher()
     {
         try {
-            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            drawer.setSidePane(vbox);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TeacherMenu.fxml"));
+            loader.load();
+            TeacherMenuController teacherMenuController = loader.getController();
+
+            drawer.setSidePane(teacherMenuController.getBtnBox());
+            iconsBox.getChildren().add(teacherMenuController.getIconBox());
+
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TeacherView.fxml"));
             mainPane.getChildren().add(gridPane);
         } catch (IOException e) {

@@ -80,8 +80,8 @@ public class LoginLogoutUtil {
         teacherWindow.setScene(scene);
         teacherWindow.getIcons().add(appIcon);
         teacherWindow.setTitle(userType.name() + " WINDOW");
-        teacherWindow.setHeight(530);
-        teacherWindow.setWidth(1050);
+        teacherWindow.setHeight(525);
+        teacherWindow.setWidth(920);
         teacherWindow.show();
     }
 
