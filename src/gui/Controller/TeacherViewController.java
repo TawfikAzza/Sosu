@@ -531,7 +531,7 @@ public class TeacherViewController implements Initializable {
     @FXML
     private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
         String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
-        relationShipModel.getObsListCit()
+        relationShipModel.getObsListCit();
     }
 
     public AnchorPane getDuplicateAnchorPane() {

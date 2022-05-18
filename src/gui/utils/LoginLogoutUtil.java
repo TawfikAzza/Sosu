@@ -74,14 +74,14 @@ public class LoginLogoutUtil {
     }
 
     private static void loginTeacher() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/TeacherView.fxml"));
+        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/TeacherRoot.fxml"));
         Scene scene = new Scene(root);
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
         teacherWindow.getIcons().add(appIcon);
         teacherWindow.setTitle("Teacher window");
-        teacherWindow.setHeight(480);
-        teacherWindow.setWidth(880);
+        teacherWindow.setHeight(530);
+        teacherWindow.setWidth(1000);
         teacherWindow.show();
     }
 
