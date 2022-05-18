@@ -36,7 +36,19 @@ public class RootController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        initUser();
+        iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+            if(drawer.isOpened()) {
+                drawer.close();
+            }
+            else {
+                drawer.open();
+            }
+        });
+    }
 
+    private void initUser()
+    {
         if(userType== LoginLogoutUtil.UserType.TEACHER)
         {
             initTeacher();
@@ -45,16 +57,10 @@ public class RootController implements Initializable {
         {
             initStudent();
         }
-        iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            if(drawer.isOpened())
-            {
-                drawer.close();
-            }
-            else
-            {
-                drawer.open();
-            }
-        });
+        if(userType== LoginLogoutUtil.UserType.ADMIN)
+        {
+            initAdmin();
+        }
     }
 
     private void initTeacher()
@@ -75,6 +81,18 @@ public class RootController implements Initializable {
             VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
             drawer.setSidePane(vbox);
             TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/StudentMenuView.fxml"));
+            mainPane.getChildren().add(tabPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initAdmin()
+    {
+        try {
+            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
+            drawer.setSidePane(vbox);
+            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/AdminView.fxml"));
             mainPane.getChildren().add(tabPane);
         } catch (IOException e) {
             e.printStackTrace();
