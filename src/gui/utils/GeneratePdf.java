@@ -1,28 +1,25 @@
 package gui.utils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import be.Ability;
-import be.AbilityCategory;
-import be.Condition;
-import be.HealthCategory;
+import be.*;
+import bll.exceptions.CitizenException;
 import bll.exceptions.CitizenReportException;
+import bll.exceptions.GIReportException;
 import bll.exceptions.HealthCategoryException;
 import bll.util.GlobalVariables;
 import com.itextpdf.text.Anchor;
-import com.itextpdf.text.BadElementException;
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Chapter;
 import com.itextpdf.text.Document;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Font;
-import com.itextpdf.text.ListItem;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Section;
@@ -30,10 +27,8 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import gui.Controller.FunctionalReportViewController;
+import gui.Model.GIReportModel;
 import gui.Model.ReportModel;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.layout.GridPane;
-import javafx.stage.FileChooser;
 import javafx.util.Pair;
 
 public class GeneratePdf {
@@ -250,6 +245,75 @@ public class GeneratePdf {
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
             table.addCell("" + pair.getValue().getObservation());
+
+            table.setHeaderRows(1);
+            table.setWidthPercentage(100);
+            table.setWidths(new int[]{1, 3});
+            subCatPart.add(table);
+        }
+    }
+
+
+    public static void generateGIReport(HashMap<String, String> hashMap, File file) throws FileNotFoundException {
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(file));
+            document.open();
+            addGIReportContent(document, hashMap);
+            document.close();
+        } catch (DocumentException | CitizenException | GIReportException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addGIReportContent(Document document, HashMap<String, String> hashMap) throws CitizenException, GIReportException, DocumentException {
+        Anchor anchor = new Anchor("General Information Report:  "
+                +GlobalVariables.getSelectedCitizen().getFName()
+                +" "+GlobalVariables.getSelectedCitizen().getLName(), catFont);
+        anchor.setName("General Information Report");
+        GIReportModel giReportModel = new GIReportModel();
+        HashMap<String, String> categoryHashMap = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
+        Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+
+
+        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
+            String key = entry.getKey();
+            Paragraph subPara = new Paragraph(categoryHashMap.get(key), subFont);
+            String value = entry.getValue();
+            Section subCatPart = catPart.addSection(subPara);
+            //subCatPart.addSection(categoryHashMap.get(sid).getName());
+
+            subCatPart.add(new Paragraph("\n"));
+            createGIReportContent(subCatPart, value);
+
+        }
+        document.add(catPart);
+
+    }
+
+
+    private static void createGIReportContent (Section subCatPart, String hashMap)
+            throws DocumentException {
+
+
+        for (Map.Entry<String, String> entry = null;; ) {
+            PdfPTable table = new PdfPTable(2);
+            table.setSpacingAfter(10);
+
+
+            PdfPCell c1 = new PdfPCell(new Phrase("Mestring"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+
+            table.addCell(c1);
+            table.addCell(entry.getKey());
+
+
+            c1 = new PdfPCell(new Phrase("Mestring"));
+            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            table.addCell(c1);
+            table.addCell(entry.getValue());
+
 
             table.setHeaderRows(1);
             table.setWidthPercentage(100);

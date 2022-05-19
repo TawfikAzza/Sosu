@@ -3,32 +3,23 @@ package gui.Controller;
 import be.*;
 import bll.GIReportManger;
 import bll.exceptions.CitizenException;
-import bll.exceptions.CitizenReportException;
 import bll.exceptions.GIReportException;
-import bll.exceptions.GeneralInfoException;
 import bll.util.GlobalVariables;
 import gui.Model.GIReportModel;
-import gui.utils.DisplayMessage;
 import gui.utils.GeneratePdf;
-import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Pos;
-import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 
 import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.io.File;
 
+import java.io.FileNotFoundException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.*;
 
 
@@ -155,7 +146,7 @@ public class DisplayGRIController implements Initializable {
 
     }
 
-    public void printResult() {
+    public void printResult() throws FileNotFoundException {
         HashMap<String, String> getGIR = null;
         try {
             getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
@@ -167,7 +158,9 @@ public class DisplayGRIController implements Initializable {
         fileChooser.setTitle("Save PDF File");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
         File selectedFile = fileChooser.showSaveDialog(btnPrint.getScene().getWindow());
-        //GeneratePdf.
+        GeneratePdf.generateGIReport(getGIR, selectedFile);
+
+
     }
 
 }
