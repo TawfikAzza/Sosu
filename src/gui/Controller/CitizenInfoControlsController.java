@@ -11,8 +11,9 @@ import javafx.stage.Stage;
 import java.io.IOException;
 
 public class CitizenInfoControlsController {
+
     public void openAbilities() {
-        if(GlobalVariables.getSelectedCitizen()==null)
+        if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/FunctionalSectionDisplay.fxml"));
@@ -32,7 +33,7 @@ public class CitizenInfoControlsController {
     }
 
     public void openHealthCondition() {
-        if(GlobalVariables.getSelectedCitizen()==null)
+        if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/HealthSectionDisplay.fxml"));
@@ -53,7 +54,7 @@ public class CitizenInfoControlsController {
     }
 
     public void openGeneralInfo() {
-        if(GlobalVariables.getSelectedCitizen()==null)
+        if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/GeneralInfoReportView.fxml"));
@@ -73,7 +74,7 @@ public class CitizenInfoControlsController {
     }
 
     public void openMedicinelist() {
-        if(GlobalVariables.getSelectedCitizen()==null)
+        if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/MedicineListView.fxml"));
@@ -93,6 +94,8 @@ public class CitizenInfoControlsController {
     }
 
     public void openObservation() {
+        if(!checkIfCitizenSelected())
+            return;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/Observations.fxml"));
         Parent root = null;
@@ -108,5 +111,17 @@ public class CitizenInfoControlsController {
         stage.initModality(Modality.APPLICATION_MODAL);
         stage.setScene(scene);
         stage.show();
+    }
+
+    private void showNoCitizenSelectedDialog(){
+        DisplayMessage.displayMessage("Please select a citizen to view his information");
+    }
+
+    private boolean checkIfCitizenSelected(){
+        if (GlobalVariables.getSelectedCitizen()==null){
+            showNoCitizenSelectedDialog();
+            return false;
+        }
+        return true;
     }
 }
