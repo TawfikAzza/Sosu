@@ -157,10 +157,12 @@ public class RootController implements Initializable {
     private void initAdmin()
     {
         try {
-            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            drawer.setSidePane(vbox);
-            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/AdminView.fxml"));
-            mainPane.getChildren().add(tabPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminMenuView.fxml"));
+            loader.load();
+            AdminMenuViewController adminMenuViewController = loader.getController();
+
+            drawer.setSidePane(adminMenuViewController.getBtnBox());
+            iconsBox.getChildren().add(adminMenuViewController.getIconBox());
         } catch (IOException e) {
             e.printStackTrace();
         }
