@@ -82,7 +82,7 @@ public class LoginLogoutUtil {
         teacherWindow.initStyle(StageStyle.UNDECORATED);
         teacherWindow.setTitle(userType.name() + " WINDOW");
         teacherWindow.setHeight(525);
-        teacherWindow.setWidth(962);
+        teacherWindow.setWidth(964);
         teacherWindow.show();
     }
 

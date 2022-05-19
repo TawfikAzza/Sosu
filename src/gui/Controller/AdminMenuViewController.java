@@ -32,20 +32,22 @@ public class AdminMenuViewController {
         loader.setController(manageStudentsController);
         loader.load();
 
-        anchorPane.getChildren().setAll((Node) loader.getRoot());
+        Node root = loader.getRoot();
+        anchorPane.getChildren().setAll(root);
+        root.setLayoutX(110);
+        root.setLayoutY(32);
         }
 
     public void handleTeacherBtn(ActionEvent actionEvent) throws IOException {
         ManageTeachersController manageTeachersController = new ManageTeachersController();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(manageTeachersController);
-
         loader.load();
 
         Node root = loader.getRoot();
         anchorPane.getChildren().setAll(root);
-        root.setLayoutX(66);
-        root.setLayoutY(30);
+        root.setLayoutX(110);
+        root.setLayoutY(32);
 
     }
 
