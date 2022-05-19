@@ -101,38 +101,38 @@ public class DisplayGRIController implements Initializable {
     public void displayplay() {
         HashMap<String, String> getGIR = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
 
-        Text t1 = new Text(getGIR.get("Mestring"));
-        textMestring.getChildren().add(t1);
+        Text mestring = new Text(getGIR.get("Mestring"));
+        textMestring.getChildren().add(mestring);
 
-        Text t2 = new Text(getGIR.get("Motivation"));
-        textMotivation.getChildren().add(t2);
+        Text motivation = new Text(getGIR.get("Motivation"));
+        textMotivation.getChildren().add(motivation);
 
-        Text t3 = new Text(getGIR.get("Ressourcer"));
-        textRessourcer.getChildren().add(t3);
+        Text ressourcer = new Text(getGIR.get("Ressourcer"));
+        textRessourcer.getChildren().add(ressourcer);
 
-        Text t4 = new Text(getGIR.get("Roller"));
-        textRoller.getChildren().add(t4);
+        Text roller = new Text(getGIR.get("Roller"));
+        textRoller.getChildren().add(roller);
 
-        Text t5 = new Text(getGIR.get("Vaner"));
-        textVaner.getChildren().add(t5);
+        Text vanner = new Text(getGIR.get("Vaner"));
+        textVaner.getChildren().add(vanner);
 
-        Text t6 = new Text(getGIR.get("Uddannelse og job"));
-        textUddannelse.getChildren().add(t6);
+        Text uddannelse = new Text(getGIR.get("Uddannelse og job"));
+        textUddannelse.getChildren().add(uddannelse);
 
-        Text t7 = new Text(getGIR.get("Livshistorie"));
-        textLiv.getChildren().add(t7);
+        Text livshistorie = new Text(getGIR.get("Livshistorie"));
+        textLiv.getChildren().add(livshistorie);
 
-        Text t8 = new Text(getGIR.get("Netværk"));
-        textNetværk.getChildren().add(t8);
+        Text netværk = new Text(getGIR.get("Netværk"));
+        textNetværk.getChildren().add(netværk);
 
-        Text t9 = new Text(getGIR.get("Helbredsoplysninger"));
-        textHelb.getChildren().add(t9);
+        Text helbredsoplysninger = new Text(getGIR.get("Helbredsoplysninger"));
+        textHelb.getChildren().add(helbredsoplysninger);
 
-        Text t10 = new Text(getGIR.get("Hjælpemidler"));
-        textHjælp.getChildren().add(t10);
+        Text hjælpemidler = new Text(getGIR.get("Hjælpemidler"));
+        textHjælp.getChildren().add(hjælpemidler);
 
-        Text t11 = new Text(getGIR.get("Boligens indretning"));
-        textBoligens.getChildren().add(t11);
+        Text boligensIndretning = new Text(getGIR.get("Boligens indretning"));
+        textBoligens.getChildren().add(boligensIndretning);
 
 
         /*
