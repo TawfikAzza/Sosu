@@ -13,11 +13,11 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="919.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TemplateController">
   <columnConstraints>
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.2" minWidth="10.0" prefWidth="356.7999755859375" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.199951171875" minWidth="10.0" prefWidth="74.19999999999999" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.99995117187507" minWidth="10.0" prefWidth="359.199951171875" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.2" minWidth="10.0" prefWidth="308.5999755859375" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.199951171875" minWidth="10.0" prefWidth="46.20002441406251" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="383.99995117187507" minWidth="10.0" prefWidth="313.7999755859375" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="127.199951171875" minWidth="10.0" prefWidth="122.20004882812498" />
   </columnConstraints>
   <rowConstraints>
@@ -148,10 +148,6 @@
             <Insets bottom="5.0" top="5.0" />
          </padding>
       </VBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2">
-         <children>
-            <Button mnemonicParsing="false" onAction="#handleLogout" text="Log out" />
-         </children>
-      </HBox>
+      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
    </children>
 </GridPane>

@@ -96,7 +96,7 @@ public class TeacherViewController implements Initializable {
         initTables();
         initTableEvents();
         initBinders();
-        //initSpinners();
+        initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();

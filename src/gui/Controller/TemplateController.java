@@ -1,0 +1,291 @@
+package gui.Controller;
+
+import be.Citizen;
+import bll.exceptions.CitizenException;
+import gui.Model.CitizenModel;
+import gui.utils.DisplayMessage;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
+
+import java.io.IOException;
+import java.net.URL;
+import java.util.Locale;
+import java.util.ResourceBundle;
+
+public class TemplateController implements Initializable {
+
+    private CitizenModel citizenModel;
+
+    @FXML
+    private TableView<Citizen> tableViewTemplates;
+    @FXML
+    private TableColumn<Citizen, String> tableColumnTemplatesFirstName;
+    @FXML
+    private TableColumn<Citizen, String> tableColumnTemplatesLastName;
+    @FXML
+    private TableView<Citizen> tableViewCitizen;
+    @FXML
+    private TableColumn<Citizen, Integer> tableColumnCitizenID;
+    @FXML
+    private TableColumn<Citizen, String> tableColumnCitizenFirstName;
+    @FXML
+    private TableColumn<Citizen, String> tableColumnCitizenLastName;
+    @FXML
+    private Spinner<Integer> spinnerTemplateDuplicate;
+    @FXML
+    private Spinner<Integer> spinnerCitizenDuplicate;
+    @FXML
+    private TextField citizenSearchField;
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        initTables();
+        initSpinners();
+
+        try {
+            this.citizenModel = CitizenModel.getInstance();
+            this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
+            this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+        } catch (CitizenException e) {
+            DisplayMessage.displayError(e);
+        }
+
+    }
+
+    private void initTables()
+    {
+        //Templates
+        this.tableColumnTemplatesFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
+        this.tableColumnTemplatesLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
+
+        //Citizens on template page
+        this.tableColumnCitizenID.setCellValueFactory(new PropertyValueFactory<>("id"));
+        this.tableColumnCitizenFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
+        this.tableColumnCitizenLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
+
+    }
+
+    private void initSpinners()
+    {
+        SpinnerValueFactory<Integer> valueFactory =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
+        SpinnerValueFactory<Integer> valueFactory2 =
+                new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10);
+
+        valueFactory.setValue(1);
+        spinnerCitizenDuplicate.setValueFactory(valueFactory);
+        spinnerTemplateDuplicate.setValueFactory(valueFactory2);
+    }
+
+    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
+        Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (template !=null)
+        {
+            Thread copyTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyTempToCit(template);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyTemplateThread.start();
+        }
+    }
+
+    public void handleCreateTempFromCit(ActionEvent actionEvent) {
+        Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (citizen !=null)
+        {
+            Thread copyCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.copyCitToTemp(citizen);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                    }
+                }
+            });
+            copyCitizenThread.start();
+        }
+    }
+
+    public void handleCreateTemplate(ActionEvent actionEvent) {
+        try {
+            openCitizenForm(false,null);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
+    }
+
+    public void handleEditTemplate(ActionEvent actionEvent) {
+        Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (citizen != null)
+        {
+            try {
+                openCitizenForm(true,citizen);
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+    }
+
+    public void handleDeleteTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this template");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.deleteCitizen(selectedCitizen);
+                    ObservableList<Citizen> underlyingList = ((ObservableList<Citizen>) citizenModel.getTemplatesObs().getSource());
+                    underlyingList.remove(selectedCitizen);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        deleteCitizenThread.start();
+    }
+
+    public void handleDuplicateTemplate(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
+        int amount = spinnerTemplateDuplicate.getValue();
+        if (selectedCitizen != null) {
+            Thread duplicateTemplateThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.duplicateCitizen(selectedCitizen, amount, true);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            duplicateTemplateThread.start();
+        }
+    }
+
+    public void handleEditCitizen(ActionEvent actionEvent) {
+        Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (citizen != null)
+        {
+            try {
+                openCitizenForm(true,citizen);
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+    }
+
+    public void handleDeleteCitizen(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        if (selectedCitizen == null)
+            return;
+
+        ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this Citizen");
+
+        if (response!=ButtonType.OK)
+            return;
+
+        Thread deleteCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.deleteCitizen(selectedCitizen);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        deleteCitizenThread.start();
+    }
+
+    public void handleDuplicateCitizen(ActionEvent actionEvent) {
+        Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
+        int amount = spinnerCitizenDuplicate.getValue();
+        if (selectedCitizen != null) {
+            Thread duplicateCitizenThread = new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        citizenModel.duplicateCitizen(selectedCitizen, amount, false);
+                    } catch (CitizenException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            });
+            duplicateCitizenThread.start();
+        }
+    }
+
+    @FXML
+    private void handleSearchTemplate(KeyEvent keyEvent) {
+        //Get search query and ignore case by setting to lowercase
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        //set predicate for each citizen in the list
+        citizenModel.getTemplatesObs().setPredicate(citizen -> {
+            //If the search query is empty then show citizen
+            if (query.isEmpty() || query.isBlank())
+                return true;
+
+            //If to string contains query then show citizen
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            //If no case was true then dont show citizen
+            return false;
+        });
+    }
+
+    @FXML
+    private void handleSearchCitizen(KeyEvent keyEvent) {
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        citizenModel.getObsListCitizens().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
+    }
+
+    private void openCitizenForm(boolean isEditing, Citizen citizen) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/CitizenFormView.fxml"));
+        Parent root = loader.load();
+
+        CitizenFormController formController = loader.getController();
+        formController.setCurrentSchoolId();
+        if (isEditing) {
+            formController.setCitizenToEdit(citizen);
+        }
+
+        Scene scene = new Scene(root);
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.show();
+    }
+}
