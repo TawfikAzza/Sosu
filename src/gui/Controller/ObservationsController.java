@@ -3,6 +3,7 @@ package gui.Controller;
 import be.Citizen;
 import be.ObservationType;
 import bll.exceptions.ObservationException;
+import bll.util.GlobalVariables;
 import gui.Model.ObservationModel;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -61,6 +62,7 @@ public class ObservationsController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         try {
             observationModel = new ObservationModel();
+            selectedCitizen = GlobalVariables.getSelectedCitizen();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -93,9 +95,6 @@ public class ObservationsController implements Initializable {
 
     }
 
-    public void setCitizen(Citizen selectedItem) {
-        selectedCitizen=selectedItem;
-    }
 
     public void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
         ObservationType observationType;

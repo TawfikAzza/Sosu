@@ -155,19 +155,7 @@
                                     <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="🢀" />
                                  </children>
                               </VBox>
-                              <VBox alignment="TOP_CENTER" spacing="4.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-                                 <children>
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Functional ability" textAlignment="CENTER" wrapText="true" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Health condition" textAlignment="CENTER" wrapText="true" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="General information" textAlignment="CENTER" wrapText="true" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Observations" textAlignment="CENTER" wrapText="true" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Medicine list" textAlignment="CENTER" wrapText="true" />
-                                    <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Medicine list" textAlignment="CENTER" wrapText="true" />
-                                 </children>
-                                 <padding>
-                                    <Insets bottom="5.0" top="5.0" />
-                                 </padding>
-                              </VBox>
+                              <AnchorPane fx:id="citizenInfoControls" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
                            </children>
                         </GridPane>
                      </children>

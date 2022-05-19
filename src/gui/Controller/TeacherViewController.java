@@ -5,6 +5,7 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.exceptions.UserException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
@@ -22,6 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +38,8 @@ import java.util.function.Predicate;
 public class TeacherViewController implements Initializable {
 
 
+    @FXML
+    private AnchorPane citizenInfoControls;
     @FXML
     private TextField fCitizenSearchField;
     @FXML
@@ -108,7 +112,7 @@ public class TeacherViewController implements Initializable {
             this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
 
-
+            loadCitizenInfoControls();
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
@@ -126,6 +130,12 @@ public class TeacherViewController implements Initializable {
                     showAssignedCitizens(row);
                 }
             }));
+            return row;
+        });
+
+        tableViewCitizen.setRowFactory(param -> {
+            TableRow<Citizen> row = new TableRow<>();
+            row.setOnMouseClicked(event -> GlobalVariables.setSelectedCitizen(row.getItem()));
             return row;
         });
     }
@@ -531,7 +541,14 @@ public class TeacherViewController implements Initializable {
     @FXML
     private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
         String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
-        relationShipModel.getObsListCit()
+        relationShipModel.getObsListCit().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
+
     }
 
     public AnchorPane getDuplicateAnchorPane() {
@@ -542,4 +559,14 @@ public class TeacherViewController implements Initializable {
         return assigningAnchorPane;
     }
 
+
+    private void loadCitizenInfoControls() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CitizenInfoControls.fxml"));
+        VBox controlsParent = (VBox) root;
+        AnchorPane.setBottomAnchor(controlsParent,0.0);
+        AnchorPane.setTopAnchor(controlsParent,0.0);
+        AnchorPane.setLeftAnchor(controlsParent,0.0);
+        AnchorPane.setRightAnchor(controlsParent,0.0);
+        citizenInfoControls.getChildren().setAll(controlsParent);
+    }
 }

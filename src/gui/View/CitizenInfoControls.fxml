@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="210.4" spacing="10.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.CitizenInfoControlsController">
+   <children>
+      <Button mnemonicParsing="false" onAction="#openAbilities" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Functional Ability" />
+      <Button mnemonicParsing="false" onAction="#openHealthCondition" prefHeight="56.0" prefWidth="133.0" style="-fx-background-radius: 15;" text="Heath Condition" />
+      <Button mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="General Information" />
+      <Button mnemonicParsing="false" onAction="#openMedicinelist" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Medicine List" />
+      <Button mnemonicParsing="false" onAction="#openObservation" prefHeight="56.0" prefWidth="135.0" style="-fx-background-radius: 15;" text="Observation" />
+   </children>
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

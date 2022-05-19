@@ -17,6 +17,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -27,6 +29,8 @@ import java.util.ResourceBundle;
 
 public class StudentMenuViewController implements Initializable {
 
+    @FXML
+    private AnchorPane citizenInfoControls;
     @FXML
     private TableView<Citizen> citizenTableview;
     @FXML
@@ -78,118 +82,25 @@ public class StudentMenuViewController implements Initializable {
         lblSchool.setText(""+currentCitizen.getSchoolName());
     }
 
-    public void openAbilities() {
-        if(GlobalVariables.getSelectedCitizen()==null)
-            return;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/FunctionalSectionDisplay.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
 
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-
-    }
-
-    public void openHealthCondition() {
-        if(GlobalVariables.getSelectedCitizen()==null)
-            return;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/HealthSectionDisplay.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void openGeneralInfo() {
-        if(GlobalVariables.getSelectedCitizen()==null)
-            return;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/GeneralInfoReportView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-    public void openMedicinelist() {
-        if(GlobalVariables.getSelectedCitizen()==null)
-            return;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/MedicineListView.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-
-
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-    }
-
-
-
-    public void openObservation() {
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/Observations.fxml"));
-        Parent root = null;
-        try {
-            root = loader.load();
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
-
-        ObservationsController observationsController = loader.getController();
-        observationsController.setCitizen(citizenTableview.getSelectionModel().getSelectedItem());
-
-
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
-    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTableCitizen();
+        try {
+            loadCitizenInfoControls();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void loadCitizenInfoControls() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CitizenInfoControls.fxml"));
+        VBox controlsParent = (VBox) root;
+        AnchorPane.setBottomAnchor(controlsParent,0.0);
+        AnchorPane.setTopAnchor(controlsParent,0.0);
+        AnchorPane.setLeftAnchor(controlsParent,0.0);
+        AnchorPane.setRightAnchor(controlsParent,0.0);
+        citizenInfoControls.getChildren().setAll(controlsParent);
     }
 }
