@@ -1,16 +1,16 @@
 package gui.Controller;
 
+import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
 
-public class ManageTeachersController {
-    public GridPane gridPane;
+import java.net.URL;
+import java.util.ResourceBundle;
 
-    public void setGridPane(GridPane gridPane) {
-        this.gridPane = gridPane;
-    }
+public class ManageTeachersController implements Initializable {
 
-    public GridPane getGridPane() {
-        return gridPane;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        System.out.println("teacher");
     }
 }
