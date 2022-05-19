@@ -1,14 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
-
 <?import com.jfoenix.controls.JFXButton?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
 <GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="219.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.AdminMenuViewController">
     <columnConstraints>
         <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="150.0" />
@@ -20,9 +19,9 @@
     <children>
         <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="338.0" prefWidth="181.0" spacing="20.0">
             <children>
-                <JFXButton prefHeight="71.0" prefWidth="102.0" text="Teachers" />
-                <JFXButton prefHeight="71.0" prefWidth="102.0" text="Students" />
-                <JFXButton prefHeight="71.0" prefWidth="102.0" text="Citizens" />
+                <JFXButton onAction="#handleTeacherBtn" prefHeight="71.0" prefWidth="102.0" text="Teachers" />
+                <JFXButton onAction="#handleStudentBtn" prefHeight="71.0" prefWidth="102.0" text="Students" />
+                <JFXButton onAction="#handleCitizenBtn" prefHeight="71.0" prefWidth="102.0" text="Citizens" />
                 <JFXButton prefHeight="71.0" prefWidth="102.0" text="Log Out" />
             </children>
         </VBox>
