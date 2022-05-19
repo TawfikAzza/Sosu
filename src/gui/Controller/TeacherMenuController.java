@@ -1,10 +1,13 @@
 package gui.Controller;
 
+import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
 public class TeacherMenuController {
-    public VBox iconBox;
-    public VBox btnBox;
+    @FXML
+    private VBox iconBox;
+    @FXML
+    private VBox btnBox;
 
     public VBox getIconBox() {
         return iconBox;

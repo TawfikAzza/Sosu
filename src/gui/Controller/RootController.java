@@ -145,7 +145,7 @@ public class RootController implements Initializable {
     private void initStudent()
     {
         try {
-            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
+            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/StudentMenu.fxml"));
             drawer.setSidePane(vbox);
             TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/StudentMenuView.fxml"));
             mainPane.getChildren().add(tabPane);
