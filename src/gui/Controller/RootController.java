@@ -135,7 +135,7 @@ public class RootController implements Initializable {
             drawer.setSidePane(teacherMenuController.getBtnBox());
             iconsBox.getChildren().add(teacherMenuController.getIconBox());
 
-            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
+            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             mainPane.getChildren().add(gridPane);
         } catch (IOException e) {
             e.printStackTrace();
