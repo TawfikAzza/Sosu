@@ -1,6 +1,7 @@
 package gui.utils;
 
 import bll.util.GlobalVariables;
+import gui.Controller.RootController;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -8,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -19,7 +21,7 @@ public class LoginLogoutUtil {
 
     private static Image appIcon = new Image("Images/sosu.png");
 
-    private enum UserType{
+    public enum UserType{
         ADMIN(1),TEACHER(2),STUDENT(3);
         private int userType;
 
@@ -48,11 +50,7 @@ public class LoginLogoutUtil {
     public static void login(Event actionEvent, int userRole) throws IOException {
         closeCurrentWindow(actionEvent);
         UserType userType = UserType.fromRole(userRole);
-        switch (userType){
-            case ADMIN -> loginAdmin();
-            case STUDENT -> loginStudent();
-            case TEACHER -> loginTeacher();
-        }
+        login(userType);
     }
 
 
@@ -73,38 +71,64 @@ public class LoginLogoutUtil {
         loginWindow.show();
     }
 
-    private static void loginTeacher() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/TeacherView.fxml"));
+    private static void login(UserType userType) throws IOException {
+        RootController controller = new RootController(userType);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
+        Scene scene = new Scene(root);
+        Stage teacherWindow = new Stage();
+        teacherWindow.setScene(scene);
+        teacherWindow.initStyle(StageStyle.UNDECORATED);
+        teacherWindow.setTitle(userType.name() + " WINDOW");
+        teacherWindow.setHeight(525);
+        teacherWindow.setWidth(964);
+        teacherWindow.show();
+    }
+
+    /*private static void loginTeacher() throws IOException {
+        RootController controller = new RootController(UserType.TEACHER);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
         teacherWindow.getIcons().add(appIcon);
         teacherWindow.setTitle("Teacher window");
-        teacherWindow.setHeight(480);
-        teacherWindow.setWidth(880);
+        teacherWindow.setHeight(530);
+        teacherWindow.setWidth(1050);
         teacherWindow.show();
     }
 
     private static void loginAdmin() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/AdminTestView.fxml"));
+        RootController controller = new RootController(UserType.ADMIN);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage adminWindow = new Stage();
         adminWindow.setScene(scene);
         adminWindow.setTitle("Admin window");
         adminWindow.setHeight(528);
-        adminWindow.setWidth(800);
-        adminWindow.resizableProperty().set(false);
+        adminWindow.setWidth(1000);
+        //adminWindow.resizableProperty().set(false);
         adminWindow.show();
     }
 
     private static void loginStudent() throws IOException {
-        Parent root = FXMLLoader.load(LoginLogoutUtil.class.getResource("../View/StudentMenuView.fxml"));
+        RootController controller = new RootController(UserType.STUDENT);
+        FXMLLoader loader = new FXMLLoader(LoginLogoutUtil.class.getResource("../View/RootLayout.fxml"));
+        loader.setController(controller);
+        Parent root = loader.load();
         Scene scene = new Scene(root);
         Stage studentWindow = new Stage();
         studentWindow.setScene(scene);
         studentWindow.setTitle("Student window window");
-        studentWindow.setHeight(431.5);
-        studentWindow.setWidth(700);
+        studentWindow.setHeight(530);
+        studentWindow.setWidth(1000);
         studentWindow.show();
     }
+
+     */
 }

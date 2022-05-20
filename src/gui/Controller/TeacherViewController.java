@@ -23,7 +23,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -38,6 +38,7 @@ import java.util.function.Predicate;
 public class TeacherViewController implements Initializable {
 
 
+    public GridPane mainGridPane;
     @FXML
     private AnchorPane citizenInfoControls;
     @FXML
@@ -99,7 +100,6 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initTableEvents();
-        initBinders();
         //initSpinners();
 
         try {
@@ -111,16 +111,13 @@ public class TeacherViewController implements Initializable {
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
-
-            loadCitizenInfoControls();
+            
         } catch (CitizenException | UserException | IOException e) {
             DisplayMessage.displayError(e);
         }
     }
 
-    private void initBinders() {
-        fCitizenSearchField.textProperty().bindBidirectional(citizenSearchField.textProperty());
-    }
+
 
     private void initTableEvents() {
         tableViewStudent.setRowFactory(param -> {
@@ -548,7 +545,6 @@ public class TeacherViewController implements Initializable {
                 return true;
             return false;
         });
-
     }
 
     public AnchorPane getDuplicateAnchorPane() {
@@ -559,14 +555,4 @@ public class TeacherViewController implements Initializable {
         return assigningAnchorPane;
     }
 
-
-    private void loadCitizenInfoControls() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/CitizenInfoControls.fxml"));
-        VBox controlsParent = (VBox) root;
-        AnchorPane.setBottomAnchor(controlsParent,0.0);
-        AnchorPane.setTopAnchor(controlsParent,0.0);
-        AnchorPane.setLeftAnchor(controlsParent,0.0);
-        AnchorPane.setRightAnchor(controlsParent,0.0);
-        citizenInfoControls.getChildren().setAll(controlsParent);
-    }
 }
