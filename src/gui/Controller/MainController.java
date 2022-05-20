@@ -69,6 +69,7 @@ public class MainController implements Initializable {
             WrongLoginLabel.setVisible(true);
     }
 
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
@@ -84,4 +85,24 @@ public class MainController implements Initializable {
             }
         });
     }
+
+
 }
+
+/*
+ if (user != null) {
+            if (user.getRoleID() == 1) {
+                LoginLogoutUtil.login(actionEvent, user.getRoleID());
+
+            } else if (user.getRoleID() == 2) {
+                LoginLogoutUtil.login(actionEvent, user.getRoleID());
+            } else if (user.getRoleID() == 3) {
+                LoginLogoutUtil.login(actionEvent, user.getRoleID());
+            }
+        }
+
+            //LoginLogoutUtil.login(actionEvent,user.getRoleID());
+        else
+            WrongLoginLabel.setVisible(true);
+    }
+ */
