@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -11,12 +12,15 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 
-public class AdminMenuViewController {
+public class AdminMenuViewController extends MenuController{
     @FXML
     private VBox btnBox,iconBox;
     private AnchorPane anchorPane;
-    private Node node;
-    private JFXDrawer jfxDrawer;
+
+    public AdminMenuViewController(AnchorPane mainPane) {
+        super(mainPane);
+        this.anchorPane = mainPane;
+    }
 
     public VBox getBtnBox() {
         return btnBox;
@@ -27,27 +31,23 @@ public class AdminMenuViewController {
     }
 
     public void handleStudentBtn(ActionEvent actionEvent) throws IOException {
-        ManageStudentsController manageStudentsController = new ManageStudentsController();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
-        loader.setController(manageStudentsController);
-        loader.load();
-
-        Node root = loader.getRoot();
-        anchorPane.getChildren().setAll(root);
-        root.setLayoutX(110);
-        root.setLayoutY(32);
+        try {
+            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
+            anchorPane.getChildren().clear();
+            anchorPane.getChildren().add(gridPane);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
         }
 
-    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException {
-        ManageTeachersController manageTeachersController = new ManageTeachersController();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
-        loader.setController(manageTeachersController);
-        loader.load();
-
-        Node root = loader.getRoot();
-        anchorPane.getChildren().setAll(root);
-        root.setLayoutX(110);
-        root.setLayoutY(32);
+    public void handleTemplatesBtn(ActionEvent actionEvent) throws IOException {
+        try {
+            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
+            anchorPane.getChildren().clear();
+            anchorPane.getChildren().add(gridPane);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
 
     }
 
@@ -60,12 +60,4 @@ public class AdminMenuViewController {
         anchorPane.getChildren().setAll(gridPane);
         gridPane.setLayoutY(30);
         }
-
-    public void setAnchorPane(AnchorPane anchorPane) {
-        this.anchorPane = anchorPane;
-    }
-
-    public void setDrawer(JFXDrawer drawer) {
-        this.jfxDrawer=drawer;
-    }
 }

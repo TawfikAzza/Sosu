@@ -156,13 +156,10 @@ public class RootController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminMenuView.fxml"));
-            loader.load();
-            AdminMenuViewController adminMenuViewController = loader.getController();
-            adminMenuViewController.setAnchorPane(mainPane);
-            adminMenuViewController.setDrawer(drawer);
-
-            drawer.setSidePane(adminMenuViewController.getBtnBox());
-            iconsBox.getChildren().add(adminMenuViewController.getIconBox());
+            MenuController menuController = new AdminMenuViewController(mainPane);
+            loader.setController(menuController);
+            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/AdminView.fxml"));
+            setInitialScene(loader, tabPane);
         } catch (IOException e) {
             e.printStackTrace();
         }
