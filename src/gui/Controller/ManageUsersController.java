@@ -77,7 +77,13 @@ public class ManageUsersController implements Initializable {
 
     }
 
-    public void deleteUser(ActionEvent actionEvent) {
+    public void deleteUser(ActionEvent actionEvent) throws SQLException {
+        if (usersTV.getSelectionModel().getSelectedItem()!=null){
+            if (userType== LoginLogoutUtil.UserType.TEACHER)
+                userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
+            else userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
+        }
+
     }
 
     public void editUser(ActionEvent actionEvent) throws IOException {
