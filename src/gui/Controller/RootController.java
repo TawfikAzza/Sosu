@@ -159,8 +159,14 @@ public class RootController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminMenuView.fxml"));
             MenuController menuController = new AdminMenuViewController(mainPane);
             loader.setController(menuController);
-            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/AdminView.fxml"));
-            setInitialScene(loader, tabPane);
+
+
+            FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
+            ManageTeachersController manageTeachersController = new ManageTeachersController();
+            teacherLoader.setController(manageTeachersController);
+            GridPane gridPane = teacherLoader.load();
+
+            setInitialScene(loader,gridPane);
         } catch (IOException e) {
             e.printStackTrace();
         }
