@@ -74,7 +74,7 @@ public class CitizenFormController implements Initializable {
         fNameField.setText(citizenToEdit.getFName());
         lNAmeField.setText(citizenToEdit.getLName());
         addressField.setText(citizenToEdit.getAddress());
-        birthDatePicker.setValue(citizenToEdit.getBirthDate());
+        birthDatePicker.getEditor().setText(DateUtil.formatDateGui(citizenToEdit.getBirthDate()));
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
     }
 
