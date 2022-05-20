@@ -34,8 +34,6 @@ public class CitizenFormController implements Initializable {
     @FXML
     private Label labelCase;
     @FXML
-    private ChoiceBox<Case> choiceBoxCases;
-    @FXML
     private TextField fNameField;
     @FXML
     private TextField lNAmeField;
@@ -51,7 +49,6 @@ public class CitizenFormController implements Initializable {
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
     private int currentSchoolId;
-    private CaseModel caseModel;
 
     public CitizenFormController() {
         citizenToEdit = null;
@@ -67,13 +64,6 @@ public class CitizenFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
         bindSizes();
-        try {
-            caseModel = new CaseModel();
-            choiceBoxCases.setItems(caseModel.getObsCases());
-        } catch (IOException | CaseException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
     }
 
     public void setCitizenToEdit(Citizen citizenToEdit) {
@@ -88,7 +78,6 @@ public class CitizenFormController implements Initializable {
         addressField.setText(citizenToEdit.getAddress());
         birthDatePicker.setValue(citizenToEdit.getBirthDate());
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
-        choiceBoxCases.setVisible(false);
         labelCase.setVisible(false);
     }
 
@@ -110,6 +99,14 @@ public class CitizenFormController implements Initializable {
         if (saveCitizen()) {
             closeThisWindow();
             openAdditionalInfoWindow();
+        }
+    }
+
+    @FXML
+    private void handleAddEditCaseClick(ActionEvent actionEvent) {
+        if(citizenCreation)
+        {
+
         }
     }
 
@@ -157,11 +154,6 @@ public class CitizenFormController implements Initializable {
         String address = addressField.getText();
         String dateString  = birthDatePicker.getEditor().getText();
         int phoneNumber = -1;
-        int caseID = 2;
-
-        if(choiceBoxCases.getSelectionModel().getSelectedItem()!=null) {
-            caseID = choiceBoxCases.getSelectionModel().getSelectedItem().getId();
-        }
 
         if (!phoneField.getText().isEmpty())
             phoneNumber = Integer.parseInt(phoneField.getText());
@@ -183,7 +175,6 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
-            newCitizen.setCaseID(caseID);
             createTemplate(newCitizen);
         }
         return true;
@@ -260,4 +251,6 @@ public class CitizenFormController implements Initializable {
     public void setCurrentSchoolId() {
         currentSchoolId= GlobalVariables.getCurrentSchool().getId();
     }
+
+
 }
