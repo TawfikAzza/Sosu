@@ -1,5 +1,6 @@
 package gui.Controller;
 
+import bll.exceptions.UserException;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import gui.utils.DisplayMessage;
@@ -162,12 +163,12 @@ public class RootController implements Initializable {
 
 
             FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
-            ManageTeachersController manageTeachersController = new ManageTeachersController();
-            teacherLoader.setController(manageTeachersController);
+            ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.TEACHER);
+            teacherLoader.setController(manageUsersController);
             GridPane gridPane = teacherLoader.load();
 
             setInitialScene(loader,gridPane);
-        } catch (IOException e) {
+        } catch (IOException | UserException e) {
             e.printStackTrace();
         }
     }
