@@ -143,10 +143,11 @@ public class RootController implements Initializable {
     private void initStudent()
     {
         try {
-            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/StudentMenu.fxml"));
-            drawer.setSidePane(vbox);
-            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/StudentMenuView.fxml"));
-            mainPane.getChildren().add(tabPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/StudentMenuView.fxml"));
+            MenuController menuController = new StudentMenuController(mainPane);
+            loader.setController(menuController);
+            TabPane tabPane = FXMLLoader.load(getClass().getResource("../View/StudentView.fxml"));
+            setInitialScene(loader,tabPane);
         } catch (IOException e) {
             e.printStackTrace();
         }

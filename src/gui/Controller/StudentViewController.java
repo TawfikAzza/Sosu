@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StudentMenuViewController implements Initializable {
+public class StudentViewController implements Initializable {
 
     @FXML
     private AnchorPane citizenInfoControls;
@@ -46,7 +46,7 @@ public class StudentMenuViewController implements Initializable {
     private Student currentStudent;
     private Citizen currentCitizen;
 
-    public StudentMenuViewController() {
+    public StudentViewController() {
         currentStudent = GlobalVariables.getCurrentStudent();
         System.out.println(currentStudent);
         try {

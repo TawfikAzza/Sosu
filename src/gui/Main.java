@@ -93,7 +93,7 @@ public class Main extends Application {
 
         if (layoutChosen.get().equals("student")) {
             FXMLLoader loaderStudent = new FXMLLoader();
-            loaderStudent.setLocation(getClass().getResource("/gui/View/StudentMenuView.fxml"));
+            loaderStudent.setLocation(getClass().getResource("/gui/View/StudentView.fxml"));
             TabPane studentDisplay = loaderStudent.load();
 
             StudentMenuViewController studentMenuViewController = loaderStudent.getController();
