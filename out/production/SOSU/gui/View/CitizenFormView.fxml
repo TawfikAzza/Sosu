@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
@@ -107,7 +106,7 @@
       </HBox>
       <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" GridPane.columnIndex="3" GridPane.rowIndex="5">
          <children>
-            <ChoiceBox fx:id="choiceBoxCases" prefHeight="26.0" prefWidth="190.0" />
+            <Button mnemonicParsing="false" onAction="#handleAddEditCaseClick" prefHeight="26.0" prefWidth="160.0" text="Add/Edit Case" />
          </children>
       </VBox>
    </children>
