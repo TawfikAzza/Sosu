@@ -2,10 +2,12 @@ package gui.Controller;
 
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
+import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TabPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -129,14 +131,10 @@ public class RootController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            loader.load();
-            TeacherMenuController teacherMenuController = loader.getController();
-
-            drawer.setSidePane(teacherMenuController.getBtnBox());
-            iconsBox.getChildren().add(teacherMenuController.getIconBox());
-
+            MenuController menuController = new TeacherMenuController(mainPane);
+            loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
-            mainPane.getChildren().add(gridPane);
+            setInitialScene(loader, gridPane);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -164,5 +162,48 @@ public class RootController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void setInitialScene(FXMLLoader menu, Node scene)
+    {
+        try {
+            menu.load();
+            MenuController menuController = menu.getController();
+
+            drawer.setSidePane(menuController.getBtnBox());
+            iconsBox.getChildren().add(menuController.getIconBox());
+
+            mainPane.getChildren().clear();
+            mainPane.getChildren().add(scene);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
+    }
+
+    public void setTemplateView()
+    {
+        try {
+            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
+            setMainPane(gridPane);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void setCitizenAssignmentView()
+    {
+        GridPane gridPane = null;
+        try {
+            gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
+            setMainPane(gridPane);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
+    }
+
+    private void setMainPane(Node node)
+    {
+        mainPane.getChildren().clear();
+        mainPane.getChildren().add(node);
     }
 }
