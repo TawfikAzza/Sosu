@@ -17,15 +17,15 @@
         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
     </rowConstraints>
     <children>
-        <VBox fx:id="btnBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="146.0">
+        <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="146.0">
             <children>
-                <JFXButton onAction="#handleTemplatesBtn" prefHeight="101.0" prefWidth="148.0" text="Templates/Citizens" />
-                <JFXButton onAction="#handleStudentBtn" prefHeight="106.0" prefWidth="162.0" text="Students/Assignment" />
+                <JFXButton onAction="#handleTeacherBtn" prefHeight="101.0" prefWidth="148.0" text="Teachers" />
+                <JFXButton onAction="#handleStudentBtn" prefHeight="106.0" prefWidth="162.0" text="Students" />
                 <JFXButton onAction="#handleCitizenBtn" prefHeight="71.0" prefWidth="102.0" text="Citizens" />
                 <JFXButton prefHeight="71.0" prefWidth="102.0" text="Log Out" />
             </children>
         </VBox>
-        <VBox fx:id="iconBox" alignment="CENTER" prefHeight="400.0" prefWidth="51.0" spacing="42.0" GridPane.columnIndex="1">
+        <VBox fx:id="iconBox" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="51.0" spacing="42.0" GridPane.columnIndex="1">
             <children>
                 <ImageView fitHeight="55.0" fitWidth="59.0" pickOnBounds="true" preserveRatio="true">
                     <image>

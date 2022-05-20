@@ -21,6 +21,8 @@ public abstract class User {
     private StringProperty passwordProperty = new SimpleStringProperty();
     private StringProperty emailProperty = new SimpleStringProperty();
 
+    public User (){}
+
 
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber){
         this.id=id;

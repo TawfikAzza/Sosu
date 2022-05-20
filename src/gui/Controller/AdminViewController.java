@@ -108,7 +108,6 @@ public class AdminViewController implements Initializable {
 
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.updateTView(allTeacherFiltered,searchTeacherField.getText());
-        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("New Teacher");
@@ -139,7 +138,6 @@ public class AdminViewController implements Initializable {
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.newStudent();
         newEditUserController.updateTViewStudent(allStudentsFiltered,searchTeacherField.getText());
-        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("New Student");
@@ -842,7 +840,6 @@ public class AdminViewController implements Initializable {
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.editTeacher(teachersTableView.getSelectionModel().getSelectedItem());
         newEditUserController.updateTView(allTeacherFiltered,searchTeacherField.getText());
-        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("Edit Teacher");
@@ -861,7 +858,6 @@ public class AdminViewController implements Initializable {
         NewEditUserController newEditUserController = loader.getController();
         newEditUserController.editStudent(studentsTableView.getSelectionModel().getSelectedItem());
         newEditUserController.updateTViewStudent(allStudentsFiltered,searchStudentField.getText());
-        newEditUserController.setController(this);
 
         Stage stage = new Stage();
         stage.setTitle("Edit Student");

@@ -44,11 +44,15 @@ public class UserModel {
     }
 
     public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
-        return userManager.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        Student newStudent = userManager.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        allStudents.add(newStudent);
+        return newStudent;
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
-        return userManager.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        Teacher newTeacher =  userManager.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        allTeachers.add(newTeacher);
+        return newTeacher;
     }
 
     public void deleteTeacher(Teacher teacher) throws SQLException {

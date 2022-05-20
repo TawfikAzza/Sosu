@@ -6,6 +6,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -31,36 +33,28 @@ public class AdminMenuViewController extends MenuController{
     }
 
     public void handleStudentBtn(ActionEvent actionEvent) throws IOException {
-        try {
-            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
-            anchorPane.getChildren().clear();
-            anchorPane.getChildren().add(gridPane);
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-        }
         }
 
-    public void handleTemplatesBtn(ActionEvent actionEvent) throws IOException {
-        try {
-            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
+    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException {
+        /*try {
             anchorPane.getChildren().clear();
             anchorPane.getChildren().add(gridPane);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
-        }
+        }*/
 
     }
 
     public void handleCitizenBtn(ActionEvent actionEvent) throws IOException {
-        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TestViewTeacher.fxml"));
-        loader.load();
-        TeacherViewController teacherViewController = loader.getController();
-        GridPane gridPane = teacherViewController.getMainGridPane();
+        Tab duplicationTab = new Tab("Citizen templates");
+        Tab assignTab = new Tab("student assigning");
+        duplicationTab.setContent(FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml")));
 
-        anchorPane.getChildren().setAll(gridPane);
-        gridPane.setLayoutY(30);
-        
-         */
+        assignTab.setContent(FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml")));
+
+        TabPane tabPane = new TabPane(duplicationTab,assignTab);
+
+        anchorPane.getChildren().setAll(tabPane);
         }
 
 }

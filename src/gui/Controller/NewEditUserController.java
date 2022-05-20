@@ -66,7 +66,6 @@ public class NewEditUserController implements Initializable {
     private ObservableList<Student>allStudents=FXCollections.observableArrayList();
 
     private String init;
-    private AdminViewController adminViewController;
 
     public void handleCancel(ActionEvent actionEvent) {
         Stage stage;
@@ -88,12 +87,8 @@ public class NewEditUserController implements Initializable {
     public void createNewUser(ActionEvent actionEvent) {
         if(newUser&&isTeacher)
             try {
-                Teacher newTeacher = userModel.newTeacher(schoolComboBox.getSelectionModel().getSelectedItem(),
-                        firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
-                adminViewController.addTeacherLV(newTeacher);
-                if (newTeacher.getFirstName().toLowerCase().contains(init)||newTeacher.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
-                {   allTeacher.add(newTeacher);
-                    adminViewController.refreshTView(allTeacher);}
+                 userModel.newTeacher(schoolComboBox.getSelectionModel().getSelectedItem(),
+                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
@@ -108,13 +103,7 @@ public class NewEditUserController implements Initializable {
             try {
                 Student student = userModel.newStudent(schoolComboBox.getSelectionModel().getSelectedItem(),
                         firstName.getText(),lastName.getText(),userName.getText(),passWord.getText(),email.getText(),phoneNumberField.getText());
-                if (adminViewController!=null){
-                    adminViewController.addStudentLV(student);
-                if (student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT)))
-                {   allStudents.add(student);
-                    adminViewController.refreshTViewStudents(allStudents);
-                }
-                }
+
                 ObservableList<Student> underlyingList = (ObservableList<Student>) studentModel.getObsStudents().getSource();
                 underlyingList.add(student);
 
@@ -138,9 +127,7 @@ public class NewEditUserController implements Initializable {
             teacher.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
             try {
                 userModel.editTeacher(teacher,schoolComboBox.getSelectionModel().getSelectedItem());
-                if (!(teacher.getFirstName().toLowerCase().contains(init)||teacher.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
-                {   allTeacher.remove(teacher);
-                    adminViewController.refreshTView(allTeacher);}
+
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
@@ -160,10 +147,6 @@ public class NewEditUserController implements Initializable {
             student.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
             try {
                 userModel.editStudent(schoolComboBox.getSelectionModel().getSelectedItem(),student);
-                if (adminViewController!=null){
-                    if (!(student.getFirstName().toLowerCase().contains(init)||student.getLastName().toLowerCase(Locale.ROOT).contains(init.toLowerCase(Locale.ROOT))))
-                {   allStudents.remove(student);
-                    adminViewController.refreshTViewStudents(allStudents);}}
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
@@ -272,10 +255,6 @@ public class NewEditUserController implements Initializable {
     public void updateTView(ObservableList<Teacher> allTeacherFiltered, String text) {
         allTeacher=allTeacherFiltered;
         init=text;
-    }
-
-    public void setController(AdminViewController adminViewController) {
-        this.adminViewController=adminViewController;
     }
 
     public void updateTViewStudent(ObservableList<Student> allStudentsFiltered, String text) {
