@@ -22,6 +22,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -36,6 +37,7 @@ import java.util.function.Predicate;
 public class TeacherViewController implements Initializable {
 
 
+    public GridPane mainGridPane;
     @FXML
     private TextField fCitizenSearchField;
     @FXML
@@ -95,8 +97,7 @@ public class TeacherViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initTableEvents();
-        initBinders();
-        initSpinners();
+        //initSpinners();
 
         try {
             this.citizenModel = CitizenModel.getInstance();
@@ -114,9 +115,7 @@ public class TeacherViewController implements Initializable {
         }
     }
 
-    private void initBinders() {
-        fCitizenSearchField.textProperty().bindBidirectional(citizenSearchField.textProperty());
-    }
+
 
     private void initTableEvents() {
         tableViewStudent.setRowFactory(param -> {
@@ -542,4 +541,7 @@ public class TeacherViewController implements Initializable {
         return assigningAnchorPane;
     }
 
+    public GridPane getMainGridPane() {
+        return mainGridPane;
+    }
 }

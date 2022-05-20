@@ -92,7 +92,7 @@ public class RootController implements Initializable {
                 gridPane.getChildren().add(drawerGPane);
                 stackPane.getChildren().add(gridPane);
                 if (index>0)
-                    stackPane.getChildren().remove(0);
+                   stackPane.getChildren().remove(0);
                 drawer.open();
                 index++;
             }
@@ -155,10 +155,14 @@ public class RootController implements Initializable {
     private void initAdmin()
     {
         try {
-            VBox vbox = FXMLLoader.load(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            drawer.setSidePane(vbox);
-            TabPane tabPane = FXMLLoader.load(getClass().getResource("/gui/View/AdminView.fxml"));
-            mainPane.getChildren().add(tabPane);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminMenuView.fxml"));
+            loader.load();
+            AdminMenuViewController adminMenuViewController = loader.getController();
+            adminMenuViewController.setAnchorPane(mainPane);
+            adminMenuViewController.setDrawer(drawer);
+
+            drawer.setSidePane(adminMenuViewController.getBtnBox());
+            iconsBox.getChildren().add(adminMenuViewController.getIconBox());
         } catch (IOException e) {
             e.printStackTrace();
         }
