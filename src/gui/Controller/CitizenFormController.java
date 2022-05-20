@@ -172,7 +172,8 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
-            createTemplate(newCitizen);
+            if (createTemplate(newCitizen)==null)
+                return false;
         }
         return true;
     }
