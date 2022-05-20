@@ -3,7 +3,6 @@ package gui.Controller;
 import be.School;
 import be.Student;
 import be.Teacher;
-import be.User;
 import bll.exceptions.UserException;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
@@ -37,7 +36,7 @@ public class ManageUsersController implements Initializable {
     @FXML
     private TableView usersTV;
     @FXML
-    private TableColumn firstNameTC,lastNameTC,userNameTC,passwordTC,emailTC;
+    private TableColumn firstNameTC, lastNameTC, userNameTC, passwordTC, emailTC;
     @FXML
     private TableColumn phoneNumberTC;
 
@@ -47,9 +46,8 @@ public class ManageUsersController implements Initializable {
     private Integer test = 1;
 
 
-
     public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException {
-        this.userType=userType;
+        this.userType = userType;
         userModel = UserModel.getInstance();
     }
 
@@ -60,9 +58,9 @@ public class ManageUsersController implements Initializable {
         searchUsersField.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)){
+                if (event.getCode().equals(KeyCode.ENTER)) {
                     try {
-                        if (userType== LoginLogoutUtil.UserType.TEACHER)
+                        if (userType == LoginLogoutUtil.UserType.TEACHER)
                             usersTV.setItems(userModel.getAllTeachers(searchUsersField.getText()));
                         else
                             usersTV.setItems(userModel.getAllStudents(searchUsersField.getText()));
@@ -70,9 +68,9 @@ public class ManageUsersController implements Initializable {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
+                }
             }
-        }
-    });
+        });
     }
 
     private void initializeUsersTV() {
@@ -80,16 +78,72 @@ public class ManageUsersController implements Initializable {
         initializeFnameColumn();
         initializeLnameColumn();
         initializeUserNameColumn();
-
-        passwordTC.setCellValueFactory(new PropertyValueFactory<>("passWord"));
-        emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
-        phoneNumberTC.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
-
+        initializePasswordColumn();
+        initializeEmailColumn();
+        initializePhoneNumberColumn();
     }
 
-    private void initializeUserNameColumn() {
-        userNameTC.setCellValueFactory(new PropertyValueFactory<>("userName"));
-        userNameTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+    private void initializePhoneNumberColumn() {
+        phoneNumberTC.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        phoneNumberTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Integer>() {
+            @Override
+            public String toString(Integer object) {
+                return String.valueOf(object);
+            }
+
+            @Override
+            public Integer fromString(String string) {
+                try {
+                    ue.checkPhoneNumber(string);
+                } catch (UserException nfe) {
+                    test = -1;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText(nfe.getExceptionMessage());
+                    alert.setContentText(nfe.getInstructions());
+                    alert.showAndWait();
+                    if (userType == LoginLogoutUtil.UserType.TEACHER) {
+                        return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getPhoneNumber();
+                    } else {
+                        return ((Student) usersTV.getSelectionModel().getSelectedItem()).getPhoneNumber();
+                    }
+                }
+                return test;
+            }
+        }));
+        phoneNumberTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
+            Object object = event.getRowValue();
+            Teacher teacher;
+            Student student;
+            if (userType == LoginLogoutUtil.UserType.TEACHER) {
+                teacher = Teacher.class.cast(object);
+                if (test > 0) {
+                    teacher.setPhoneNumber((Integer) event.getNewValue());
+                    try {
+                        userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
+                    } catch (UserException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }} else {
+                    student = Student.class.cast(object);
+                    student.setPhoneNumber((Integer) event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                    } catch (UserException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            test = 1;
+        });
+    }
+
+    private void initializeEmailColumn() {
+        emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
                 return object;
@@ -98,50 +152,163 @@ public class ManageUsersController implements Initializable {
             @Override
             public String fromString(String string) {
                 try {
-                    ue.checkUserUName(string,userModel.userNameTaken(string));
-                } catch (UserException | SQLException e) {
-                    test=-1;
+                    ue.checkEmail(string);
+                } catch (UserException e) {
+                    test = -1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
-                    //alert.setHeaderText(e.getExceptionMessage());
-                    //alert.setContentText(e.getInstructions());
+                    alert.setHeaderText(e.getExceptionMessage());
+                    alert.setContentText(e.getInstructions());
                     alert.showAndWait();
-                    if (userType== LoginLogoutUtil.UserType.TEACHER)
-                        return ((Teacher)usersTV.getSelectionModel().getSelectedItem()).getUserName();
-                    else return ((Student)usersTV.getSelectionModel().getSelectedItem()).getUserName();                }
+                    if (userType == LoginLogoutUtil.UserType.TEACHER)
+                        return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getEmail();
+                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getEmail();
+                }
                 return string;
             }
+        }));
+        emailTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event1 -> {
+            Object object = event1.getRowValue();
+            Teacher teacher;
+            Student student;
+            if (userType == LoginLogoutUtil.UserType.TEACHER) {
+                teacher = Teacher.class.cast(object);
+                if (test > 0) {
+                    teacher.setEmail((String) event1.getNewValue());
+                    try {
+                        userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
+                    } catch (UserException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    }
+                }
+            } else {
+                    student = Student.class.cast(object);
+                    student.setEmail((String) event1.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                    } catch (UserException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            test = 1;
+        });
+    }
+
+    private void initializePasswordColumn() {
+        passwordTC.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        passwordTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
             }
-        ));
-        userNameTC.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    ue.checkUserPassword(string);
+                } catch (UserException e) {
+                    test = -1;
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Alert");
+                    alert.setHeaderText(e.getExceptionMessage());
+                    alert.setContentText(e.getInstructions());
+                    alert.showAndWait();
+
+                    if (userType == LoginLogoutUtil.UserType.TEACHER)
+                        return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
+                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
+                }
+                return string;
+            }
+        }));
+        passwordTC.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
             @Override
             public void handle(TableColumn.CellEditEvent event) {
+                Object object = event.getRowValue();
                 Teacher teacher;
                 Student student;
-                Object object = event.getRowValue();
-                if (userType== LoginLogoutUtil.UserType.TEACHER){
+                if (userType == LoginLogoutUtil.UserType.TEACHER) {
                     teacher = Teacher.class.cast(object);
-                if (test>0)
-                {
+                    if (test > 0) {
+                        teacher.setPassWord((String) event.getNewValue());
+                        try {
+                            userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
+                        } catch (UserException e) {
+                            DisplayMessage.displayError(e);
+                            e.printStackTrace();
+                        }
+                    }} else {
+                        student = Student.class.cast(object);
+                        student.setPassWord((String) event.getNewValue());
+                        try {
+                            userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                        } catch (UserException e) {
+                            DisplayMessage.displayError(e);
+                            e.printStackTrace();
+                        } catch (SQLException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                test = 1;
+            }
+        });
+    }
+
+    private void initializeUserNameColumn() {
+        userNameTC.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        userNameTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+                                                                        @Override
+                                                                        public String toString(String object) {
+                                                                            return object;
+                                                                        }
+
+                                                                        @Override
+                                                                        public String fromString(String string) {
+                                                                            try {
+                                                                                ue.checkUserUName(string, userModel.userNameTaken(string));
+                                                                            } catch (UserException | SQLException e) {
+                                                                                test = -1;
+                                                                                Alert alert = new Alert(Alert.AlertType.ERROR);
+                                                                                alert.setTitle("Alert");
+                                                                                //alert.setHeaderText(e.getExceptionMessage());
+                                                                                //alert.setContentText(e.getInstructions());
+                                                                                alert.showAndWait();
+                                                                                if (userType == LoginLogoutUtil.UserType.TEACHER)
+                                                                                    return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getUserName();
+                                                                                else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getUserName();
+                                                                            }
+                                                                            return string;
+                                                                        }
+                                                                    }
+        ));
+        userNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
+            Teacher teacher;
+            Student student;
+            Object object = event.getRowValue();
+            if (userType == LoginLogoutUtil.UserType.TEACHER) {
+                teacher = Teacher.class.cast(object);
+                if (test > 0) {
                     teacher.setUserName((String) event.getNewValue());
                     try {
-                        userModel.editTeacher(teacher,new School(teacher.getSchoolId(),teacher.getSchoolName()));
+                        userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
                     } catch (UserException e) {
                         e.printStackTrace();
                     }
                 }
-                test=1;
+            } else {
+                student = Student.class.cast(object);
+                student.setUserName((String) event.getNewValue());
+                try {
+                    userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                } catch (UserException | SQLException e) {
+                    e.printStackTrace();
+                }
             }
-                else{ student = Student.class.cast(object);
-                    student.setUserName((String) event.getNewValue());
-                    try {
-                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
-                    } catch (UserException | SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                test=1;
-                }
+            test = 1;
         });
     }
 
@@ -158,16 +325,17 @@ public class ManageUsersController implements Initializable {
                 try {
                     ue.checkUserLN(string);
                 } catch (UserException e) {
-                    test=-1;
+                    test = -1;
 
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText(e.getExceptionMessage());
                     alert.setContentText(e.getInstructions());
                     alert.showAndWait();
-                    if (userType== LoginLogoutUtil.UserType.TEACHER)
-                        return ((Teacher)usersTV.getSelectionModel().getSelectedItem()).getLastName();
-                    else return ((Student)usersTV.getSelectionModel().getSelectedItem()).getLastName();                }
+                    if (userType == LoginLogoutUtil.UserType.TEACHER)
+                        return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getLastName();
+                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getLastName();
+                }
                 return string;
             }
         }));
@@ -175,29 +343,27 @@ public class ManageUsersController implements Initializable {
             Teacher teacher;
             Student student;
             Object object = event.getRowValue();
-            if (userType== LoginLogoutUtil.UserType.TEACHER){
+            if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
-                if (test>0){
+                if (test > 0) {
                     teacher.setLastName((String) event.getNewValue());
                     try {
-                        userModel.editTeacher(teacher,new School(teacher.getSchoolId(),teacher.getSchoolName()));
+                        userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
                     } catch (UserException e) {
                         e.printStackTrace();
                     }
                 }
-                test=1;
-            }
-            else {student = Student.class.cast(object);
-                if (test>0){
+            } else {
+                student = Student.class.cast(object);
+                if (test > 0) {
                     student.setLastName((String) event.getNewValue());
                     try {
-                        userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
+                        userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
                     } catch (UserException | SQLException e) {
                         e.printStackTrace();
                     }
-                }
-                test=1;
-            }
+                }}
+                test = 1;
         });
     }
 
@@ -214,51 +380,51 @@ public class ManageUsersController implements Initializable {
                 try {
                     ue.checkUserFN(string);
                 } catch (UserException e) {
-                    test=-1;
+                    test = -1;
                     Alert alert = new Alert(Alert.AlertType.ERROR);
                     alert.setTitle("Alert");
                     alert.setHeaderText(e.getExceptionMessage());
                     alert.setContentText(e.getInstructions());
                     alert.showAndWait();
-                    if (userType== LoginLogoutUtil.UserType.TEACHER)
-                        return ((Teacher)usersTV.getSelectionModel().getSelectedItem()).getFirstName();
-                    else return ((Student)usersTV.getSelectionModel().getSelectedItem()).getFirstName();
+                    if (userType == LoginLogoutUtil.UserType.TEACHER)
+                        return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
+                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
                 }
                 return string;
-            }}));
-            firstNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
-                Teacher teacher;
-                Student student;
-                Object object = event.getRowValue();
-                if (userType== LoginLogoutUtil.UserType.TEACHER){
-                    teacher = Teacher.class.cast(object);
-                    if (test>0){
-                        teacher.setFirstName((String) event.getNewValue());
-                        try {
-                            userModel.editTeacher(teacher,new School(teacher.getSchoolId(),teacher.getSchoolName()));
-                        } catch (UserException e) {
-                            e.printStackTrace();
-                        }
+            }
+        }));
+        firstNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
+            Teacher teacher;
+            Student student;
+            Object object = event.getRowValue();
+            if (userType == LoginLogoutUtil.UserType.TEACHER) {
+                teacher = Teacher.class.cast(object);
+                if (test > 0) {
+                    teacher.setFirstName((String) event.getNewValue());
+                    try {
+                        userModel.editTeacher(teacher, new School(teacher.getSchoolId(), teacher.getSchoolName()));
+                    } catch (UserException e) {
+                        e.printStackTrace();
                     }
-                    test=1;
                 }
-                else {student = Student.class.cast(object);
-                    if (test>0){
-                        student.setFirstName((String) event.getNewValue());
-                        try {
-                            userModel.editStudent(new School(student.getSchoolId(),student.getSchoolName()),student);
-                        } catch (UserException | SQLException e) {
-                            e.printStackTrace();
-                        }
+            } else {
+                student = Student.class.cast(object);
+                if (test > 0) {
+                    student.setFirstName((String) event.getNewValue());
+                    try {
+                        userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
                     }
-                    test=1;
-                }
-            });
-        }
+                }}
+                test = 1;
+        });
+    }
+
 
     public void deleteUser(ActionEvent actionEvent) throws SQLException {
-        if (usersTV.getSelectionModel().getSelectedItem()!=null){
-            if (userType== LoginLogoutUtil.UserType.TEACHER)
+        if (usersTV.getSelectionModel().getSelectedItem() != null) {
+            if (userType == LoginLogoutUtil.UserType.TEACHER)
                 userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
             else userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
         }
@@ -266,14 +432,14 @@ public class ManageUsersController implements Initializable {
     }
 
     public void editUser(ActionEvent actionEvent) throws IOException {
-        if (usersTV.getSelectionModel().getSelectedItem()!=null){
+        if (usersTV.getSelectionModel().getSelectedItem() != null) {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
             root = loader.load();
 
             NewEditUserController newEditUserController = loader.getController();
-            if (userType== LoginLogoutUtil.UserType.STUDENT)
+            if (userType == LoginLogoutUtil.UserType.STUDENT)
                 newEditUserController.editStudent((Student) usersTV.getSelectionModel().getSelectedItem());
             else
                 newEditUserController.editTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
@@ -293,8 +459,8 @@ public class ManageUsersController implements Initializable {
         root = loader.load();
 
         NewEditUserController newEditUserController = loader.getController();
-        if (userType== LoginLogoutUtil.UserType.STUDENT)
-        newEditUserController.newStudent();
+        if (userType == LoginLogoutUtil.UserType.STUDENT)
+            newEditUserController.newStudent();
 
         Stage stage = new Stage();
         stage.setTitle("New Student");

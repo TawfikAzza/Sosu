@@ -1,7 +1,9 @@
 package gui.Controller;
 
+import bll.exceptions.UserException;
 import com.jfoenix.controls.JFXDrawer;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -32,16 +34,16 @@ public class AdminMenuViewController extends MenuController{
         return iconBox;
     }
 
-    public void handleStudentBtn(ActionEvent actionEvent) throws IOException {
-        }
+    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
+        loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
+        anchorPane.getChildren().add(loader.load());
+    }
 
-    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException {
-        /*try {
-            anchorPane.getChildren().clear();
-            anchorPane.getChildren().add(gridPane);
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-        }*/
+    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
+        loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
+        anchorPane.getChildren().add(loader.load());
 
     }
 
