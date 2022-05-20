@@ -52,12 +52,15 @@ public class AdminMenuViewController extends MenuController{
     }
 
     public void handleCitizenBtn(ActionEvent actionEvent) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TestViewTeacher.fxml"));
+        /*FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TestViewTeacher.fxml"));
         loader.load();
         TeacherViewController teacherViewController = loader.getController();
         GridPane gridPane = teacherViewController.getMainGridPane();
 
         anchorPane.getChildren().setAll(gridPane);
         gridPane.setLayoutY(30);
+        
+         */
         }
+
 }

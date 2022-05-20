@@ -32,8 +32,6 @@ import java.util.ResourceBundle;
 public class CitizenFormController implements Initializable {
 
     @FXML
-    private Label labelCase;
-    @FXML
     private TextField fNameField;
     @FXML
     private TextField lNAmeField;
@@ -78,7 +76,6 @@ public class CitizenFormController implements Initializable {
         addressField.setText(citizenToEdit.getAddress());
         birthDatePicker.setValue(citizenToEdit.getBirthDate());
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
-        labelCase.setVisible(false);
     }
 
     private void bindSizes() {
