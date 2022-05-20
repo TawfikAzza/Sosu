@@ -183,31 +183,4 @@ public class RootController implements Initializable {
             DisplayMessage.displayError(e);
         }
     }
-
-    public void setTemplateView()
-    {
-        try {
-            GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
-            setMainPane(gridPane);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void setCitizenAssignmentView()
-    {
-        GridPane gridPane = null;
-        try {
-            gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
-            setMainPane(gridPane);
-        } catch (IOException e) {
-            DisplayMessage.displayError(e);
-        }
-    }
-
-    private void setMainPane(Node node)
-    {
-        mainPane.getChildren().clear();
-        mainPane.getChildren().add(node);
-    }
 }

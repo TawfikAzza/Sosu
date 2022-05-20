@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -52,5 +53,11 @@ public class TeacherMenuController extends MenuController{
     }
 
     public void handleLogoutClick(ActionEvent actionEvent) {
+        try {
+            LoginLogoutUtil.logout(actionEvent);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
     }
+
 }
