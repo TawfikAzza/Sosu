@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import bll.exceptions.UserException;
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import gui.utils.DisplayMessage;
@@ -65,6 +66,11 @@ public class RootController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initUser();
         List<JFXHamburger>allHamBurgers= List.of(iconHamburgerDGP,iconHamburgerMGP);
+        List<Node>menuButtons = drawer.getSidePane();
+        for (Node node : menuButtons){
+            node.setVisible(false);
+            node.setDisable(true);
+        }
         for (JFXHamburger iconHamburger : allHamBurgers)
         iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
             if(drawer.isOpened()) {
@@ -79,6 +85,10 @@ public class RootController implements Initializable {
                 if (index > 1)
                     stackPane.getChildren().remove(0);
                 drawer.close();
+                for (Node node : menuButtons){
+                    node.setVisible(false);
+                    node.setDisable(true);
+                }
                 index++;
             }
                 /**
@@ -95,6 +105,10 @@ public class RootController implements Initializable {
                 if (index>0)
                    stackPane.getChildren().remove(0);
                 drawer.open();
+                for (Node node : menuButtons){
+                    node.setVisible(true);
+                    node.setDisable(false);
+                }
                 index++;
             }
             /*int counter = 0;

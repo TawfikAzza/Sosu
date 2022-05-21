@@ -19,12 +19,12 @@
     <children>
         <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="397.0" prefWidth="146.0">
             <children>
-            <JFXButton prefHeight="101.0" prefWidth="148.0" text="Admins" />
-            <JFXButton maxWidth="148.0" prefHeight="101.0" text="Schools" />
+            <JFXButton onAction="#handleAdminBtn" prefHeight="101.0" prefWidth="148.0" text="Admins" />
+            <JFXButton maxWidth="148.0" onAction="#handleSchoolsBtn" prefHeight="101.0" text="Schools" />
                 <JFXButton onAction="#handleCitizenBtn" prefHeight="101.0" prefWidth="148.0" text="Citizens" />
                 <JFXButton onAction="#handleTeacherBtn" prefHeight="101.0" prefWidth="148.0" text="Teachers" />
                 <JFXButton onAction="#handleStudentBtn" prefHeight="106.0" prefWidth="148.0" text="Students" />
-                <JFXButton maxWidth="148.0" prefHeight="101.0" prefWidth="102.0" text="Log Out" />
+                <JFXButton maxWidth="148.0" onAction="#handleLogOutBtn" prefHeight="101.0" prefWidth="102.0" text="Log Out" />
             </children>
         </VBox>
         <VBox fx:id="iconBox" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="51.0" spacing="23.0" GridPane.columnIndex="1">
