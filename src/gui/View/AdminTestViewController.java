@@ -75,22 +75,6 @@ public class AdminTestViewController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
-        newUserWindowLoader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-        try {
-            root = newUserWindowLoader.load();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-
-        initStudentsTV();
-
-        try {
-            userModel=UserModel.getInstance();
-        } catch (IOException | UserException e) {
-            e.printStackTrace();
-        }
-
         exit.setOnMouseClicked(event -> {
             System.exit(0);
         });

@@ -80,6 +80,19 @@ public class LoginLogoutUtil {
         Stage teacherWindow = new Stage();
         teacherWindow.setScene(scene);
         teacherWindow.initStyle(StageStyle.UNDECORATED);
+
+        final double[] x = new double[1];
+        final double[] y = { 0 };
+        root.setOnMousePressed(event -> {
+            x[0] = event.getSceneX();
+            y[0] = event.getSceneY();
+        });
+
+        root.setOnMouseDragged(event -> {
+            teacherWindow.setX(event.getScreenX() - x[0]);
+            teacherWindow.setY(event.getScreenY() - y[0]);
+        });
+
         teacherWindow.setTitle(userType.name() + " WINDOW");
         teacherWindow.setHeight(525);
         teacherWindow.setWidth(964);
