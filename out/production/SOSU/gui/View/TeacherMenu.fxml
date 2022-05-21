@@ -17,10 +17,10 @@
     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
   </rowConstraints>
    <children>
-      <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="182.0" spacing="20.0">
+      <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="141.0" spacing="20.0">
          <children>
-            <JFXButton onAction="#handleStudentsAssignmentsClick" prefHeight="111.0" prefWidth="138.0" text="Students/Assignments" />
-            <JFXButton onAction="#handleTemplatesCitizensClick" prefHeight="111.0" prefWidth="138.0" text="Templates/Citizens" />
+            <JFXButton onAction="#handleStudentsAssignmentsClick" prefHeight="100.0" prefWidth="142.0" text="Students/Assignments" />
+            <JFXButton onAction="#handleTemplatesCitizensClick" prefHeight="101.0" prefWidth="124.0" text="Templates/Citizens" />
             <JFXButton onAction="#handleLogoutClick" prefHeight="111.0" prefWidth="138.0" text="Logout" />
          </children>
       </VBox>
