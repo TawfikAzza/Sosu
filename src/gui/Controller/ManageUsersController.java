@@ -142,7 +142,7 @@ public class ManageUsersController implements Initializable {
     }
 
     private void initializeEmailColumn() {
-        emailTC.setCellValueFactory(new PropertyValueFactory<>("email"));
+        emailTC.setCellValueFactory(new PropertyValueFactory<>("emailProperty"));
         emailTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
@@ -199,7 +199,7 @@ public class ManageUsersController implements Initializable {
     }
 
     private void initializePasswordColumn() {
-        passwordTC.setCellValueFactory(new PropertyValueFactory<>("passWord"));
+        passwordTC.setCellValueFactory(new PropertyValueFactory<>("passwordProperty"));
         passwordTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
@@ -259,7 +259,7 @@ public class ManageUsersController implements Initializable {
     }
 
     private void initializeUserNameColumn() {
-        userNameTC.setCellValueFactory(new PropertyValueFactory<>("userName"));
+        userNameTC.setCellValueFactory(new PropertyValueFactory<>("userNameProperty"));
         userNameTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
                                                                         @Override
                                                                         public String toString(String object) {
@@ -313,7 +313,7 @@ public class ManageUsersController implements Initializable {
     }
 
     private void initializeLnameColumn() {
-        lastNameTC.setCellValueFactory(new PropertyValueFactory<>("lastName"));
+        lastNameTC.setCellValueFactory(new PropertyValueFactory<>("lNameProperty"));
         lastNameTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
@@ -368,7 +368,7 @@ public class ManageUsersController implements Initializable {
     }
 
     private void initializeFnameColumn() {
-        firstNameTC.setCellValueFactory(new PropertyValueFactory<>("firstName"));
+        firstNameTC.setCellValueFactory(new PropertyValueFactory<>("fNameProperty"));
         firstNameTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
             @Override
             public String toString(String object) {
