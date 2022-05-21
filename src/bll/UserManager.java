@@ -1,15 +1,9 @@
 package bll;
 
-import be.School;
-import be.Student;
-import be.Teacher;
-import be.User;
+import be.*;
 import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
-import dal.db.SchoolDAO;
-import dal.db.StudentDAO;
-import dal.db.TeacherDAO;
-import dal.db.UsersDAO;
+import dal.db.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -24,12 +18,14 @@ public class UserManager implements UserInterface {
     private StudentDAO studentDao;
     private UsersDAO usersDAO;
     private SchoolDAO schoolDAO;
+    private AdminDao adminDao;
 
     public UserManager() throws IOException {
         teacherDao = new TeacherDAO();
         studentDao = new StudentDAO();
         usersDAO = new UsersDAO();
         schoolDAO = new SchoolDAO();
+        adminDao= new AdminDao();
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber)throws UserException {
@@ -81,6 +77,11 @@ public class UserManager implements UserInterface {
     @Override
     public Student getStudent(Student selectedItem) throws SQLException {
         return studentDao.getStudent(selectedItem);
+    }
+
+    @Override
+    public List<Admin> getAllAdmins(String initials) throws SQLException {
+        return adminDao.getAllAdmins(initials);
     }
 
 

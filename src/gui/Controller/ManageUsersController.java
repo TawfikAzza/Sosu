@@ -62,8 +62,10 @@ public class ManageUsersController implements Initializable {
                     try {
                         if (userType == LoginLogoutUtil.UserType.TEACHER)
                             usersTV.setItems(userModel.getAllTeachers(searchUsersField.getText()));
-                        else
+                        else if (userType== LoginLogoutUtil.UserType.STUDENT)
                             usersTV.setItems(userModel.getAllStudents(searchUsersField.getText()));
+                        else
+                            usersTV.setItems(userModel.getAllAdmins(searchUsersField.getText()));
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
