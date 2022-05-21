@@ -37,13 +37,13 @@ public class AdminMenuViewController extends MenuController{
     public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
-        anchorPane.getChildren().add(loader.load());
+        anchorPane.getChildren().setAll((Node) loader.load());
     }
 
     public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
-        anchorPane.getChildren().add(loader.load());
+        anchorPane.getChildren().setAll((Node) loader.load());
 
     }
 
