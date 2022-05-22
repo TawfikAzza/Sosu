@@ -167,9 +167,11 @@ public class RootController implements Initializable {
             adminMenuViewController.setRootController(this);
 
             FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
-            ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.TEACHER);
+            ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.ADMIN);
             teacherLoader.setController(manageUsersController);
             GridPane gridPane = teacherLoader.load();
+            gridPane.setLayoutY(26);
+            gridPane.setLayoutX(100);
 
             setInitialScene(loader,gridPane);
         } catch (IOException | UserException e) {
