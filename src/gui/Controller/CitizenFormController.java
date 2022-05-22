@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,7 +39,7 @@ public class CitizenFormController implements Initializable {
     @FXML
     private TextField addressField;
     @FXML
-    private DatePicker birthDatePicker;
+    private TextField birthDatePicker;
     @FXML
     private TextField phoneField;
 
@@ -62,6 +63,13 @@ public class CitizenFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
         bindSizes();
+        toolTips();
+    }
+
+    private void toolTips() {
+        Tooltip dateToolTip = new Tooltip("dd/MM/yyyy");
+        Tooltip.install(birthDatePicker,dateToolTip);
+        dateToolTip.setShowDelay(Duration.millis(300));
     }
 
     public void setCitizenToEdit(Citizen citizenToEdit) {
@@ -74,7 +82,7 @@ public class CitizenFormController implements Initializable {
         fNameField.setText(citizenToEdit.getFName());
         lNAmeField.setText(citizenToEdit.getLName());
         addressField.setText(citizenToEdit.getAddress());
-        birthDatePicker.getEditor().setText(DateUtil.formatDateGui(citizenToEdit.getBirthDate()));
+        birthDatePicker.setText(DateUtil.formatDateGui(citizenToEdit.getBirthDate()));
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
     }
 
@@ -131,25 +139,15 @@ public class CitizenFormController implements Initializable {
 
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
-        datePickerMaxDate();
-        birthDatePicker.getEditor().setTextFormatter(dateFormatter);
+        birthDatePicker.setTextFormatter(dateFormatter);
     }
 
-    private void datePickerMaxDate() {
-        LocalDate maxDate = LocalDate.now();
-        birthDatePicker.setDayCellFactory(d ->
-                new DateCell() {
-                    @Override public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setDisable(item.isAfter(maxDate));
-                    }});
-    }
 
     private boolean saveCitizen(){
         String fName = fNameField.getText();
         String lName = lNAmeField.getText();
         String address = addressField.getText();
-        String dateString  = birthDatePicker.getEditor().getText();
+        String dateString  = birthDatePicker.getText();
         int phoneNumber = -1;
 
         if (!phoneField.getText().isEmpty())
