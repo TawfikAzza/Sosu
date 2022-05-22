@@ -14,6 +14,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -23,6 +25,8 @@ import java.util.ResourceBundle;
 
 public class TemplateController implements Initializable {
 
+    @FXML
+    private AnchorPane citizenInfoControls;
     private CitizenModel citizenModel;
 
     @FXML
@@ -50,6 +54,11 @@ public class TemplateController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initTables();
         initSpinners();
+        try {
+            loadCitizenInfoControls();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
         try {
             this.citizenModel = CitizenModel.getInstance();
@@ -59,6 +68,16 @@ public class TemplateController implements Initializable {
             DisplayMessage.displayError(e);
         }
 
+    }
+
+    private void loadCitizenInfoControls() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CitizenInfoControls.fxml"));
+        VBox controlsParent = (VBox) root;
+        AnchorPane.setBottomAnchor(controlsParent,0.0);
+        AnchorPane.setTopAnchor(controlsParent,0.0);
+        AnchorPane.setLeftAnchor(controlsParent,0.0);
+        AnchorPane.setRightAnchor(controlsParent,0.0);
+        citizenInfoControls.getChildren().setAll(controlsParent);
     }
 
     private void initTables()

@@ -16,7 +16,9 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
@@ -25,10 +27,19 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
 
+    @FXML
+    private TableColumn addressColumn;
+    @FXML
+    private TableColumn phoneColumn;
+    @FXML
+    private TableColumn bDateColumn;
+    @FXML
+    private TextField citizenSearchField;
     @FXML
     private AnchorPane citizenInfoControls;
     @FXML
@@ -37,32 +48,27 @@ public class StudentViewController implements Initializable {
     private TableColumn<Citizen, String> fnameColumn;
     @FXML
     private TableColumn<Citizen, String> lnameColumn;
-    @FXML
-    private Label lblAdress,lblFname,lblLname,lblPhone,lblSchool;
 
     private StudentCitizenRelationShipModel studentCitizenRelationShipModel;
 
 
-    private Student currentStudent;
-    private Citizen currentCitizen;
-
     public StudentViewController() {
-        currentStudent = GlobalVariables.getCurrentStudent();
-        System.out.println(currentStudent);
         try {
             studentCitizenRelationShipModel = new StudentCitizenRelationShipModel();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        //currentStudent = new Student(51,2, "Miskine", "Nurse");
     }
 
     private void updateTableCitizen() {
         fnameColumn.setCellValueFactory(new PropertyValueFactory<>("fName"));
         lnameColumn.setCellValueFactory(new PropertyValueFactory<>("lName"));
-
+        addressColumn.setCellValueFactory(new PropertyValueFactory<>("address"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<>("phoneNumber"));
+        bDateColumn.setCellValueFactory(new PropertyValueFactory<>("birthDate"));
         try {
-            citizenTableview.getItems().addAll(studentCitizenRelationShipModel.getCitizensOfStudent(currentStudent));
+            studentCitizenRelationShipModel.setCitizensOfStudentObs(GlobalVariables.getCurrentStudent());
+            citizenTableview.setItems(studentCitizenRelationShipModel.getObsListCit());
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -72,26 +78,27 @@ public class StudentViewController implements Initializable {
     public void displayCitizen() {
         if(citizenTableview.getSelectionModel().getSelectedIndex()==-1)
             return;
-        currentCitizen = citizenTableview.getSelectionModel().getSelectedItem();
-        //System.out.println(currentCitizen.getId());
-        GlobalVariables.setSelectedCitizen(currentCitizen);
-        lblFname.setText(currentCitizen.getFName());
-        lblLname.setText(currentCitizen.getLName());
-        lblAdress.setText(currentCitizen.getAddress());
-        lblPhone.setText(""+currentCitizen.getPhoneNumber());
-        lblSchool.setText(""+currentCitizen.getSchoolName());
+        GlobalVariables.setSelectedCitizen(citizenTableview.getSelectionModel().getSelectedItem());
     }
-
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         updateTableCitizen();
+        bindSizes();
         try {
             loadCitizenInfoControls();
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    private void bindSizes() {
+        AnchorPane textFieldParent = ((AnchorPane) citizenSearchField.getParent());
+        AnchorPane.setRightAnchor(citizenSearchField,0.0);
+        AnchorPane.setLeftAnchor(citizenSearchField,0.0);
+        AnchorPane.setBottomAnchor(citizenSearchField,0.0);
+        AnchorPane.setTopAnchor(citizenSearchField,0.0);
+        textFieldParent.getChildren().setAll(citizenSearchField);
     }
 
     private void loadCitizenInfoControls() throws IOException {
@@ -102,5 +109,17 @@ public class StudentViewController implements Initializable {
         AnchorPane.setLeftAnchor(controlsParent,0.0);
         AnchorPane.setRightAnchor(controlsParent,0.0);
         citizenInfoControls.getChildren().setAll(controlsParent);
+    }
+
+    @FXML
+    private void searchCitizen(KeyEvent keyEvent){
+        String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
+        studentCitizenRelationShipModel.getObsListCit().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
     }
 }

@@ -11,6 +11,7 @@
       <Button mnemonicParsing="false" onAction="#openGeneralInfo" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="General Information" />
       <Button mnemonicParsing="false" onAction="#openMedicinelist" prefHeight="56.0" prefWidth="134.0" style="-fx-background-radius: 15;" text="Medicine List" />
       <Button mnemonicParsing="false" onAction="#openObservation" prefHeight="56.0" prefWidth="135.0" style="-fx-background-radius: 15;" text="Observation" />
+      <Button mnemonicParsing="false" onAction="#openCase" prefHeight="56.0" prefWidth="135.0" style="-fx-background-radius: 15;" text="Case" />
    </children>
    <padding>
       <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

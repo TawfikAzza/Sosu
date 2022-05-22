@@ -144,7 +144,8 @@ public class TeacherViewController implements Initializable {
     private void showAssignedCitizens(TableRow<Student> row) {
         Student selectedStudent = row.getItem();
         try {
-            tableViewAssignedCit.setItems(relationShipModel.getCitizensOfStudent(selectedStudent));
+            relationShipModel.setCitizensOfStudentObs(selectedStudent);
+            tableViewAssignedCit.setItems(relationShipModel.getObsListCit());
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();

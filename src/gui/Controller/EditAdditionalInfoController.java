@@ -1,6 +1,7 @@
 package gui.Controller;
 
 import bll.exceptions.CitizenException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -41,6 +42,7 @@ public class EditAdditionalInfoController implements Initializable {
         Scene currentScene = actionSource.getScene();
         Stage currentStage = ((Stage) currentScene.getWindow());
         currentStage.close();
+        GlobalVariables.setSelectedCitizen(null);
     }
 
     @Override
