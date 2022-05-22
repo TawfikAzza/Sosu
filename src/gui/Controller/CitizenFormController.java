@@ -44,16 +44,19 @@ public class CitizenFormController implements Initializable {
     private TextField phoneField;
 
     private CitizenModel citizenModel;
+    private CaseModel caseModel;
 
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
     private int currentSchoolId;
+    private int caseID = -1;
 
     public CitizenFormController() {
         citizenToEdit = null;
         try {
-            citizenModel = CitizenModel.getInstance();
-        } catch (CitizenException e) {
+            this.citizenModel = CitizenModel.getInstance();
+            this.caseModel = new CaseModel();
+        } catch (CitizenException | IOException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
@@ -111,7 +114,53 @@ public class CitizenFormController implements Initializable {
     private void handleAddEditCaseClick(ActionEvent actionEvent) {
         if(citizenCreation)
         {
+            try {
+                CaseCreationController controller = new CaseCreationController(this, false);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+                loader.setController(controller);
+                Parent root = loader.load();
 
+                Scene scene = new Scene(root);
+                Stage newWindow = new Stage();
+                newWindow.setScene(scene);
+                newWindow.show();
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+        if(!citizenCreation)
+        {
+            try {
+                CaseCreationController controller = new CaseCreationController(this, true);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+                loader.setController(controller);
+                Parent root = loader.load();
+                controller.setCitCase(caseModel.getCitizenCase(citizenToEdit));
+
+                Scene scene = new Scene(root);
+                Stage newWindow = new Stage();
+                newWindow.setScene(scene);
+                newWindow.show();
+            } catch (CaseException | IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+    }
+
+    private void openCaseView(boolean editing)
+    {
+        try {
+            CaseCreationController controller = new CaseCreationController(this, editing);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+            loader.setController(controller);
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage newWindow = new Stage();
+            newWindow.setScene(scene);
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -170,6 +219,19 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
+            if(caseID!=-1) {
+                newCitizen.setCaseID(caseID);
+            }
+            if(caseID==-1)
+            {
+                Case newCase = new Case("Default Case", "No Content");
+                try {
+                    int caseID = caseModel.addCase(newCase);
+                    newCitizen.setCaseID(caseID);
+                } catch (CaseException e) {
+                    e.printStackTrace();
+                }
+            }
             if (createTemplate(newCitizen)==null)
                 return false;
         }
@@ -248,5 +310,7 @@ public class CitizenFormController implements Initializable {
         currentSchoolId= GlobalVariables.getCurrentSchool().getId();
     }
 
-
+    public void setCaseID(int caseID) {
+        this.caseID = caseID;
+    }
 }

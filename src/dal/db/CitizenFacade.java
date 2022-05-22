@@ -49,7 +49,9 @@ public class CitizenFacade {
             while (generatedKeys.next()) {
                 id = generatedKeys.getInt(1);
             }
-            return new Citizen(id, fname, lname, address, phoneNumber, birthdate, isTemplate, schoolID);
+            Citizen newCit =  new Citizen(id, fname, lname, address, phoneNumber, birthdate, isTemplate, schoolID);
+            newCit.setCaseID(caseID);
+            return newCit;
         } catch (SQLException e) {
             throw new CitizenException("Error uploading citizen to DB", e);
         }
