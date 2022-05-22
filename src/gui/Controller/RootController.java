@@ -89,49 +89,21 @@ public class RootController implements Initializable {
 
         for (JFXHamburger iconHamburger : allHamBurgers)
             iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                stackPane.getChildren().get(0).toFront();
                 if(drawer.isOpened()) {
-                    /**
-                     * This part is the most important as it illustrates how we are going to use the stack pane.
-                     * When the drawer is open, it means our menu should be on top of the stack pane and the main pane is in the background.
-                     * When a user decides to close it, we need them to switch positions.To achieve this, we create an intermediate grid pane.
-                     */
-                    GridPane gridPane = new GridPane();
-                    gridPane.getChildren().add(mainGPane);
-                    stackPane.getChildren().add(gridPane);
-                    if (index == 0)
-                        stackPane.getChildren().remove(0);
                     drawer.close();
                     for (Node node : menuButtons){
                         node.setVisible(false);
                         node.setDisable(true);
                     }
-                    index=(index+1)%2;
                 }
-                /**
-                 * Important:
-                 * When we first load the fxml file associated to this controller, we have the main grid pane on top of the stack pane and the menu is hidden,
-                 * If the user decides to use the side menu bar, then we will need to take out the menu grid pane from the bottom and put it on top,
-                 * all we have to do is create a copy of that pane add it to the list of children nodes of the stack pane and delete the old grid pane menu
-                 * in order to clean that list, so we always have only  2 items.
-                 */
                 else {
-                    GridPane gridPane = new GridPane();
-                    gridPane.getChildren().add(drawerGPane);
-                    stackPane.getChildren().add(gridPane);
-                    if (index==1)
-                        stackPane.getChildren().remove(0);
                     drawer.open();
                     for (Node node : menuButtons){
                         node.setVisible(true);
                         node.setDisable(false);
                     }
-                    index=(index+1)%2;
                 }
-            /*int counter = 0;
-            for (Node node : stackPane.getChildren()){
-                counter++;
-                System.out.println(node+" -----"+counter);
-            }*/
             });
 
         List<ImageView>allExitIV= List.of(exitDGP,exitMGP);
