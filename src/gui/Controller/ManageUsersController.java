@@ -83,6 +83,8 @@ public class ManageUsersController implements Initializable {
         initializePasswordColumn();
         initializeEmailColumn();
         initializePhoneNumberColumn();
+        if(userType== LoginLogoutUtil.UserType.ADMIN)
+            usersTV.getColumns().add(new TableColumn<>("school"));
     }
 
     private void initializePhoneNumberColumn() {
