@@ -68,16 +68,19 @@ public class CitizenModel {
     }
 
     public void copyCitToTemp(Citizen citizen) throws CitizenException {
-        templates.add(citizenManager.copyCitToTemp(citizen));
+        ObservableList<Citizen> underlyingList = (ObservableList<Citizen>) templates.getSource();
+        underlyingList.add(citizenManager.copyCitToTemp(citizen));
     }
 
     public void duplicateCitizen(Citizen citizen, int amount, boolean isTemplate) throws CitizenException {
         if(isTemplate) {
-            templates.addAll(citizenManager.duplicateCitizen(citizen, amount, true));
+            ObservableList<Citizen> underlyingList = (ObservableList<Citizen>) templates.getSource();
+            underlyingList.addAll(citizenManager.duplicateCitizen(citizen, amount, true));
         }
         if(!isTemplate)
         {
-            obsCitizens.addAll(citizenManager.duplicateCitizen(citizen, amount, false));
+            ObservableList<Citizen> underlyingList = (ObservableList<Citizen>) obsCitizens.getSource();
+            underlyingList.addAll(citizenManager.duplicateCitizen(citizen, amount, false));
         }
     }
 

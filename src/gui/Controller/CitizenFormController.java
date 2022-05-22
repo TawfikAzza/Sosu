@@ -23,6 +23,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.net.URL;
@@ -38,21 +39,24 @@ public class CitizenFormController implements Initializable {
     @FXML
     private TextField addressField;
     @FXML
-    private DatePicker birthDatePicker;
+    private TextField birthDatePicker;
     @FXML
     private TextField phoneField;
 
     private CitizenModel citizenModel;
+    private CaseModel caseModel;
 
     private Citizen citizenToEdit;
     private boolean citizenCreation=true;
     private int currentSchoolId;
+    private int caseID = -1;
 
     public CitizenFormController() {
         citizenToEdit = null;
         try {
-            citizenModel = CitizenModel.getInstance();
-        } catch (CitizenException e) {
+            this.citizenModel = CitizenModel.getInstance();
+            this.caseModel = new CaseModel();
+        } catch (CitizenException | IOException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
@@ -62,6 +66,13 @@ public class CitizenFormController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         setupValidators();
         bindSizes();
+        toolTips();
+    }
+
+    private void toolTips() {
+        Tooltip dateToolTip = new Tooltip("dd/MM/yyyy");
+        Tooltip.install(birthDatePicker,dateToolTip);
+        dateToolTip.setShowDelay(Duration.millis(300));
     }
 
     public void setCitizenToEdit(Citizen citizenToEdit) {
@@ -74,7 +85,7 @@ public class CitizenFormController implements Initializable {
         fNameField.setText(citizenToEdit.getFName());
         lNAmeField.setText(citizenToEdit.getLName());
         addressField.setText(citizenToEdit.getAddress());
-        birthDatePicker.getEditor().setText(DateUtil.formatDateGui(citizenToEdit.getBirthDate()));
+        birthDatePicker.setText(DateUtil.formatDateGui(citizenToEdit.getBirthDate()));
         phoneField.setText(String.valueOf(citizenToEdit.getPhoneNumber()));
     }
 
@@ -103,7 +114,53 @@ public class CitizenFormController implements Initializable {
     private void handleAddEditCaseClick(ActionEvent actionEvent) {
         if(citizenCreation)
         {
+            try {
+                CaseCreationController controller = new CaseCreationController(this, false);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+                loader.setController(controller);
+                Parent root = loader.load();
 
+                Scene scene = new Scene(root);
+                Stage newWindow = new Stage();
+                newWindow.setScene(scene);
+                newWindow.show();
+            } catch (IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+        if(!citizenCreation)
+        {
+            try {
+                CaseCreationController controller = new CaseCreationController(this, true);
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+                loader.setController(controller);
+                Parent root = loader.load();
+                controller.setCitCase(caseModel.getCitizenCase(citizenToEdit));
+
+                Scene scene = new Scene(root);
+                Stage newWindow = new Stage();
+                newWindow.setScene(scene);
+                newWindow.show();
+            } catch (CaseException | IOException e) {
+                DisplayMessage.displayError(e);
+            }
+        }
+    }
+
+    private void openCaseView(boolean editing)
+    {
+        try {
+            CaseCreationController controller = new CaseCreationController(this, editing);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
+            loader.setController(controller);
+            Parent root = loader.load();
+
+            Scene scene = new Scene(root);
+            Stage newWindow = new Stage();
+            newWindow.setScene(scene);
+            newWindow.show();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -131,25 +188,15 @@ public class CitizenFormController implements Initializable {
 
     private void setupValidators() {
         phoneField.setTextFormatter(intFormatter);
-        datePickerMaxDate();
-        birthDatePicker.getEditor().setTextFormatter(dateFormatter);
+        birthDatePicker.setTextFormatter(dateFormatter);
     }
 
-    private void datePickerMaxDate() {
-        LocalDate maxDate = LocalDate.now();
-        birthDatePicker.setDayCellFactory(d ->
-                new DateCell() {
-                    @Override public void updateItem(LocalDate item, boolean empty) {
-                        super.updateItem(item, empty);
-                        setDisable(item.isAfter(maxDate));
-                    }});
-    }
 
     private boolean saveCitizen(){
         String fName = fNameField.getText();
         String lName = lNAmeField.getText();
         String address = addressField.getText();
-        String dateString  = birthDatePicker.getEditor().getText();
+        String dateString  = birthDatePicker.getText();
         int phoneNumber = -1;
 
         if (!phoneField.getText().isEmpty())
@@ -172,6 +219,19 @@ public class CitizenFormController implements Initializable {
         }
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
+            if(caseID!=-1) {
+                newCitizen.setCaseID(caseID);
+            }
+            if(caseID==-1)
+            {
+                Case newCase = new Case("Default Case", "No Content");
+                try {
+                    int caseID = caseModel.addCase(newCase);
+                    newCitizen.setCaseID(caseID);
+                } catch (CaseException e) {
+                    e.printStackTrace();
+                }
+            }
             if (createTemplate(newCitizen)==null)
                 return false;
         }
@@ -250,5 +310,7 @@ public class CitizenFormController implements Initializable {
         currentSchoolId= GlobalVariables.getCurrentSchool().getId();
     }
 
-
+    public void setCaseID(int caseID) {
+        this.caseID = caseID;
+    }
 }

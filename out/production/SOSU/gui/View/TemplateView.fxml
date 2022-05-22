@@ -7,13 +7,14 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TemplateController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="818.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.TemplateController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="359.2" minWidth="10.0" prefWidth="308.5999755859375" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="193.199951171875" minWidth="10.0" prefWidth="46.20002441406251" />
@@ -36,7 +37,7 @@
                   <Label text="Templates" />
                </children>
             </VBox>
-            <VBox prefHeight="29.0" prefWidth="188.0">
+            <VBox prefHeight="26.0" prefWidth="234.0">
                <children>
                   <TextField onKeyTyped="#handleSearchTemplate" prefHeight="26.0" prefWidth="222.0" />
                </children>
@@ -85,9 +86,9 @@
                   <Label text="Citizen" />
                </children>
             </VBox>
-            <VBox prefHeight="29.0" prefWidth="271.0">
+            <VBox prefHeight="26.0" prefWidth="257.0">
                <children>
-                  <TextField fx:id="citizenSearchField" onKeyPressed="#handleSearchCitizen" prefHeight="26.0" prefWidth="226.0" />
+                  <TextField fx:id="citizenSearchField" onKeyPressed="#handleSearchCitizen" prefHeight="26.0" prefWidth="249.0" />
                </children>
             </VBox>
          </children>
@@ -136,19 +137,8 @@
             <Button mnemonicParsing="false" onAction="#handleCreateTempFromCit" text="🢀" />
          </children>
       </VBox>
-      <VBox alignment="TOP_CENTER" spacing="4.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
-         <children>
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Functional ability" textAlignment="CENTER" wrapText="true" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Health condition" textAlignment="CENTER" wrapText="true" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="General information" textAlignment="CENTER" wrapText="true" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Observations" textAlignment="CENTER" wrapText="true" />
-            <Button alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="89.0" text="Medicine list" textAlignment="CENTER" wrapText="true" />
-         </children>
-         <padding>
-            <Insets bottom="5.0" top="5.0" />
-         </padding>
-      </VBox>
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+      <AnchorPane fx:id="citizenInfoControls" prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="3" GridPane.rowIndex="1" />
    </children>
    <padding>
       <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />

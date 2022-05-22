@@ -47,7 +47,7 @@ public class RootController implements Initializable {
     private int index=0;
 
     private LoginLogoutUtil.UserType userType;
-
+    private  List<Node>menuButtons;
     public RootController(LoginLogoutUtil.UserType userType)
     {
         this.userType = userType;
@@ -64,59 +64,47 @@ public class RootController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        menuButtons = drawer.getSidePane();
         initUser();
-        List<JFXHamburger>allHamBurgers= List.of(iconHamburgerDGP,iconHamburgerMGP);
-        List<Node>menuButtons = drawer.getSidePane();
+        setDrawer();
+    }
+    public void closeDrawer()
+    {
+        stackPane.getChildren().get(0).toFront();
+        index=1;
+        drawer.close();
+
         for (Node node : menuButtons){
             node.setVisible(false);
             node.setDisable(true);
         }
+    }
+    public void setDrawer() {
+        List<JFXHamburger>allHamBurgers= List.of(iconHamburgerDGP,iconHamburgerMGP);
+
+        for (Node node : menuButtons){
+            node.setVisible(false);
+            node.setDisable(true);
+        }
+
         for (JFXHamburger iconHamburger : allHamBurgers)
-        iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
-            if(drawer.isOpened()) {
-                /**
-                 * This part is the most important as it illustrates how we are going to use the stack pane.
-                 * When the drawer is open, it means our menu should be on top of the stack pane and the main pane is in the background.
-                 * When a user decides to close it, we need them to switch positions.To achieve this, we create an intermediate grid pane.
-                 */
-                GridPane gridPane = new GridPane();
-                gridPane.getChildren().add(mainGPane);
-                stackPane.getChildren().add(gridPane);
-                if (index > 1)
-                    stackPane.getChildren().remove(0);
-                drawer.close();
-                for (Node node : menuButtons){
-                    node.setVisible(false);
-                    node.setDisable(true);
+            iconHamburger.addEventHandler(MouseEvent.MOUSE_PRESSED, (e) -> {
+                stackPane.getChildren().get(0).toFront();
+                if(drawer.isOpened()) {
+                    drawer.close();
+                    for (Node node : menuButtons){
+                        node.setVisible(false);
+                        node.setDisable(true);
+                    }
                 }
-                index++;
-            }
-                /**
-                 * Important:
-                 * When we first load the fxml file associated to this controller, we have the main grid pane on top of the stack pane and the menu is hidden,
-                 * If the user decides to use the side menu bar, then we will need to take out the menu grid pane from the bottom and put it on top,
-                 * all we have to do is create a copy of that pane add it to the list of children nodes of the stack pane and delete the old grid pane menu
-                 * in order to clean that list, so we always have only  2 items.
-                 */
-            else {
-                GridPane gridPane = new GridPane();
-                gridPane.getChildren().add(drawerGPane);
-                stackPane.getChildren().add(gridPane);
-                if (index>0)
-                   stackPane.getChildren().remove(0);
-                drawer.open();
-                for (Node node : menuButtons){
-                    node.setVisible(true);
-                    node.setDisable(false);
+                else {
+                    drawer.open();
+                    for (Node node : menuButtons){
+                        node.setVisible(true);
+                        node.setDisable(false);
+                    }
                 }
-                index++;
-            }
-            /*int counter = 0;
-            for (Node node : stackPane.getChildren()){
-                counter++;
-                System.out.println(node+" -----"+counter);
-            }*/
-        });
+            });
 
         List<ImageView>allExitIV= List.of(exitDGP,exitMGP);
         for (ImageView imageView :allExitIV){
@@ -125,7 +113,6 @@ public class RootController implements Initializable {
             });
         }
     }
-
     private void initUser()
     {
         if(userType== LoginLogoutUtil.UserType.TEACHER)
@@ -150,6 +137,7 @@ public class RootController implements Initializable {
             loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             setInitialScene(loader, gridPane);
+
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -161,8 +149,8 @@ public class RootController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/StudentMenuView.fxml"));
             MenuController menuController = new StudentMenuController(mainPane);
             loader.setController(menuController);
-            TabPane tabPane = FXMLLoader.load(getClass().getResource("../View/StudentView.fxml"));
-            setInitialScene(loader,tabPane);
+            GridPane gridPane = FXMLLoader.load(getClass().getResource("../View/StudentView.fxml"));
+            setInitialScene(loader,gridPane);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -171,15 +159,19 @@ public class RootController implements Initializable {
     private void initAdmin()
     {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/AdminMenuView.fxml"));
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(getClass().getResource("/gui/View/AdminMenuView.fxml"));
             MenuController menuController = new AdminMenuViewController(mainPane);
             loader.setController(menuController);
-
+            AdminMenuViewController adminMenuViewController = loader.getController();
+            adminMenuViewController.setRootController(this);
 
             FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
-            ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.TEACHER);
+            ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.ADMIN);
             teacherLoader.setController(manageUsersController);
             GridPane gridPane = teacherLoader.load();
+            gridPane.setLayoutY(26);
+            gridPane.setLayoutX(100);
 
             setInitialScene(loader,gridPane);
         } catch (IOException | UserException e) {
@@ -195,7 +187,6 @@ public class RootController implements Initializable {
 
             drawer.setSidePane(menuController.getBtnBox());
             iconsBox.getChildren().add(menuController.getIconBox());
-
             mainPane.getChildren().clear();
             mainPane.getChildren().add(scene);
         } catch (IOException e) {

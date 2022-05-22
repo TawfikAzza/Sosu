@@ -116,7 +116,8 @@ public class CitizenAssignmentController implements Initializable {
     private void showAssignedCitizens(TableRow<Student> row) {
         Student selectedStudent = row.getItem();
         try {
-            tableViewAssignedCit.setItems(relationShipModel.getCitizensOfStudent(selectedStudent));
+            relationShipModel.setCitizensOfStudentObs(selectedStudent);
+            tableViewAssignedCit.setItems(relationShipModel.getObsListCit());
         } catch (StudentException | CitizenException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
@@ -257,6 +258,12 @@ public class CitizenAssignmentController implements Initializable {
     @FXML
     private void handleSearchAssignedCitizen(KeyEvent keyEvent) {
         String query = ((TextField) keyEvent.getSource()).getText().toLowerCase(Locale.ROOT);
-        relationShipModel.getObsListCit();
+        relationShipModel.getObsListCit().setPredicate(citizen -> {
+            if (query.isEmpty() || query.isBlank())
+                return true;
+            if (citizen.toString().toLowerCase().contains(query))
+                return true;
+            return false;
+        });
     }
 }

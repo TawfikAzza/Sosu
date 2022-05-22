@@ -2,6 +2,8 @@ package gui.Controller;
 
 import bll.util.GlobalVariables;
 import gui.utils.DisplayMessage;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -12,7 +14,8 @@ import java.io.IOException;
 
 public class CitizenInfoControlsController {
 
-    public void openAbilities() {
+    @FXML
+    private void openAbilities() {
         if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
@@ -32,7 +35,8 @@ public class CitizenInfoControlsController {
         stage.show();
     }
 
-    public void openHealthCondition() {
+    @FXML
+    private void openHealthCondition() {
         if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
@@ -53,7 +57,8 @@ public class CitizenInfoControlsController {
         stage.show();
     }
 
-    public void openGeneralInfo() {
+    @FXML
+    private void openGeneralInfo() {
         if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
@@ -73,7 +78,8 @@ public class CitizenInfoControlsController {
         stage.show();
     }
 
-    public void openMedicinelist() {
+    @FXML
+    private void openMedicinelist() {
         if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
@@ -93,7 +99,8 @@ public class CitizenInfoControlsController {
         stage.show();
     }
 
-    public void openObservation() {
+    @FXML
+    private void openObservation() {
         if(!checkIfCitizenSelected())
             return;
         FXMLLoader loader = new FXMLLoader();
@@ -123,5 +130,13 @@ public class CitizenInfoControlsController {
             return false;
         }
         return true;
+    }
+
+    @FXML
+    private void openCase(ActionEvent actionEvent) {
+        if(!checkIfCitizenSelected())
+            return;
+        System.out.println("Open case for citizen " + GlobalVariables.getSelectedCitizen().getFName());
+        System.out.println("this is implemented in citizen info controls controller");
     }
 }

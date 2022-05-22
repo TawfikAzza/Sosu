@@ -1,5 +1,6 @@
 package gui.utils;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
@@ -15,21 +16,31 @@ import javafx.stage.Stage;
 public class DisplayMessage {
 
     public static void displayError(Throwable t) {
-        Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle("Something went wrong...");
-        alert.setHeaderText(t.getMessage());
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStyleClass().add("error-dialog");
-        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
-        alert.showAndWait();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong...");
+                alert.setHeaderText(t.getMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("error-dialog");
+                ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
+                alert.showAndWait();
+            }
+        });
     }
     public static void displayMessage(String message) {
-        Alert alert = new Alert(Alert.AlertType.INFORMATION,message, ButtonType.OK);
-        alert.setTitle("You are missing data");
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStyleClass().add("info-dialog");
-        ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/info_icon.png"));
-        alert.showAndWait();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION,message, ButtonType.OK);
+                alert.setTitle("You are missing data");
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("info-dialog");
+                ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/info_icon.png"));
+                alert.showAndWait();
+            }
+        });
     }
 
     public static ButtonType displayConfirmation(String title,String header){
