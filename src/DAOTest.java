@@ -136,9 +136,9 @@ public class DAOTest {
         teacherDao.editTeacher(teacher,school);
     }
 
-    private static void getAllAdmins() throws IOException, SQLException {
+    private static void getAllAdmins(String initials) throws IOException, SQLException {
         AdminDao adminDao = new AdminDao();
-        for (Admin admin : adminDao.getAllAdmins())
+        for (Admin admin : adminDao.getAllAdmins(initials))
             System.out.println(admin.getFirstName()+" "+admin.getLastName());
     }
 

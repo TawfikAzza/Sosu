@@ -1,5 +1,7 @@
 package be;
 
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
@@ -15,11 +17,12 @@ public abstract class User {
     private int phoneNumber;
     private int roleID;
 
-    private StringProperty fNameProperty = new SimpleStringProperty();
-    private StringProperty lNameProperty = new SimpleStringProperty();
-    private StringProperty userNameProperty = new SimpleStringProperty();
-    private StringProperty passwordProperty = new SimpleStringProperty();
-    private StringProperty emailProperty = new SimpleStringProperty();
+    private StringProperty fNameProperty;
+    private StringProperty lNameProperty ;
+    private StringProperty userNameProperty;
+    private StringProperty passwordProperty;
+    private StringProperty emailProperty;
+    private IntegerProperty phoneNumberProperty;
 
     public User (){}
 
@@ -33,12 +36,12 @@ public abstract class User {
         this.email= email;
         this.phoneNumber= phoneNumber;
 
-        fNameProperty.set(firstName);
-        lNameProperty.set(lastName);
-        userNameProperty.set(userName);
-        passwordProperty.set(passWord);
-        emailProperty.set(email);
-
+        fNameProperty= new SimpleStringProperty(firstName);
+        lNameProperty= new SimpleStringProperty(lastName);
+        userNameProperty= new SimpleStringProperty(userName);
+        passwordProperty= new SimpleStringProperty(passWord);
+        emailProperty = new SimpleStringProperty(email);
+        phoneNumberProperty = new SimpleIntegerProperty(phoneNumber);
     }
 
     public User(int id, String userName, String passWord, String email, int roleID) {
@@ -62,8 +65,8 @@ public abstract class User {
         this.firstName = firstName;
         this.lastName = lastName;
 
-        fNameProperty.set(firstName);
-        lNameProperty.setValue(lastName);
+        fNameProperty= new SimpleStringProperty(firstName);
+        lNameProperty= new SimpleStringProperty(lastName);
     }
 
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber,int schoolId){
@@ -76,8 +79,8 @@ public abstract class User {
         this.phoneNumber= phoneNumber;
         this.schoolId=schoolId;
 
-        fNameProperty.set(firstName);
-        lNameProperty.setValue(lastName);
+        fNameProperty= new SimpleStringProperty(firstName);
+        lNameProperty= new SimpleStringProperty(lastName);
     }
 
     public User(int id, String firstName, String lastName) {
@@ -85,8 +88,8 @@ public abstract class User {
         this.firstName = firstName;
         this.lastName = lastName;
 
-        fNameProperty.set(firstName);
-        lNameProperty.setValue(lastName);
+        fNameProperty= new SimpleStringProperty(firstName);
+        lNameProperty= new SimpleStringProperty(lastName);
     }
 
     public int getId() {
@@ -184,4 +187,35 @@ public abstract class User {
     }
 
 
+    public String getUserNameProperty() {
+        return userNameProperty.get();
+    }
+
+    public StringProperty userNamePropertyProperty() {
+        return userNameProperty;
+    }
+
+    public String getPasswordProperty() {
+        return passwordProperty.get();
+    }
+
+    public StringProperty passwordPropertyProperty() {
+        return passwordProperty;
+    }
+
+    public String getEmailProperty() {
+        return emailProperty.get();
+    }
+
+    public StringProperty emailPropertyProperty() {
+        return emailProperty;
+    }
+
+    public int getPhoneNumberProperty() {
+        return phoneNumberProperty.get();
+    }
+
+    public IntegerProperty phoneNumberPropertyProperty() {
+        return phoneNumberProperty;
+    }
 }

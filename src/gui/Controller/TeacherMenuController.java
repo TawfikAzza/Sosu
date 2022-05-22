@@ -32,6 +32,13 @@ public class TeacherMenuController extends MenuController{
         return btnBox;
     }
 
+    public void handleAdminBtn(ActionEvent actionEvent){}
+
+    public void handleSchoolsBtn(ActionEvent actionEvent){}
+
+    public void handleLogOutBtn(ActionEvent actionEvent){}
+
+
     public void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));

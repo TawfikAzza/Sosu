@@ -34,16 +34,26 @@ public class AdminMenuViewController extends MenuController{
         return iconBox;
     }
 
+    public void handleSchoolsBtn(ActionEvent actionEvent){}
+
+    public void handleLogOutBtn(ActionEvent actionEvent){}
+
+    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
+        loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
+        anchorPane.getChildren().setAll((Node) loader.load());
+    }
+
     public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
-        anchorPane.getChildren().add(loader.load());
+        anchorPane.getChildren().setAll((Node) loader.load());
     }
 
     public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
-        anchorPane.getChildren().add(loader.load());
+        anchorPane.getChildren().setAll((Node) loader.load());
 
     }
 

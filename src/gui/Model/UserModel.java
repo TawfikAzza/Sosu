@@ -23,6 +23,8 @@ public class UserModel {
     ObservableList<Teacher> allTeachers;
     ObservableList<Student> allStudents;
     ObservableList<String> allCitizensStudent;
+    ObservableList<Admin> allAdmins;
+
 
     private UserModel() throws IOException, UserException {
         this.userManager = new UserManager();
@@ -110,5 +112,11 @@ public class UserModel {
 
     public Student getStudentInformation(Student selectedItem) throws SQLException {
         return userManager.getStudent(selectedItem);
+    }
+
+    public ObservableList<Admin> getAllAdmins(String initials) throws SQLException {
+        allAdmins= FXCollections.observableArrayList();
+        allAdmins.addAll(userManager.getAllAdmins(initials));
+        return allAdmins;
     }
 }
