@@ -38,28 +38,48 @@ public class AdminMenuViewController extends MenuController{
         return iconBox;
     }
 
-    public void handleSchoolsBtn(ActionEvent actionEvent){}
+    public void handleSchoolsBtn(ActionEvent actionEvent) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageSchoolsViews.fxml"));
+        Node node = loader.load();
+        node.setLayoutX(168);
+        node.setLayoutY(26);
+        anchorPane.getChildren().setAll(node);
+
+        rootController.closeDrawer();
+    }
 
     public void handleLogOutBtn(ActionEvent actionEvent){}
 
     public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
-        anchorPane.getChildren().setAll((Node) loader.load());
+        Node node = loader.load();
+        node.setLayoutX(100);
+        node.setLayoutY(26);
+        anchorPane.getChildren().setAll(node);
+
         rootController.closeDrawer();
     }
 
     public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
-        anchorPane.getChildren().setAll((Node) loader.load());
+        Node node = loader.load();
+        node.setLayoutX(100);
+        node.setLayoutY(26);
+        anchorPane.getChildren().setAll(node);
+
         rootController.closeDrawer();
     }
 
     public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
-        anchorPane.getChildren().setAll((Node) loader.load());
+        Node node = loader.load();
+        node.setLayoutX(100);
+        node.setLayoutY(26);
+        anchorPane.getChildren().setAll(node);
+
         rootController.closeDrawer();
     }
 
@@ -71,8 +91,9 @@ public class AdminMenuViewController extends MenuController{
         assignTab.setContent(FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml")));
 
         TabPane tabPane = new TabPane(duplicationTab,assignTab);
-        System.out.println("here");
+        tabPane.setLayoutX(40);
         anchorPane.getChildren().setAll(tabPane);
+
         rootController.closeDrawer();
         }
 
