@@ -6,8 +6,9 @@ public class Case {
     private String caseName;
     private String content;
 
-    public Case(int id, String caseName) {
+    public Case(int id, String content, String caseName) {
         this.id = id;
+        this.content = content;
         this.caseName = caseName;
     }
 

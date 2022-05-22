@@ -20,11 +20,15 @@ public class CaseManager {
         return caseDAO.getAllCases();
     }
 
-    public void addCase(Case newCase) throws CaseException {
-        caseDAO.addCase(newCase);
+    public int addCase(Case newCase) throws CaseException {
+        return caseDAO.addCase(newCase);
     }
 
     public Case getCitizenCase(Citizen citizen) throws CaseException {
         return caseDAO.getCitizenCase(citizen);
+    }
+
+    public void editCase(int id, Case newCase) {
+        caseDAO.editCase(id, newCase);
     }
 }

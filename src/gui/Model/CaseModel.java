@@ -32,11 +32,19 @@ public class CaseModel {
         return caseManager.getAllCases();
     }
 
-    public void addCase(Case newCase) throws CaseException {
-        caseManager.addCase(newCase);
+    public int addCase(Case newCase) throws CaseException {
+        return caseManager.addCase(newCase);
     }
 
     public void setObsListToCitizen(Citizen citizen) throws CaseException {
         caseManager.getCitizenCase(citizen);
+    }
+
+    public Case getCitizenCase(Citizen citizen) throws CaseException {
+        return caseManager.getCitizenCase(citizen);
+    }
+
+    public void editCase(int id, Case newCase) {
+        caseManager.editCase(id, newCase);
     }
 }
