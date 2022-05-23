@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -43,9 +43,9 @@
             <TextField fx:id="searchUsersField" GridPane.columnIndex="1" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="2">
                <buttons>
-                  <JFXButton onAction="#deleteUser" text="Delete" />
-                  <JFXButton onAction="#editUser" text="Edit" />
-                  <JFXButton onAction="#addUser" text="Add" />
+                  <JFXButton fx:id="jfxButton" onAction="#deleteUser" text="Delete" />
+                  <JFXButton fx:id="jfxButton" onAction="#editUser" text="Edit" />
+                  <JFXButton fx:id="jfxButton" onAction="#addUser" text="Add" />
                </buttons>
             </ButtonBar>
          </children>
