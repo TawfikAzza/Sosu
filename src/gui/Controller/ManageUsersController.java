@@ -1,8 +1,6 @@
 package gui.Controller;
 
-import be.School;
-import be.Student;
-import be.Teacher;
+import be.*;
 import bll.exceptions.UserException;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
@@ -22,6 +20,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -73,6 +72,7 @@ public class ManageUsersController implements Initializable {
                 }
             }
         });
+
     }
 
     private void initializeUsersTV() {
@@ -108,9 +108,9 @@ public class ManageUsersController implements Initializable {
                     alert.showAndWait();
                     if (userType == LoginLogoutUtil.UserType.TEACHER) {
                         return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getPhoneNumber();
-                    } else {
+                    } else if (userType == LoginLogoutUtil.UserType.STUDENT)
                         return ((Student) usersTV.getSelectionModel().getSelectedItem()).getPhoneNumber();
-                    }
+                    else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getPhoneNumber();
                 }
                 return test;
             }
@@ -119,6 +119,7 @@ public class ManageUsersController implements Initializable {
             Object object = event.getRowValue();
             Teacher teacher;
             Student student;
+            Admin admin;
             if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
                 if (test > 0) {
@@ -129,7 +130,7 @@ public class ManageUsersController implements Initializable {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
                     }
-                }} else {
+                }} else if (userType == LoginLogoutUtil.UserType.STUDENT){
                     student = Student.class.cast(object);
                     student.setPhoneNumber((Integer) event.getNewValue());
                     try {
@@ -141,6 +142,18 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+            else {
+                admin = Admin.class.cast(object);
+                admin.setPhoneNumber((Integer) event.getNewValue());
+                try {
+                    userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
+                } catch (UserException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             test = 1;
         });
     }
@@ -166,7 +179,9 @@ public class ManageUsersController implements Initializable {
                     alert.showAndWait();
                     if (userType == LoginLogoutUtil.UserType.TEACHER)
                         return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getEmail();
-                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getEmail();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        return ((Student) usersTV.getSelectionModel().getSelectedItem()).getEmail();
+                    else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getEmail();
                 }
                 return string;
             }
@@ -175,6 +190,7 @@ public class ManageUsersController implements Initializable {
             Object object = event1.getRowValue();
             Teacher teacher;
             Student student;
+            Admin admin;
             if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
                 if (test > 0) {
@@ -186,7 +202,7 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            } else {
+            } else if (userType == LoginLogoutUtil.UserType.STUDENT){
                     student = Student.class.cast(object);
                     student.setEmail((String) event1.getNewValue());
                     try {
@@ -198,6 +214,18 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+            else {
+                admin = Admin.class.cast(object);
+                admin.setEmail((String) event1.getNewValue());
+                try {
+                    userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
+                } catch (UserException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
             test = 1;
         });
     }
@@ -224,7 +252,9 @@ public class ManageUsersController implements Initializable {
 
                     if (userType == LoginLogoutUtil.UserType.TEACHER)
                         return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
-                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        return ((Student) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
+                    else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getPassWord();
                 }
                 return string;
             }
@@ -235,6 +265,7 @@ public class ManageUsersController implements Initializable {
                 Object object = event.getRowValue();
                 Teacher teacher;
                 Student student;
+                Admin admin;
                 if (userType == LoginLogoutUtil.UserType.TEACHER) {
                     teacher = Teacher.class.cast(object);
                     if (test > 0) {
@@ -245,7 +276,7 @@ public class ManageUsersController implements Initializable {
                             DisplayMessage.displayError(e);
                             e.printStackTrace();
                         }
-                    }} else {
+                    }} else if (userType == LoginLogoutUtil.UserType.STUDENT){
                         student = Student.class.cast(object);
                         student.setPassWord((String) event.getNewValue());
                         try {
@@ -257,6 +288,18 @@ public class ManageUsersController implements Initializable {
                             e.printStackTrace();
                         }
                     }
+                else {
+                    admin = Admin.class.cast(object);
+                    admin.setPassWord((String) event.getNewValue());
+                    try {
+                        userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
+                    } catch (UserException e) {
+                        DisplayMessage.displayError(e);
+                        e.printStackTrace();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
                 test = 1;
             }
         });
@@ -283,7 +326,9 @@ public class ManageUsersController implements Initializable {
                                                                                 alert.showAndWait();
                                                                                 if (userType == LoginLogoutUtil.UserType.TEACHER)
                                                                                     return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getUserName();
-                                                                                else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getUserName();
+                                                                                else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                                                                                    return ((Student) usersTV.getSelectionModel().getSelectedItem()).getUserName();
+                                                                                else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getUserName();
                                                                             }
                                                                             return string;
                                                                         }
@@ -292,6 +337,7 @@ public class ManageUsersController implements Initializable {
         userNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
             Teacher teacher;
             Student student;
+            Admin admin;
             Object object = event.getRowValue();
             if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
@@ -303,11 +349,20 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            } else {
+            } else if (userType== LoginLogoutUtil.UserType.STUDENT){
                 student = Student.class.cast(object);
                 student.setUserName((String) event.getNewValue());
                 try {
                     userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                } catch (UserException | SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                admin = Admin.class.cast(object);
+                admin.setUserName((String) event.getNewValue());
+                try {
+                    userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
                 } catch (UserException | SQLException e) {
                     e.printStackTrace();
                 }
@@ -338,7 +393,9 @@ public class ManageUsersController implements Initializable {
                     alert.showAndWait();
                     if (userType == LoginLogoutUtil.UserType.TEACHER)
                         return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getLastName();
-                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getLastName();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        return ((Student) usersTV.getSelectionModel().getSelectedItem()).getLastName();
+                    else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getLastName();
                 }
                 return string;
             }
@@ -346,6 +403,7 @@ public class ManageUsersController implements Initializable {
         lastNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
             Teacher teacher;
             Student student;
+            Admin admin;
             Object object = event.getRowValue();
             if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
@@ -357,7 +415,7 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            } else {
+            } else if (userType == LoginLogoutUtil.UserType.STUDENT){
                 student = Student.class.cast(object);
                 if (test > 0) {
                     student.setLastName((String) event.getNewValue());
@@ -367,6 +425,17 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }}
+            else {
+                admin = Admin.class.cast(object);
+                if (test > 0) {
+                    admin.setLastName((String) event.getNewValue());
+                    try {
+                        userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
                 test = 1;
         });
     }
@@ -392,7 +461,9 @@ public class ManageUsersController implements Initializable {
                     alert.showAndWait();
                     if (userType == LoginLogoutUtil.UserType.TEACHER)
                         return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
-                    else return ((Student) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
+                    else if (userType== LoginLogoutUtil.UserType.STUDENT)
+                        return ((Student) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
+                    else return ((Admin) usersTV.getSelectionModel().getSelectedItem()).getFirstName();
                 }
                 return string;
             }
@@ -400,6 +471,7 @@ public class ManageUsersController implements Initializable {
         firstNameTC.setOnEditCommit((EventHandler<TableColumn.CellEditEvent>) event -> {
             Teacher teacher;
             Student student;
+            Admin admin;
             Object object = event.getRowValue();
             if (userType == LoginLogoutUtil.UserType.TEACHER) {
                 teacher = Teacher.class.cast(object);
@@ -411,12 +483,22 @@ public class ManageUsersController implements Initializable {
                         e.printStackTrace();
                     }
                 }
-            } else {
+            } else if (userType== LoginLogoutUtil.UserType.STUDENT){
                 student = Student.class.cast(object);
                 if (test > 0) {
                     student.setFirstName((String) event.getNewValue());
                     try {
                         userModel.editStudent(new School(student.getSchoolId(), student.getSchoolName()), student);
+                    } catch (UserException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                }}
+            else {
+                admin = Admin.class.cast(object);
+                if (test > 0) {
+                    admin.setFirstName((String) event.getNewValue());
+                    try {
+                        userModel.editAdmin(new School(admin.getSchoolId(), admin.getSchoolName()), admin);
                     } catch (UserException | SQLException e) {
                         e.printStackTrace();
                     }
@@ -430,7 +512,9 @@ public class ManageUsersController implements Initializable {
         if (usersTV.getSelectionModel().getSelectedItem() != null) {
             if (userType == LoginLogoutUtil.UserType.TEACHER)
                 userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
-            else userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
+            else if (userType== LoginLogoutUtil.UserType.STUDENT)
+                userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
+            else userModel.deleteAdmin((Admin)usersTV.getSelectionModel().getSelectedItem());
         }
 
     }
@@ -440,34 +524,27 @@ public class ManageUsersController implements Initializable {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            NewEditUserController newEditUserController = new NewEditUserController(userType);
+            loader.setController(newEditUserController);
+
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            if (userType == LoginLogoutUtil.UserType.STUDENT)
-                newEditUserController.editStudent((Student) usersTV.getSelectionModel().getSelectedItem());
-            else
-                newEditUserController.editTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
+            newEditUserController.isNewUser(false, (User) usersTV.getSelectionModel().getSelectedItem());
 
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Student");
             stage.setScene(new Scene(root));
             stage.show();
         }
     }
 
     public void addUser(ActionEvent actionEvent) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-        root = loader.load();
+        FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        newUserLoader.setController(new NewEditUserController(userType));
 
-        NewEditUserController newEditUserController = loader.getController();
-        if (userType == LoginLogoutUtil.UserType.STUDENT)
-            newEditUserController.newStudent();
+        Parent root = newUserLoader.load();
 
         Stage stage = new Stage();
-        stage.setTitle("New Student");
         stage.setScene(new Scene(root));
         stage.show();
     }

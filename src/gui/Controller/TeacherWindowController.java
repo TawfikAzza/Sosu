@@ -10,6 +10,7 @@ import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
 import gui.Model.*;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -175,10 +176,10 @@ public class TeacherWindowController implements Initializable {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
+        loader.setController(newEditUserController);
         root = loader.load();
 
-        NewEditUserController newEditUserController = loader.getController();
-        newEditUserController.newStudent();
         //newEditUserController.setSchoolComboBox();
 
         Stage stage = new Stage();
@@ -195,9 +196,9 @@ public class TeacherWindowController implements Initializable {
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.editStudent(userModel.getStudentInformation(tableViewStudents.getSelectionModel().getSelectedItem()));
-
+            NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
+            newEditUserController.isNewUser(false,tableViewStudents.getSelectionModel().getSelectedItem());
+            
             //newEditUserController.setSchoolComboBox();
 
             Stage stage = new Stage();

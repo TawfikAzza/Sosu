@@ -163,7 +163,7 @@ public class AdminTestViewController implements Initializable {
 
     public void handleManageStudentsTab(Event event) {
         NewEditUserController newEditUserController = newUserWindowLoader.getController();
-        newEditUserController.newStudent();
+        //newEditUserController.newStudent();
     }
 
     public void handleManageCitizensTab(Event event) {

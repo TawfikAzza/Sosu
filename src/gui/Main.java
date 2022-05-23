@@ -36,7 +36,7 @@ public class Main extends Application {
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/MainWindow.fxml"));
         Parent root = loader.load();
-        //setUserAgentStylesheet("gui/CSS/MainCSS.css");
+        setUserAgentStylesheet("gui/CSS/MainCSS.css");
         primaryStage.getIcons().add(new Image("Images/sosu.png"));
 
         MainController mainController =loader.getController();
