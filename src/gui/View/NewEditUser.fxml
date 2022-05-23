@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXComboBox?>
-<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ButtonBar?>
 <?import javafx.scene.control.TextField?>
@@ -11,10 +10,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="233.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.NewEditUserController">
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="233.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.NewEditUserController">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="0.0" prefWidth="32.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="191.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="0.0" prefWidth="14.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="198.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="9.0" prefWidth="9.0" />
   </columnConstraints>
   <rowConstraints>
@@ -47,25 +46,5 @@
             <Button fx:id="cnfrmButton" mnemonicParsing="false" onAction="#createNewUser" text="Confirm" />
          </buttons>
       </ButtonBar>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3">
-         <children>
-            <FontAwesomeIconView glyphName="USER" size="20" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4">
-         <children>
-            <FontAwesomeIconView glyphName="KEY" size="20" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5">
-         <children>
-            <FontAwesomeIconView glyphName="ENVELOPE" size="20" />
-         </children>
-      </HBox>
-      <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6">
-         <children>
-            <FontAwesomeIconView glyphName="PHONE" size="22" />
-         </children>
-      </HBox>
    </children>
 </GridPane>

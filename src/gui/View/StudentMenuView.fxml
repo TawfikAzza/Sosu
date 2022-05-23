@@ -20,8 +20,8 @@
    <children>
       <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="182.0" spacing="20.0">
          <children>
-            <JFXButton fx:id="menuButton" onAction="#handleCitizensClick" prefHeight="111.0" prefWidth="138.0" text="Citizens" />
-            <JFXButton fx:id="menuButton" onAction="#handleLogoutClick" prefHeight="111.0" prefWidth="138.0" text="Logout" />
+            <JFXButton onAction="#handleCitizensClick" prefHeight="111.0" prefWidth="138.0" text="Citizens" />
+            <JFXButton onAction="#handleLogoutClick" prefHeight="111.0" prefWidth="138.0" text="Logout" />
          </children>
       </VBox>
       <VBox fx:id="iconBox" alignment="TOP_CENTER" prefHeight="400.0" prefWidth="51.0" spacing="70.0" GridPane.columnIndex="1">

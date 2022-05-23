@@ -67,6 +67,7 @@ public abstract class User {
 
         fNameProperty= new SimpleStringProperty(firstName);
         lNameProperty= new SimpleStringProperty(lastName);
+
     }
 
     public User (int id, String firstName, String lastName,String userName,String passWord,String email,int phoneNumber,int schoolId){
@@ -124,6 +125,7 @@ public abstract class User {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        userNameProperty= new SimpleStringProperty(userName);
         userNameProperty.setValue(userName);
     }
 
@@ -133,6 +135,7 @@ public abstract class User {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+        passwordProperty= new SimpleStringProperty(passWord);
         passwordProperty.setValue(passWord);
     }
 
@@ -142,6 +145,7 @@ public abstract class User {
 
     public void setEmail(String email) {
         this.email = email;
+        emailProperty = new SimpleStringProperty(email);
         emailProperty.setValue(email);
     }
 
