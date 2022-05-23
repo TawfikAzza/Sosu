@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="219.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="337.0" prefWidth="219.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="292.0" minWidth="10.0" prefWidth="150.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="474.0" minWidth="10.0" prefWidth="23.0" />
@@ -19,9 +19,9 @@
    <children>
       <VBox fx:id="btnBox" alignment="TOP_CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="342.0" prefWidth="141.0" spacing="20.0">
          <children>
-            <JFXButton onAction="#handleStudentsAssignmentsClick" prefHeight="100.0" prefWidth="142.0" text="Students/Assignments" />
-            <JFXButton onAction="#handleTemplatesCitizensClick" prefHeight="101.0" prefWidth="124.0" text="Templates/Citizens" />
-            <JFXButton onAction="#handleLogoutClick" prefHeight="111.0" prefWidth="138.0" text="Logout" />
+            <JFXButton fx:id="menuButton" onAction="#handleStudentsAssignmentsClick" prefHeight="100.0" prefWidth="142.0" text="Students/Assignments" />
+            <JFXButton fx:id="menuButton" onAction="#handleTemplatesCitizensClick" prefHeight="101.0" prefWidth="124.0" text="Templates/Citizens" />
+            <JFXButton fx:id="menuButton" onAction="#handleLogoutClick" prefHeight="111.0" prefWidth="138.0" text="Logout" />
          </children>
       </VBox>
       <VBox fx:id="iconBox" alignment="CENTER" prefHeight="400.0" prefWidth="51.0" spacing="70.0" GridPane.columnIndex="1">
