@@ -263,7 +263,7 @@ public class NewEditUserController implements Initializable {
         email.setText(selectedItem.getEmail());
         phoneNumberField.setText(String.valueOf(selectedItem.getPhoneNumber()));
         for (School school : schoolComboBox.getItems()) {
-            if (school.getName().equals(selectedItem.getSchoolName())) {
+            if (school.getId()==selectedItem.getSchoolId()) {
                 int index = schoolComboBox.getItems().indexOf(school);
                 schoolComboBox.getSelectionModel().select(index);
             }

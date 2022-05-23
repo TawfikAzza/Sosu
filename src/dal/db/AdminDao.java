@@ -50,13 +50,15 @@ public class AdminDao {
 
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()){
-                    allAdmins.add( new Admin(resultSet1.getInt("id"),
+                    Admin admin =new Admin(resultSet1.getInt("id"),
                             resultSet1.getString("first_name"),
                             resultSet1.getString("last_name"),
                             resultSet1.getString("user_name"),
                             resultSet1.getString("password"),
                             resultSet1.getString("e_mail"),
-                            resultSet1.getInt("phone_number")));
+                            resultSet1.getInt("phone_number"));
+                    admin.setSchoolId(resultSet1.getInt("school_id"));
+                    allAdmins.add(admin);
                 }
             }
         }
