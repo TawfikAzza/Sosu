@@ -124,4 +124,27 @@ public class AdminDao {
         preparedStatement.executeUpdate();
     }
 }
+    public void editAdmin(Admin admin,School school) throws SQLException, UserException {
+        boolean creation=false;
+        try {
+            exceptionCreation(admin.getFirstName(), admin.getLastName(), admin.getUserName(), admin.getPassWord(), admin.getEmail(), String.valueOf(admin.getPhoneNumber()),creation);
+            try (Connection connection = connectionManager.getConnection()) {
+                String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
+                PreparedStatement preparedStatement = connection.prepareStatement(sql);
+                preparedStatement.setInt(1, school.getId());
+                preparedStatement.setString(2, admin.getFirstName());
+                preparedStatement.setString(3, admin.getLastName());
+                preparedStatement.setString(4, admin.getUserName());
+                preparedStatement.setString(5, admin.getPassWord());
+                preparedStatement.setString(6, admin.getEmail());
+                preparedStatement.setInt(7, admin.getPhoneNumber());
+                preparedStatement.setInt(8, admin.getId());
+                preparedStatement.executeUpdate();
+            }
+        }catch (SQLException sqlException){
+            throw new UserException("Something went wrong in the database",new Exception());
+        } catch (UserException e) {
+            e.printStackTrace();
+        }
+    }
 }

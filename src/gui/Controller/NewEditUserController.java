@@ -81,7 +81,7 @@ public class NewEditUserController implements Initializable {
         }
     }
 
-    public void createNewUser(ActionEvent actionEvent)  {
+    public void createNewUser(ActionEvent actionEvent) throws SQLException, UserException {
         if (userType == LoginLogoutUtil.UserType.TEACHER) {
             if (newUser) {
                 try {
@@ -158,7 +158,18 @@ public class NewEditUserController implements Initializable {
                     DisplayMessage.displayMessage(ue.getExceptionMessage());
                 }
             }
-            else {}
+            else {
+                admin.setFirstName(firstName.getText());
+                admin.setLastName(lastName.getText());
+                admin.setUserName(userName.getText());
+                admin.setPassWord(passWord.getText());
+                admin.setEmail(email.getText());
+                admin.setPhoneNumber(Integer.parseInt(phoneNumberField.getText()));
+                userModel.editAdmin(schoolComboBox.getSelectionModel().getSelectedItem(),
+                        admin);
+                Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+                stage.close();
+            }
         }
     }
 
@@ -197,7 +208,11 @@ public class NewEditUserController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)) {
-                    createNewUser(new ActionEvent());
+                    try {
+                        createNewUser(new ActionEvent());
+                    } catch (SQLException | UserException e) {
+                        e.printStackTrace();
+                    }
                 } else if (event.getCode().equals(KeyCode.ESCAPE)) {
                     handleCancel(new ActionEvent());
                 }
