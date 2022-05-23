@@ -90,7 +90,9 @@ public class AdminMenuViewController extends MenuController{
 
         assignTab.setContent(FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml")));
 
+
         TabPane tabPane = new TabPane(duplicationTab,assignTab);
+
         tabPane.setLayoutX(40);
         anchorPane.getChildren().setAll(tabPane);
 
