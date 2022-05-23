@@ -23,5 +23,5 @@ public interface UserInterface {
 
     void deleteAdmin(Admin admin) throws SQLException;
 
-    void editAdmin(School school, Admin admin);
+    void editAdmin(School school, Admin admin) throws SQLException, UserException;
 }

@@ -95,8 +95,8 @@ public class UserManager implements UserInterface {
     }
 
     @Override
-    public void editAdmin(School school, Admin admin) {
-
+    public void editAdmin(School school, Admin admin) throws SQLException, UserException {
+        adminDao.editAdmin(admin,school);
     }
 
 
