@@ -301,7 +301,7 @@ public class GeneratePdf {
             PdfPTable table = new PdfPTable(2);
             table.setSpacingAfter(10);
 
-
+/*
             PdfPCell c1 = new PdfPCell(new Phrase("Mestring"));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
 
@@ -319,6 +319,8 @@ public class GeneratePdf {
             table.setWidthPercentage(100);
             table.setWidths(new int[]{1, 3});
             subCatPart.add(table);
+
+ */
         }
     }
 }
