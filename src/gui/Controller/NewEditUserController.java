@@ -92,6 +92,7 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Alert");
                 alert.setHeaderText(e.getExceptionMessage());
@@ -110,6 +111,7 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Alert");
                 alert.setHeaderText(e.getExceptionMessage());
@@ -131,6 +133,7 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Alert");
                 alert.setHeaderText(e.getExceptionMessage());
@@ -150,6 +153,7 @@ public class NewEditUserController implements Initializable {
                 Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                 stage.close();
             }catch (UserException e){
+                e.printStackTrace();
                 Alert alert = new Alert(Alert.AlertType.ERROR);
                 alert.setTitle("Alert");
                 alert.setHeaderText(e.getExceptionMessage());
