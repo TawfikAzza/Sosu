@@ -9,6 +9,7 @@ import gui.Model.CitizenModel;
 import gui.Model.StudentCitizenRelationShipModel;
 import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
+import gui.utils.LoginLogoutUtil;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -131,10 +132,9 @@ public class CitizenAssignmentController implements Initializable {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
+            loader.setController(newEditUserController);
             root = loader.load();
-
-            NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.newStudent();
 
             Stage stage = new Stage();
             stage.setTitle("New Student");
@@ -152,17 +152,22 @@ public class CitizenAssignmentController implements Initializable {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+
+            NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
+            loader.setController(newEditUserController);
+
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
+            newEditUserController.isNewUser(false,studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
 
             Stage stage = new Stage();
             stage.setTitle("Edit Student");
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException | SQLException e) {
+        } catch (IOException  e) {
             DisplayMessage.displayError(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 

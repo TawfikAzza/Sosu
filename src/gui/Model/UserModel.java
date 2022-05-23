@@ -119,4 +119,10 @@ public class UserModel {
         allAdmins.addAll(userManager.getAllAdmins(initials));
         return allAdmins;
     }
+
+    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) {
+    Admin newAdmin = userManager.newAdmin(school,firstName,lastName,userName,passWord,email,phoneNumber);
+    allAdmins.add(newAdmin);
+    return newAdmin;
+    }
 }

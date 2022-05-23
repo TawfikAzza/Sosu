@@ -3,6 +3,7 @@ package gui.Controller;
 import be.School;
 import be.Student;
 import be.Teacher;
+import be.User;
 import bll.exceptions.UserException;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
@@ -22,6 +23,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import javafx.util.StringConverter;
 
@@ -73,6 +75,7 @@ public class ManageUsersController implements Initializable {
                 }
             }
         });
+
     }
 
     private void initializeUsersTV() {
@@ -440,34 +443,27 @@ public class ManageUsersController implements Initializable {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            NewEditUserController newEditUserController = new NewEditUserController(userType);
+            loader.setController(newEditUserController);
+
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            if (userType == LoginLogoutUtil.UserType.STUDENT)
-                newEditUserController.editStudent((Student) usersTV.getSelectionModel().getSelectedItem());
-            else
-                newEditUserController.editTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
+            newEditUserController.isNewUser(false, (User) usersTV.getSelectionModel().getSelectedItem());
 
 
             Stage stage = new Stage();
-            stage.setTitle("Edit Student");
             stage.setScene(new Scene(root));
             stage.show();
         }
     }
 
     public void addUser(ActionEvent actionEvent) throws IOException {
-        Parent root;
-        FXMLLoader loader = new FXMLLoader();
-        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-        root = loader.load();
+        FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        newUserLoader.setController(new NewEditUserController(userType));
 
-        NewEditUserController newEditUserController = loader.getController();
-        if (userType == LoginLogoutUtil.UserType.STUDENT)
-            newEditUserController.newStudent();
+        Parent root = newUserLoader.load();
 
         Stage stage = new Stage();
-        stage.setTitle("New Student");
         stage.setScene(new Scene(root));
         stage.show();
     }

@@ -60,4 +60,8 @@ public class AdminDao {
         }
         return allAdmins;
     }
+
+    public Admin newAdmin() {
+        return null;
+    }
 }

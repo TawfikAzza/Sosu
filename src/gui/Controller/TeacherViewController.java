@@ -400,8 +400,7 @@ public class TeacherViewController implements Initializable {
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.newStudent();
+            NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
 
             Stage stage = new Stage();
             stage.setTitle("New Student");
@@ -419,16 +418,18 @@ public class TeacherViewController implements Initializable {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+            NewEditUserController newEditUserController = new NewEditUserController(LoginLogoutUtil.UserType.STUDENT);
+            loader.setController(newEditUserController);
+
             root = loader.load();
 
-            NewEditUserController newEditUserController = loader.getController();
-            newEditUserController.editStudent(studentModel.getStudentInformation(tableViewStudent.getSelectionModel().getSelectedItem()));
+            newEditUserController.isNewUser(false,tableViewStudent.getSelectionModel().getSelectedItem());
 
             Stage stage = new Stage();
             stage.setTitle("Edit Student");
             stage.setScene(new Scene(root));
             stage.show();
-        } catch (IOException | SQLException e) {
+        } catch (IOException  e) {
             DisplayMessage.displayError(e);
         }
     }
