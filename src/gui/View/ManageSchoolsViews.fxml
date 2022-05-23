@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ManageSchoolsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ManageSchoolsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -52,9 +52,9 @@
             </GridPane>
             <ButtonBar prefHeight="66.0" prefWidth="390.0" GridPane.columnIndex="1">
                <buttons>
-                  <JFXButton fx:id="jfxButton" onAction="#handleDeleteBtn" text="Delete" />
-                  <JFXButton fx:id="jfxButton" onAction="#handleEditBtn" text="Edit" />
-                  <JFXButton fx:id="jfxButton" onAction="#handleAddBtn" text="Add" />
+                  <JFXButton onAction="#handleDeleteBtn" text="Delete" />
+                  <JFXButton onAction="#handleEditBtn" text="Edit" />
+                  <JFXButton onAction="#handleAddBtn" text="Add" />
                </buttons>
             </ButtonBar>
          </children>
