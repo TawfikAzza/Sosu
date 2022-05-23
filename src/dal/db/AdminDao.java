@@ -1,22 +1,24 @@
 package dal.db;
 
 import be.Admin;
+import be.School;
+import be.Teacher;
+import bll.exceptions.UserException;
 import dal.ConnectionManager;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdminDao {
 
     private final ConnectionManager connectionManager;
+    private  UsersDAO usersDAO;
 
     public AdminDao() throws IOException {
         connectionManager = new ConnectionManager();
+        usersDAO= new UsersDAO();
     }
 
     public List<Admin>getAllAdmins(String initials)throws SQLException {
@@ -61,7 +63,58 @@ public class AdminDao {
         return allAdmins;
     }
 
-    public Admin newAdmin() {
-        return null;
+    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException{
+        Admin admin = null;
+        boolean creation = true;
+        try {
+            exceptionCreation(firstName,lastName,userName,passWord,email,phoneNumber, creation);
+            if (school==null){
+                throw new UserException("Please find a school for the Admin",new Exception());
+            }
+            try (Connection connection = connectionManager.getConnection()) {
+                String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
+                PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
+                preparedStatement0.setString(1, "Admin");
+                ResultSet resultSet0 = preparedStatement0.executeQuery();
+                if (resultSet0.next()) {
+                    int roleId = resultSet0.getInt("roleID");
+                    String sql1 = "INSERT INTO  [user] VALUES (?,?,?,?,?,?,?,?)";
+                    PreparedStatement preparedStatement1 = connection.prepareStatement(sql1, Statement.RETURN_GENERATED_KEYS);
+                    preparedStatement1.setInt(1, school.getId());
+                    preparedStatement1.setString(2, firstName);
+                    preparedStatement1.setString(3, lastName);
+                    preparedStatement1.setString(4, userName);
+                    preparedStatement1.setString(5, passWord);
+                    preparedStatement1.setString(6, email);
+                    preparedStatement1.setInt(7, Integer.parseInt(phoneNumber));
+                    preparedStatement1.setInt(8, roleId);
+
+                    preparedStatement1.executeUpdate();
+                    ResultSet resultSet1 = preparedStatement1.getGeneratedKeys();
+                    while (resultSet1.next()) {
+                        int id = resultSet1.getInt(1);
+                        admin = new Admin(id, firstName, lastName, userName, passWord, email, Integer.parseInt(phoneNumber));
+                    }
+                }
+            }
+        }catch (SQLException sqlException){
+            throw new UserException("Something went wrong in the database",new Exception());
+        }
+
+        return admin;
+    }
+
+    private void exceptionCreation(String firstName, String lastName, String userName, String passWord, String email,String phoneNumber,Boolean creation) throws UserException, SQLException {
+        UserException ue = new UserException();
+        ue.checkUserFN(firstName);
+        ue.checkUserLN(lastName);
+        ue.checkUserUN(userName);
+
+        if (creation)
+            ue.checkUserUName(userName, usersDAO.userNameTaken(userName));
+        ue.checkUserPassword(passWord);
+        ue.checkEmail(email);
+        ue.checkPhoneNumber(phoneNumber);
+
     }
 }

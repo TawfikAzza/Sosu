@@ -47,25 +47,25 @@ public class UserModel {
 
     public Student newStudent(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         Student newStudent = userManager.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        if (allStudents!=null)
         allStudents.add(newStudent);
         return newStudent;
     }
 
     public Teacher newTeacher(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
         Teacher newTeacher =  userManager.newTeacher(school,firstName,lastName,userName,passWord,email,phoneNumber);
+        if (allTeachers!=null)
         allTeachers.add(newTeacher);
         return newTeacher;
     }
 
     public void deleteTeacher(Teacher teacher) throws SQLException {
-        if (allTeachers!=null)
-            allTeachers.remove(teacher);
+        allTeachers.remove(teacher);
         userManager.deleteTeacher(teacher);
     }
 
     public void deleteStudent(Student student) throws SQLException {
-        if (allStudents!=null)
-            allStudents.remove(student);
+         allStudents.remove(student);
          userManager.deleteStudent(student);
     }
 
@@ -120,9 +120,19 @@ public class UserModel {
         return allAdmins;
     }
 
-    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) {
+    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
     Admin newAdmin = userManager.newAdmin(school,firstName,lastName,userName,passWord,email,phoneNumber);
+    if (allAdmins!=null)
     allAdmins.add(newAdmin);
     return newAdmin;
+    }
+
+    public void deleteAdmin(Admin selectedItem) {
+        allAdmins.remove(selectedItem);
+        userManager.deleteAdmin();
+    }
+
+    public void editAdmin(School school, Admin admin) throws SQLException,UserException{
+        userManager.editAdmin(school,admin);
     }
 }

@@ -81,7 +81,7 @@ public class NewEditUserController implements Initializable {
         }
     }
 
-    public void createNewUser(ActionEvent actionEvent) {
+    public void createNewUser(ActionEvent actionEvent)  {
         if (userType == LoginLogoutUtil.UserType.TEACHER) {
             if (newUser) {
                 try {
@@ -148,9 +148,17 @@ public class NewEditUserController implements Initializable {
             }
         } else {
             if (newUser) {
-                Admin admin = userModel.newAdmin(schoolComboBox.getSelectionModel().getSelectedItem(),
-                        firstName.getText(), lastName.getText(), userName.getText(), passWord.getText(), email.getText(), phoneNumberField.getText());
+                try {
+                    userModel.newAdmin(schoolComboBox.getSelectionModel().getSelectedItem(),
+                            firstName.getText(), lastName.getText(), userName.getText(), passWord.getText(), email.getText(), phoneNumberField.getText());
+                    Stage stage = (Stage) cnfrmButton.getScene().getWindow();
+                    stage.close();
+                }catch (UserException ue){
+                    DisplayMessage.displayError(ue);
+                    DisplayMessage.displayMessage(ue.getExceptionMessage());
+                }
             }
+            else {}
         }
     }
 

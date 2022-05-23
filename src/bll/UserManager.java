@@ -85,8 +85,18 @@ public class UserManager implements UserInterface {
     }
 
     @Override
-    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) {
-        return adminDao.newAdmin();
+    public Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException {
+        return adminDao.newAdmin(school,firstName,lastName,userName,passWord,email,phoneNumber);
+    }
+
+    @Override
+    public void deleteAdmin() {
+
+    }
+
+    @Override
+    public void editAdmin(School school, Admin admin) {
+
     }
 
 
