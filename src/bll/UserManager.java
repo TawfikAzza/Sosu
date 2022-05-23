@@ -90,8 +90,8 @@ public class UserManager implements UserInterface {
     }
 
     @Override
-    public void deleteAdmin() {
-
+    public void deleteAdmin(Admin admin) throws SQLException {
+        adminDao.deleteAdmin(admin);
     }
 
     @Override

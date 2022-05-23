@@ -21,7 +21,7 @@ public interface UserInterface {
 
     Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException;
 
-    void deleteAdmin();
+    void deleteAdmin(Admin admin) throws SQLException;
 
     void editAdmin(School school, Admin admin);
 }

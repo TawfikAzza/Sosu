@@ -127,9 +127,9 @@ public class UserModel {
     return newAdmin;
     }
 
-    public void deleteAdmin(Admin selectedItem) {
+    public void deleteAdmin(Admin selectedItem) throws SQLException {
         allAdmins.remove(selectedItem);
-        userManager.deleteAdmin();
+        userManager.deleteAdmin(selectedItem);
     }
 
     public void editAdmin(School school, Admin admin) throws SQLException,UserException{

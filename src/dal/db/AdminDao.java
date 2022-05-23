@@ -115,6 +115,13 @@ public class AdminDao {
         ue.checkUserPassword(passWord);
         ue.checkEmail(email);
         ue.checkPhoneNumber(phoneNumber);
-
     }
+    public void deleteAdmin(Admin admin)throws SQLException{
+    try (Connection connection = connectionManager.getConnection()) {
+        String sql = "DELETE FROM [user] WHERE id= ?";
+        PreparedStatement preparedStatement = connection.prepareStatement(sql);
+        preparedStatement.setInt(1, admin.getId());
+        preparedStatement.executeUpdate();
+    }
+}
 }
