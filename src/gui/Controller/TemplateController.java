@@ -1,7 +1,9 @@
 package gui.Controller;
 
 import be.Citizen;
+import be.Student;
 import bll.exceptions.CitizenException;
+import bll.util.GlobalVariables;
 import gui.Model.CitizenModel;
 import gui.utils.DisplayMessage;
 import javafx.collections.ObservableList;
@@ -21,6 +23,7 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class TemplateController implements Initializable {
@@ -91,6 +94,17 @@ public class TemplateController implements Initializable {
         this.tableColumnCitizenFirstName.setCellValueFactory(new PropertyValueFactory<>("fName"));
         this.tableColumnCitizenLastName.setCellValueFactory(new PropertyValueFactory<>("lName"));
 
+        selectCitizenAction();
+    }
+
+    private void selectCitizenAction() {
+        tableViewCitizen.setRowFactory(param -> {
+            TableRow<Citizen> row = new TableRow<>();
+            row.setOnMouseClicked(event -> Optional.ofNullable(row.getItem()).ifPresent(rowData-> {
+                GlobalVariables.setSelectedCitizen(row.getItem());
+            }));
+            return row;
+        });
     }
 
     private void initSpinners()
