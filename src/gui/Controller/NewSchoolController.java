@@ -2,6 +2,7 @@ package gui.Controller;
 
 import be.School;
 import bll.exceptions.SchoolException;
+import bll.exceptions.UserException;
 import com.jfoenix.controls.JFXButton;
 import gui.Model.SchoolModel;
 import gui.utils.DisplayMessage;
@@ -75,11 +76,12 @@ public class NewSchoolController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            schoolModel =new SchoolModel();
-        } catch (SchoolException e) {
+            schoolModel =SchoolModel.getInstance();
+        } catch (SchoolException | IOException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
+
         mainGridPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {

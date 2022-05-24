@@ -179,7 +179,7 @@ public class NewEditUserController implements Initializable {
         try {
             userModel = UserModel.getInstance();
             studentModel = StudentModel.getInstance();
-            schoolModel = new SchoolModel();
+            schoolModel = SchoolModel.getInstance();
 
             schoolComboBox.setItems(schoolModel.getAllSchools());
         } catch (IOException | UserException | SchoolException e) {

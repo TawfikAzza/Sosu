@@ -20,8 +20,9 @@ public class SchoolModel {
     ObservableList<String> allTeachers;
     ObservableList<String> allCitizens;
 
+    private static SchoolModel single_instance = null;
 
-    public SchoolModel() throws SchoolException {
+    private SchoolModel() throws SchoolException {
         schoolManager = new SchoolManager();
     }
     public ObservableList<School>getAllSchools() throws SchoolException {
@@ -50,9 +51,24 @@ public class SchoolModel {
 
     public School newSchool(String text) throws SchoolException {
         School school;
-        return schoolManager.newSchool(text);
+        school = schoolManager.newSchool(text);
+        allSchools.add(school);
+        return school;
     }
 
-    public void deleteSchool(School selectedItem) {
+    public void deleteSchool(School selectedItem) throws SQLException {
+        schoolManager.deleteSchool(selectedItem);
+        allSchools.remove(selectedItem);
+    }
+
+    public static SchoolModel getInstance() throws IOException, UserException, SchoolException {
+        if (single_instance == null)
+            single_instance = new SchoolModel();
+
+        return single_instance;
+    }
+
+    public void editSchool(School school) throws SQLException {
+        schoolManager.editSchool(school);
     }
 }

@@ -1,15 +1,20 @@
 package be;
 
-import java.util.List;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 
 public class School{
-    List<Student>allStudents;
-    List<Teacher>allTeachers;
-    int id;
-    String name;
+    private int id;
+    private String name;
+
+    private StringProperty nameProperty;
+
+
+
     public School(int id, String name){
         this.id=id;
         this.name = name;
+       nameProperty= new SimpleStringProperty(name);
     }
 
     public int getId() {
@@ -26,6 +31,7 @@ public class School{
 
     public void setName(String name) {
         this.name = name;
+        nameProperty.set(name);
     }
 
     @Override
@@ -47,5 +53,13 @@ public class School{
     @Override
     public int hashCode() {
         return id;
+    }
+
+    public String getNameProperty() {
+        return nameProperty.get();
+    }
+
+    public StringProperty namePropertyProperty() {
+        return nameProperty;
     }
 }
