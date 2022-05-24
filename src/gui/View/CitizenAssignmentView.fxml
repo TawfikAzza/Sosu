@@ -13,12 +13,12 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="426.0" prefWidth="919.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.CitizenAssignmentController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="424.0" prefWidth="868.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.CitizenAssignmentController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="297.8000244140625" minWidth="10.0" prefWidth="268.0000244140625" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.4000244140625" minWidth="10.0" prefWidth="52.80000000000001" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.60001220703117" minWidth="10.0" prefWidth="263.20001220703125" />
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="10.0" prefWidth="58.39999999999998" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="169.4000244140625" minWidth="10.0" prefWidth="59.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="295.60001220703117" minWidth="10.0" prefWidth="205.5" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="147.0" minWidth="10.0" prefWidth="70.5" />
       <ColumnConstraints hgrow="SOMETIMES" maxWidth="281.4" minWidth="10.0" prefWidth="277.6" />
   </columnConstraints>
   <rowConstraints>
@@ -34,12 +34,12 @@
          <children>
             <VBox alignment="CENTER_LEFT">
                <children>
-                  <Label text="Students" />
+                  <Label prefHeight="17.0" prefWidth="74.0" text="Students" />
                </children>
             </VBox>
             <VBox prefHeight="29.0" prefWidth="154.0">
                <children>
-                  <TextField onKeyPressed="#handleSearchStudent" prefHeight="26.0" prefWidth="148.0" />
+                  <TextField onKeyPressed="#handleSearchStudent" prefHeight="26.0" prefWidth="130.0" />
                </children>
             </VBox>
          </children>
@@ -49,7 +49,7 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <children>
-            <TableView fx:id="tableViewStudent" prefHeight="333.0" prefWidth="287.0">
+            <TableView fx:id="tableViewStudent" prefHeight="331.0" prefWidth="215.0">
                <columns>
                   <TableColumn fx:id="tableColumnStudentFirstName" prefWidth="75.0" text="First Name" />
                   <TableColumn fx:id="tableColumnStudentLastName" prefWidth="75.0" text="Last Name" />
@@ -106,9 +106,9 @@
       </HBox>
       <VBox alignment="CENTER" prefHeight="342.0" prefWidth="47.0" spacing="10.0" GridPane.columnIndex="3" GridPane.rowIndex="1">
          <children>
-            <Button mnemonicParsing="false" onAction="#handleRemoveCitClick" text="Remove">
+            <Button mnemonicParsing="false" onAction="#handleRemoveCitClick" prefHeight="19.0" prefWidth="54.0" text="Remove">
                <font>
-                  <Font size="10.0" />
+                  <Font size="11.0" />
                </font>
             </Button>
          </children>
@@ -121,9 +121,9 @@
             <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
          </padding>
          <children>
-            <Button mnemonicParsing="false" onAction="#handleAssignClick" text="Assign">
+            <Button mnemonicParsing="false" onAction="#handleAssignClick" prefHeight="19.0" prefWidth="49.0" text="Assign">
                <font>
-                  <Font size="10.0" />
+                  <Font size="11.0" />
                </font>
             </Button>
          </children>
