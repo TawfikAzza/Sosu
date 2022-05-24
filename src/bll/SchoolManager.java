@@ -52,4 +52,7 @@ public class SchoolManager {
         return schoolDao.newSchool(schoolName);
     }
 
+    public void editSchool(School school) throws SQLException {
+        schoolDao.editSchool(school);
+    }
 }
