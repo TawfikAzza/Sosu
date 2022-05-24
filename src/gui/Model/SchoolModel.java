@@ -49,6 +49,10 @@ public class SchoolModel {
     }
 
     public School newSchool(String text) throws SchoolException {
+        School school;
         return schoolManager.newSchool(text);
+    }
+
+    public void deleteSchool(School selectedItem) {
     }
 }

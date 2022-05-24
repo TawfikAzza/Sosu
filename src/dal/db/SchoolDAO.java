@@ -161,4 +161,14 @@ public class SchoolDAO {
         }
         return school;
     }
+
+    public void editSchool(School school) throws SQLException {
+        try (Connection connection = connectionManager.getConnection()) {
+            String sql = "UPDATE [school] SET name=? WHERE id=?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1, school.getId());
+            preparedStatement.setString(2, school.getName());
+            preparedStatement.executeUpdate();
+        }
+    }
 }
