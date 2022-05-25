@@ -44,8 +44,6 @@ public class RootController implements Initializable {
     @FXML
     private JFXDrawer drawer;
 
-    private int index=0;
-
     private LoginLogoutUtil.UserType userType;
     private  List<Node>menuButtons;
     public RootController(LoginLogoutUtil.UserType userType)
@@ -71,7 +69,6 @@ public class RootController implements Initializable {
     public void closeDrawer()
     {
         stackPane.getChildren().get(0).toFront();
-        index=1;
         drawer.close();
 
         for (Node node : menuButtons){
