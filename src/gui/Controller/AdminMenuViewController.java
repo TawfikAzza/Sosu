@@ -57,7 +57,7 @@ public class AdminMenuViewController extends MenuController{
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
         Node node = loader.load();
-        node.setLayoutX(100);
+        node.setLayoutX(60);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
         anchorPane.getChildren().add(hidePane);

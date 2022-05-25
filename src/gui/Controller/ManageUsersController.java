@@ -1,7 +1,9 @@
 package gui.Controller;
 
 import be.*;
+import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
+import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
@@ -41,6 +43,7 @@ public class ManageUsersController implements Initializable {
     private TableColumn firstNameTC, lastNameTC, userNameTC, passwordTC, emailTC;
     @FXML
     private TableColumn phoneNumberTC;
+    @FXML GridPane gridPane;
 
     private LoginLogoutUtil.UserType userType;
     private UserModel userModel;
@@ -56,7 +59,11 @@ public class ManageUsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeUsersTV();
+        try {
+            initializeUsersTV();
+        } catch (IOException | UserException | SchoolException e) {
+            e.printStackTrace();
+        }
         try {
             userModel= UserModel.getInstance();
         } catch (IOException | UserException | SQLException e) {
@@ -97,7 +104,7 @@ public class ManageUsersController implements Initializable {
         });
 
     }
-    private void initializeUsersTV() {
+    private void initializeUsersTV() throws IOException, UserException, SchoolException {
         usersTV.setEditable(true);
         initializeFnameColumn();
         initializeLnameColumn();
@@ -105,8 +112,62 @@ public class ManageUsersController implements Initializable {
         initializePasswordColumn();
         initializeEmailColumn();
         initializePhoneNumberColumn();
-        if(userType== LoginLogoutUtil.UserType.ADMIN)
-            usersTV.getColumns().add(new TableColumn<>("school"));
+        if(userType== LoginLogoutUtil.UserType.ADMIN){
+            TableColumn schoolUserTC= new TableColumn<>("school");
+            usersTV.getColumns().add(schoolUserTC);
+            gridPane.setPrefWidth(gridPane.getPrefWidth()+120);
+            SchoolModel schoolModel = SchoolModel.getInstance();
+
+            final boolean[] test = {true};
+            final School[] newSchool = new School[1];
+
+
+            schoolUserTC.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+            schoolUserTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+                @Override
+                public String toString(String object) {
+                    return object;
+                }
+
+                @Override
+                public String fromString(String string) {
+                    String oldSchoolName = ((Admin) usersTV.getSelectionModel().getSelectedItem()).getSchoolName();
+                    try {
+                        int counter = 0;
+                        for (School school : schoolModel.getAllSchools())
+                            if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+                                newSchool[0] = school;
+                                counter++;
+                                return school.getName();
+                            }
+                        if (counter==0){
+                                SchoolException schoolException = new SchoolException("School not found", new Exception());
+                                schoolException.setInstructions("Please find an existing school");
+                                test[0] = false;
+                                throw schoolException;
+                            }
+                        } catch (SchoolException ex) {
+                        DisplayMessage.displayError(ex);
+                        DisplayMessage.displayMessage(ex.getExceptionMessage());
+                    }
+                    return oldSchoolName;
+                }
+    }));
+            schoolUserTC.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent event) {
+                    Admin admin = (Admin) event.getRowValue();
+                    if (newSchool[0]!=null){
+                        try {
+                            userModel.editAdmin(newSchool[0],admin);
+                        } catch (SQLException | UserException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    test[0]=true;
+                }
+            });
+    }
     }
 
     private void initializePhoneNumberColumn() {
@@ -572,46 +633,5 @@ public class ManageUsersController implements Initializable {
     }
 }
 
-/**
- * Important
- * On table editing school admin
- * schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
- *         schoolStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
- *             @Override
- *             public String toString(String object) {
- *                 return object;
- *             }
- *
- *             @Override
- *             public String fromString(String string) {
- *                 try {
- *                     for (School school : allSchools)
- *                         if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
- *                             newSchool=school;
- *                             return school.getName();
- *                         }
- *                     SchoolException schoolException = new SchoolException("School not found",new Exception());
- *                     schoolException.setInstructions("Please find an existing school");
- *                     throw schoolException;
- *
- *                 } catch (SchoolException e) {
- *                     OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
- *                     return selectedTeacher.getSchoolName();
- *                 }
- *             }
- *         }));
- *         schoolStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
- *             @Override
- *             public void handle(TableColumn.CellEditEvent<Student, String> event) {
- *                 Student student = event.getRowValue();
- *                 if (test>0){
- *                     try {
- *                         userModel.editStudent(newSchool,student);
- *                     } catch (UserException | SQLException e) {
- *                         e.printStackTrace();
- *                     }
- *                 }
- *                 test=1;
- *             }
- *         });
- */
+
+

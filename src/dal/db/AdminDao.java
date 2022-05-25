@@ -21,7 +21,7 @@ public class AdminDao {
         usersDAO= new UsersDAO();
     }
 
-    public List<Admin>getAllAdmins(int schoolId)throws SQLException {
+    public List<Admin>getAllAdmins()throws SQLException {
         List<Admin>allAdmins = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()){
             String sql = "SELECT * FROM UserRoles WHERE roleName=? ";
@@ -30,10 +30,9 @@ public class AdminDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 int roleId= resultSet.getInt("roleID");
-                String sql0 = "SELECT * FROM [user] WHERE roleID= ? AND school_id= ?";
+                String sql0 = "SELECT * FROM [user] WHERE roleID= ?";
                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql0);
                 preparedStatement1.setInt(1,roleId);
-                preparedStatement1.setInt(2,schoolId);
 
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()){
@@ -45,6 +44,7 @@ public class AdminDao {
                             resultSet1.getString("e_mail"),
                             resultSet1.getInt("phone_number"));
                     admin.setSchoolId(resultSet1.getInt("school_id"));
+                    admin.setSchoolName(getSchoolName(admin.getSchoolId()));
                     allAdmins.add(admin);
                 }
             }
@@ -83,6 +83,7 @@ public class AdminDao {
                     while (resultSet1.next()) {
                         int id = resultSet1.getInt(1);
                         admin = new Admin(id, firstName, lastName, userName, passWord, email, Integer.parseInt(phoneNumber));
+                        admin.setSchoolName(school.getName());
                     }
                 }
             }
@@ -135,5 +136,17 @@ public class AdminDao {
         } catch (UserException e) {
             e.printStackTrace();
         }
+    }
+    private String getSchoolName(int schoolId)throws SQLException{
+        try (Connection connection = connectionManager.getConnection()){
+            String sql= "SELECT * FROM school WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,schoolId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getString("name");
+            }
+        }
+        return null;
     }
 }

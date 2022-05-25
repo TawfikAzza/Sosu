@@ -81,7 +81,7 @@ public class UserManager implements UserInterface {
 
     @Override
     public List<Admin> getAllAdmins() throws SQLException {
-        return adminDao.getAllAdmins(GlobalVariables.getCurrentSchool().getId());
+        return adminDao.getAllAdmins();
     }
 
     @Override

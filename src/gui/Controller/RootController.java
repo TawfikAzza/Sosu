@@ -184,8 +184,8 @@ public class RootController implements Initializable {
             ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.ADMIN);
             teacherLoader.setController(manageUsersController);
             GridPane gridPane = teacherLoader.load();
+            gridPane.setLayoutX(60);
             gridPane.setLayoutY(26);
-            gridPane.setLayoutX(100);
 
             setInitialScene(loader,gridPane);
         } catch (IOException | UserException | SQLException e) {
