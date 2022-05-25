@@ -192,6 +192,8 @@ public class NewEditUserController implements Initializable {
         } catch (IOException | UserException | SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         setAdminMode();

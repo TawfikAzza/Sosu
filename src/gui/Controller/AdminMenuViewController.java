@@ -15,6 +15,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AdminMenuViewController extends MenuController{
     @FXML
@@ -51,7 +52,7 @@ public class AdminMenuViewController extends MenuController{
 
     public void handleLogOutBtn(ActionEvent actionEvent){}
 
-    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
         Node node = loader.load();
@@ -63,7 +64,7 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
         Node node = loader.load();
@@ -75,7 +76,7 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
         Node node = loader.load();

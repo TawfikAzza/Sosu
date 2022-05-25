@@ -173,6 +173,8 @@ public class AdminViewController implements Initializable {
         } catch (IOException | SchoolException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         initializeTeachersTV();
@@ -237,13 +239,7 @@ public class AdminViewController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
-                    try {
-                        allStudentsFiltered.setAll(userModel.getAllStudents());
-                        studentsTableView.setItems(allStudentsFiltered);
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+                    studentsTableView.setItems(allStudentsFiltered);
                 }
             }
         });

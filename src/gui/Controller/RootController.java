@@ -21,6 +21,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -187,7 +188,7 @@ public class RootController implements Initializable {
             gridPane.setLayoutX(100);
 
             setInitialScene(loader,gridPane);
-        } catch (IOException | UserException e) {
+        } catch (IOException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }

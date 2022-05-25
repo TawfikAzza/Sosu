@@ -5,6 +5,7 @@ import bll.exceptions.UserException;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +28,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageUsersController implements Initializable {
@@ -45,7 +47,7 @@ public class ManageUsersController implements Initializable {
     private Integer test = 1;
 
 
-    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException {
+    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException, SQLException {
         this.userType = userType;
         userModel = UserModel.getInstance();
     }
@@ -55,13 +57,72 @@ public class ManageUsersController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         initializeUsersTV();
         try {
+            userModel= UserModel.getInstance();
+        } catch (IOException | UserException | SQLException e) {
+            e.printStackTrace();
+        }
+        try {
             if (userType == LoginLogoutUtil.UserType.TEACHER)
                 usersTV.setItems(userModel.getAllTeachers());
             else if (userType== LoginLogoutUtil.UserType.STUDENT)
                 usersTV.setItems(userModel.getAllStudents());
             else
-                usersTV.setItems(userModel.getAllAdmins());
-        }catch (SQLException ignored){}
+                usersTV.setItems( userModel.getAllAdmins());
+        }catch (SQLException  ignored){}
+
+        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
+                try {
+                    userModel.getAllTeachers().setPredicate(teacher -> {
+                        if (query.isEmpty() || query.isBlank())
+                            return true;
+                        if (teacher.toString().toLowerCase().contains(query))
+                            return true;
+                        return false;
+                    });
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
+                try {
+                    userModel.getAllStudents().setPredicate(student -> {
+                        if (query.isEmpty() || query.isBlank())
+                            return true;
+                        if (student.toString().toLowerCase().contains(query))
+                            return true;
+                        return false;
+                    });
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
+
+        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
+                try {
+                    userModel.getAllAdmins().setPredicate(admin -> {
+                        if (query.isEmpty() || query.isBlank())
+                            return true;
+                        if (admin.toString().toLowerCase().contains(query))
+                            return true;
+                        return false;
+                    });
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
 
     }
     private void initializeUsersTV() {
