@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ManageSchoolsController">
+<GridPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="580.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.Controller.ManageSchoolsController">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -22,10 +22,6 @@
       <TableView fx:id="schoolsTV" prefHeight="200.0" prefWidth="200.0" GridPane.rowIndex="1">
         <columns>
           <TableColumn fx:id="schoolName" prefWidth="97.0" text="School" />
-          <TableColumn fx:id="schoolAddress" prefWidth="139.0" text="Address" />
-            <TableColumn fx:id="schoolPostalCode" prefWidth="121.0" text="Postal code" />
-            <TableColumn fx:id="schoolRegion" prefWidth="102.0" text="Region" />
-            <TableColumn fx:id="schoolNumber" prefWidth="120.0" text="Number" />
         </columns>
       </TableView>
       <GridPane prefHeight="59.0" prefWidth="791.0">
