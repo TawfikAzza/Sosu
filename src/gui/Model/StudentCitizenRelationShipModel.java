@@ -17,11 +17,9 @@ public class StudentCitizenRelationShipModel {
 
     private final StudentCitizenRelationshipManager studentCitizenRelationshipManager;
     private FilteredList<Citizen> citizensOfStudent;
-    private ObservableList<Student> studentsOfCitizen;
 
     public StudentCitizenRelationShipModel() throws IOException {
         this.studentCitizenRelationshipManager = new StudentCitizenRelationshipManager();
-        this.studentsOfCitizen = FXCollections.observableArrayList();
     }
 
     public FilteredList<Citizen> getObsListCit()

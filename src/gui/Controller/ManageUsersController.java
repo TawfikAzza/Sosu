@@ -6,6 +6,7 @@ import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -75,46 +76,17 @@ public class ManageUsersController implements Initializable {
             public void handle(KeyEvent event) {
                 String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
                 try {
-                    userModel.getAllTeachers().setPredicate(teacher -> {
+                    FilteredList users=null;
+                    if (userType== LoginLogoutUtil.UserType.ADMIN)
+                        users= userModel.getAllAdmins();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        users = userModel.getAllStudents();
+                    else users= userModel.getAllTeachers();
+
+                    users.setPredicate(teacher -> {
                         if (query.isEmpty() || query.isBlank())
                             return true;
                         if (teacher.toString().toLowerCase().contains(query))
-                            return true;
-                        return false;
-                    });
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
-                try {
-                    userModel.getAllStudents().setPredicate(student -> {
-                        if (query.isEmpty() || query.isBlank())
-                            return true;
-                        if (student.toString().toLowerCase().contains(query))
-                            return true;
-                        return false;
-                    });
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-            }
-        });
-
-        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
-                try {
-                    userModel.getAllAdmins().setPredicate(admin -> {
-                        if (query.isEmpty() || query.isBlank())
-                            return true;
-                        if (admin.toString().toLowerCase().contains(query))
                             return true;
                         return false;
                     });
