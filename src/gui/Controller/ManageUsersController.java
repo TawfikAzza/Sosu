@@ -76,17 +76,17 @@ public class ManageUsersController implements Initializable {
             public void handle(KeyEvent event) {
                 String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
                 try {
-                    FilteredList users=null;
+                    FilteredList users;
                     if (userType== LoginLogoutUtil.UserType.ADMIN)
                         users= userModel.getAllAdmins();
                     else if (userType == LoginLogoutUtil.UserType.STUDENT)
                         users = userModel.getAllStudents();
                     else users= userModel.getAllTeachers();
 
-                    users.setPredicate(teacher -> {
+                    users.setPredicate(user -> {
                         if (query.isEmpty() || query.isBlank())
                             return true;
-                        if (teacher.toString().toLowerCase().contains(query))
+                        if (user.toString().toLowerCase().contains(query))
                             return true;
                         return false;
                     });
