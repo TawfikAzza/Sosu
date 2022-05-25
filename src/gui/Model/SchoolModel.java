@@ -80,8 +80,8 @@ public class SchoolModel {
         return single_instance;
     }
 
-    public void editSchool(School school) throws SQLException {
-        schoolManager.editSchool(school);
+    public void editSchool(School school,String name) throws SQLException, SchoolException {
+        schoolManager.editSchool(school,name);
     }
 
     public FilteredList<School> getAllSchoolsFL() {

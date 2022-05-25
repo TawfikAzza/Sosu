@@ -55,7 +55,7 @@ public class NewEditSchoolController {
             }
         else {
             school.setName(schoolName.getText());
-            schoolModel.editSchool(school);
+            schoolModel.editSchool(school,schoolName.getText());
             Stage stage;
             stage = (Stage) schoolName.getScene().getWindow();
             stage.close();

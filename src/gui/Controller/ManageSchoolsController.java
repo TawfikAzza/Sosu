@@ -5,6 +5,7 @@ import be.School;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
+import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -20,8 +21,10 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
+import javafx.util.StringConverter;
 
 import java.io.IOException;
 import java.net.URL;
@@ -82,8 +85,7 @@ public class ManageSchoolsController implements Initializable {
         } catch (IOException ignored) {
         }
 
-        schoolName.setCellValueFactory(new PropertyValueFactory<>("nameProperty"));
-        schoolsTV.setItems(schoolModel.getAllSchoolsFL());
+        initializeSchoolTV();
 
         searchSchool.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
@@ -98,5 +100,47 @@ public class ManageSchoolsController implements Initializable {
                 });
             }
         });
+    }
+
+    private void initializeSchoolTV() {
+        final boolean[] test = {true};
+
+        schoolsTV.setEditable(true);
+        schoolName.setCellValueFactory(new PropertyValueFactory<>("nameProperty"));
+        schoolName.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+            @Override
+            public String toString(String object) {
+                return object;
+            }
+
+            @Override
+            public String fromString(String string) {
+                try {
+                    schoolModel.editSchool(schoolsTV.getSelectionModel().getSelectedItem(),string);
+                    return string;
+                } catch (SQLException ignored) {
+                    return string;
+                } catch (SchoolException e) {
+                    DisplayMessage.displayError(e);
+                    DisplayMessage.displayMessage(e.getMessage());
+                    test[0] =false;
+                    return schoolsTV.getSelectionModel().getSelectedItem().getName();
+                }
+            }
+        }));
+        schoolName.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<School, String>>() {
+            @Override
+            public void handle(TableColumn.CellEditEvent<School, String> event) {
+                School school = event.getRowValue();
+                if (test[0]){
+                    try {
+                        String newName= event.getNewValue();
+                        schoolModel.editSchool(school,newName);
+                    } catch (SQLException | SchoolException e) {
+                        e.printStackTrace();
+                    }
+                }
+        }});
+    schoolsTV.setItems(schoolModel.getAllSchoolsFL());
     }
 }
