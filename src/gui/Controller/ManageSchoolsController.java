@@ -1,12 +1,10 @@
 package gui.Controller;
 
 import be.School;
-import be.Student;
-import be.Teacher;
+
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
-import gui.utils.LoginLogoutUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,8 +24,6 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
@@ -35,7 +31,7 @@ public class ManageSchoolsController implements Initializable {
     @FXML
     private TableView<School> schoolsTV;
     @FXML
-    private TableColumn<School,String> schoolName,schoolAddress,schoolPostalCode,schoolRegion,schoolNumber;
+    private TableColumn<School,String> schoolName;
 
     @FXML
     private TextField searchSchool;
@@ -91,7 +87,7 @@ public class ManageSchoolsController implements Initializable {
         }
 
         schoolName.setCellValueFactory(new PropertyValueFactory<>("nameProperty"));
-            schoolsTV.setItems(allSchools);
+        schoolsTV.setItems(allSchools);
 
         searchSchool.setOnKeyPressed(new EventHandler<KeyEvent>() {
             @Override

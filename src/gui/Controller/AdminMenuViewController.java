@@ -43,9 +43,10 @@ public class AdminMenuViewController extends MenuController{
     public void handleSchoolsBtn(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageSchoolsViews.fxml"));
         Node node = loader.load();
-        node.setLayoutX(168);
+        node.setLayoutX(320);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
