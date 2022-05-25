@@ -17,7 +17,7 @@ public interface UserInterface {
 
     Student getStudent(Student selectedItem) throws SQLException;
 
-    List<Admin> getAllAdmins(String initials) throws SQLException;
+    List<Admin> getAllAdmins() throws SQLException;
 
     Admin newAdmin(School school, String firstName, String lastName, String userName, String passWord, String email, String phoneNumber) throws UserException;
 

@@ -5,6 +5,8 @@ import bll.exceptions.UserException;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +29,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageUsersController implements Initializable {
@@ -45,7 +48,7 @@ public class ManageUsersController implements Initializable {
     private Integer test = 1;
 
 
-    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException {
+    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException, SQLException {
         this.userType = userType;
         userModel = UserModel.getInstance();
     }
@@ -54,27 +57,46 @@ public class ManageUsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeUsersTV();
-        searchUsersField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        try {
+            userModel= UserModel.getInstance();
+        } catch (IOException | UserException | SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (userType == LoginLogoutUtil.UserType.TEACHER)
+                usersTV.setItems(userModel.getAllTeachers());
+            else if (userType== LoginLogoutUtil.UserType.STUDENT)
+                usersTV.setItems(userModel.getAllStudents());
+            else
+                usersTV.setItems( userModel.getAllAdmins());
+        }catch (SQLException  ignored){}
+
+        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        if (userType == LoginLogoutUtil.UserType.TEACHER)
-                            usersTV.setItems(userModel.getAllTeachers(searchUsersField.getText()));
-                        else if (userType== LoginLogoutUtil.UserType.STUDENT)
-                            usersTV.setItems(userModel.getAllStudents(searchUsersField.getText()));
-                        else
-                            usersTV.setItems(userModel.getAllAdmins(searchUsersField.getText()));
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
+                try {
+                    FilteredList users;
+                    if (userType== LoginLogoutUtil.UserType.ADMIN)
+                        users= userModel.getAllAdmins();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        users = userModel.getAllStudents();
+                    else users= userModel.getAllTeachers();
+
+                    users.setPredicate(user -> {
+                        if (query.isEmpty() || query.isBlank())
+                            return true;
+                        if (user.toString().toLowerCase().contains(query))
+                            return true;
+                        return false;
+                    });
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
 
     }
-
     private void initializeUsersTV() {
         usersTV.setEditable(true);
         initializeFnameColumn();
@@ -549,3 +571,47 @@ public class ManageUsersController implements Initializable {
         stage.show();
     }
 }
+
+/**
+ * Important
+ * On table editing school admin
+ * schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+ *         schoolStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+ *             @Override
+ *             public String toString(String object) {
+ *                 return object;
+ *             }
+ *
+ *             @Override
+ *             public String fromString(String string) {
+ *                 try {
+ *                     for (School school : allSchools)
+ *                         if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+ *                             newSchool=school;
+ *                             return school.getName();
+ *                         }
+ *                     SchoolException schoolException = new SchoolException("School not found",new Exception());
+ *                     schoolException.setInstructions("Please find an existing school");
+ *                     throw schoolException;
+ *
+ *                 } catch (SchoolException e) {
+ *                     OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
+ *                     return selectedTeacher.getSchoolName();
+ *                 }
+ *             }
+ *         }));
+ *         schoolStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+ *             @Override
+ *             public void handle(TableColumn.CellEditEvent<Student, String> event) {
+ *                 Student student = event.getRowValue();
+ *                 if (test>0){
+ *                     try {
+ *                         userModel.editStudent(newSchool,student);
+ *                     } catch (UserException | SQLException e) {
+ *                         e.printStackTrace();
+ *                     }
+ *                 }
+ *                 test=1;
+ *             }
+ *         });
+ */

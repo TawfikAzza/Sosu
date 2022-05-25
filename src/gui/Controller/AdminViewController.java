@@ -173,18 +173,15 @@ public class AdminViewController implements Initializable {
         } catch (IOException | SchoolException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
         initializeTeachersTV();
         initializeStudentsTV();
 
-        try {
-            allSchoolsLV.setItems(schoolModel.getAllSchools());
-            allSchools.addAll(allSchoolsLV.getItems());
-        } catch (SchoolException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
+        allSchoolsLV.setItems(schoolModel.getAllSchoolsFL());
+        allSchools.addAll(allSchoolsLV.getItems());
 
         allSchoolsLV.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -223,7 +220,7 @@ public class AdminViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        allTeacherFiltered.setAll(userModel.getAllTeachers(searchTeacherField.getText()));
+                        allTeacherFiltered.setAll(userModel.getAllTeachers());
                         teachersTableView.setItems(allTeacherFiltered);
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);
@@ -237,13 +234,7 @@ public class AdminViewController implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
-                    try {
-                        allStudentsFiltered.setAll(userModel.getAllStudents(searchStudentField.getText()));
-                        studentsTableView.setItems(allStudentsFiltered);
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+                    studentsTableView.setItems(allStudentsFiltered);
                 }
             }
         });
@@ -514,45 +505,7 @@ public class AdminViewController implements Initializable {
                 }
             }
         });
-        schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
-        schoolStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
-            @Override
-            public String toString(String object) {
-                return object;
-            }
 
-            @Override
-            public String fromString(String string) {
-                try {
-                    for (School school : allSchools)
-                        if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
-                            newSchool=school;
-                            return school.getName();
-                        }
-                    SchoolException schoolException = new SchoolException("School not found",new Exception());
-                    schoolException.setInstructions("Please find an existing school");
-                    throw schoolException;
-
-                } catch (SchoolException e) {
-                    OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
-                    return selectedTeacher.getSchoolName();
-                }
-            }
-        }));
-        schoolStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
-            @Override
-            public void handle(TableColumn.CellEditEvent<Student, String> event) {
-                Student student = event.getRowValue();
-                if (test>0){
-                    try {
-                        userModel.editStudent(newSchool,student);
-                    } catch (UserException | SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-                test=1;
-            }
-        });
     }
 
     private void initializeTeachersTV(){

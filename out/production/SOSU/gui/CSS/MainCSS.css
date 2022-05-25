@@ -18,6 +18,9 @@
 
 }
 
+ .jfx-hamburger StackPane { -fx-background-color: #b5aeae; }
+
+
 /*
     References:
     For rounding edges order is top-left, top-right, bottom-right, and bottom-left corners, in that

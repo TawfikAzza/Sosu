@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -20,6 +21,7 @@ import javafx.scene.layout.VBox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -44,6 +46,9 @@ public class RootController implements Initializable {
     @FXML
     private JFXDrawer drawer;
 
+    @FXML
+    private AnchorPane hidePane,closePane;
+
     private LoginLogoutUtil.UserType userType;
     private  List<Node>menuButtons;
     public RootController(LoginLogoutUtil.UserType userType)
@@ -65,6 +70,15 @@ public class RootController implements Initializable {
         menuButtons = drawer.getSidePane();
         initUser();
         setDrawer();
+        hidePane.setOpacity(0.23);
+        hidePane.setVisible(false);
+
+        closePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                closeDrawer();
+            }
+        });
     }
     public void closeDrawer()
     {
@@ -74,6 +88,7 @@ public class RootController implements Initializable {
         for (Node node : menuButtons){
             node.setVisible(false);
             node.setDisable(true);
+            hidePane.setVisible(false);
         }
     }
     public void setDrawer() {
@@ -92,6 +107,7 @@ public class RootController implements Initializable {
                     for (Node node : menuButtons){
                         node.setVisible(false);
                         node.setDisable(true);
+                        hidePane.setVisible(false);
                     }
                 }
                 else {
@@ -99,6 +115,7 @@ public class RootController implements Initializable {
                     for (Node node : menuButtons){
                         node.setVisible(true);
                         node.setDisable(false);
+                        hidePane.setVisible(true);
                     }
                 }
             });
@@ -130,7 +147,7 @@ public class RootController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            MenuController menuController = new TeacherMenuController(mainPane);
+            MenuController menuController = new TeacherMenuController(mainPane,hidePane);
             loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             setInitialScene(loader, gridPane);
@@ -162,7 +179,7 @@ public class RootController implements Initializable {
             loader.setController(menuController);
             AdminMenuViewController adminMenuViewController = loader.getController();
             adminMenuViewController.setRootController(this);
-
+            adminMenuViewController.setHidePane(hidePane);
             FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
             ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.ADMIN);
             teacherLoader.setController(manageUsersController);
@@ -171,7 +188,7 @@ public class RootController implements Initializable {
             gridPane.setLayoutX(100);
 
             setInitialScene(loader,gridPane);
-        } catch (IOException | UserException e) {
+        } catch (IOException | UserException | SQLException e) {
             e.printStackTrace();
         }
     }
@@ -181,11 +198,13 @@ public class RootController implements Initializable {
         try {
             menu.load();
             MenuController menuController = menu.getController();
+            menuController.setHidePane(hidePane);
 
             drawer.setSidePane(menuController.getBtnBox());
             iconsBox.getChildren().add(menuController.getIconBox());
             mainPane.getChildren().clear();
             mainPane.getChildren().add(scene);
+            mainPane.getChildren().add(hidePane);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }

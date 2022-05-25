@@ -12,7 +12,7 @@ public abstract class MenuController {
 
     private VBox iconBox;
     private VBox btnBox;
-    private AnchorPane mainPane;
+    private AnchorPane mainPane,hidePane;
 
     public MenuController(AnchorPane mainPane)
     {
@@ -27,6 +27,7 @@ public abstract class MenuController {
         return btnBox;
     }
 
-
-
+    public void setHidePane(AnchorPane hidePane) {
+        this.hidePane=hidePane;
+    }
 }

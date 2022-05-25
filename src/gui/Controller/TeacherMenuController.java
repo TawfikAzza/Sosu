@@ -13,15 +13,16 @@ import java.io.IOException;
 
 public class TeacherMenuController extends MenuController{
 
-    private AnchorPane mainPane;
+    private AnchorPane mainPane,hidePane;
     @FXML
     private VBox iconBox;
     @FXML
     private VBox btnBox;
 
-    public TeacherMenuController(AnchorPane mainPane) {
+    public TeacherMenuController(AnchorPane mainPane,AnchorPane hidePane) {
         super(mainPane);
         this.mainPane=mainPane;
+        this.hidePane = hidePane;
     }
 
     public VBox getIconBox() {
@@ -32,18 +33,13 @@ public class TeacherMenuController extends MenuController{
         return btnBox;
     }
 
-    public void handleAdminBtn(ActionEvent actionEvent){}
-
-    public void handleSchoolsBtn(ActionEvent actionEvent){}
-
-    public void handleLogOutBtn(ActionEvent actionEvent){}
-
 
     public void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
+            mainPane.getChildren().add(hidePane);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
@@ -54,6 +50,7 @@ public class TeacherMenuController extends MenuController{
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
+            mainPane.getChildren().add(hidePane);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
