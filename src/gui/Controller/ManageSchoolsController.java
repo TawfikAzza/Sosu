@@ -122,7 +122,7 @@ public class ManageSchoolsController implements Initializable {
                     return string;
                 } catch (SchoolException e) {
                     DisplayMessage.displayError(e);
-                    DisplayMessage.displayMessage(e.getMessage());
+                    DisplayMessage.displayMessage(e.getExceptionMessage());
                     test[0] =false;
                     return schoolsTV.getSelectionModel().getSelectedItem().getName();
                 }
