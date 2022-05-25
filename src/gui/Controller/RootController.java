@@ -146,7 +146,7 @@ public class RootController implements Initializable {
     {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/TeacherMenu.fxml"));
-            MenuController menuController = new TeacherMenuController(mainPane);
+            MenuController menuController = new TeacherMenuController(mainPane,hidePane);
             loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             setInitialScene(loader, gridPane);
@@ -197,6 +197,7 @@ public class RootController implements Initializable {
         try {
             menu.load();
             MenuController menuController = menu.getController();
+            menuController.setHidePane(hidePane);
 
             drawer.setSidePane(menuController.getBtnBox());
             iconsBox.getChildren().add(menuController.getIconBox());
