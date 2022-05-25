@@ -6,6 +6,7 @@ import com.jfoenix.controls.JFXDrawer;
 import com.jfoenix.controls.JFXHamburger;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,7 +46,7 @@ public class RootController implements Initializable {
     private JFXDrawer drawer;
 
     @FXML
-    private AnchorPane hidePane;
+    private AnchorPane hidePane,closePane;
 
     private LoginLogoutUtil.UserType userType;
     private  List<Node>menuButtons;
@@ -70,6 +71,13 @@ public class RootController implements Initializable {
         setDrawer();
         hidePane.setOpacity(0.23);
         hidePane.setVisible(false);
+
+        closePane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                closeDrawer();
+            }
+        });
     }
     public void closeDrawer()
     {
