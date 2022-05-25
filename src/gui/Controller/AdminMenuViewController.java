@@ -19,8 +19,9 @@ import java.io.IOException;
 public class AdminMenuViewController extends MenuController{
     @FXML
     private VBox btnBox,iconBox;
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPane,hidePane;
     private RootController rootController;
+
     public AdminMenuViewController(AnchorPane mainPane) {
         super(mainPane);
         this.anchorPane = mainPane;
@@ -57,6 +58,7 @@ public class AdminMenuViewController extends MenuController{
         node.setLayoutX(100);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
@@ -68,6 +70,7 @@ public class AdminMenuViewController extends MenuController{
         node.setLayoutX(100);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
@@ -79,6 +82,8 @@ public class AdminMenuViewController extends MenuController{
         node.setLayoutX(100);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
+
 
         rootController.closeDrawer();
     }
@@ -95,8 +100,12 @@ public class AdminMenuViewController extends MenuController{
 
         tabPane.setLayoutX(40);
         anchorPane.getChildren().setAll(tabPane);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
         }
 
+    public void setHidePane(AnchorPane hidePane) {
+        this.hidePane=hidePane;
+    }
 }

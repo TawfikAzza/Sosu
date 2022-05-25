@@ -178,7 +178,7 @@ public class RootController implements Initializable {
             loader.setController(menuController);
             AdminMenuViewController adminMenuViewController = loader.getController();
             adminMenuViewController.setRootController(this);
-
+            adminMenuViewController.setHidePane(hidePane);
             FXMLLoader teacherLoader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
             ManageUsersController manageUsersController = new ManageUsersController(LoginLogoutUtil.UserType.ADMIN);
             teacherLoader.setController(manageUsersController);
