@@ -571,3 +571,47 @@ public class ManageUsersController implements Initializable {
         stage.show();
     }
 }
+
+/**
+ * Important
+ * On table editing school admin
+ * schoolStudent.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+ *         schoolStudent.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+ *             @Override
+ *             public String toString(String object) {
+ *                 return object;
+ *             }
+ *
+ *             @Override
+ *             public String fromString(String string) {
+ *                 try {
+ *                     for (School school : allSchools)
+ *                         if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+ *                             newSchool=school;
+ *                             return school.getName();
+ *                         }
+ *                     SchoolException schoolException = new SchoolException("School not found",new Exception());
+ *                     schoolException.setInstructions("Please find an existing school");
+ *                     throw schoolException;
+ *
+ *                 } catch (SchoolException e) {
+ *                     OnSchoolEditException(e.getExceptionMessage(), e.getInstructions());
+ *                     return selectedTeacher.getSchoolName();
+ *                 }
+ *             }
+ *         }));
+ *         schoolStudent.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent<Student, String>>() {
+ *             @Override
+ *             public void handle(TableColumn.CellEditEvent<Student, String> event) {
+ *                 Student student = event.getRowValue();
+ *                 if (test>0){
+ *                     try {
+ *                         userModel.editStudent(newSchool,student);
+ *                     } catch (UserException | SQLException e) {
+ *                         e.printStackTrace();
+ *                     }
+ *                 }
+ *                 test=1;
+ *             }
+ *         });
+ */
