@@ -29,8 +29,8 @@
       <TextField fx:id="schoolName" promptText="school name" GridPane.columnIndex="1" GridPane.rowIndex="1" />
       <ButtonBar prefHeight="45.0" prefWidth="140.0" GridPane.columnIndex="1" GridPane.rowIndex="2">
          <buttons>
-            <Button mnemonicParsing="false" text="Cancel" />
-            <Button mnemonicParsing="false" text="Confirm" />
+            <Button mnemonicParsing="false" onAction="#handleCancelBtn" text="Cancel" />
+            <Button mnemonicParsing="false" onAction="#handleConfirmBtn" text="Confirm" />
          </buttons>
       </ButtonBar>
    </children>

@@ -180,13 +180,8 @@ public class AdminViewController implements Initializable {
         initializeTeachersTV();
         initializeStudentsTV();
 
-        try {
-            allSchoolsLV.setItems(schoolModel.getAllSchools());
-            allSchools.addAll(allSchoolsLV.getItems());
-        } catch (SchoolException e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();
-        }
+        allSchoolsLV.setItems(schoolModel.getAllSchoolsFL());
+        allSchools.addAll(allSchoolsLV.getItems());
 
         allSchoolsLV.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

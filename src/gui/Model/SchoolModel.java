@@ -8,9 +8,12 @@ import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 
+import java.awt.*;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.List;
 
 public class SchoolModel {
 
@@ -20,15 +23,23 @@ public class SchoolModel {
     ObservableList<String> allTeachers;
     ObservableList<String> allCitizens;
 
+    private FilteredList<School>allSchoolsFL;
+
     private static SchoolModel single_instance = null;
 
     private SchoolModel() throws SchoolException {
         schoolManager = new SchoolManager();
+        initObs();
     }
-    public ObservableList<School>getAllSchools() throws SchoolException {
-        allSchools= FXCollections.observableArrayList();
-        allSchools.addAll(schoolManager.getAllSchools());
-        return allSchools;
+
+    private void initObs() throws SchoolException {
+        ObservableList<School>allSchools=FXCollections.observableArrayList();
+        allSchools.addAll(getAllSchools());
+        allSchoolsFL = new FilteredList<>(allSchools,school -> true);
+    }
+
+    public List<School> getAllSchools() throws SchoolException {
+        return schoolManager.getAllSchools();
     }
 
     public ObservableList<String>getAllStudents(School school) throws SQLException, UserException {
@@ -50,15 +61,16 @@ public class SchoolModel {
     }
 
     public School newSchool(String text) throws SchoolException {
-        School school;
-        school = schoolManager.newSchool(text);
-        allSchools.add(school);
-        return school;
+        School newSchool =  schoolManager.newSchool(text);
+        ObservableList<School> underlyingList = ((ObservableList<School>) allSchoolsFL.getSource());
+        underlyingList.add(newSchool);
+        return newSchool;
     }
 
     public void deleteSchool(School selectedItem) throws SQLException {
         schoolManager.deleteSchool(selectedItem);
-        allSchools.remove(selectedItem);
+        ObservableList<School> underlyingList = (ObservableList<School>) allSchoolsFL.getSource();
+        underlyingList.remove(selectedItem);
     }
 
     public static SchoolModel getInstance() throws IOException, UserException, SchoolException {
@@ -70,5 +82,9 @@ public class SchoolModel {
 
     public void editSchool(School school) throws SQLException {
         schoolManager.editSchool(school);
+    }
+
+    public FilteredList<School> getAllSchoolsFL() {
+        return allSchoolsFL;
     }
 }

@@ -5,8 +5,10 @@ import be.School;
 import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
+import gui.utils.LoginLogoutUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -80,25 +82,20 @@ public class ManageSchoolsController implements Initializable {
         } catch (IOException ignored) {
         }
 
-        try {
-            allSchools.setAll(schoolModel.getAllSchools());
-        } catch (SchoolException e) {
-            e.printStackTrace();
-        }
-
         schoolName.setCellValueFactory(new PropertyValueFactory<>("nameProperty"));
-        schoolsTV.setItems(allSchools);
+        schoolsTV.setItems(schoolModel.getAllSchoolsFL());
 
-        searchSchool.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        searchSchool.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                ObservableList<School>schoolsFiltered;
-                schoolsFiltered= FXCollections.observableArrayList();
-                for (School school : allSchools)
-                    if (school.getName().toLowerCase(Locale.ROOT).contains(searchSchool.getText().toLowerCase(Locale.ROOT)))
-                        schoolsFiltered.add(school);
-
-                schoolsTV.setItems(schoolsFiltered);
+                String query = (searchSchool.getText().toLowerCase(Locale.ROOT));
+                schoolModel.getAllSchoolsFL().setPredicate(school -> {
+                    if (query.isEmpty() || query.isBlank())
+                        return true;
+                    if (school.toString().toLowerCase().contains(query))
+                        return true;
+                    return false;
+                });
             }
         });
     }

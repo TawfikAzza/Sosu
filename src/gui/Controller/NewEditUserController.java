@@ -188,7 +188,7 @@ public class NewEditUserController implements Initializable {
             studentModel = StudentModel.getInstance();
             schoolModel = SchoolModel.getInstance();
 
-            schoolComboBox.setItems(schoolModel.getAllSchools());
+            schoolComboBox.setItems(schoolModel.getAllSchoolsFL());
         } catch (IOException | UserException | SchoolException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
