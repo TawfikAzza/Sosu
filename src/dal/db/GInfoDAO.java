@@ -5,6 +5,7 @@ import be.GeneralInfo;
 import be.InfoCategory;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -16,15 +17,17 @@ import java.util.List;
 
 public class GInfoDAO {
 
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
 
     public GInfoDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public List<InfoCategory> getGInfoCategories() throws SQLException {
         List<InfoCategory> infoCategories = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlQuery = "SELECT * FROM [GeneralInfo]\n" +
                     "ORDER BY position ASC  ";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlQuery);
@@ -52,7 +55,7 @@ public class GInfoDAO {
     private void updateInfo(Citizen citizen, InfoCategory infoCategory, String infoContent) throws SQLException {
         int citizenID = citizen.getId();
         int categoryID = infoCategory.getId();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE CitizenInfo\n" +
                     "SET infoContent = ?\n" +
                     "WHERE categoryID = ? AND citizenID = ?";
@@ -67,7 +70,7 @@ public class GInfoDAO {
     private void insetInfo(Citizen citizen, InfoCategory infoCategory, String infoContent) throws SQLException {
         int citizenID = citizen.getId();
         int infoCategoryID = infoCategory.getId();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO CitizenInfo VALUES(?,?,?)";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, citizenID);
@@ -80,7 +83,7 @@ public class GInfoDAO {
     public boolean checkIfInfoExists(Citizen citizen, InfoCategory infoCategory) throws SQLException {
         int citizenID = citizen.getId();
         int infoCategoryID = infoCategory.getId();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROm CitizenInfo\n" +
                     "WHERE citizenID = ? AND categoryID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -98,7 +101,7 @@ public class GInfoDAO {
         GeneralInfo generalInfoSearched = null;
         int citizenID = citizen.getId();
         int infoCategoryID = infoCategory.getId();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROm CitizenInfo " +
                     " WHERE citizenID = ? AND categoryID = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);

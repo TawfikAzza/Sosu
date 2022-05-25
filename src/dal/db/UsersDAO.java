@@ -4,6 +4,7 @@ package dal.db;
 import be.*;
 import bll.util.GlobalVariables;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -12,17 +13,19 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class UsersDAO {
-    private  ConnectionManager cm;
+    //private  ConnectionManager cm;
+    private DBCPDataSource dataSource;
 
     private SchoolDAO schoolDAO;
 
     public UsersDAO() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public User compareLogins(String userName, String passWord){
         User user=null;
-        try (Connection con = cm.getConnection()){
+        try (Connection con = dataSource.getConnection()){
             String sql = "SELECT [user_name],[password],[e_mail], [roleID], [id],[school_id] FROM [user] WHERE [user_name] =? AND [password] =?";
 
             PreparedStatement pstmt = con.prepareStatement(sql);
@@ -69,7 +72,7 @@ public class UsersDAO {
     }
     public int userNameTaken(String userName) throws SQLException {
         int counter = 0;
-        try (Connection connection = cm.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql= "SELECT * FROM [user] WHERE user_name= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,userName);

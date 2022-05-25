@@ -5,6 +5,7 @@ import be.Citizen;
 import bll.exceptions.CaseException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,15 +14,17 @@ import java.util.List;
 
 public class CaseDAO {
 
-    private final ConnectionManager cm;
+    //private final ConnectionManager cm;
+    private DBCPDataSource dataSource;
 
     public CaseDAO() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public List<Case> getAllCases() throws CaseException {
         List<Case> cases = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT id, content, caseName FROM [Case]";
 
             Statement statement = connection.createStatement();
@@ -43,7 +46,7 @@ public class CaseDAO {
 
 
     public int addCase(Case newCase) throws CaseException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO [Case] VALUES (?,?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -65,7 +68,7 @@ public class CaseDAO {
     }
 
     public Case getCitizenCase(Citizen citizen) throws CaseException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT id, content, caseName  FROM [Case] WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -87,7 +90,7 @@ public class CaseDAO {
     }
 
     public void editCase(int id, Case newCase) {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE [Case] SET content = ?, caseName = ? WHERE id = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 

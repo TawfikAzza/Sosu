@@ -16,5 +16,6 @@
     <orderEntry type="library" name="itextpdf" level="project" />
     <orderEntry type="library" name="apache.pdfbox.fontbox" level="project" />
     <orderEntry type="library" name="de.jensd.fontawesomefx" level="project" />
+    <orderEntry type="library" name="apache.commons.dbcp2" level="project" />
   </component>
 </module>

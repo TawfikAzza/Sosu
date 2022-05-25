@@ -4,6 +4,7 @@ import be.*;
 import bll.exceptions.CitizenException;
 
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,14 +14,18 @@ import java.util.List;
 
 public class CitizenFacade {
 
-    private final ConnectionManager cm;
+    //private final ConnectionManager cm;
+    private DBCPDataSource dataSource;
+
 
     public CitizenFacade() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
+
     }
 
     private Citizen addCitizen(Citizen citizen, boolean isTemplate) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO Citizen VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -60,7 +65,7 @@ public class CitizenFacade {
     private List<Condition> getHealthConditions(Citizen citizen) throws CitizenException {
         List<Condition> conditions = new ArrayList<>();
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM Conditions WHERE citizenID = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
 
@@ -95,7 +100,7 @@ public class CitizenFacade {
     private List<Ability> getFunctionalAbilities(Citizen citizen) throws CitizenException {
         List<Ability> abilities = new ArrayList<>();
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM Abilities WHERE citizenID = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
 
@@ -135,7 +140,7 @@ public class CitizenFacade {
 
     private List<GeneralInfo> getGeneralInfo(Citizen citizen) throws CitizenException {
         List<GeneralInfo> info = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM CitizenInfo WHERE citizenID = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
 
@@ -159,7 +164,7 @@ public class CitizenFacade {
     }
 
     private void addHealthConditions(List<Condition> conditions, Citizen citizen) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "INSERT INTO Conditions VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -197,7 +202,7 @@ public class CitizenFacade {
     }
 
     private void addFunctionalAbilities(List<Ability> abilities, Citizen citizen) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sql = "INSERT INTO Abilities VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -239,7 +244,7 @@ public class CitizenFacade {
 
     private void addGeneralInfo(List<GeneralInfo> generalInfo, Citizen citizen) throws CitizenException {
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sql = "INSERT INTO CitizenInfo VALUES(?, ?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);

@@ -6,6 +6,7 @@ import be.HealthCategory;
 import bll.util.DateUtil;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -20,10 +21,12 @@ import java.util.List;
 import java.util.Map;
 
 public class HealthConditionDAO {
-    private ConnectionManager cm;
+    //private ConnectionManager cm;
+    private DBCPDataSource dataSource;
 
     public HealthConditionDAO() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource = DBCPDataSource.getInstance();
     }
     /**
      * Author : Tawfik
@@ -38,7 +41,7 @@ public class HealthConditionDAO {
     public List<HealthCategory> getAllCategoriesTree() throws SQLException {
         List<HealthCategory> healthCategories = new ArrayList<>();
         HashMap<Integer,HealthCategory> mainHealthCategories = getAllMainHealthCategories();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "Select HealthCategories.*, HealthCategories.sid " +
                     "FROM HealthCategories where id in (SELECT id from HealthCategories where sid IS NOT NULL)";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
@@ -68,7 +71,7 @@ public class HealthConditionDAO {
     public List<HealthCategory> getAllSubCategories() throws SQLException {
         List<HealthCategory> healthCategories = new ArrayList<>();
         HashMap<Integer,HealthCategory> mainHealthCategories = getAllMainHealthCategories();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "Select HealthCategories.*, HealthCategories.sid as sidMain " +
                     "FROM HealthCategories where id in (SELECT id from HealthCategories where sid IS NOT NULL) ORDER BY sidMain";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
@@ -97,7 +100,7 @@ public class HealthConditionDAO {
      * **/
     public HashMap<Integer,HealthCategory> getAllMainHealthCategories() throws SQLException {
         HashMap<Integer,HealthCategory> allCategories = new HashMap<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM HealthCategories WHERE SID IS NULL";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -117,7 +120,7 @@ public class HealthConditionDAO {
      * ****/
     public Condition getCondition(HealthCategory healthCategory, Citizen citizen) throws SQLException {
         Condition conditionSearched = null;
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM CONDITIONS WHERE categoryID = ? AND citizenID = ?";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1,healthCategory.getId());
@@ -148,7 +151,7 @@ public class HealthConditionDAO {
      * **/
 
     public void addCondition(Condition condition) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlInsert = "INSERT INTO CONDITIONS VALUES(?, ?, ?, ?, ?, ?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
             pstmt.setInt(1, condition.getCategoryID());
@@ -174,7 +177,7 @@ public class HealthConditionDAO {
      */
 
     public void updateCondition(Condition condition) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlUpdate = "UPDATE CONDITIONS set importantNote=?, status = ?, assessement= ?, goal= ?, visitDate=?," +
                     "observations=?,expectedScore=? " +
                     " WHERE categoryID=? AND citizenID=?  ";
@@ -229,7 +232,7 @@ public class HealthConditionDAO {
             categoryHashMap.put(healthCategory.getId(),healthCategory);
         }
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             //THe query is straighforward and do no need comments.
             //The only thing is that this query's result will be used to fill the HashMap of Conditions
             //with the right values.

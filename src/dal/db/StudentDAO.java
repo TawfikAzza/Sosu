@@ -5,6 +5,7 @@ import bll.util.CheckInput;
 import bll.exceptions.UserException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,16 +14,19 @@ import java.util.List;
 
 public class StudentDAO {
 
-    private final ConnectionManager connectionManager;
+   // private final ConnectionManager connectionManager;
     UsersDAO usersDAO = new UsersDAO();
+    private DBCPDataSource dataSource;
+
 
     public StudentDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public List<Student> getAllStudents(int schoolId) throws SQLException {
         List<Student> allStudents = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql0 = "SELECT * FROM UserRoles WHERE roleName=? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql0);
             preparedStatement.setString(1, "Student");
@@ -61,7 +65,7 @@ public class StudentDAO {
             if (school==null){
                 throw new UserException("Please find a school for the teacher",new Exception());
             }
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
                 PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
                 preparedStatement0.setString(1, "Student");
@@ -96,7 +100,7 @@ public class StudentDAO {
     }
 
     public void deleteStudent(Student student) throws SQLException {
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "DELETE FROM [user] WHERE id= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, student.getId());
@@ -108,7 +112,7 @@ public class StudentDAO {
         boolean creation=false;
         try {
             exceptionCreation(student.getFirstName(),student.getLastName(),student.getUserName(),student.getPassWord(),student.getEmail(),String.valueOf(student.getPhoneNumber()),creation);
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, school.getId());
@@ -129,7 +133,7 @@ public class StudentDAO {
 
     private String schoolName(int schoolId) throws SQLException {
         String schoolName = null;
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM school WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, schoolId);
@@ -157,7 +161,7 @@ public class StudentDAO {
 
     public ArrayList<Student> getAllStudentsFromDB(School currentSchool) throws UserException {
         ArrayList<Student> students = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sql = "SELECT [id],[first_name],[last_name] FROM [user] WHERE roleID = ? AND school_id=? ";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -185,7 +189,7 @@ public class StudentDAO {
     }
 
     public Student getStudent(Student student)throws SQLException{
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql ="SELECT * FROM [user] WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,student.getId());

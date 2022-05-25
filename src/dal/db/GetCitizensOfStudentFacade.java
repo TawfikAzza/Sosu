@@ -6,6 +6,7 @@ import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -17,15 +18,17 @@ import java.util.ArrayList;
 
 public class GetCitizensOfStudentFacade {
 
-    private final ConnectionManager cm;
+    //private final ConnectionManager cm;
+    private DBCPDataSource dataSource;
 
     public GetCitizensOfStudentFacade() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource = DBCPDataSource.getInstance();
     }
 
     private ArrayList<Integer> getCitizenIDs(Student student) throws StudentException {
         ArrayList<Integer> IDs = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM CitizenStudentRelation WHERE studentID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -48,7 +51,7 @@ public class GetCitizensOfStudentFacade {
 
     private ArrayList<Citizen> getCitizensFromID(ArrayList<Integer> IDs) throws CitizenException {
         ArrayList<Citizen> citizens = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             //String sqlSelect = "SELECT * FROM Citizen WHERE id = ?";
             String sqlSelect = "SELECT * , school.name as schoolName FROM Citizen Inner Join school ON Citizen.school_id = school.id WHERE Citizen.id = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
