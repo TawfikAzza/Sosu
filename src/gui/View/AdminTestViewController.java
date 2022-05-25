@@ -129,7 +129,7 @@ public class AdminTestViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        teachersTV.setItems(userModel.getAllTeachers(searchTeachersFilter.getText()));
+                        teachersTV.setItems(userModel.getAllTeachers());
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();
@@ -142,7 +142,7 @@ public class AdminTestViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        studentsTV.setItems(userModel.getAllStudents(searchTeachersFilter.getText()));
+                        studentsTV.setItems(userModel.getAllStudents());
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);
                         e.printStackTrace();

@@ -33,15 +33,15 @@ public class UserModel {
     }
 
 
-    public ObservableList<Teacher> getAllTeachers(String init) throws SQLException{
+    public ObservableList<Teacher> getAllTeachers() throws SQLException{
         allTeachers= FXCollections.observableArrayList();
-        allTeachers.addAll(userManager.getAllTeachers(init));
+        allTeachers.addAll(userManager.getAllTeachers());
         return allTeachers;
     }
 
-    public ObservableList<Student> getAllStudents(String init) throws SQLException{
+    public ObservableList<Student> getAllStudents() throws SQLException{
         allStudents= FXCollections.observableArrayList();
-        allStudents.addAll(userManager.getAllStudents(init));
+        allStudents.addAll(userManager.getAllStudents());
         return allStudents;
     }
 
@@ -114,9 +114,9 @@ public class UserModel {
         return userManager.getStudent(selectedItem);
     }
 
-    public ObservableList<Admin> getAllAdmins(String initials) throws SQLException {
+    public ObservableList<Admin> getAllAdmins() throws SQLException {
         allAdmins= FXCollections.observableArrayList();
-        allAdmins.addAll(userManager.getAllAdmins(initials));
+        allAdmins.addAll(userManager.getAllAdmins());
         return allAdmins;
     }
 

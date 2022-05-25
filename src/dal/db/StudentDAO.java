@@ -20,7 +20,7 @@ public class StudentDAO {
         connectionManager = new ConnectionManager();
     }
 
-    public List<Student> getAllStudents(String initials,int schoolId) throws SQLException {
+    public List<Student> getAllStudents(int schoolId) throws SQLException {
         List<Student> allStudents = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()) {
             String sql0 = "SELECT * FROM UserRoles WHERE roleName=? ";
@@ -29,27 +29,11 @@ public class StudentDAO {
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1;
-                PreparedStatement preparedStatement1;
-                if (initials.equals("*")){
-                     sql1= "SELECT * FROM [user] WHERE roleID=? AND school_id= ?";
-                     preparedStatement1 = connection.prepareStatement(sql1);
-                     preparedStatement1.setInt(1,id);
-                     preparedStatement1.setInt(2,schoolId);
-                }
-                else{
-                 sql1 = "SELECT * FROM [user] WHERE (first_name LIKE ? OR last_name LIKE ? OR user_name LIKE ? OR [password] LIKE ? OR e_mail LIKE ? OR phone_number LIKE ?) AND roleID=? AND school_id= ?";
-                    preparedStatement1 = connection.prepareStatement(sql1);
-                for (int i = 1; i <= 5; i++)
-                    preparedStatement1.setString(i, "%"+initials+"%");
-                try {
-                    preparedStatement1.setInt(6, Integer.parseInt(initials));
-                } catch (NumberFormatException numberFormatException) {
-                    preparedStatement1.setInt(6, 0);
-                }
-                preparedStatement1.setInt(7, id);
-                preparedStatement1.setInt(8,schoolId);
-                }
+                String sql1= "SELECT * FROM [user] WHERE roleID=? AND school_id= ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+                preparedStatement1.setInt(1,id);
+                preparedStatement1.setInt(2,schoolId);
+
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()) {
                     Student student = new Student(resultSet1.getInt("id"),

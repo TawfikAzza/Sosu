@@ -223,7 +223,7 @@ public class AdminViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        allTeacherFiltered.setAll(userModel.getAllTeachers(searchTeacherField.getText()));
+                        allTeacherFiltered.setAll(userModel.getAllTeachers());
                         teachersTableView.setItems(allTeacherFiltered);
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);
@@ -238,7 +238,7 @@ public class AdminViewController implements Initializable {
             public void handle(KeyEvent event) {
                 if (event.getCode().equals(KeyCode.ENTER)){
                     try {
-                        allStudentsFiltered.setAll(userModel.getAllStudents(searchStudentField.getText()));
+                        allStudentsFiltered.setAll(userModel.getAllStudents());
                         studentsTableView.setItems(allStudentsFiltered);
                     } catch (SQLException e) {
                         DisplayMessage.displayError(e);

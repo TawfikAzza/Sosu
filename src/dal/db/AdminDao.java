@@ -21,7 +21,7 @@ public class AdminDao {
         usersDAO= new UsersDAO();
     }
 
-    public List<Admin>getAllAdmins(String initials)throws SQLException {
+    public List<Admin>getAllAdmins(int schoolId)throws SQLException {
         List<Admin>allAdmins = new ArrayList<>();
         try (Connection connection = connectionManager.getConnection()){
             String sql = "SELECT * FROM UserRoles WHERE roleName=? ";
@@ -30,23 +30,10 @@ public class AdminDao {
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 int roleId= resultSet.getInt("roleID");
-                PreparedStatement preparedStatement1;
-                if (initials.equals("*")){
-                String sql0 = "SELECT * FROM [user] WHERE roleID= ?";
-                preparedStatement1 = connection.prepareStatement(sql0);
+                String sql0 = "SELECT * FROM [user] WHERE roleID= ? AND school_id= ?";
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql0);
                 preparedStatement1.setInt(1,roleId);
-                }else {
-                    String sql0 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=?";
-                    preparedStatement1 = connection.prepareStatement(sql0);
-                    for (int i = 1; i <= 5; i++)
-                        preparedStatement1.setString(i, initials);
-                    try {
-                        preparedStatement1.setInt(6, Integer.parseInt(initials));
-                    } catch (NumberFormatException numberFormatException) {
-                        preparedStatement1.setInt(6, 0);
-                    }
-                    preparedStatement1.setInt(7,roleId);
-                }
+                preparedStatement1.setInt(2,schoolId);
 
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()){

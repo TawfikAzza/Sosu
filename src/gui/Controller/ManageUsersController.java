@@ -54,27 +54,16 @@ public class ManageUsersController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeUsersTV();
-        searchUsersField.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        if (userType == LoginLogoutUtil.UserType.TEACHER)
-                            usersTV.setItems(userModel.getAllTeachers(searchUsersField.getText()));
-                        else if (userType== LoginLogoutUtil.UserType.STUDENT)
-                            usersTV.setItems(userModel.getAllStudents(searchUsersField.getText()));
-                        else
-                            usersTV.setItems(userModel.getAllAdmins(searchUsersField.getText()));
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+        try {
+            if (userType == LoginLogoutUtil.UserType.TEACHER)
+                usersTV.setItems(userModel.getAllTeachers());
+            else if (userType== LoginLogoutUtil.UserType.STUDENT)
+                usersTV.setItems(userModel.getAllStudents());
+            else
+                usersTV.setItems(userModel.getAllAdmins());
+        }catch (SQLException ignored){}
 
     }
-
     private void initializeUsersTV() {
         usersTV.setEditable(true);
         initializeFnameColumn();
