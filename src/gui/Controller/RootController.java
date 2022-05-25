@@ -44,6 +44,9 @@ public class RootController implements Initializable {
     @FXML
     private JFXDrawer drawer;
 
+    @FXML
+    private AnchorPane hidePane;
+
     private LoginLogoutUtil.UserType userType;
     private  List<Node>menuButtons;
     public RootController(LoginLogoutUtil.UserType userType)
@@ -65,6 +68,8 @@ public class RootController implements Initializable {
         menuButtons = drawer.getSidePane();
         initUser();
         setDrawer();
+        hidePane.setOpacity(0.23);
+        hidePane.setVisible(false);
     }
     public void closeDrawer()
     {
@@ -74,6 +79,7 @@ public class RootController implements Initializable {
         for (Node node : menuButtons){
             node.setVisible(false);
             node.setDisable(true);
+            hidePane.setVisible(false);
         }
     }
     public void setDrawer() {
@@ -92,6 +98,7 @@ public class RootController implements Initializable {
                     for (Node node : menuButtons){
                         node.setVisible(false);
                         node.setDisable(true);
+                        hidePane.setVisible(false);
                     }
                 }
                 else {
@@ -99,6 +106,7 @@ public class RootController implements Initializable {
                     for (Node node : menuButtons){
                         node.setVisible(true);
                         node.setDisable(false);
+                        hidePane.setVisible(true);
                     }
                 }
             });
@@ -186,6 +194,7 @@ public class RootController implements Initializable {
             iconsBox.getChildren().add(menuController.getIconBox());
             mainPane.getChildren().clear();
             mainPane.getChildren().add(scene);
+            mainPane.getChildren().add(hidePane);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
