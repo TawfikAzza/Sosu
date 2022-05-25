@@ -10,10 +10,10 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="233.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<GridPane fx:id="gridPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="376.0" prefWidth="233.0" stylesheets="@../CSS/MainCSS.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
-      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="0.0" prefWidth="14.0" />
-    <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="198.0" />
+      <ColumnConstraints hgrow="SOMETIMES" maxWidth="194.0" minWidth="0.0" prefWidth="36.0" />
+    <ColumnConstraints hgrow="SOMETIMES" maxWidth="540.0" minWidth="10.0" prefWidth="187.0" />
     <ColumnConstraints hgrow="SOMETIMES" maxWidth="143.0" minWidth="9.0" prefWidth="9.0" />
   </columnConstraints>
   <rowConstraints>
@@ -46,5 +46,10 @@
             <Button fx:id="cnfrmButton" mnemonicParsing="false" onAction="#createNewUser" text="Confirm" />
          </buttons>
       </ButtonBar>
+      <HBox fx:id="iconUNBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="3" />
+      <HBox fx:id="iconPWBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="4" />
+      <HBox fx:id="iconEmailBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="5" />
+      <HBox prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="7" />
+      <HBox fx:id="iconPNBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" GridPane.rowIndex="6" />
    </children>
 </GridPane>

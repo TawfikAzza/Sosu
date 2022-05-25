@@ -5,6 +5,8 @@ import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import bll.util.GlobalVariables;
 import com.jfoenix.controls.JFXComboBox;
+import de.jensd.fx.glyphs.GlyphsDude;
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon;
 import gui.Model.SchoolModel;
 import gui.Model.StudentModel;
 import gui.Model.UserModel;
@@ -24,7 +26,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -46,6 +51,8 @@ public class NewEditUserController implements Initializable {
     private TextField firstName, lastName, userName, passWord, email, phoneNumberField;
     @FXML
     private JFXComboBox<School> schoolComboBox;
+    @FXML
+    private HBox iconUNBox,iconPWBox,iconEmailBox,iconPNBox;
 
     private Boolean newUser = true;
 
@@ -179,7 +186,7 @@ public class NewEditUserController implements Initializable {
         try {
             userModel = UserModel.getInstance();
             studentModel = StudentModel.getInstance();
-            schoolModel = new SchoolModel();
+            schoolModel = SchoolModel.getInstance();
 
             schoolComboBox.setItems(schoolModel.getAllSchools());
         } catch (IOException | UserException | SchoolException e) {
@@ -189,6 +196,7 @@ public class NewEditUserController implements Initializable {
 
         setAdminMode();
         setUpMainLabel();
+        setUpIcons();
 
         phoneNumberField.textProperty().addListener(new ChangeListener<String>() {
             @Override
@@ -218,6 +226,15 @@ public class NewEditUserController implements Initializable {
                 }
             }
         });
+    }
+
+    private void setUpIcons() {
+        Text unIcon = GlyphsDude.createIcon(FontAwesomeIcon.USER);
+        iconUNBox.getChildren().add(unIcon);
+
+        iconPWBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcon.KEY));
+        iconEmailBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcon.ENVELOPE));
+        iconPNBox.getChildren().add(GlyphsDude.createIcon(FontAwesomeIcon.PHONE));
     }
 
     private void setUpMainLabel() {

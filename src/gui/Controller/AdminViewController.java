@@ -168,7 +168,7 @@ public class AdminViewController implements Initializable {
 
         try {
             userModel=UserModel.getInstance();
-            schoolModel = new SchoolModel();
+            schoolModel = SchoolModel.getInstance();
 
         } catch (IOException | SchoolException | UserException e) {
             DisplayMessage.displayError(e);

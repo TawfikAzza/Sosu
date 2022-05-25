@@ -5,28 +5,32 @@ import be.School;
 import bll.SchoolManager;
 import bll.exceptions.SchoolException;
 
+import bll.exceptions.UserException;
+import gui.Model.SchoolModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
+import java.io.IOException;
 import java.sql.SQLException;
 
 public class NewEditSchoolController {
-    private SchoolManager schoolManager;
+    private SchoolModel schoolModel;
     private School school;
 
-    public NewEditSchoolController() throws SchoolException {
-        schoolManager= new SchoolManager();
+    public NewEditSchoolController() throws SchoolException, IOException, UserException {
+        schoolModel= SchoolModel.getInstance();
     }
 
     @FXML
     private TextField schoolName, schoolAddress, pCode, regionSchool, schoolNumber;
-    private boolean onAdd;
+    private boolean onAdd=true;
 
-    public void setEdit(boolean b, School selectedItem) {
+    public void setEdit(School selectedItem) {
         onAdd=false;
+        school=selectedItem;
         schoolName.setText(selectedItem.getName());
     }
 
@@ -39,7 +43,13 @@ public class NewEditSchoolController {
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
         if (onAdd)
-            schoolManager.newSchool(schoolName.getText());
-        else schoolManager.editSchool(school);
+            schoolModel.newSchool(schoolName.getText());
+        else {
+            school.setName(schoolName.getText());
+            schoolModel.editSchool(school);
+        }
+        Stage stage;
+        stage = (Stage) schoolName.getScene().getWindow();
+        stage.close();
     }
 }

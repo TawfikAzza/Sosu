@@ -55,4 +55,8 @@ public class SchoolManager {
     public void editSchool(School school) throws SQLException {
         schoolDao.editSchool(school);
     }
+
+    public void deleteSchool(School selectedItem) throws SQLException {
+        schoolDao.deleteSchool(selectedItem);
+    }
 }
