@@ -5,6 +5,7 @@ import be.Teacher;
 import bll.util.CheckInput;
 import bll.exceptions.UserException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,44 +14,30 @@ import java.util.List;
 
 public class TeacherDAO {
 
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
     UsersDAO usersDAO;
 
     public TeacherDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
         usersDAO = new UsersDAO();
     }
 
-    public List<Teacher> getAllTeachers(String initials,int schoolId) throws SQLException {
+    public List<Teacher> getAllTeachers(int schoolId) throws SQLException {
         List<Teacher> allTeachers = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql0);
             preparedStatement.setString(1, "Teacher");
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 int id = resultSet.getInt("roleID");
-                String sql1;
-                PreparedStatement preparedStatement1;
-                if (initials .equals("*")){
-                    sql1 = "SELECT * FROM [user] WHERE roleID=? AND school_id= ? ";
-                    preparedStatement1 = connection.prepareStatement(sql1);
-                    preparedStatement1.setInt(1,id);
-                    preparedStatement1.setInt(2,schoolId);
-                }
-                else {
-                 sql1 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=? AND school_id= ?";
-                     preparedStatement1 = connection.prepareStatement(sql1);
-                for (int i = 1; i <= 5; i++)
-                    preparedStatement1.setString(i, initials);
-                try {
-                    preparedStatement1.setInt(6, Integer.parseInt(initials));
-                } catch (NumberFormatException numberFormatException) {
-                    preparedStatement1.setInt(6, 0);
-                }
-                preparedStatement1.setInt(7, id);
-                preparedStatement1.setInt(8,schoolId);
-                }
+                 String sql1 = "SELECT * FROM [user] WHERE roleID=? AND school_id= ?";
+                 PreparedStatement preparedStatement1 = connection.prepareStatement(sql1);
+                 preparedStatement1.setInt(1, id);
+                 preparedStatement1.setInt(2,schoolId);
+
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()) {
                     Teacher teacher = new Teacher(resultSet1.getInt("id"),
@@ -78,7 +65,7 @@ public class TeacherDAO {
             if (school==null){
                 throw new UserException("Please find a school for the teacher",new Exception());
             }
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
                 PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
                 preparedStatement0.setString(1, "Teacher");
@@ -114,7 +101,7 @@ public class TeacherDAO {
     }
 
     public void deleteTeacher(Teacher teacher) throws SQLException {
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "DELETE FROM [user] WHERE id= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, teacher.getId());
@@ -126,7 +113,7 @@ public class TeacherDAO {
         boolean creation=false;
         try {
             exceptionCreation(teacher.getFirstName(), teacher.getLastName(), teacher.getUserName(), teacher.getPassWord(), teacher.getEmail(), String.valueOf(teacher.getPhoneNumber()),creation);
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, school.getId());
@@ -147,7 +134,7 @@ public class TeacherDAO {
 
     private String schoolName(int schoolId) throws SQLException {
         String schoolName = null;
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM school WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1, schoolId);
@@ -186,7 +173,7 @@ public class TeacherDAO {
 
     private int userNameTaken(String userName) throws SQLException {
         int counter = 0;
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql= "SELECT * FROM [user] WHERE user_name= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,userName);

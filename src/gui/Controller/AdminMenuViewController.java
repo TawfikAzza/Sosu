@@ -15,12 +15,14 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.sql.SQLException;
 
 public class AdminMenuViewController extends MenuController{
     @FXML
     private VBox btnBox,iconBox;
-    private AnchorPane anchorPane;
+    private AnchorPane anchorPane,hidePane;
     private RootController rootController;
+
     public AdminMenuViewController(AnchorPane mainPane) {
         super(mainPane);
         this.anchorPane = mainPane;
@@ -41,44 +43,49 @@ public class AdminMenuViewController extends MenuController{
     public void handleSchoolsBtn(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageSchoolsViews.fxml"));
         Node node = loader.load();
-        node.setLayoutX(168);
+        node.setLayoutX(320);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
 
     public void handleLogOutBtn(ActionEvent actionEvent){}
 
-    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
         Node node = loader.load();
-        node.setLayoutX(100);
+        node.setLayoutX(60);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
 
-    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
         Node node = loader.load();
         node.setLayoutX(100);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
     }
 
-    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException {
+    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
         Node node = loader.load();
         node.setLayoutX(100);
         node.setLayoutY(26);
         anchorPane.getChildren().setAll(node);
+        anchorPane.getChildren().add(hidePane);
+
 
         rootController.closeDrawer();
     }
@@ -95,8 +102,12 @@ public class AdminMenuViewController extends MenuController{
 
         tabPane.setLayoutX(40);
         anchorPane.getChildren().setAll(tabPane);
+        anchorPane.getChildren().add(hidePane);
 
         rootController.closeDrawer();
         }
 
+    public void setHidePane(AnchorPane hidePane) {
+        this.hidePane=hidePane;
+    }
 }

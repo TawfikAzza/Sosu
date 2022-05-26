@@ -6,6 +6,7 @@ import be.ObservationType;
 import bll.exceptions.ObservationException;
 import bll.util.CheckInput;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -14,15 +15,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ObservationDao {
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
+
 
     public ObservationDao() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public List<Observation> getAllObservations(ObservationType observationType, Citizen citizen, LocalDate fDay, LocalDate lDay) throws SQLException {
         List<Observation> allObservations = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM ObservationType WHERE type=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, observationType.name());
@@ -47,7 +51,7 @@ public class ObservationDao {
 
     public void newObservation(ObservationType observationType, Citizen citizen, float measurement) throws SQLException, ObservationException {
             checkMeasurementValue(observationType,measurement);
-        try (Connection connection = connectionManager.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM ObservationType WHERE type= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, observationType.name());
@@ -65,7 +69,7 @@ public class ObservationDao {
     }
 
     public LocalDate getFirstObservationDate(ObservationType observationType, Citizen currentCitizen) throws SQLException{
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql= "SELECT * FROM ObservationType WHERE type= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,observationType.name());

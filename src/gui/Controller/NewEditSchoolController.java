@@ -7,6 +7,7 @@ import bll.exceptions.SchoolException;
 
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
+import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -43,13 +44,22 @@ public class NewEditSchoolController {
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
         if (onAdd)
-            schoolModel.newSchool(schoolName.getText());
+            try {
+                schoolModel.newSchool(schoolName.getText());
+                Stage stage;
+                stage = (Stage) schoolName.getScene().getWindow();
+                stage.close();
+            }catch (SchoolException schoolException){
+                DisplayMessage.displayError(schoolException);
+                DisplayMessage.displayMessage(schoolException.getExceptionMessage());
+            }
         else {
             school.setName(schoolName.getText());
-            schoolModel.editSchool(school);
+            schoolModel.editSchool(school,schoolName.getText());
+            Stage stage;
+            stage = (Stage) schoolName.getScene().getWindow();
+            stage.close();
         }
-        Stage stage;
-        stage = (Stage) schoolName.getScene().getWindow();
-        stage.close();
+
     }
 }

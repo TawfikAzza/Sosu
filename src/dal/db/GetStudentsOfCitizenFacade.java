@@ -5,6 +5,7 @@ import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.CitizenStudentRelationException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -15,15 +16,18 @@ import java.util.ArrayList;
 
 public class GetStudentsOfCitizenFacade {
 
-    private final ConnectionManager cm;
+    //private final ConnectionManager cm;
+    private DBCPDataSource dataSource;
+
 
     public GetStudentsOfCitizenFacade() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource = DBCPDataSource.getInstance();
     }
 
     private ArrayList<Integer> getStudentIDs(Citizen citizen) throws CitizenStudentRelationException {
         ArrayList<Integer> IDs = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM CitizenStudentRelation WHERE citizenID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -47,7 +51,7 @@ public class GetStudentsOfCitizenFacade {
 
     private ArrayList<Student> getCitizensFromID(ArrayList<Integer> IDs) throws CitizenException {
         ArrayList<Student> students = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM [user] WHERE id = ? AND roleID = ?";
             PreparedStatement ps = connection.prepareStatement(sqlSelect);
             for(Integer id: IDs)

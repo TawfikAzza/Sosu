@@ -5,6 +5,7 @@ import be.School;
 import be.Teacher;
 import bll.exceptions.UserException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -13,40 +14,29 @@ import java.util.List;
 
 public class AdminDao {
 
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
     private  UsersDAO usersDAO;
+    private DBCPDataSource dataSource;
+
 
     public AdminDao() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
         usersDAO= new UsersDAO();
     }
 
-    public List<Admin>getAllAdmins(String initials)throws SQLException {
+    public List<Admin>getAllAdmins()throws SQLException {
         List<Admin>allAdmins = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql = "SELECT * FROM UserRoles WHERE roleName=? ";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,"Admin");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 int roleId= resultSet.getInt("roleID");
-                PreparedStatement preparedStatement1;
-                if (initials.equals("*")){
                 String sql0 = "SELECT * FROM [user] WHERE roleID= ?";
-                preparedStatement1 = connection.prepareStatement(sql0);
+                PreparedStatement preparedStatement1 = connection.prepareStatement(sql0);
                 preparedStatement1.setInt(1,roleId);
-                }else {
-                    String sql0 = "SELECT * FROM [user] WHERE (first_name=? OR last_name=? OR user_name= ? OR password=? OR e_mail=? OR phone_number=?) AND roleID=?";
-                    preparedStatement1 = connection.prepareStatement(sql0);
-                    for (int i = 1; i <= 5; i++)
-                        preparedStatement1.setString(i, initials);
-                    try {
-                        preparedStatement1.setInt(6, Integer.parseInt(initials));
-                    } catch (NumberFormatException numberFormatException) {
-                        preparedStatement1.setInt(6, 0);
-                    }
-                    preparedStatement1.setInt(7,roleId);
-                }
 
                 ResultSet resultSet1 = preparedStatement1.executeQuery();
                 while (resultSet1.next()){
@@ -58,6 +48,7 @@ public class AdminDao {
                             resultSet1.getString("e_mail"),
                             resultSet1.getInt("phone_number"));
                     admin.setSchoolId(resultSet1.getInt("school_id"));
+                    admin.setSchoolName(getSchoolName(admin.getSchoolId()));
                     allAdmins.add(admin);
                 }
             }
@@ -73,7 +64,7 @@ public class AdminDao {
             if (school==null){
                 throw new UserException("Please find a school for the Admin",new Exception());
             }
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql0 = "SELECT * FROM UserRoles WHERE roleName=?";
                 PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
                 preparedStatement0.setString(1, "Admin");
@@ -96,6 +87,7 @@ public class AdminDao {
                     while (resultSet1.next()) {
                         int id = resultSet1.getInt(1);
                         admin = new Admin(id, firstName, lastName, userName, passWord, email, Integer.parseInt(phoneNumber));
+                        admin.setSchoolName(school.getName());
                     }
                 }
             }
@@ -119,7 +111,7 @@ public class AdminDao {
         ue.checkPhoneNumber(phoneNumber);
     }
     public void deleteAdmin(Admin admin)throws SQLException{
-    try (Connection connection = connectionManager.getConnection()) {
+    try (Connection connection = dataSource.getConnection()) {
         String sql = "DELETE FROM [user] WHERE id= ?";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setInt(1, admin.getId());
@@ -130,7 +122,7 @@ public class AdminDao {
         boolean creation=false;
         try {
             exceptionCreation(admin.getFirstName(), admin.getLastName(), admin.getUserName(), admin.getPassWord(), admin.getEmail(), String.valueOf(admin.getPhoneNumber()),creation);
-            try (Connection connection = connectionManager.getConnection()) {
+            try (Connection connection = dataSource.getConnection()) {
                 String sql = "UPDATE [user] SET school_id=?, first_name =?, last_name = ?, user_name=?, password=?, e_mail=?, phone_number=? WHERE id=?";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql);
                 preparedStatement.setInt(1, school.getId());
@@ -148,5 +140,17 @@ public class AdminDao {
         } catch (UserException e) {
             e.printStackTrace();
         }
+    }
+    private String getSchoolName(int schoolId)throws SQLException{
+        try (Connection connection = dataSource.getConnection()){
+            String sql= "SELECT * FROM school WHERE id= ?";
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setInt(1,schoolId);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()){
+                return resultSet.getString("name");
+            }
+        }
+        return null;
     }
 }

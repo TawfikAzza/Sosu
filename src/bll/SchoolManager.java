@@ -52,8 +52,8 @@ public class SchoolManager {
         return schoolDao.newSchool(schoolName);
     }
 
-    public void editSchool(School school) throws SQLException {
-        schoolDao.editSchool(school);
+    public void editSchool(School school,String name) throws SQLException, SchoolException {
+        schoolDao.editSchool(school,name);
     }
 
     public void deleteSchool(School selectedItem) throws SQLException {

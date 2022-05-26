@@ -36,12 +36,12 @@ public class UserManager implements UserInterface {
         return studentDao.newStudent(school,firstName,lastName,userName,passWord,email,phoneNumber);
     }
 
-    public List<Student>getAllStudents(String initials)throws SQLException{
-        return studentDao.getAllStudents(initials,GlobalVariables.getCurrentSchool().getId());
+    public List<Student>getAllStudents()throws SQLException{
+        return studentDao.getAllStudents(GlobalVariables.getCurrentSchool().getId());
     }
 
-    public List<Teacher>getAllTeachers(String initials) throws SQLException{
-        return teacherDao.getAllTeachers(initials,GlobalVariables.getCurrentSchool().getId());
+    public List<Teacher>getAllTeachers() throws SQLException{
+        return teacherDao.getAllTeachers(GlobalVariables.getCurrentSchool().getId());
     }
 
     public void deleteTeacher(Teacher teacher)throws SQLException{
@@ -80,8 +80,8 @@ public class UserManager implements UserInterface {
     }
 
     @Override
-    public List<Admin> getAllAdmins(String initials) throws SQLException {
-        return adminDao.getAllAdmins(initials);
+    public List<Admin> getAllAdmins() throws SQLException {
+        return adminDao.getAllAdmins();
     }
 
     @Override

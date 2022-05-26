@@ -2,6 +2,7 @@ package dal.db;
 
 import be.*;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,10 +14,13 @@ import java.util.HashMap;
 public class GIReportDAO {
 
 
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
+
 
     public GIReportDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource = DBCPDataSource.getInstance();
     }
 
 
@@ -24,7 +28,7 @@ public class GIReportDAO {
         String nameGI = null;
         String infoContent = null;
         HashMap<String, String> hashMap = new HashMap<>();
-        try (Connection con = connectionManager.getConnection()) {
+        try (Connection con = dataSource.getConnection()) {
             String sql = "Select GeneralInfo.name as name, CitizenInfo.infoContent as infoContent from GeneralInfo,CitizenInfo where GeneralInfo.id=CitizenInfo.categoryID and CitizenID = ? and CategoryID IN (Select ID from GeneralInfo)";
             PreparedStatement prst = con.prepareStatement(sql);
             prst.setInt(1, citizen.getId());

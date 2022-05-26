@@ -3,6 +3,7 @@ package dal.db;
 import be.Citizen;
 import be.MedicineList;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -13,17 +14,20 @@ import java.sql.SQLException;
 public class MedicineListDAO {
 
 
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
+
 
     public MedicineListDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
 
     public MedicineList getMedicineList(Citizen citizen) throws SQLException {
         MedicineList medicineListSearched = null;
 
-        try (Connection con = connectionManager.getConnection()) {
+        try (Connection con = dataSource.getConnection()) {
             String sql = "SELECT * FROM MedicineList WHERE citizenID = ? ";
 
             PreparedStatement prst = con.prepareStatement(sql);
@@ -43,7 +47,7 @@ public class MedicineListDAO {
 
 
     public void addMedicineList(MedicineList medicineList) throws SQLException {
-        try (Connection con = connectionManager.getConnection()) {
+        try (Connection con = dataSource.getConnection()) {
 
             String sql = "INSERT INTO MedicineList VALUES (?,?) ";
             PreparedStatement prst = con.prepareStatement(sql);
@@ -57,7 +61,7 @@ public class MedicineListDAO {
 
     public void updateMedicineList(MedicineList medicineList) throws SQLException {
 
-        try (Connection con = connectionManager.getConnection()) {
+        try (Connection con = dataSource.getConnection()) {
 
             String sql = "UPDATE MedicineList  set content =? WHERE citizenID =? ";
             PreparedStatement prst = con.prepareStatement(sql);

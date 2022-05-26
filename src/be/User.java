@@ -222,4 +222,16 @@ public abstract class User {
     public IntegerProperty phoneNumberPropertyProperty() {
         return phoneNumberProperty;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "fNameProperty=" + fNameProperty +
+                ", lNameProperty=" + lNameProperty +
+                ", userNameProperty=" + userNameProperty +
+                ", passwordProperty=" + passwordProperty +
+                ", emailProperty=" + emailProperty +
+                ", phoneNumberProperty=" + phoneNumberProperty +
+                '}';
+    }
 }

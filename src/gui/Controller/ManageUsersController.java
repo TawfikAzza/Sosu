@@ -1,10 +1,14 @@
 package gui.Controller;
 
 import be.*;
+import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
+import gui.Model.SchoolModel;
 import gui.Model.UserModel;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
+import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -27,6 +31,7 @@ import javafx.util.StringConverter;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class ManageUsersController implements Initializable {
@@ -38,6 +43,7 @@ public class ManageUsersController implements Initializable {
     private TableColumn firstNameTC, lastNameTC, userNameTC, passwordTC, emailTC;
     @FXML
     private TableColumn phoneNumberTC;
+    @FXML GridPane gridPane;
 
     private LoginLogoutUtil.UserType userType;
     private UserModel userModel;
@@ -45,7 +51,7 @@ public class ManageUsersController implements Initializable {
     private Integer test = 1;
 
 
-    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException {
+    public ManageUsersController(LoginLogoutUtil.UserType userType) throws IOException, UserException, SQLException {
         this.userType = userType;
         userModel = UserModel.getInstance();
     }
@@ -53,29 +59,52 @@ public class ManageUsersController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        initializeUsersTV();
-        searchUsersField.setOnKeyPressed(new EventHandler<KeyEvent>() {
+        try {
+            initializeUsersTV();
+        } catch (IOException | UserException | SchoolException e) {
+            e.printStackTrace();
+        }
+        try {
+            userModel= UserModel.getInstance();
+        } catch (IOException | UserException | SQLException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (userType == LoginLogoutUtil.UserType.TEACHER)
+                usersTV.setItems(userModel.getAllTeachers());
+            else if (userType== LoginLogoutUtil.UserType.STUDENT)
+                usersTV.setItems(userModel.getAllStudents());
+            else
+                usersTV.setItems( userModel.getAllAdmins());
+        }catch (SQLException  ignored){}
+
+        searchUsersField.setOnKeyTyped(new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)) {
-                    try {
-                        if (userType == LoginLogoutUtil.UserType.TEACHER)
-                            usersTV.setItems(userModel.getAllTeachers(searchUsersField.getText()));
-                        else if (userType== LoginLogoutUtil.UserType.STUDENT)
-                            usersTV.setItems(userModel.getAllStudents(searchUsersField.getText()));
-                        else
-                            usersTV.setItems(userModel.getAllAdmins(searchUsersField.getText()));
-                    } catch (SQLException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
+                String query = (searchUsersField.getText().toLowerCase(Locale.ROOT));
+                try {
+                    FilteredList users;
+                    if (userType== LoginLogoutUtil.UserType.ADMIN)
+                        users= userModel.getAllAdmins();
+                    else if (userType == LoginLogoutUtil.UserType.STUDENT)
+                        users = userModel.getAllStudents();
+                    else users= userModel.getAllTeachers();
+
+                    users.setPredicate(user -> {
+                        if (query.isEmpty() || query.isBlank())
+                            return true;
+                        if (user.toString().toLowerCase().contains(query))
+                            return true;
+                        return false;
+                    });
+                } catch (SQLException e) {
+                    e.printStackTrace();
                 }
             }
         });
 
     }
-
-    private void initializeUsersTV() {
+    private void initializeUsersTV() throws IOException, UserException, SchoolException {
         usersTV.setEditable(true);
         initializeFnameColumn();
         initializeLnameColumn();
@@ -83,8 +112,62 @@ public class ManageUsersController implements Initializable {
         initializePasswordColumn();
         initializeEmailColumn();
         initializePhoneNumberColumn();
-        if(userType== LoginLogoutUtil.UserType.ADMIN)
-            usersTV.getColumns().add(new TableColumn<>("school"));
+        if(userType== LoginLogoutUtil.UserType.ADMIN){
+            TableColumn schoolUserTC= new TableColumn<>("school");
+            usersTV.getColumns().add(schoolUserTC);
+            gridPane.setPrefWidth(gridPane.getPrefWidth()+120);
+            SchoolModel schoolModel = SchoolModel.getInstance();
+
+            final boolean[] test = {true};
+            final School[] newSchool = new School[1];
+
+
+            schoolUserTC.setCellValueFactory(new PropertyValueFactory<>("schoolName"));
+            schoolUserTC.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<String>() {
+                @Override
+                public String toString(String object) {
+                    return object;
+                }
+
+                @Override
+                public String fromString(String string) {
+                    String oldSchoolName = ((Admin) usersTV.getSelectionModel().getSelectedItem()).getSchoolName();
+                    try {
+                        int counter = 0;
+                        for (School school : schoolModel.getAllSchools())
+                            if (school.getName().toLowerCase(Locale.ROOT).equals(string.toLowerCase(Locale.ROOT))) {
+                                newSchool[0] = school;
+                                counter++;
+                                return school.getName();
+                            }
+                        if (counter==0){
+                                SchoolException schoolException = new SchoolException("School not found", new Exception());
+                                schoolException.setInstructions("Please find an existing school");
+                                test[0] = false;
+                                throw schoolException;
+                            }
+                        } catch (SchoolException ex) {
+                        DisplayMessage.displayError(ex);
+                        DisplayMessage.displayMessage(ex.getExceptionMessage());
+                    }
+                    return oldSchoolName;
+                }
+    }));
+            schoolUserTC.setOnEditCommit(new EventHandler<TableColumn.CellEditEvent>() {
+                @Override
+                public void handle(TableColumn.CellEditEvent event) {
+                    Admin admin = (Admin) event.getRowValue();
+                    if (newSchool[0]!=null){
+                        try {
+                            userModel.editAdmin(newSchool[0],admin);
+                        } catch (SQLException | UserException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                    test[0]=true;
+                }
+            });
+    }
     }
 
     private void initializePhoneNumberColumn() {
@@ -549,3 +632,6 @@ public class ManageUsersController implements Initializable {
         stage.show();
     }
 }
+
+
+

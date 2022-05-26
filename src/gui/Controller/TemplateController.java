@@ -50,8 +50,6 @@ public class TemplateController implements Initializable {
     private Spinner<Integer> spinnerTemplateDuplicate;
     @FXML
     private Spinner<Integer> spinnerCitizenDuplicate;
-    @FXML
-    private TextField citizenSearchField;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

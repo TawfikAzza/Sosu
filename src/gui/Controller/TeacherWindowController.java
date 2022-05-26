@@ -85,6 +85,8 @@ public class TeacherWindowController implements Initializable {
         } catch (IOException | CitizenException | UserException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();;
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
@@ -254,19 +256,14 @@ public class TeacherWindowController implements Initializable {
 
     public void loadData(){
 
-        try { //You should only be able to get citizens from relevant school!
+        //You should only be able to get citizens from relevant school!
         //citizens = model.getTemplates(currentTeacher);
         //Y should only be able to get students from relevant school!
-        students = userModel.getObsListStudents();
         this.tableViewTemplates.setItems(citizens);
         this.tableViewStudents.setItems(students);
         this.tableViewStudents.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
         this.initTables();
-        } catch (UserException  e) {
-            DisplayMessage.displayError(e);
-            e.printStackTrace();;
-        }
     }
 
     private void createFilterListener()

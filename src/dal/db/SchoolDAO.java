@@ -5,6 +5,7 @@ import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -12,15 +13,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SchoolDAO {
-    private final ConnectionManager connectionManager;
+    //private final ConnectionManager connectionManager;
+    private DBCPDataSource dataSource;
 
     public SchoolDAO() throws IOException {
-        connectionManager = new ConnectionManager();
+        //connectionManager = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public List<School>getAllSchools()throws SQLException{
         List<School>allSchools= new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql="SELECT * FROM school";
             Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery(sql);
@@ -33,7 +36,7 @@ public class SchoolDAO {
     }
 
     public void deleteSchool(School school) throws SQLException{
-        try (Connection connection = connectionManager.getConnection())
+        try (Connection connection = dataSource.getConnection())
         {
             String sql = "DELETE FROM school WHERE id= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -44,7 +47,7 @@ public class SchoolDAO {
     public List<String>getAllTeachers(School school)throws SQLException{
         List<String>allTeachers = new ArrayList<>();
         int roleId=0;
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql0="SELECT * FROM UserRoles WHERE roleName= ?";
             PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
             preparedStatement0.setString(1,"Teacher");
@@ -56,7 +59,7 @@ public class SchoolDAO {
     public List<String>getAllStudents(School school)throws SQLException{
         List<String>allStudents = new ArrayList<>();
         int roleId=0;
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql0="SELECT * FROM UserRoles WHERE roleName= ?";
             PreparedStatement preparedStatement0 = connection.prepareStatement(sql0);
             preparedStatement0.setString(1,"Student");
@@ -80,7 +83,7 @@ public class SchoolDAO {
 
     public List<String>getAllCitizens(School school)throws SQLException{
         List<String>allCitizens = new ArrayList<>();
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql="SELECT * FROM Citizen WHERE school_id= ? AND isTemplate=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setInt(1,school.getId());
@@ -97,7 +100,7 @@ public class SchoolDAO {
         School school=null;
         try {
             checkSchoolName(schoolName);
-            try (Connection connection = connectionManager.getConnection()){
+            try (Connection connection = dataSource.getConnection()){
                 String sql = "INSERT INTO school VAlUES (?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
                 preparedStatement.setString(1,schoolName);
@@ -134,7 +137,7 @@ public class SchoolDAO {
         }
     }
     private boolean schoolAlreadyExists(String schoolName)throws SQLException{
-        try (Connection connection = connectionManager.getConnection()){
+        try (Connection connection = dataSource.getConnection()){
             String sql="SELECT * FROM school WHERE name= ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1,schoolName);
@@ -145,7 +148,7 @@ public class SchoolDAO {
 
     public School getSchoolByUserID(int userID) throws SQLException {
         School school = null;
-        try(Connection connection = connectionManager.getConnection()){
+        try(Connection connection = dataSource.getConnection()){
             String sqlQuery = "SELECT * \n" +
                                 "FROM school\n" +
                                 "WHERE id IN (SELECT school_id\n" +
@@ -162,8 +165,9 @@ public class SchoolDAO {
         return school;
     }
 
-    public void editSchool(School school) throws SQLException {
-        try (Connection connection = connectionManager.getConnection()) {
+    public void editSchool(School school, String name) throws SQLException,SchoolException {
+        try (Connection connection = dataSource.getConnection()) {
+            checkSchoolName(name);
             String sql = "UPDATE [school] SET name=? WHERE id=?";
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
             preparedStatement.setString(1, school.getName());

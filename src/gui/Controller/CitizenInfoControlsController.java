@@ -1,6 +1,9 @@
 package gui.Controller;
 
+import bll.CaseManager;
+import bll.exceptions.CaseException;
 import bll.util.GlobalVariables;
+import gui.Model.CaseModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -136,7 +139,19 @@ public class CitizenInfoControlsController {
     private void openCase(ActionEvent actionEvent) {
         if(!checkIfCitizenSelected())
             return;
-        System.out.println("Open case for citizen " + GlobalVariables.getSelectedCitizen().getFName());
-        System.out.println("this is implemented in citizen info controls controller");
+        try {
+            showCaseEditWindow();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void showCaseEditWindow() throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("../View/CaseView.fxml"));
+
+        Scene scene = new Scene(root);
+        Stage newWindow = new Stage();
+        newWindow.setScene(scene);
+        newWindow.show();
     }
 }
