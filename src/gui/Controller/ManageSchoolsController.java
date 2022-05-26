@@ -44,8 +44,10 @@ public class ManageSchoolsController implements Initializable {
     private final ObservableList <School>allSchools= FXCollections.observableArrayList();
 
     public void handleDeleteBtn(ActionEvent actionEvent) throws SQLException {
-        if (schoolsTV.getSelectionModel().getSelectedItem()!=null)
-            schoolModel.deleteSchool(schoolsTV.getSelectionModel().getSelectedItem());
+        if (schoolsTV.getSelectionModel().getSelectedItem()!=null){
+            if (!(DisplayMessage.displayConfirmation("All data related to this school will be lost", "are you sure you want to delete this school ?")).getButtonData().isCancelButton());
+                schoolModel.deleteSchool(schoolsTV.getSelectionModel().getSelectedItem());
+        }
     }
 
     public void handleEditBtn(ActionEvent actionEvent) throws IOException {

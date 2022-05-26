@@ -13,6 +13,8 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -46,10 +48,14 @@ public class NewEditSchoolController implements Initializable {
 
 
     public void handleCancelBtn(ActionEvent actionEvent) {
-        Stage stage;
-        stage = (Stage) schoolName.getScene().getWindow();
-        stage.close();
-    }
+        if (!schoolName.getText().isEmpty()){
+            DisplayMessage.displayConfirmation("Your imput will be lost","Are you ssure you want to close this window");
+        }
+        else {
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.close();
+            }
+        }
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
         if (onAdd)
@@ -86,6 +92,8 @@ public class NewEditSchoolController implements Initializable {
                         e.printStackTrace();
                     }
                 }
+                else if (event.getCode().equals(KeyCode.ESCAPE))
+                    handleCancelBtn(new ActionEvent());
             }
         });
     }
