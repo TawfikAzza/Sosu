@@ -15,17 +15,17 @@ import static org.junit.jupiter.api.Assertions.*;
 class CitizenDAOTest {
 
 
-/**
- * Author : Tawfik
- * Important Note :
- * For this Unit test I had to struggle to retrieve the right exceptions from the app.
- * and chances are if you are retrieving only failed test, it means that the database connections are working fine.
- * The way we implemented the exceptions in this program is such that the DAO will only return an exception when the connection to the database
- * is not available, as we place our catch on the try with resources...
- * I still implemented some of them in the UNIT test as proof of concept of use of JUNIT to catch exception with a set message.
- * It also means that if you want to have all the test passed with success, you have to not be connected to the school network and/or
- * have no access to the database associated to the program this UNIT is testing....
- * **/
+    /**
+     * Author : Tawfik
+     * Important Note :
+     * For this Unit test I had to struggle to retrieve the right exceptions from the app.
+     * and chances are if you are retrieving only failed test, it means that the database connections are working fine.
+     * The way we implemented the exceptions in this program is such that the DAO will only return an exception when the connection to the database
+     * is not available, as we place our catch on the try with resources...
+     * I still implemented some of them in the UNIT test as proof of concept of use of JUNIT to catch exception with a set message.
+     * It also means that if you want to have all the test passed with success, you have to not be connected to the school network and/or
+     * have no access to the database associated to the program this UNIT is testing....
+     * **/
 
     @DisplayName("Exception handling test for the Retrieval of template citizen associated to a school method")
     @Test
@@ -35,7 +35,7 @@ class CitizenDAOTest {
         boolean isTemplate = true;
         CitizenDAO citizenDAO = null;
         try {
-             citizenDAO = new CitizenDAO();
+            citizenDAO = new CitizenDAO();
         } catch (IOException e) {
             e.printStackTrace();
         }
