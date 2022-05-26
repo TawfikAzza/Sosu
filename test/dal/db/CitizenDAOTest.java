@@ -54,7 +54,7 @@ class CitizenDAOTest {
         //Arrange
         Citizen citizen = new Citizen(0,"testCitizen","testCitizen");
         Student student = new Student(0,"testStudent","testStudent");
-        ArrayList<Student> studentList = new ArrayList<>();
+        ArrayList<Student> studentList =  new ArrayList<>();
         studentList.add(student);
         CitizenDAO citizenDAO= null;
         try {

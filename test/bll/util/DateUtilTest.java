@@ -57,7 +57,7 @@ class DateUtilTest {
         //Act
         LocalDate actualDate = DateUtil.parseDate_GUI(strDate);
         //Assert
-        Assertions.assertEquals(expectedDate,actualDate);
+         Assertions.assertEquals(expectedDate,actualDate);
     }
 
     @DisplayName("Test of the validDate() method")
