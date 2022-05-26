@@ -3,6 +3,7 @@ package dal.db;
 import be.*;
 import bll.util.DateUtil;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 import javafx.util.Pair;
 
 import java.io.IOException;
@@ -16,10 +17,13 @@ import java.util.List;
 import java.util.Map;
 
 public class FunctionalAbilityDAO {
-    private final ConnectionManager cm;
+    //private final ConnectionManager cm;
+    private DBCPDataSource dataSource;
+
 
     public FunctionalAbilityDAO() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource = DBCPDataSource.getInstance();
     }
     /**
      * Author : Tawfik
@@ -33,7 +37,7 @@ public class FunctionalAbilityDAO {
     public List<AbilityCategory> getAllCategoriesTree() throws SQLException {
         List<AbilityCategory> abilityCategories = new ArrayList<>();
         HashMap<Integer,AbilityCategory> mainAbilityCategories = getAllMainAbilityCategories();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "Select FunctionCategories.*, FunctionCategories.sid " +
                     "FROM FunctionCategories where id in (SELECT id from FunctionCategories where sid IS NOT NULL)";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
@@ -60,7 +64,7 @@ public class FunctionalAbilityDAO {
      * **/
     public HashMap<Integer, AbilityCategory> getAllMainAbilityCategories() throws SQLException {
         HashMap<Integer,AbilityCategory> allCategories = new HashMap<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM FunctionCategories WHERE SID IS NULL";
             PreparedStatement pstmt = connection.prepareStatement(sql);
             ResultSet rs = pstmt.executeQuery();
@@ -87,7 +91,7 @@ public class FunctionalAbilityDAO {
     public List<AbilityCategory> getAllSubCategories() throws SQLException {
         List<AbilityCategory> abilityCategories = new ArrayList<>();
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "Select FunctionCategories.*, FunctionCategories.sid as sidMain " +
                     "FROM FunctionCategories where id in (SELECT id from FunctionCategories where sid IS NOT NULL) ORDER BY sidMain";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
@@ -111,7 +115,7 @@ public class FunctionalAbilityDAO {
      * ****/
     public Ability getAbility(AbilityCategory abilityCategory, Citizen citizen) throws SQLException {
         Ability abilitySearched = null;
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM Abilities WHERE categoryID=? AND citizenID = ?";
             PreparedStatement pstmt = connection.prepareStatement(sqlSelect);
             pstmt.setInt(1,abilityCategory.getId());
@@ -140,7 +144,7 @@ public class FunctionalAbilityDAO {
      * Add a functional ability in the database.
      * **/
     public void addAbility(Ability ability) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sqlInsert = "INSERT INTO Abilities VALUES (?,?,?,?,?,?,?,?,?,?,?)";
             PreparedStatement pstmt = connection.prepareStatement(sqlInsert);
@@ -168,7 +172,7 @@ public class FunctionalAbilityDAO {
      */
 
     public void updateAbility(Ability ability) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sqlUpdate = "UPDATE Abilities set score = ?, status= ?,citizenGoals=?,performance=?, meaning=? ," +
                     " expectedScore=? , importantNote=? , visitDate=? , observations=? " +
@@ -221,7 +225,7 @@ public class FunctionalAbilityDAO {
             categoryHashMap.put(abilityCategory.getId(),abilityCategory);
         }
 
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             //THe query is straighforward and do no need comments.
             //The only thing is that this query's result will be used to fill the HashMap of functional Abilities
             //with the right values.

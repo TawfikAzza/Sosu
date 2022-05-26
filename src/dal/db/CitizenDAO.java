@@ -6,6 +6,7 @@ import be.*;
 import bll.exceptions.CitizenException;
 import com.microsoft.sqlserver.jdbc.SQLServerException;
 import dal.ConnectionManager;
+import dal.DBCPDataSource;
 
 import java.io.IOException;
 import java.sql.*;
@@ -15,15 +16,18 @@ import java.util.List;
 
 
 public class CitizenDAO {
-    private ConnectionManager cm;
+    //private ConnectionManager cm;
+    private DBCPDataSource dataSource;
+
 
     public CitizenDAO() throws IOException {
-        cm = new ConnectionManager();
+        //cm = new ConnectionManager();
+        dataSource=DBCPDataSource.getInstance();
     }
 
     public Citizen getCitizen(int id) throws SQLException {
         Citizen citizen = null;
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlSelect = "SELECT * FROM Citizen WHERE id = ?";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
             pstsmt.setInt(1, id);
@@ -48,7 +52,7 @@ public class CitizenDAO {
 
 
     public Citizen editCitizen(Citizen citizenToEdit) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "UPDATE Citizen \n" +
                     "Set \n" +
                     "fname = ?,\n" +
@@ -72,7 +76,7 @@ public class CitizenDAO {
     }
 
     public void deleteCitizen(Citizen selectedCitizen) throws SQLException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sqlStatement = "DELETE FROM Citizen WHERE Citizen.id = ?";
             PreparedStatement preparedStatement = connection.prepareStatement(sqlStatement);
             preparedStatement.setInt(1, selectedCitizen.getId());
@@ -82,7 +86,7 @@ public class CitizenDAO {
 
     public List<Citizen> getCitizens(int currentSchoolID, boolean isTemplate) throws CitizenException {
         List<Citizen> citizens = new ArrayList<>();
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
             String sql = "SELECT * FROM Citizen WHERE isTemplate = ? AND school_id=?";
             PreparedStatement ps = connection.prepareStatement(sql);
 
@@ -113,7 +117,7 @@ public class CitizenDAO {
     }
 
     private void addStudentCitizenRelation(Citizen citizen, Student student) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sql = "INSERT INTO CitizenStudentRelation VALUES(?, ?)";
             PreparedStatement ps = connection.prepareStatement(sql);
@@ -138,7 +142,7 @@ public class CitizenDAO {
     }
 
     public void removeRelation(Student student, Citizen toRemove) throws CitizenException {
-        try (Connection connection = cm.getConnection()) {
+        try (Connection connection = dataSource.getConnection()) {
 
             String sql = "DELETE FROM CitizenStudentRelation WHERE citizenID = ? AND studentID = ?";
             PreparedStatement ps = connection.prepareStatement(sql);
