@@ -151,6 +151,8 @@ public class RootController implements Initializable {
             loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             setInitialScene(loader, gridPane);
+            gridPane.setLayoutX(40);
+            gridPane.setLayoutY(26);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -165,6 +167,8 @@ public class RootController implements Initializable {
             loader.setController(menuController);
             GridPane gridPane = FXMLLoader.load(getClass().getResource("../View/StudentView.fxml"));
             setInitialScene(loader,gridPane);
+            gridPane.setLayoutX(80);
+            gridPane.setLayoutY(26);
         } catch (IOException e) {
             e.printStackTrace();
         }
