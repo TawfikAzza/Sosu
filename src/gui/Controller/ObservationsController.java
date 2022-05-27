@@ -15,6 +15,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -29,6 +30,8 @@ import java.util.ResourceBundle;
 
 public class ObservationsController implements Initializable {
 
+    @FXML
+    private Button cancelBtn;
     private Citizen selectedCitizen;
     @FXML
     private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF;
@@ -146,9 +149,9 @@ public class ObservationsController implements Initializable {
         });
     }
 
-    public void handleBackButton(ActionEvent actionEvent) {
-    }
-
-    public void handleLogOutButton(ActionEvent actionEvent) {
+    public void handleCancelBtn(ActionEvent actionEvent) {
+        Stage stage;
+        stage = (Stage) cancelBtn.getScene().getWindow();
+        stage.close();
     }
 }

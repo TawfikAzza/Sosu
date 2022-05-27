@@ -9,15 +9,26 @@ import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 
+import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.net.URL;
 import java.sql.SQLException;
+import java.util.ResourceBundle;
 
-public class NewEditSchoolController {
+public class NewEditSchoolController implements Initializable {
+    @FXML
+    private GridPane mainPane;
     private SchoolModel schoolModel;
     private School school;
 
@@ -37,10 +48,14 @@ public class NewEditSchoolController {
 
 
     public void handleCancelBtn(ActionEvent actionEvent) {
-        Stage stage;
-        stage = (Stage) schoolName.getScene().getWindow();
-        stage.close();
-    }
+        if (!schoolName.getText().isEmpty()){
+            DisplayMessage.displayConfirmation("Your imput will be lost","Are you ssure you want to close this window");
+        }
+        else {
+            Stage stage = (Stage) mainPane.getScene().getWindow();
+            stage.close();
+            }
+        }
 
     public void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
         if (onAdd)
@@ -61,5 +76,25 @@ public class NewEditSchoolController {
             stage.close();
         }
 
+    }
+
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode().equals(KeyCode.ENTER)) {
+                    try {
+                        handleConfirmBtn(new ActionEvent());
+                    } catch (SchoolException e) {
+                        DisplayMessage.displayError(e);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+                else if (event.getCode().equals(KeyCode.ESCAPE))
+                    handleCancelBtn(new ActionEvent());
+            }
+        });
     }
 }

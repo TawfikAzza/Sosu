@@ -1,6 +1,5 @@
 package gui.Controller;
 
-import gui.Controller.MenuController;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
@@ -25,11 +24,6 @@ public class StudentMenuController extends MenuController {
     }
 
     @FXML
-    private void handleCitizensClick(ActionEvent actionEvent) {
-
-    }
-
-    @FXML
     private void handleLogoutClick(ActionEvent actionEvent) {
         try {
             LoginLogoutUtil.logout(actionEvent);
@@ -45,4 +39,10 @@ public class StudentMenuController extends MenuController {
     public VBox getBtnBox() {
         return btnBox;
     }
+
+    @FXML
+    private void handleCitizensClick(ActionEvent actionEvent) {
+    }
+
+
 }

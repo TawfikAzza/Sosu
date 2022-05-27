@@ -37,6 +37,8 @@ public class TeacherMenuController extends MenuController{
     public void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
+            gridPane.setLayoutX(40);
+            gridPane.setLayoutY(26);
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
             mainPane.getChildren().add(hidePane);
@@ -48,6 +50,9 @@ public class TeacherMenuController extends MenuController{
     public void handleTemplatesCitizensClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
+            gridPane.setLayoutX(40);
+            gridPane.setLayoutY(26);
+
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
             mainPane.getChildren().add(hidePane);
