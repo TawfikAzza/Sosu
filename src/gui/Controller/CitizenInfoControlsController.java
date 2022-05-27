@@ -139,37 +139,19 @@ public class CitizenInfoControlsController {
     private void openCase(ActionEvent actionEvent) {
         if(!checkIfCitizenSelected())
             return;
-<<<<<<< Updated upstream
-        try {
-            showCaseEditWindow();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void showCaseEditWindow() throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("../View/CaseView.fxml"));
-
-        Scene scene = new Scene(root);
-        Stage newWindow = new Stage();
-        newWindow.setScene(scene);
-        newWindow.show();
-=======
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/CaseView.fxml"));
-        Parent root = null;
         try {
-            root = loader.load();
+            Parent root = loader.load();
+            Scene scene = new Scene(root);
+            Stage stage = new Stage();
+            stage.initModality(Modality.APPLICATION_MODAL);
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             DisplayMessage.displayError(e);
             e.printStackTrace();
         }
 
-        Scene scene = new Scene(root);
-        Stage stage = new Stage();
-        stage.initModality(Modality.APPLICATION_MODAL);
-        stage.setScene(scene);
-        stage.show();
->>>>>>> Stashed changes
     }
 }
