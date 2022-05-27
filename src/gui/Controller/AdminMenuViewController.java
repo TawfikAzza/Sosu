@@ -51,7 +51,7 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleLogOutBtn(ActionEvent actionEvent){}
+    //public void handleLogOutBtn(ActionEvent actionEvent){}
 
     public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
@@ -109,5 +109,13 @@ public class AdminMenuViewController extends MenuController{
 
     public void setHidePane(AnchorPane hidePane) {
         this.hidePane=hidePane;
+    }
+
+    public void handleLogoutClick(ActionEvent actionEvent) {
+        try {
+            LoginLogoutUtil.logout(actionEvent);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
     }
 }
