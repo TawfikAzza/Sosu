@@ -5,6 +5,7 @@ import be.ObservationType;
 import bll.exceptions.ObservationException;
 import bll.util.GlobalVariables;
 import gui.Model.ObservationModel;
+import gui.utils.DisplayMessage;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -81,11 +82,7 @@ public class ObservationsController implements Initializable {
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }catch (ObservationException oe){
-                            Alert alert = new Alert(Alert.AlertType.ERROR);
-                            alert.setTitle("Alert");
-                            alert.setHeaderText(oe.getExceptionMessage());
-                            alert.setContentText(oe.getInstructions());
-                            alert.showAndWait();
+                            DisplayMessage.displayObservationErrorMessage(oe);
                         }}
                 }
             });

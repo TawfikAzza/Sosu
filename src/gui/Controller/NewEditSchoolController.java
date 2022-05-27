@@ -65,8 +65,7 @@ public class NewEditSchoolController implements Initializable {
                 stage = (Stage) schoolName.getScene().getWindow();
                 stage.close();
             }catch (SchoolException schoolException){
-                DisplayMessage.displayError(schoolException);
-                DisplayMessage.displayMessage(schoolException.getExceptionMessage());
+                DisplayMessage.displaySchoolErrorMessage(schoolException);
             }
         else {
             school.setName(schoolName.getText());

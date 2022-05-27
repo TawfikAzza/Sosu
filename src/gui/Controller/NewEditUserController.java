@@ -97,8 +97,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 } catch (UserException e) {
-                    DisplayMessage.displayError(e);
-                    DisplayMessage.displayMessage(e.getExceptionMessage());
+                    DisplayMessage.displayErrorMessage(e);
                 }
             } else {
                 teacher.setFirstName(firstName.getText());
@@ -113,12 +112,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 } catch (UserException e) {
-                    e.printStackTrace();
-                    Alert alert = new Alert(Alert.AlertType.ERROR);
-                    alert.setTitle("Alert");
-                    alert.setHeaderText(e.getExceptionMessage());
-                    alert.setContentText(e.getInstructions());
-                    alert.showAndWait();
+                    DisplayMessage.displayErrorMessage(e);
                 }
             }
         } else if (userType == LoginLogoutUtil.UserType.STUDENT) {
@@ -133,7 +127,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 } catch (UserException userException) {
-                    DisplayMessage.displayMessage(userException.getExceptionMessage());
+                    DisplayMessage.displayErrorMessage(userException);
                 }
             } else {
                 student.setFirstName(firstName.getText());
@@ -147,8 +141,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 } catch (UserException e) {
-                    DisplayMessage.displayError(e);
-                    DisplayMessage.displayMessage(e.getExceptionMessage());
+                    DisplayMessage.displayErrorMessage(e);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -161,8 +154,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 }catch (UserException ue){
-                    DisplayMessage.displayError(ue);
-                    DisplayMessage.displayMessage(ue.getExceptionMessage());
+                    DisplayMessage.displayErrorMessage(ue);
                 }
             }
             else {

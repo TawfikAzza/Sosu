@@ -17,32 +17,21 @@ public class CheckInput {
         java.util.regex.Matcher m = p.matcher(email);
         return m.matches();
     }
+
+    /**
+     * Password must contain at least one digit [0-9].
+     * Password must contain at least one lowercase Latin character [a-z].
+     * Password must contain at least one uppercase Latin character [A-Z].
+     * Password must contain at least one special character like ! @ # & ( ).
+     * Password must contain a length of at least 8 characters and a maximum of 20 characters.
+     * @param password
+     * @return
+     */
     public static boolean isPasswordValid(String password) {
-        int digitCounter = 0;
-
-        if (password.length() >= 10 ) {
-            for(int index = 0; index < password.length(); index++) {
-                char passChar = password.charAt(index);
-                if (!Character.isLetterOrDigit(passChar)) {
-                    return false;
-                }
-                else {
-                    if (Character.isDigit(passChar)) {
-                        digitCounter++;
-                    }
-                }
-            }
-        }
-        return digitCounter >= 2;
-    }
-
-    public boolean isValidName(String s) {
-        if (s == null || s.trim().isEmpty()) {
-            return false;
-        }
-        Pattern p = Pattern.compile("[^A-Za-z0-9]");
-        Matcher m = p.matcher(s);
-        return !m.find();
+        String regex = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#&()–[{}]:;',?/*~$^+=<>]).{8,20}$";
+        Pattern pattern = Pattern.compile(regex);
+        Matcher matcher = pattern.matcher(password);
+        return matcher.matches();
     }
 
     public static boolean isDateBeforeToday(String dateString){

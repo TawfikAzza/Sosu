@@ -1,5 +1,8 @@
 package gui.utils;
 
+import bll.exceptions.ObservationException;
+import bll.exceptions.SchoolException;
+import bll.exceptions.UserException;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -51,5 +54,51 @@ public class DisplayMessage {
         dialogPane.getStyleClass().add("confirmation-dialog");
         ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/confirmation_icon.png"));
         return alert.showAndWait().get();
+    }
+    public static void displayErrorMessage(UserException ue) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong...");
+                alert.setHeaderText(ue.getExceptionMessage());
+                alert.setContentText(ue.getInstructions());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("error-dialog");
+                ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
+                alert.showAndWait();
+            }
+        });
+    }
+
+    public static void displaySchoolErrorMessage(SchoolException se) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong...");
+                alert.setContentText(se.getExceptionMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("error-dialog");
+                ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
+                alert.showAndWait();
+            }
+        });
+    }
+
+    public static void displayObservationErrorMessage(ObservationException oe) {
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Something went wrong...");
+                alert.setContentText(oe.getInstructions());
+                alert.setHeaderText(oe.getExceptionMessage());
+                DialogPane dialogPane = alert.getDialogPane();
+                dialogPane.getStyleClass().add("error-dialog");
+                ((Stage) dialogPane.getScene().getWindow()).getIcons().add(new Image("Images/error_icon.png"));
+                alert.showAndWait();
+            }
+        });
     }
 }
