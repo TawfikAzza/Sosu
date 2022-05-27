@@ -103,6 +103,14 @@ public class TemplateController implements Initializable {
             }));
             return row;
         });
+
+        tableViewTemplates.setRowFactory(param -> {
+            TableRow<Citizen> row = new TableRow<>();
+            row.setOnMouseClicked(event -> Optional.ofNullable(row.getItem()).ifPresent(rowData-> {
+                GlobalVariables.setSelectedCitizen(row.getItem());
+            }));
+            return row;
+        });
     }
 
     private void initSpinners()
