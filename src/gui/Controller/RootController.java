@@ -58,7 +58,7 @@ public class RootController implements Initializable {
      * Stack pane allows us to use panes on top of each others.
      * If you already have a pane on a stack pane, and you add another one, then the first one will serve as a background to the second one.
      * We use this property for our side menu bar and apply it to our root layout.
-     * In this way, we can have our main grid  pane as in the background when the user is using the menu grid pane, and we can also hide the menu grid pane while the user is using the main pane.
+     * In this way, we can have our main grid  pane in the background when the user is using the menu grid pane, and we can also hide the menu grid pane while the user is using the main pane.
      * @param location
      * @param resources
      */
