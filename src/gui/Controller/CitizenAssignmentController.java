@@ -243,6 +243,7 @@ public class CitizenAssignmentController implements Initializable {
                     "Select a citizen who you wish to remove from this student" +
                     "\n" +
                     "To view a students citizens double click a student");
+            return;
         }
 
         Thread removeRelationThread = new Thread(new Runnable() {
