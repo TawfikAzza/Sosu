@@ -6,14 +6,10 @@ import gui.Model.CaseModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 public class CaseCreationController{
     private CitizenFormController citizenFormController;
@@ -37,7 +33,8 @@ public class CaseCreationController{
     }
 
 
-    public void handleSubmitClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleSubmitClick(ActionEvent actionEvent) {
         String caseName = txtFieldCaseName.getText();
         String content = txtAreaContent.getText();
         Case newCase = new Case(caseName, content);
@@ -59,7 +56,8 @@ public class CaseCreationController{
         }
     }
 
-    public void handleCancelClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancelClick(ActionEvent actionEvent) {
         Stage stage = (Stage) txtFieldCaseName.getScene().getWindow();
         stage.close();
     }

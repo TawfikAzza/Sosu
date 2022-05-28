@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
@@ -31,34 +30,40 @@ import java.util.ResourceBundle;
 
 public class ObservationsController implements Initializable {
 
-    @FXML
-    private Button cancelBtn;
     private Citizen selectedCitizen;
+    private ObservationModel observationModel;
     @FXML
     private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF;
-    ObservationModel observationModel;
+    @FXML
+    private Button cancelBtn;
 
-    public void handleVSBP(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSBP(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BPMeasurement);
     }
 
-    public void handleVSOxygen(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSOxygen(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.OxyMeasurement);
     }
 
-    public void handleVSTemp(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSTemp(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.TempMeasurement);
     }
 
-    public void handleVSWeight(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSWeight(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.WeightMeasurement);
     }
 
-    public void handleVSHB(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSHB(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.HeartBeatMeasurement);
     }
 
-    public void handleVSBS(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSBS(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BSMeasurement);
     }
 
@@ -146,7 +151,8 @@ public class ObservationsController implements Initializable {
         });
     }
 
-    public void handleCancelBtn(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancelBtn(ActionEvent actionEvent) {
         Stage stage;
         stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();

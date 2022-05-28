@@ -1,12 +1,7 @@
 package gui.Controller;
 
-import gui.utils.DisplayMessage;
-import gui.utils.LoginLogoutUtil;
-import javafx.event.ActionEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
-import java.io.IOException;
 
 public abstract class MenuController {
 

@@ -42,13 +42,14 @@ public class GeneralInfoFormController implements Initializable {
     }
 
     @FXML
-    void handleSave(ActionEvent event) {
+    private void handleSave(ActionEvent event) {
         if (checkFields()){
             closeWindow(event);
             saveInformation();
         }
     }
 
+    @FXML
     private void closeWindow(ActionEvent event) {
         Button sourceButton = ((Button) event.getSource());
         ((Stage) sourceButton.getParent().getScene().getWindow()).close();

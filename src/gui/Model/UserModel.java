@@ -96,7 +96,7 @@ public class UserModel {
     }
 
     public User submitLogin (String username , String password) throws Exception {
-        return this.userManager.submitLogin(username,password);
+        return userManager.submitLogin(username,password);
     }
 
 

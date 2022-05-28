@@ -37,7 +37,8 @@ public class TeacherMenuController extends MenuController{
         this.rootController = rootController;
     }
 
-    public void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/CitizenAssignmentView.fxml"));
             gridPane.setLayoutX(40);
@@ -51,7 +52,8 @@ public class TeacherMenuController extends MenuController{
         }
     }
 
-    public void handleTemplatesCitizensClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleTemplatesCitizensClick(ActionEvent actionEvent) {
         try {
             GridPane gridPane = FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml"));
             gridPane.setLayoutX(40);
@@ -66,12 +68,12 @@ public class TeacherMenuController extends MenuController{
         }
     }
 
-    public void handleLogoutClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleLogoutClick(ActionEvent actionEvent) {
         try {
             LoginLogoutUtil.logout(actionEvent);
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
     }
-
 }

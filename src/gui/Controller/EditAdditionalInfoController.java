@@ -1,8 +1,6 @@
 package gui.Controller;
 
-import bll.exceptions.CitizenException;
 import bll.util.GlobalVariables;
-import gui.Model.CitizenModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -29,7 +27,6 @@ public class EditAdditionalInfoController implements Initializable {
     @FXML
     private Tab functionalAbilityTab;
 
-    private CitizenModel citizenModel;
 
 
     @FXML
@@ -37,6 +34,7 @@ public class EditAdditionalInfoController implements Initializable {
         closeThisWindow(event);
     }
 
+    @FXML
     private void closeThisWindow(ActionEvent event) {
         Button actionSource = ((Button) event.getSource());
         Scene currentScene = actionSource.getScene();
@@ -48,11 +46,10 @@ public class EditAdditionalInfoController implements Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {
-            this.citizenModel = CitizenModel.getInstance();
             loadFAbilityContent();
             loadHConditionContent();
             loadGInfoContent();
-        } catch (IOException | CitizenException e) {
+        } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
     }

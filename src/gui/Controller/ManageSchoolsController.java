@@ -6,10 +6,8 @@ import bll.exceptions.SchoolException;
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.utils.DisplayMessage;
-import gui.utils.LoginLogoutUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.collections.transformation.FilteredList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -37,20 +35,21 @@ public class ManageSchoolsController implements Initializable {
     private TableView<School> schoolsTV;
     @FXML
     private TableColumn<School,String> schoolName;
-
     @FXML
     private TextField searchSchool;
     private SchoolModel schoolModel;
     private final ObservableList <School>allSchools= FXCollections.observableArrayList();
 
-    public void handleDeleteBtn(ActionEvent actionEvent) throws SQLException {
+    @FXML
+    private void handleDeleteBtn(ActionEvent actionEvent) throws SQLException {
         if (schoolsTV.getSelectionModel().getSelectedItem()!=null){
             if (!(DisplayMessage.displayConfirmation("All data related to this school will be lost", "are you sure you want to delete this school ?")).getButtonData().isCancelButton());
                 schoolModel.deleteSchool(schoolsTV.getSelectionModel().getSelectedItem());
         }
     }
 
-    public void handleEditBtn(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleEditBtn(ActionEvent actionEvent) throws IOException {
         if (schoolsTV.getSelectionModel().getSelectedItem()!=null){
             Parent root;
             FXMLLoader loader = new FXMLLoader();
@@ -66,7 +65,8 @@ public class ManageSchoolsController implements Initializable {
         }
     }
 
-    public void handleAddBtn(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleAddBtn(ActionEvent actionEvent) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/NewEditSchool.fxml"));

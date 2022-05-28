@@ -8,7 +8,6 @@ import bll.exceptions.HealthCategoryException;
 import gui.Model.ReportModel;
 import gui.utils.DisplayMessage;
 import gui.utils.GeneratePdf;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;

@@ -38,8 +38,6 @@ public class CitizenAssignmentController implements Initializable {
 
 
     @FXML
-    private TextField fCitizenSearchField;
-    @FXML
     private TableView<Student> tableViewStudent;
     @FXML
     private TableColumn<Student, String> tableColumnStudentFirstName;
@@ -127,7 +125,8 @@ public class CitizenAssignmentController implements Initializable {
     }
 
 
-    public void handleCreateStudent(ActionEvent actionEvent) {
+    @FXML
+    private void handleCreateStudent(ActionEvent actionEvent) {
         try {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
@@ -146,7 +145,8 @@ public class CitizenAssignmentController implements Initializable {
         }
     }
 
-    public void handleEditStudent(ActionEvent actionEvent) {
+    @FXML
+    private void handleEditStudent(ActionEvent actionEvent) {
         try {
 
             Parent root;
@@ -171,7 +171,8 @@ public class CitizenAssignmentController implements Initializable {
         }
     }
 
-    public void handleDeleteStudent(ActionEvent actionEvent){
+    @FXML
+    private void handleDeleteStudent(ActionEvent actionEvent){
         ObservableList<Student> selectedStudents = tableViewStudent.getSelectionModel().getSelectedItems();
         Student selectedStudent = selectedStudents.get(0);
         if (selectedStudents.size()>1 || selectedStudents.get(0) == null)
@@ -194,7 +195,8 @@ public class CitizenAssignmentController implements Initializable {
         deleteStudentThread.start();
     }
 
-    public void handleAssignClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleAssignClick(ActionEvent actionEvent) {
         ArrayList<Student> students = new ArrayList<>(tableViewStudent.getSelectionModel().getSelectedItems());
         Citizen templateCitizen = tableViewFictiveCitizen.getSelectionModel().getSelectedItem();
 
@@ -214,7 +216,8 @@ public class CitizenAssignmentController implements Initializable {
         }
     }
 
-    public void handleRemoveCitClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleRemoveCitClick(ActionEvent actionEvent) {
         Student student = tableViewStudent.getSelectionModel().getSelectedItem();
         Citizen toRemove = tableViewAssignedCit.getSelectionModel().getSelectedItem();
 

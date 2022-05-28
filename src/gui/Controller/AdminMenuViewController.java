@@ -1,7 +1,6 @@
 package gui.Controller;
 
 import bll.exceptions.UserException;
-import com.jfoenix.controls.JFXDrawer;
 import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.event.ActionEvent;
@@ -11,7 +10,6 @@ import javafx.scene.Node;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
@@ -40,7 +38,8 @@ public class AdminMenuViewController extends MenuController{
         return iconBox;
     }
 
-    public void handleSchoolsBtn(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleSchoolsBtn(ActionEvent actionEvent) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageSchoolsViews.fxml"));
         Node node = loader.load();
         node.setLayoutX(320);
@@ -53,7 +52,8 @@ public class AdminMenuViewController extends MenuController{
 
     //public void handleLogOutBtn(ActionEvent actionEvent){}
 
-    public void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
+    @FXML
+    private void handleAdminBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.ADMIN));
         Node node = loader.load();
@@ -65,7 +65,8 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
+    @FXML
+    private void handleStudentBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.STUDENT));
         Node node = loader.load();
@@ -77,7 +78,8 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
+    @FXML
+    private void handleTeacherBtn(ActionEvent actionEvent) throws IOException, UserException, SQLException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/gui/View/ManageUsersView.fxml"));
         loader.setController(new ManageUsersController(LoginLogoutUtil.UserType.TEACHER));
         Node node = loader.load();
@@ -90,7 +92,8 @@ public class AdminMenuViewController extends MenuController{
         rootController.closeDrawer();
     }
 
-    public void handleCitizenBtn(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleCitizenBtn(ActionEvent actionEvent) throws IOException {
         Tab duplicationTab = new Tab("Citizen templates");
         Tab assignTab = new Tab("student assigning");
         duplicationTab.setContent(FXMLLoader.load(getClass().getResource("/gui/View/TemplateView.fxml")));
@@ -111,7 +114,8 @@ public class AdminMenuViewController extends MenuController{
         this.hidePane=hidePane;
     }
 
-    public void handleLogoutClick(ActionEvent actionEvent) {
+    @FXML
+    private void handleLogoutClick(ActionEvent actionEvent) {
         try {
             LoginLogoutUtil.logout(actionEvent);
         } catch (IOException e) {

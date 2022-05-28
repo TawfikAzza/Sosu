@@ -1,9 +1,6 @@
 package gui.Controller;
 
-import bll.CaseManager;
-import bll.exceptions.CaseException;
 import bll.util.GlobalVariables;
-import gui.Model.CaseModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

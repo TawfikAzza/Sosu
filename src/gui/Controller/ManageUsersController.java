@@ -404,8 +404,6 @@ public class ManageUsersController implements Initializable {
                                                                                 test = -1;
                                                                                 Alert alert = new Alert(Alert.AlertType.ERROR);
                                                                                 alert.setTitle("Alert");
-                                                                                //alert.setHeaderText(e.getExceptionMessage());
-                                                                                //alert.setContentText(e.getInstructions());
                                                                                 alert.showAndWait();
                                                                                 if (userType == LoginLogoutUtil.UserType.TEACHER)
                                                                                     return ((Teacher) usersTV.getSelectionModel().getSelectedItem()).getUserName();
@@ -591,7 +589,8 @@ public class ManageUsersController implements Initializable {
     }
 
 
-    public void deleteUser(ActionEvent actionEvent) throws SQLException {
+    @FXML
+    private void deleteUser(ActionEvent actionEvent) throws SQLException {
         if (usersTV.getSelectionModel().getSelectedItem() != null) {
             if (userType == LoginLogoutUtil.UserType.TEACHER)
                 userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
@@ -602,7 +601,8 @@ public class ManageUsersController implements Initializable {
 
     }
 
-    public void editUser(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void editUser(ActionEvent actionEvent) throws IOException {
         if (usersTV.getSelectionModel().getSelectedItem() != null) {
             Parent root;
             FXMLLoader loader = new FXMLLoader();
@@ -621,7 +621,8 @@ public class ManageUsersController implements Initializable {
         }
     }
 
-    public void addUser(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void addUser(ActionEvent actionEvent) throws IOException {
         FXMLLoader newUserLoader = new FXMLLoader(getClass().getResource("/gui/View/NewEditUser.fxml"));
         newUserLoader.setController(new NewEditUserController(userType));
 
