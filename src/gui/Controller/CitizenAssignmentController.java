@@ -74,6 +74,8 @@ public class CitizenAssignmentController implements Initializable {
 
             this.tableViewFictiveCitizen.setItems(citizenModel.getObsListCitizens());
             this.tableViewStudent.setItems(studentModel.getObsStudents());
+
+            citizenModel.getObsListCitizens().setPredicate(citizen -> true);
         } catch (IOException | UserException | CitizenException e) {
             e.printStackTrace();
         }
@@ -147,6 +149,10 @@ public class CitizenAssignmentController implements Initializable {
     }
 
     public void handleEditStudent(ActionEvent actionEvent) {
+        if (tableViewStudent.getSelectionModel().getSelectedItem()==null){
+            DisplayMessage.displayMessage("Select a student who you want to edit");
+            return;
+        }
         try {
 
             Parent root;

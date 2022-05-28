@@ -65,6 +65,8 @@ public class TemplateController implements Initializable {
             this.citizenModel = CitizenModel.getInstance();
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
             this.tableViewCitizen.setItems(citizenModel.getObsListCitizens());
+            
+            citizenModel.getObsListCitizens().setPredicate(citizen -> true);
         } catch (CitizenException e) {
             DisplayMessage.displayError(e);
         }
@@ -178,20 +180,23 @@ public class TemplateController implements Initializable {
 
     public void handleEditTemplate(ActionEvent actionEvent) {
         Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (citizen != null)
-        {
-            try {
-                openCitizenForm(true,citizen);
-            } catch (IOException e) {
-                DisplayMessage.displayError(e);
-            }
+        if (citizen == null){
+            DisplayMessage.displayMessage("Select a template to edit");
+            return;
+        }
+        try {
+            openCitizenForm(true,citizen);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
         }
     }
 
     public void handleDeleteTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (selectedCitizen == null)
+        if (selectedCitizen == null){
+            DisplayMessage.displayMessage("Select a template to delete");
             return;
+        }
 
         ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this template");
 
@@ -217,38 +222,45 @@ public class TemplateController implements Initializable {
     public void handleDuplicateTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
         int amount = spinnerTemplateDuplicate.getValue();
-        if (selectedCitizen != null) {
-            Thread duplicateTemplateThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        citizenModel.duplicateCitizen(selectedCitizen, amount, true);
-                    } catch (CitizenException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
-                }
-            });
-            duplicateTemplateThread.start();
+        if (selectedCitizen == null) {
+            DisplayMessage.displayMessage("Select a template to duplicate");
+            return;
         }
+        Thread duplicateTemplateThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.duplicateCitizen(selectedCitizen, amount, true);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        duplicateTemplateThread.start();
+
     }
 
     public void handleEditCitizen(ActionEvent actionEvent) {
         Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
-        if (citizen != null)
-        {
-            try {
-                openCitizenForm(true,citizen);
-            } catch (IOException e) {
-                DisplayMessage.displayError(e);
-            }
+        if (citizen == null) {
+            DisplayMessage.displayMessage("Select a citizen to edit");
+            return;
         }
+        try {
+            openCitizenForm(true,citizen);
+        } catch (IOException e) {
+            DisplayMessage.displayError(e);
+        }
+
     }
 
     public void handleDeleteCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
-        if (selectedCitizen == null)
+        if (selectedCitizen == null){
+            DisplayMessage.displayMessage("Select a citizen to delete");
             return;
+        }
 
         ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this Citizen");
 
@@ -272,21 +284,24 @@ public class TemplateController implements Initializable {
     public void handleDuplicateCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
         int amount = spinnerCitizenDuplicate.getValue();
-        if (selectedCitizen != null) {
-            Thread duplicateCitizenThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        citizenModel.duplicateCitizen(selectedCitizen, amount, false);
-                    } catch (CitizenException e) {
-                        DisplayMessage.displayError(e);
-                        e.printStackTrace();
-                    }
-                }
-            });
-            duplicateCitizenThread.start();
+        if (selectedCitizen == null) {
+            DisplayMessage.displayMessage("Select a citizen to duplicate");
+            return;
         }
+        Thread duplicateCitizenThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    citizenModel.duplicateCitizen(selectedCitizen, amount, false);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                    e.printStackTrace();
+                }
+            }
+        });
+        duplicateCitizenThread.start();
     }
+
 
     @FXML
     private void handleSearchTemplate(KeyEvent keyEvent) {

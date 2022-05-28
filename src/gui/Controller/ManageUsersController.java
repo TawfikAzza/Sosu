@@ -590,35 +590,41 @@ public class ManageUsersController implements Initializable {
         });
     }
 
-
-    public void deleteUser(ActionEvent actionEvent) throws SQLException {
-        if (usersTV.getSelectionModel().getSelectedItem() != null) {
-            if (userType == LoginLogoutUtil.UserType.TEACHER)
-                userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
-            else if (userType== LoginLogoutUtil.UserType.STUDENT)
-                userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
-            else userModel.deleteAdmin((Admin)usersTV.getSelectionModel().getSelectedItem());
+    @FXML
+    private void deleteUser(ActionEvent actionEvent) throws SQLException {
+        if (usersTV.getSelectionModel().getSelectedItem() == null){
+            DisplayMessage.displayMessage("Select a user you wish to delete");
+            return;
         }
-
+        if (userType == LoginLogoutUtil.UserType.TEACHER)
+            userModel.deleteTeacher((Teacher) usersTV.getSelectionModel().getSelectedItem());
+        else if (userType== LoginLogoutUtil.UserType.STUDENT)
+            userModel.deleteStudent((Student) usersTV.getSelectionModel().getSelectedItem());
+        else userModel.deleteAdmin((Admin)usersTV.getSelectionModel().getSelectedItem());
     }
 
-    public void editUser(ActionEvent actionEvent) throws IOException {
-        if (usersTV.getSelectionModel().getSelectedItem() != null) {
-            Parent root;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
-            NewEditUserController newEditUserController = new NewEditUserController(userType);
-            loader.setController(newEditUserController);
 
-            root = loader.load();
-
-            newEditUserController.isNewUser(false, (User) usersTV.getSelectionModel().getSelectedItem());
-
-
-            Stage stage = new Stage();
-            stage.setScene(new Scene(root));
-            stage.show();
+    @FXML
+    private void editUser(ActionEvent actionEvent) throws IOException {
+        if (usersTV.getSelectionModel().getSelectedItem() == null) {
+            DisplayMessage.displayMessage("Select a user you wish to edit");
+            return;
         }
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditUser.fxml"));
+        NewEditUserController newEditUserController = new NewEditUserController(userType);
+        loader.setController(newEditUserController);
+
+        root = loader.load();
+
+        newEditUserController.isNewUser(false, (User) usersTV.getSelectionModel().getSelectedItem());
+
+
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 
     public void addUser(ActionEvent actionEvent) throws IOException {

@@ -41,29 +41,35 @@ public class ManageSchoolsController implements Initializable {
     @FXML
     private TextField searchSchool;
     private SchoolModel schoolModel;
-    private final ObservableList <School>allSchools= FXCollections.observableArrayList();
+
 
     public void handleDeleteBtn(ActionEvent actionEvent) throws SQLException {
-        if (schoolsTV.getSelectionModel().getSelectedItem()!=null){
+        if (schoolsTV.getSelectionModel().getSelectedItem()==null){
+            DisplayMessage.displayMessage("Select a school you wish to delete");
+            return;
+        }
             if (!(DisplayMessage.displayConfirmation("All data related to this school will be lost", "are you sure you want to delete this school ?")).getButtonData().isCancelButton());
                 schoolModel.deleteSchool(schoolsTV.getSelectionModel().getSelectedItem());
-        }
     }
 
-    public void handleEditBtn(ActionEvent actionEvent) throws IOException {
-        if (schoolsTV.getSelectionModel().getSelectedItem()!=null){
-            Parent root;
-            FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(getClass().getResource("/gui/View/NewEditSchool.fxml"));
-            root = loader.load();
-            NewEditSchoolController newEditSchoolController = loader.getController();
-            newEditSchoolController.setEdit(schoolsTV.getSelectionModel().getSelectedItem());
 
-            Stage stage = new Stage();
-            stage.setTitle("Edit school");
-            stage.setScene(new Scene(root));
-            stage.show();
+    public void handleEditBtn(ActionEvent actionEvent) throws IOException {
+        if (schoolsTV.getSelectionModel().getSelectedItem()==null){
+            DisplayMessage.displayMessage("Select a school you wish to edit");
+            return;
         }
+        Parent root;
+        FXMLLoader loader = new FXMLLoader();
+        loader.setLocation(getClass().getResource("/gui/View/NewEditSchool.fxml"));
+        root = loader.load();
+        NewEditSchoolController newEditSchoolController = loader.getController();
+        newEditSchoolController.setEdit(schoolsTV.getSelectionModel().getSelectedItem());
+
+        Stage stage = new Stage();
+        stage.setTitle("Edit school");
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 
     public void handleAddBtn(ActionEvent actionEvent) throws IOException {

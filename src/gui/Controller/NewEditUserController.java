@@ -97,6 +97,7 @@ public class NewEditUserController implements Initializable {
                     Stage stage = (Stage) cnfrmButton.getScene().getWindow();
                     stage.close();
                 } catch (UserException e) {
+                    e.printStackTrace();
                     DisplayMessage.displayErrorMessage(e);
                 }
             } else {
