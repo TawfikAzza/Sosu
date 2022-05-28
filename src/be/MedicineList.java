@@ -1,6 +1,5 @@
 package be;
 
-import java.util.List;
 
 public class MedicineList {
     private int id;

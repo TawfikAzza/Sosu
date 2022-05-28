@@ -275,50 +275,35 @@ public class GeneratePdf {
         GIReportModel giReportModel = new GIReportModel();
         HashMap<String, String> categoryHashMap = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
         Chapter catPart = new Chapter(new Paragraph(anchor), 1);
-
-
-        for (Map.Entry<String, String> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            Paragraph subPara = new Paragraph(categoryHashMap.get(key), subFont);
-            String value = entry.getValue();
-            Section subCatPart = catPart.addSection(subPara);
-            //subCatPart.addSection(categoryHashMap.get(sid).getName());
-
-            subCatPart.add(new Paragraph("\n"));
-            createGIReportContent(subCatPart, value);
-
-        }
+        catPart.add(new Paragraph("\n"));
+        createGIReportContent(catPart, hashMap);
         document.add(catPart);
 
     }
 
 
-    private static void createGIReportContent (Section subCatPart, String hashMap)
+    private static void createGIReportContent (Section subCatPart, HashMap<String, String> hashMap)
             throws DocumentException {
 
+        PdfPTable table = new PdfPTable(2);
+        for (Map.Entry entry : hashMap.entrySet() ) {
 
-        for (Map.Entry<String, String> entry = null;; ) {
-            PdfPTable table = new PdfPTable(2);
             table.setSpacingAfter(10);
 
+            String key = (String) entry.getKey();
+            String value = (String) entry.getValue();
 
-            PdfPCell c1 = new PdfPCell(new Phrase("Mestring"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
+            PdfPCell c1 = new PdfPCell(new Phrase(key));
+            PdfPCell c2 = new PdfPCell(new Phrase(value));
 
             table.addCell(c1);
-            table.addCell(entry.getKey());
-
-
-            c1 = new PdfPCell(new Phrase("Mestring"));
-            c1.setHorizontalAlignment(Element.ALIGN_CENTER);
-            table.addCell(c1);
-            table.addCell(entry.getValue());
-
+            table.addCell(c2);
 
             table.setHeaderRows(1);
             table.setWidthPercentage(100);
             table.setWidths(new int[]{1, 3});
-            subCatPart.add(table);
+
         }
+        subCatPart.add(table);
     }
 }
