@@ -77,7 +77,8 @@ public class GeneralInfoReportController implements Initializable {
         }
     }
 
-    public void openGeneralReport(ActionEvent actionEvent) {
+    @FXML
+    private void openGeneralReport(ActionEvent actionEvent) {
         if(GlobalVariables.getSelectedCitizen()==null)
             return;
         FXMLLoader loader = new FXMLLoader();

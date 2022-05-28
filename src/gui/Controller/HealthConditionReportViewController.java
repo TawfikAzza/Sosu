@@ -9,7 +9,6 @@ import gui.utils.GeneratePdf;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -40,8 +39,6 @@ public class HealthConditionReportViewController implements Initializable {
     private Button btnReport;
     @FXML
     private ScrollPane scrollPane;
-    @FXML
-    private VBox vBoxContent;
 
     private ReportModel reportModel;
     private Citizen currentCitizen;
@@ -195,7 +192,8 @@ public class HealthConditionReportViewController implements Initializable {
         scrollPane.setContent(mainPane);
     }
 
-    public void openReport(ActionEvent actionEvent) {
+    @FXML
+    private void openReport(ActionEvent actionEvent) {
         HashMap<Integer, List<Pair<HealthCategory, Condition>>> hashMap=null;
         try {
             hashMap = reportModel.getConditionsFromCitizen(currentCitizen);

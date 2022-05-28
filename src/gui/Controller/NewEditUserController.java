@@ -28,8 +28,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
@@ -70,7 +68,8 @@ public class NewEditUserController implements Initializable {
         this.userType = userType;
     }
 
-    public void handleCancel(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancel(ActionEvent actionEvent) {
         Stage stage;
         if (!(firstName.getText().isEmpty() && lastName.getText().isEmpty() && userName.getText().isEmpty() && passWord.getText().isEmpty() && email.getText().isEmpty() && phoneNumberField.getText().isEmpty() && schoolComboBox.getSelectionModel().getSelectedItem() == null)) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
@@ -88,7 +87,8 @@ public class NewEditUserController implements Initializable {
         }
     }
 
-    public void createNewUser(ActionEvent actionEvent) throws SQLException, UserException {
+    @FXML
+    private void createNewUser(ActionEvent actionEvent) throws SQLException, UserException {
         if (userType == LoginLogoutUtil.UserType.TEACHER) {
             if (newUser) {
                 try {

@@ -4,7 +4,6 @@ import be.*;
 import bll.exceptions.AbilityCategoryException;
 import bll.exceptions.HealthCategoryException;
 import bll.util.DateUtil;
-import bll.util.GlobalVariables;
 import gui.Model.CategoryModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
@@ -279,7 +278,8 @@ public class AbilityReportViewController implements Initializable {
 
     }
 
-    public void confirm(ActionEvent actionEvent) {
+    @FXML
+    private void confirm(ActionEvent actionEvent) {
         if(operationType.equals("insert")) {
             if (!checkFields()) {
                 return;

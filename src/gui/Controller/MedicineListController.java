@@ -1,23 +1,17 @@
 package gui.Controller;
 
-import be.Citizen;
-import be.Condition;
 import be.MedicineList;
 import bll.exceptions.MedicineListException;
 import bll.util.GlobalVariables;
 import gui.Model.MedicineListModel;
 import gui.utils.DisplayMessage;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.stage.Stage;
-
-import java.io.IOException;
 import java.net.URL;
-import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 
@@ -41,14 +35,6 @@ public class MedicineListController implements Initializable {
     private String operationType;
 
     private MedicineListModel medicineListModel;
-    //private Citizen currentCitizen;
-   // private StudentMenuViewController studentMenuViewController;
-
-    public MedicineListController() {
-
-
-    }
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {

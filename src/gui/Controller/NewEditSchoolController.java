@@ -1,26 +1,19 @@
 package gui.Controller;
 
-import be.Citizen;
 import be.School;
-import bll.SchoolManager;
 import bll.exceptions.SchoolException;
-
 import bll.exceptions.UserException;
 import gui.Model.SchoolModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -47,7 +40,8 @@ public class NewEditSchoolController implements Initializable {
     }
 
 
-    public void handleCancelBtn(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancelBtn(ActionEvent actionEvent) {
         if (!schoolName.getText().isEmpty()){
             DisplayMessage.displayConfirmation("Your imput will be lost","Are you ssure you want to close this window");
         }
@@ -57,7 +51,8 @@ public class NewEditSchoolController implements Initializable {
             }
         }
 
-    public void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
+    @FXML
+    private void handleConfirmBtn(ActionEvent actionEvent) throws SchoolException, SQLException {
         if (onAdd)
             try {
                 schoolModel.newSchool(schoolName.getText());

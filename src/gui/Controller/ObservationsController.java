@@ -29,33 +29,38 @@ import java.util.ResourceBundle;
 
 public class ObservationsController implements Initializable {
 
-    @FXML
-    private Button cancelBtn;
     private Citizen selectedCitizen;
+    private ObservationModel observationModel;
     @FXML
     private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF;
-    private ObservationModel observationModel;
+    @FXML
+    private Button cancelBtn;
 
     @FXML
     private void handleVSBP(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BPMeasurement);
     }
+
     @FXML
     private void handleVSOxygen(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.OxyMeasurement);
     }
+
     @FXML
     private void handleVSTemp(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.TempMeasurement);
     }
+
     @FXML
     private void handleVSWeight(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.WeightMeasurement);
     }
+
     @FXML
     private void handleVSHB(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.HeartBeatMeasurement);
     }
+
     @FXML
     private void handleVSBS(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BSMeasurement);
@@ -145,7 +150,8 @@ public class ObservationsController implements Initializable {
         });
     }
 
-    public void handleCancelBtn(ActionEvent actionEvent) {
+    @FXML
+    private void handleCancelBtn(ActionEvent actionEvent) {
         Stage stage;
         stage = (Stage) cancelBtn.getScene().getWindow();
         stage.close();

@@ -60,7 +60,6 @@ public class TemplateController implements Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         try {
             this.citizenModel = CitizenModel.getInstance();
             this.tableViewTemplates.setItems(citizenModel.getTemplatesObs());
@@ -128,7 +127,8 @@ public class TemplateController implements Initializable {
         spinnerTemplateDuplicate.setValueFactory(valueFactory2);
     }
 
-    public void handleCreateCitFromTemp(ActionEvent actionEvent) {
+    @FXML
+    private void handleCreateCitFromTemp(ActionEvent actionEvent) {
         Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
         if (template ==null){
             DisplayMessage.displayMessage("Select a template to convert");
@@ -149,7 +149,8 @@ public class TemplateController implements Initializable {
         }
     }
 
-    public void handleCreateTempFromCit(ActionEvent actionEvent) {
+    @FXML
+    private void handleCreateTempFromCit(ActionEvent actionEvent) {
         Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
         if (citizen ==null){
             DisplayMessage.displayMessage("Select a citizen to convert");
@@ -170,7 +171,8 @@ public class TemplateController implements Initializable {
         }
     }
 
-    public void handleCreateTemplate(ActionEvent actionEvent) {
+    @FXML
+    private void handleCreateTemplate(ActionEvent actionEvent) {
         try {
             openCitizenForm(false,null);
         } catch (IOException e) {
@@ -178,7 +180,8 @@ public class TemplateController implements Initializable {
         }
     }
 
-    public void handleEditTemplate(ActionEvent actionEvent) {
+    @FXML
+    private void handleEditTemplate(ActionEvent actionEvent) {
         Citizen citizen = tableViewTemplates.getSelectionModel().getSelectedItem();
         if (citizen == null){
             DisplayMessage.displayMessage("Select a template to edit");
@@ -191,7 +194,8 @@ public class TemplateController implements Initializable {
         }
     }
 
-    public void handleDeleteTemplate(ActionEvent actionEvent) {
+    @FXML
+    private void handleDeleteTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
         if (selectedCitizen == null){
             DisplayMessage.displayMessage("Select a template to delete");
@@ -219,7 +223,8 @@ public class TemplateController implements Initializable {
         deleteCitizenThread.start();
     }
 
-    public void handleDuplicateTemplate(ActionEvent actionEvent) {
+    @FXML
+    private void handleDuplicateTemplate(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewTemplates.getSelectionModel().getSelectedItem();
         int amount = spinnerTemplateDuplicate.getValue();
         if (selectedCitizen == null) {
@@ -241,7 +246,8 @@ public class TemplateController implements Initializable {
 
     }
 
-    public void handleEditCitizen(ActionEvent actionEvent) {
+    @FXML
+    private void handleEditCitizen(ActionEvent actionEvent) {
         Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
         if (citizen == null) {
             DisplayMessage.displayMessage("Select a citizen to edit");
@@ -255,7 +261,8 @@ public class TemplateController implements Initializable {
 
     }
 
-    public void handleDeleteCitizen(ActionEvent actionEvent) {
+    @FXML
+    private void handleDeleteCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
         if (selectedCitizen == null){
             DisplayMessage.displayMessage("Select a citizen to delete");
@@ -281,7 +288,8 @@ public class TemplateController implements Initializable {
         deleteCitizenThread.start();
     }
 
-    public void handleDuplicateCitizen(ActionEvent actionEvent) {
+    @FXML
+    private void handleDuplicateCitizen(ActionEvent actionEvent) {
         Citizen selectedCitizen = tableViewCitizen.getSelectionModel().getSelectedItem();
         int amount = spinnerCitizenDuplicate.getValue();
         if (selectedCitizen == null) {

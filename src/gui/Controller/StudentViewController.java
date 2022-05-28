@@ -1,19 +1,15 @@
 package gui.Controller;
 
 import be.Citizen;
-import be.Student;
 import bll.exceptions.CitizenException;
 import bll.exceptions.StudentException;
 import bll.util.GlobalVariables;
 import gui.Model.StudentCitizenRelationShipModel;
-import gui.Model.StudentModel;
 import gui.utils.DisplayMessage;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Label;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
@@ -21,23 +17,20 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Modality;
-import javafx.stage.Stage;
-
-
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class StudentViewController implements Initializable {
 
     @FXML
-    private TableColumn addressColumn;
+    private TableColumn<Citizen, String> addressColumn;
     @FXML
-    private TableColumn phoneColumn;
+    private TableColumn<Citizen, Integer> phoneColumn;
     @FXML
-    private TableColumn bDateColumn;
+    private TableColumn<Citizen, LocalDate> bDateColumn;
     @FXML
     private TextField citizenSearchField;
     @FXML

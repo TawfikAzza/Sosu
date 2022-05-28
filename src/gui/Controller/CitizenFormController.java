@@ -2,17 +2,13 @@ package gui.Controller;
 
 import be.Case;
 import be.Citizen;
-import be.School;
 import bll.exceptions.CaseException;
 import bll.exceptions.CitizenException;
-import bll.exceptions.SchoolException;
 import bll.util.CheckInput;
 import bll.util.DateUtil;
 import bll.util.GlobalVariables;
-import com.jfoenix.controls.JFXComboBox;
 import gui.Model.CaseModel;
 import gui.Model.CitizenModel;
-import gui.Model.SchoolModel;
 import gui.utils.DisplayMessage;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -144,23 +140,6 @@ public class CitizenFormController implements Initializable {
             } catch (CaseException | IOException e) {
                 DisplayMessage.displayError(e);
             }
-        }
-    }
-
-    private void openCaseView(boolean editing)
-    {
-        try {
-            CaseCreationController controller = new CaseCreationController(this, editing);
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("../View/CaseCreationView.fxml"));
-            loader.setController(controller);
-            Parent root = loader.load();
-
-            Scene scene = new Scene(root);
-            Stage newWindow = new Stage();
-            newWindow.setScene(scene);
-            newWindow.show();
-        } catch (IOException e) {
-            e.printStackTrace();
         }
     }
 
