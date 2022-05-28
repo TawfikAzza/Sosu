@@ -26,7 +26,7 @@ public class UserModel {
     private FilteredList<Admin>admins;
 
 
-    private UserModel() throws IOException, UserException, SQLException {
+    UserModel() throws IOException, UserException, SQLException {
         this.userManager = new UserManager();
         this.studentCitizenRelationshipManager=new StudentCitizenRelationshipManager();
         initObsLists();
