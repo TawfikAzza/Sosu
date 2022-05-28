@@ -28,7 +28,7 @@ public class GeneralInfoReportController implements Initializable {
     @FXML
     private ListView<InfoCategory> infoCategoryList;
 
-    GInfoModel generalInfoModel;
+    private GInfoModel generalInfoModel;
 
     public GeneralInfoReportController() {
         try {

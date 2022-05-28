@@ -30,7 +30,7 @@ public class ChartController implements Initializable {
 
     private ObservationType observationType;
 
-    ObservationModel observationModel;
+    private ObservationModel observationModel;
 
     public void setObservationType(ObservationType observationType) {
         this.observationType =observationType;

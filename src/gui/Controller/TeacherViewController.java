@@ -37,8 +37,8 @@ import java.util.function.Predicate;
 
 public class TeacherViewController implements Initializable {
 
-
-    public GridPane mainGridPane;
+    @FXML
+    private GridPane mainGridPane;
     @FXML
     private AnchorPane citizenInfoControls;
     @FXML
