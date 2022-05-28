@@ -30,7 +30,7 @@ public class GeneralInfoFormController implements Initializable {
 
     private InfoCategory selectedInfoCategory;
 
-    GInfoModel model;
+    private GInfoModel model;
 
     public GeneralInfoFormController() {
         try {

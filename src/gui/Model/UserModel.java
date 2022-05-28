@@ -95,11 +95,6 @@ public class UserModel {
         return single_instance;
     }
 
-    public User submitLogin (String username , String password) throws Exception {
-        return userManager.submitLogin(username,password);
-    }
-
-
     private void initObsLists() throws UserException, SQLException {
         ObservableList<Teacher> allTeachers = FXCollections.observableArrayList();
         ObservableList<Student>allStudents = FXCollections.observableArrayList();

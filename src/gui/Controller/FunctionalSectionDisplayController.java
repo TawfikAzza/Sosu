@@ -39,6 +39,7 @@ public class FunctionalSectionDisplayController implements Initializable {
 
     private final double LISTVIEW_HEIGHT_VALUE = 23.75;
     private CategoryModel categoryModel;
+
     public FunctionalSectionDisplayController() throws HealthCategoryException {
         categoryModel = new CategoryModel();
     }

@@ -174,9 +174,12 @@ public class CitizenAssignmentController implements Initializable {
     @FXML
     private void handleDeleteStudent(ActionEvent actionEvent){
         ObservableList<Student> selectedStudents = tableViewStudent.getSelectionModel().getSelectedItems();
-        Student selectedStudent = selectedStudents.get(0);
-        if (selectedStudents.size()>1 || selectedStudents.get(0) == null)
+        if (selectedStudents==null || selectedStudents.size()!=1){
+            DisplayMessage.displayMessage("Select a single student to delete");
             return;
+        }
+        Student selectedStudent = selectedStudents.get(0);
+
         ButtonType response = DisplayMessage.displayConfirmation("Confirmation","You are about to delete this student");
 
         if (response!=ButtonType.OK)
@@ -200,7 +203,14 @@ public class CitizenAssignmentController implements Initializable {
         ArrayList<Student> students = new ArrayList<>(tableViewStudent.getSelectionModel().getSelectedItems());
         Citizen templateCitizen = tableViewFictiveCitizen.getSelectionModel().getSelectedItem();
 
-        if (templateCitizen!=null)
+        if (templateCitizen==null){
+            DisplayMessage.displayMessage("Select a citizen to assign");
+            return;
+        }
+        if (students.isEmpty()){
+            DisplayMessage.displayMessage("Select 1 or more students to assign to");
+            return;
+        }
         {
             Thread assignCitizenThread = new Thread(new Runnable() {
                 @Override
@@ -221,20 +231,29 @@ public class CitizenAssignmentController implements Initializable {
         Student student = tableViewStudent.getSelectionModel().getSelectedItem();
         Citizen toRemove = tableViewAssignedCit.getSelectionModel().getSelectedItem();
 
-        if (student!=null && toRemove!=null)
-        {
-            Thread removeRelationThread = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        relationShipModel.removeRelation(student, toRemove);
-                    } catch (CitizenException e) {
-                        DisplayMessage.displayError(e);
-                    }
-                }
-            });
-            removeRelationThread.start();
+        if (student==null){
+            DisplayMessage.displayMessage("Select a student, whose citizen you want to remove");
+            return;
         }
+        if (toRemove==null){
+            DisplayMessage.displayMessage(
+                    "Select a citizen who you wish to remove from this student" +
+                    "\n" +
+                    "To view a students citizens double click a student");
+        }
+
+        Thread removeRelationThread = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    relationShipModel.removeRelation(student, toRemove);
+                } catch (CitizenException e) {
+                    DisplayMessage.displayError(e);
+                }
+            }
+        });
+        removeRelationThread.start();
+
     }
 
     @FXML

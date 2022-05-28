@@ -17,8 +17,8 @@ import java.util.List;
 
 public class ObservationModel {
 
-    ObservationManager observationManager;
-    ObservableList<Observation> allObservations;
+    private ObservationManager observationManager;
+    private ObservableList<Observation> allObservations;
 
     public ObservationModel() throws IOException {
         observationManager= new ObservationManager();

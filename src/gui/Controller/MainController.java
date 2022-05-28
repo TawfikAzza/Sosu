@@ -1,21 +1,22 @@
 package gui.Controller;
 
 import be.*;
-import bll.UserManager;
+import bll.exceptions.UserException;
+import gui.Model.LogInModel;
+import gui.utils.DisplayMessage;
 import gui.utils.LoginLogoutUtil;
 import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class MainController implements Initializable {
@@ -32,11 +33,7 @@ public class MainController implements Initializable {
 
     @FXML
     private TextField userField;
-
-    private UserManager userManager = new UserManager();
-
-    public MainController() throws IOException {
-    }
+    private LogInModel logInModel;
 
 
     public void closeWindow() throws IOException{
@@ -48,7 +45,7 @@ public class MainController implements Initializable {
     @FXML
     private void submitLogin(Event actionEvent) throws Exception {
 
-        User user = userManager.submitLogin(userField.getText(), passwordField.getText());
+        User user = logInModel.submitLogin(userField.getText(), passwordField.getText());
 
         if (user != null)
             LoginLogoutUtil.login(actionEvent,user.getRoleID());
@@ -59,15 +56,17 @@ public class MainController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        mainPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
-            @Override
-            public void handle(KeyEvent event) {
-                if (event.getCode().equals(KeyCode.ENTER)){
-                    try {
-                        submitLogin(event);
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+        try {
+            logInModel = new LogInModel();
+        } catch (IOException | UserException | SQLException e) {
+            DisplayMessage.displayError(e);
+        }
+        mainPane.setOnKeyPressed(event -> {
+            if (event.getCode().equals(KeyCode.ENTER)){
+                try {
+                    submitLogin(event);
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
             }
         });

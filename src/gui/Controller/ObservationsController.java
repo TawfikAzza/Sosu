@@ -20,7 +20,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
-
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
@@ -101,7 +100,7 @@ public class ObservationsController implements Initializable {
     }
 
 
-    public void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
+    private void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
         ObservationType observationType;
         if (textField.equals(bloodPressureTF))
             observationType = ObservationType.BPMeasurement;
@@ -118,8 +117,8 @@ public class ObservationsController implements Initializable {
         observationModel.addObservation(observationType,citizen,measurement);
 
     }
-
-    public void openChartWindow(ObservationType observationType) throws IOException {
+    @FXML
+    private void openChartWindow(ObservationType observationType) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/ChartView.fxml"));
