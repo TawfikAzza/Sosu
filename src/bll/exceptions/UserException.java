@@ -72,7 +72,7 @@ public class UserException extends Throwable {
     public void checkUserPassword(String passWord) throws UserException {
         if (!CheckInput.isPasswordValid(passWord)) {
             UserException userException = new UserException("Please find a correct password.", new Exception());
-            userException.setInstructions("A password must contain at least one digit [0-9],one lowercase Latin character [a-z],one uppercase Latin character [A-Z],one special character like ! @ # & ( ) and at least 8 characters.");
+            userException.setInstructions("A password must contain at least one digit [0-9],\none lowercase Latin character [a-z],one uppercase Latin character [A-Z],\none special character like ! @ # & ( ) and at least 8 characters.");
             throw userException;
         }
     }

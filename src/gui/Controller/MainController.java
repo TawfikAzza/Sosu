@@ -44,7 +44,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField userField;
 
-    public UserManager userManager = new UserManager();
+    private UserManager userManager = new UserManager();
 
     public MainController() throws IOException {
     }

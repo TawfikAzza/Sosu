@@ -128,7 +128,10 @@ public class TemplateController implements Initializable {
 
     public void handleCreateCitFromTemp(ActionEvent actionEvent) {
         Citizen template = tableViewTemplates.getSelectionModel().getSelectedItem();
-        if (template !=null)
+        if (template ==null){
+            DisplayMessage.displayMessage("Select a template to convert");
+            return;
+        }
         {
             Thread copyTemplateThread = new Thread(new Runnable() {
                 @Override
@@ -146,7 +149,10 @@ public class TemplateController implements Initializable {
 
     public void handleCreateTempFromCit(ActionEvent actionEvent) {
         Citizen citizen = tableViewCitizen.getSelectionModel().getSelectedItem();
-        if (citizen !=null)
+        if (citizen ==null){
+            DisplayMessage.displayMessage("Select a citizen to convert");
+            return;
+        }
         {
             Thread copyCitizenThread = new Thread(new Runnable() {
                 @Override

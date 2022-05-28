@@ -44,7 +44,7 @@ public class HealthConditionReportViewController implements Initializable {
     private VBox vBoxContent;
 
     private ReportModel reportModel;
-    Citizen currentCitizen;
+    private Citizen currentCitizen;
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         try {

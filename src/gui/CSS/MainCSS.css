@@ -399,6 +399,7 @@ For rounded text area if needed
 .error-dialog.content{
     -fx-background-color: -fx-root-base;
     -fx-padding:0 10 10 10;
+    -fx-font-size: 10;
 }
 
 .error-dialog:header *.header-panel {
