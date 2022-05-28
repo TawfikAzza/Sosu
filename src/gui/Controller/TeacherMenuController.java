@@ -18,7 +18,7 @@ public class TeacherMenuController extends MenuController{
     private VBox iconBox;
     @FXML
     private VBox btnBox;
-
+    private RootController rootController;
     public TeacherMenuController(AnchorPane mainPane,AnchorPane hidePane) {
         super(mainPane);
         this.mainPane=mainPane;
@@ -33,6 +33,9 @@ public class TeacherMenuController extends MenuController{
         return btnBox;
     }
 
+    public void setRootController(RootController rootController) {
+        this.rootController = rootController;
+    }
 
     public void handleStudentsAssignmentsClick(ActionEvent actionEvent) {
         try {
@@ -42,6 +45,7 @@ public class TeacherMenuController extends MenuController{
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
             mainPane.getChildren().add(hidePane);
+            rootController.closeDrawer();
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
@@ -56,6 +60,7 @@ public class TeacherMenuController extends MenuController{
             mainPane.getChildren().clear();
             mainPane.getChildren().add(gridPane);
             mainPane.getChildren().add(hidePane);
+            rootController.closeDrawer();
         } catch (IOException e) {
             DisplayMessage.displayError(e);
         }
