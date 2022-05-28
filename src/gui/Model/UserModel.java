@@ -32,6 +32,10 @@ public class UserModel {
         initObsLists();
     }
 
+    public static void resetInstance() {
+        single_instance = null;
+    }
+
 
     public FilteredList<Teacher> getAllTeachers() throws SQLException{
         return teachers;

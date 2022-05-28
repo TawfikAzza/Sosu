@@ -80,6 +80,10 @@ public class SchoolModel {
         return single_instance;
     }
 
+    public static void resetInstance(){
+        single_instance = null;
+    }
+
     public void editSchool(School school,String name) throws SQLException, SchoolException {
         schoolManager.editSchool(school,name);
     }
@@ -87,4 +91,6 @@ public class SchoolModel {
     public FilteredList<School> getAllSchoolsFL() {
         return allSchoolsFL;
     }
+
+
 }

@@ -2,6 +2,10 @@ package gui.utils;
 
 import bll.util.GlobalVariables;
 import gui.Controller.RootController;
+import gui.Model.CitizenModel;
+import gui.Model.SchoolModel;
+import gui.Model.StudentModel;
+import gui.Model.UserModel;
 import javafx.event.Event;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -44,7 +48,15 @@ public class LoginLogoutUtil {
         closeCurrentWindow(actionEvent);
         GlobalVariables.resetVariables();
         openLoginWindow();
+        unloadModels();
 
+    }
+
+    private static void unloadModels() {
+        CitizenModel.resetInstance();
+        SchoolModel.resetInstance();
+        StudentModel.resetInstance();
+        UserModel.resetInstance();
     }
 
     public static void login(Event actionEvent, int userRole) throws IOException {

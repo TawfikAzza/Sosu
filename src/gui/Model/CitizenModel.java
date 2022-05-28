@@ -107,4 +107,8 @@ public class CitizenModel {
         }
         return instance;
     }
+
+    public static void resetInstance(){
+        instance = null;
+    }
 }

@@ -28,6 +28,10 @@ public class StudentModel {
         initObsLists();
     }
 
+    public static void resetInstance() {
+        instance = null;
+    }
+
     private void initObsLists() throws UserException {
         ObservableList<Student> studentList = FXCollections.observableArrayList();
         studentList.setAll(studentManager.getAllStudents());
