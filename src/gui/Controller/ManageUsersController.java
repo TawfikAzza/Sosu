@@ -43,7 +43,8 @@ public class ManageUsersController implements Initializable {
     private TableColumn firstNameTC, lastNameTC, userNameTC, passwordTC, emailTC;
     @FXML
     private TableColumn phoneNumberTC;
-    @FXML GridPane gridPane;
+    @FXML
+    private GridPane gridPane;
 
     private LoginLogoutUtil.UserType userType;
     private UserModel userModel;
