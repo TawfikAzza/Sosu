@@ -4,8 +4,8 @@ import be.User;
 import bll.util.CheckInput;
 
 public class UserException extends Throwable {
-    String exceptionMessage;
-    String instructions;
+    private String exceptionMessage;
+    private String instructions;
 
     public UserException(String exceptionMessage, Exception exception) {
         //System.out.println( exceptionMessage+"\n" + exception);

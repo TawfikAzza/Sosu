@@ -13,7 +13,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 public class ObservationManager {
-    ObservationDao observationDao;
+
+    private ObservationDao observationDao;
+
     public ObservationManager() throws IOException {
         this.observationDao= new ObservationDao();
     }

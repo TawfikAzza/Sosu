@@ -13,7 +13,7 @@ import java.util.List;
 
 public class GInfoManager {
 
-    GInfoDAO infoDAO;
+    private GInfoDAO infoDAO;
 
     public GInfoManager() throws GeneralInfoException {
         try {

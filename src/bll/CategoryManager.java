@@ -12,8 +12,8 @@ import java.util.List;
 
 public class CategoryManager {
 
-    HealthConditionDAO healthConditionDAO;
-    FunctionalAbilityDAO functionalAbilityDAO;
+    private HealthConditionDAO healthConditionDAO;
+    private FunctionalAbilityDAO functionalAbilityDAO;
     public CategoryManager() throws HealthCategoryException {
         try {
             healthConditionDAO = new HealthConditionDAO();

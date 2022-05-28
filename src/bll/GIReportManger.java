@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 public class GIReportManger {
 
-    GIReportDAO giReportDAO;
+    private GIReportDAO giReportDAO;
 
 
 

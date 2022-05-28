@@ -36,29 +36,30 @@ public class ObservationsController implements Initializable {
     private Citizen selectedCitizen;
     @FXML
     private TextField bloodPressureTF,bloodSugarTF,oxygenTF,temperatureTF,wightTF,heartBeatTF;
-    ObservationModel observationModel;
+    private ObservationModel observationModel;
 
-    public void handleVSBP(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSBP(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BPMeasurement);
     }
-
-    public void handleVSOxygen(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSOxygen(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.OxyMeasurement);
     }
-
-    public void handleVSTemp(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSTemp(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.TempMeasurement);
     }
-
-    public void handleVSWeight(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSWeight(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.WeightMeasurement);
     }
-
-    public void handleVSHB(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSHB(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.HeartBeatMeasurement);
     }
-
-    public void handleVSBS(ActionEvent actionEvent) throws IOException {
+    @FXML
+    private void handleVSBS(ActionEvent actionEvent) throws IOException {
         openChartWindow(ObservationType.BSMeasurement);
     }
 
@@ -96,7 +97,7 @@ public class ObservationsController implements Initializable {
     }
 
 
-    public void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
+    private void createNewObservation(TextField textField,Citizen citizen,float measurement)throws SQLException,ObservationException {
         ObservationType observationType;
         if (textField.equals(bloodPressureTF))
             observationType = ObservationType.BPMeasurement;
@@ -113,8 +114,8 @@ public class ObservationsController implements Initializable {
         observationModel.addObservation(observationType,citizen,measurement);
 
     }
-
-    public void openChartWindow(ObservationType observationType) throws IOException {
+    @FXML
+    private void openChartWindow(ObservationType observationType) throws IOException {
         Parent root;
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/gui/View/ChartView.fxml"));

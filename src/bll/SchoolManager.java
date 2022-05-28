@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 public class SchoolManager {
-    SchoolDAO schoolDao;
+    private SchoolDAO schoolDao;
 
     public SchoolManager() throws SchoolException {
         try {

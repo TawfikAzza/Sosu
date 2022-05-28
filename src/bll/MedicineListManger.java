@@ -10,7 +10,7 @@ import java.sql.SQLException;
 
 public class MedicineListManger {
 
-    MedicineListDAO medicineListDAO;
+    private MedicineListDAO medicineListDAO;
 
     public MedicineListManger() throws MedicineListException{
         try{
