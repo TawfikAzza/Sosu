@@ -48,6 +48,12 @@ class CitizenDAOTest {
         Assertions.assertEquals(expectedMessage,actualMessage);
 
     }
+    /**
+     * This test may be passed even if the database is accessible, the reason being
+     * the id used during the test are non existent in the database and does not respect the foreign
+     * key constraint established, the method will thus throw an exception.
+     *
+     * */
     @DisplayName("Exception handling test of the Assign Citizen to Student method")
     @Test
     void assignCitizensToStudents() {
