@@ -47,7 +47,7 @@ public class MainController implements Initializable {
     @FXML
     private TextField userField;
 
-    public LogInModel logInModel;
+    private LogInModel logInModel;
 
 
     public void closeWindow() throws IOException{
