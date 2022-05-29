@@ -269,8 +269,10 @@ public class GeneratePdf {
 
     private static void addGIReportContent(Document document, HashMap<String, String> hashMap) throws CitizenException, GIReportException, DocumentException {
         Anchor anchor = new Anchor("General Information Report:  "
+                + "\n"
                 +GlobalVariables.getSelectedCitizen().getFName()
-                +" "+GlobalVariables.getSelectedCitizen().getLName(), catFont);
+                +" "+GlobalVariables.getSelectedCitizen().getLName()
+                + " \n"+GlobalVariables.getSelectedCitizen().getBirthDate(), catFont);
         anchor.setName("General Information Report");
         GIReportModel giReportModel = new GIReportModel();
         HashMap<String, String> categoryHashMap = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
