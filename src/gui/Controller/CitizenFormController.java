@@ -172,20 +172,27 @@ public class CitizenFormController implements Initializable {
 
 
     private boolean saveCitizen(){
+        //Get values from fields
         String fName = fNameField.getText();
         String lName = lNAmeField.getText();
         String address = addressField.getText();
         String dateString  = birthDatePicker.getText();
+
+        //initialize phone number to -1 cause the user can't input the "-" symbol, so we know there is no input
         int phoneNumber = -1;
 
+        //try to parse the phoneNumber input (should throw no exceptions since the textfield has a textformatter applied )
         if (!phoneField.getText().isEmpty())
             phoneNumber = Integer.parseInt(phoneField.getText());
 
+        //Validate input (logical operation so maybe should have been moved somewhere else)
         if (!inputIsValid(fName,lName,address,dateString,phoneNumber))
             return false;
 
+        //Parse the birthdate after it's been validated as good otherwise it could throw and exception
         LocalDate birthDate = DateUtil.parseDate_GUI(dateString);
 
+        // if we're not creating a new citizen then set the new values for the citizen we're editing
         if (!citizenCreation)
         {
             citizenToEdit.setFName(fName);
@@ -194,13 +201,17 @@ public class CitizenFormController implements Initializable {
             citizenToEdit.setBirthDate(birthDate);
             citizenToEdit.setPhoneNumber(phoneNumber);
             citizenToEdit.setSchoolID(currentSchoolId);
+            //Call the editing of the data in the db
             editTemplate(citizenToEdit);
         }
+        // Otherwise, we're creating a new citizen
         else {
             Citizen newCitizen = new Citizen(-1,fName,lName,address,phoneNumber,birthDate,true,currentSchoolId);
+            //If before saving the new citizen you have created a case we add the case id to the citizen
             if(caseID!=-1) {
                 newCitizen.setCaseID(caseID);
             }
+            //by default if before saving the citizen you've not created a case we create a default case and add it to the citizen
             if(caseID==-1)
             {
                 Case newCase = new Case("Default Case", "No Content");
@@ -211,9 +222,11 @@ public class CitizenFormController implements Initializable {
                     e.printStackTrace();
                 }
             }
+            //We try to create a new citizen.
             if (createTemplate(newCitizen)==null)
                 return false;
         }
+        //If all went according to plan we return true and the citizen form would be closed
         return true;
     }
 

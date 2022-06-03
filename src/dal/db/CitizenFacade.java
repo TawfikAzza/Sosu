@@ -45,11 +45,13 @@ public class CitizenFacade {
             ps.setInt(5, phoneNumber);
             ps.setBoolean(6, isTemplate);
             ps.setInt(7,schoolID);
-            ps.setInt(8,1);
+            ps.setInt(8,1);//The cpr field which and this is the last place where it's still left.So we set it to 1 by default
             ps.setInt(9, caseID);
 
             ps.execute();
 
+
+            //Get resultset with generated key
             ResultSet generatedKeys = ps.getGeneratedKeys();
             while (generatedKeys.next()) {
                 id = generatedKeys.getInt(1);
@@ -271,22 +273,29 @@ public class CitizenFacade {
     }
 
     private void copyHealthConditions(Citizen template, Citizen copy) throws CitizenException {
+        //Get the list of health conditions from the original citizen
         List<Condition> conditions = getHealthConditions(template);
+        //Attach them to the new copy
         addHealthConditions(conditions, copy);
     }
 
     private void copyFunctionalAbilities(Citizen template, Citizen copy) throws CitizenException {
+        //copy functional abilities from original citizen
         List<Ability> abilities = getFunctionalAbilities(template);
+        //attach them to the new copy of the citizen
         addFunctionalAbilities(abilities, copy);
     }
 
     private void copyGeneralInfo(Citizen template, Citizen copy) throws CitizenException {
+        //Copy general information of the original citizen
         List<GeneralInfo> info = getGeneralInfo(template);
+        //Attach the to the new copy of the citizen
         addGeneralInfo(info, copy);
     }
 
 
     public Citizen copyCitizenToDb(Citizen citizen, boolean isTemplate) throws CitizenException {
+        //If we're only creating a new citizen the 1st line is all we do and then we return the created citizen
         Citizen createdCitizen = addCitizen(citizen, isTemplate);
         copyHealthConditions(citizen, createdCitizen);
         copyFunctionalAbilities(citizen, createdCitizen);

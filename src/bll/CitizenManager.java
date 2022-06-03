@@ -28,6 +28,8 @@ public class CitizenManager {
     }
 
     public Citizen createNewCitizen(Citizen newCitizen) throws CitizenException {
+        //We use a facade cause when copying a citizen you also have to copy the case, general info, functional ability
+        // and health conditions which each are their own separate entities and have separate CRUD operations by default.
         return citizenFacade.copyCitizenToDb(newCitizen, true);
     }
 
