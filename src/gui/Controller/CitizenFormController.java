@@ -179,6 +179,8 @@ public class CitizenFormController implements Initializable {
         String dateString  = birthDatePicker.getText();
 
         //initialize phone number to -1 cause the user can't input the "-" symbol, so we know there is no input
+        //as if it's empty you wont get any value when parsing it from text so it will be 0 by default and the user could've also input just a 0
+
         int phoneNumber = -1;
 
         //try to parse the phoneNumber input (should throw no exceptions since the textfield has a textformatter applied )

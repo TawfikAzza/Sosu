@@ -207,28 +207,23 @@ public class FunctionalAbilityDAO {
      *
      * ****/
     public HashMap<Integer,List<Pair<AbilityCategory, Ability>>> getAbilitiesFromCitizen(int idCitizen) throws SQLException {
-        //HashMap which will contain the subcategories filled on this particular citizen
+        //Hashmap of categories paired with the id of the corresponding ability category
         HashMap<Integer, AbilityCategory> categoryHashMap = new HashMap<>();
-        //HashMAp which contain the Condition report found for this particular Citizen in the database.
-        HashMap<Integer,Ability> abilityHashMap = new HashMap<>();
-        //HashMap which will store the temporary result of the task, I need to first have the Abilities and subcategories
-        //associated to be tightly linked together, this the way I do it.
-        HashMap<AbilityCategory,Ability> hashMapResult = new HashMap<>();
-        //HasMap which will store the results previously compiled in the "hashMapResult" and associating t with the gui.Main category
-        //associated (beware not the subcategory, the previous hashMap is in charge of it.)
-        //For that purpose I create a HashMap which have the id of the main category as the Key and
-        //a List of all the subcategories/Functional Abilities associated to it.
 
-        //SubCategory HashMap initialization :
+
+        HashMap<Integer,Ability> abilityHashMap = new HashMap<>();
+
+        HashMap<AbilityCategory,Ability> hashMapResult = new HashMap<>();
+
+
         HashMap<Integer,List<Pair<AbilityCategory,Ability>>> hashMapResultFinal = new HashMap<>();
-        for(AbilityCategory abilityCategory : getAllSubCategories()) {
+        //Put subcategories in hashmap with the key being the id of the category
+        for(AbilityCategory abilityCategory : getAllSubCategories( )) {
             categoryHashMap.put(abilityCategory.getId(),abilityCategory);
         }
 
         try (Connection connection = dataSource.getConnection()) {
-            //THe query is straighforward and do no need comments.
-            //The only thing is that this query's result will be used to fill the HashMap of functional Abilities
-            //with the right values.
+
             String sqlSelect = "SELECT * FROM Abilities WHERE citizenID = ?";
             PreparedStatement pstmt = connection.prepareStatement(sqlSelect);
             pstmt.setInt(1,idCitizen);
@@ -247,6 +242,7 @@ public class FunctionalAbilityDAO {
                 ability.setVisitDate(DateUtil.parseDate(rs.getString("visitDate")));
                 ability.setObservation(rs.getString("observations"));
 
+                //Put abilities in hashmap with the key being the id again
                 abilityHashMap.put(ability.getId(),ability);
             }
             //Filling the HashMap of the temporary results with the right SubCategory/Functional abilities values
