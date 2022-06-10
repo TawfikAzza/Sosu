@@ -35,4 +35,9 @@ public class MedicineList {
     public void setMedicineList(String medicineList) {
         this.medicineList = medicineList;
     }
+
+    @Override
+    public String toString() {
+        return medicineList;
+    }
 }

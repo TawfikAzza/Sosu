@@ -8,10 +8,8 @@ import java.util.List;
 import java.util.Map;
 
 import be.*;
-import bll.exceptions.CitizenException;
-import bll.exceptions.CitizenReportException;
-import bll.exceptions.GIReportException;
-import bll.exceptions.HealthCategoryException;
+import bll.MedicineListManger;
+import bll.exceptions.*;
 import bll.util.GlobalVariables;
 import com.itextpdf.text.Anchor;
 import com.itextpdf.text.BaseColor;
@@ -55,6 +53,7 @@ public class GeneratePdf {
             e.printStackTrace();
         }
     }
+
     public static void generateConditionReportPDF(HashMap<Integer, java.util.List<Pair<HealthCategory, Condition>>> hashMap, File file) {
         try {
             Document document = new Document();
@@ -70,8 +69,8 @@ public class GeneratePdf {
 
     private static void addConditionContent(Document document, HashMap<Integer, List<Pair<HealthCategory, Condition>>> hashMap) throws DocumentException, HealthCategoryException, CitizenReportException {
         Anchor anchor = new Anchor("Health Report for citizen : "
-                +GlobalVariables.getSelectedCitizen().getFName()
-                +" "+GlobalVariables.getSelectedCitizen().getLName(), catFont);
+                + GlobalVariables.getSelectedCitizen().getFName()
+                + " " + GlobalVariables.getSelectedCitizen().getLName(), catFont);
         anchor.setName("Functional Report");
         ReportModel reportModel = new ReportModel();
         HashMap<Integer, HealthCategory> categoryHashMap = reportModel.getAllConditionsMainCategories();
@@ -123,7 +122,6 @@ public class GeneratePdf {
             table.addCell("" + pair.getValue().getAssessement());
 
 
-
             c1 = new PdfPCell(new Phrase("Citizen Goal"));
             c1.setHorizontalAlignment(Element.ALIGN_CENTER);
             table.addCell(c1);
@@ -155,8 +153,8 @@ public class GeneratePdf {
 
     private static void addFunctionalContent(Document document, HashMap<Integer, java.util.List<Pair<AbilityCategory, Ability>>> hashMap) throws DocumentException, HealthCategoryException, CitizenReportException {
         Anchor anchor = new Anchor("Functional Report for citizen : "
-                                +GlobalVariables.getSelectedCitizen().getFName()
-                                +" "+GlobalVariables.getSelectedCitizen().getLName(), catFont);
+                + GlobalVariables.getSelectedCitizen().getFName()
+                + " " + GlobalVariables.getSelectedCitizen().getLName(), catFont);
         anchor.setName("Functional Report");
         ReportModel reportModel = new ReportModel();
         HashMap<Integer, AbilityCategory> categoryHashMap = reportModel.getAllFAMainCategories();
@@ -168,7 +166,7 @@ public class GeneratePdf {
             Paragraph subPara = new Paragraph(categoryHashMap.get(sid).getName(), subFont);
             java.util.List<Pair<AbilityCategory, Ability>> list = entry.getValue();
             Section subCatPart = catPart.addSection(subPara);
-          //subCatPart.addSection(categoryHashMap.get(sid).getName());
+            //subCatPart.addSection(categoryHashMap.get(sid).getName());
 
             subCatPart.add(new Paragraph("\n"));
             createFunctionalTable(subCatPart, list);
@@ -270,9 +268,9 @@ public class GeneratePdf {
     private static void addGIReportContent(Document document, HashMap<String, String> hashMap) throws CitizenException, GIReportException, DocumentException {
         Anchor anchor = new Anchor("General Information Report:  "
                 + "\n"
-                +GlobalVariables.getSelectedCitizen().getFName()
-                +" "+GlobalVariables.getSelectedCitizen().getLName()
-                + " \n"+GlobalVariables.getSelectedCitizen().getBirthDate(), catFont);
+                + GlobalVariables.getSelectedCitizen().getFName()
+                + " " + GlobalVariables.getSelectedCitizen().getLName()
+                + " \n" + GlobalVariables.getSelectedCitizen().getBirthDate(), catFont);
         anchor.setName("General Information Report");
         GIReportModel giReportModel = new GIReportModel();
         HashMap<String, String> categoryHashMap = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
@@ -284,11 +282,25 @@ public class GeneratePdf {
     }
 
 
-    private static void createGIReportContent (Section subCatPart, HashMap<String, String> hashMap)
+    private static void createGIReportContent(Section subCatPart, HashMap<String, String> hashMap)
             throws DocumentException {
 
+        PdfPTable table1 = new PdfPTable(2);
+        table1.setSpacingAfter(1);
+        String Category = "Category Name";
+        String Content = "Content";
+
+        PdfPCell c11 = new PdfPCell(new Phrase(Category));
+        PdfPCell c12 = new PdfPCell(new Phrase(Content));
+
+        table1.addCell(c11);
+        table1.addCell(c12);
+
+        subCatPart.add(table1);
+
+
         PdfPTable table = new PdfPTable(2);
-        for (Map.Entry entry : hashMap.entrySet() ) {
+        for (Map.Entry entry : hashMap.entrySet()) {
 
             table.setSpacingAfter(10);
 
@@ -308,4 +320,51 @@ public class GeneratePdf {
         }
         subCatPart.add(table);
     }
+
+
+    public static void generateMedicineReport(String mlist, File file) throws FileNotFoundException {
+
+        try {
+            Document document = new Document();
+            PdfWriter.getInstance(document, new FileOutputStream(file));
+            document.open();
+            addMReportContent(document, mlist);
+            document.close();
+        } catch (DocumentException | CitizenException | GIReportException | MedicineListException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void addMReportContent(Document document, String mlist) throws CitizenException, GIReportException, DocumentException, MedicineListException {
+        Anchor anchor = new Anchor("Medicine List "
+                + "\n"
+                + GlobalVariables.getSelectedCitizen().getFName()
+                + " " + GlobalVariables.getSelectedCitizen().getLName()
+                + " \n" + GlobalVariables.getSelectedCitizen().getBirthDate(), catFont);
+        anchor.setName("Medicine List");
+        GIReportModel giReportModel = new GIReportModel();
+        HashMap<String, String> categoryHashMap = giReportModel.getGiReportManger(GlobalVariables.getSelectedCitizen());
+        Chapter catPart = new Chapter(new Paragraph(anchor), 1);
+        catPart.add(new Paragraph("\n"));
+        createMReportContent(catPart, mlist);
+        document.add(catPart);
+
+    }
+
+
+    private static void createMReportContent(Section subCatPart, String mlist)
+            throws DocumentException, MedicineListException {
+
+        PdfPTable table1 = new PdfPTable(1);
+        table1.setSpacingAfter(1);
+        MedicineListManger medicineList = new MedicineListManger() ;
+
+        //String Content = (String) medicineList.getMedicineList(GlobalVariables.getSelectedCitizen());
+
+        PdfPCell c12 = new PdfPCell(new Phrase(String.valueOf(medicineList.getMedicineList(GlobalVariables.getSelectedCitizen()))));
+
+        table1.addCell(c12);
+        subCatPart.add(table1);
+    }
+
 }

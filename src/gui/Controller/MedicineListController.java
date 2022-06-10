@@ -7,17 +7,22 @@ import bll.exceptions.MedicineListException;
 import bll.util.GlobalVariables;
 import gui.Model.MedicineListModel;
 import gui.utils.DisplayMessage;
+import gui.utils.GeneratePdf;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.ResourceBundle;
 
 
@@ -35,6 +40,10 @@ public class MedicineListController implements Initializable {
 
     @FXML
     private Button btnclose;
+
+    @FXML
+    private Button btnPrint;
+
 
     @FXML
     private TextArea textMedicineList;
@@ -110,5 +119,24 @@ public class MedicineListController implements Initializable {
     public void clickclose() {
         Stage window = (Stage) this.btnclose.getScene().getWindow();
         window.close();
+    }
+
+    public void printResult() throws FileNotFoundException {
+        String getMedicine = null;
+        try {
+            getMedicine = String.valueOf(medicineListModel.getMedicineList(GlobalVariables.getSelectedCitizen()));
+
+        } catch (MedicineListException e) {
+            e.printStackTrace();
+        }
+
+
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Save PDF File");
+        fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("PDF File", "*.pdf"));
+        File selectedFile = fileChooser.showSaveDialog(btnPrint.getScene().getWindow());
+        GeneratePdf.generateMedicineReport(getMedicine, selectedFile);
+
+
     }
 }
