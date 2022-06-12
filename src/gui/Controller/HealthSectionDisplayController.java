@@ -90,6 +90,7 @@ public class HealthSectionDisplayController implements Initializable {
                 for (HealthCategory subCategory : healthCategory.getSubCategories()) {
                     subCategoryList.getItems().add(subCategory);
                 }
+                //Doesnt work
                 subCategoryList.setPrefHeight(subCategoryList.getItems().size() * LISTVIEW_HEIGHT_VALUE);
                 vBox.getChildren().add(subCategoryList);
                 //We add the bulk to the titledPane

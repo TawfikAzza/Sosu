@@ -284,7 +284,6 @@ public class CitizenFormController implements Initializable {
             }
         });
         editTemplateThread.start();
-
     }
 
     TextFormatter intFormatter = new TextFormatter<Object>(change -> {

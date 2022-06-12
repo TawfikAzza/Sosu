@@ -40,15 +40,20 @@ public class HealthConditionDAO {
 
     public List<HealthCategory> getAllCategoriesTree() throws SQLException {
         List<HealthCategory> healthCategories = new ArrayList<>();
+        //Get all super-categories (categories with no parent or root of a sort)
         HashMap<Integer,HealthCategory> mainHealthCategories = getAllMainHealthCategories();
         try (Connection connection = dataSource.getConnection()) {
+            //Select all sub-categories by getting all healthcategories where sid has a value
             String sqlSelect = "Select HealthCategories.*, HealthCategories.sid " +
                     "FROM HealthCategories where id in (SELECT id from HealthCategories where sid IS NOT NULL)";
             PreparedStatement pstsmt = connection.prepareStatement(sqlSelect);
 
             ResultSet rs = pstsmt.executeQuery();
             while (rs.next()) {
+                //Create the subcategory instance
                 HealthCategory healthCategory = new HealthCategory(rs.getInt("id"),rs.getString("name"));
+                //From the hashmap retrieve the parent healthcategory using the super-id (sid) as a key,
+                // then add the subcategory in it's list of subcategories
                 mainHealthCategories.get(rs.getInt("sid")).getSubCategories().add(healthCategory);
             }
 
