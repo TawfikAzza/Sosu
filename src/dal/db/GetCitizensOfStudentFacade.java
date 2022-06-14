@@ -69,10 +69,11 @@ public class GetCitizensOfStudentFacade {
                         int phoneNumber = rs.getInt(6);
                         boolean isTemplate = rs.getBoolean(7);
                         int schoolID = rs.getInt(8);
-
+                        int caseID = rs.getInt(10);
                         //citizens.add(new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID));
                         Citizen newCitizen = new Citizen(id, firstName, lastName, address, phoneNumber, birthday, isTemplate, schoolID) ;
                         newCitizen.setSchoolName( rs.getString("schoolName"));
+                        newCitizen.setCaseID(caseID);
                         citizens.add(newCitizen);
 
                     }
